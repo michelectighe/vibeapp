@@ -13,12 +13,12 @@ import {
   useWindowDimensions,
   Platform,
 } from "react-native";
-// import {
-//   Camera,
-//   useCameraDevice,
-//   useFrameProcessor,
-//   face,
-// } from "react-native-vision-camera";
+import {
+  Camera,
+  useCameraDevice,
+  useFrameProcessor,
+  face,
+} from "react-native-vision-camera";
 import { initMedia, createRefChecker, cleanupMedia } from "@utils";
 import { useResizePlugin } from "vision-camera-resize-plugin";
 import { useAnalysis, useModel } from "@context";

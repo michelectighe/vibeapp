@@ -3,7 +3,7 @@ import { Platform } from "react-native";
 import { initializeDatabase } from "@database/database";
 import { auth } from "@config/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
-//import { loadTensorflowModel } from "react-native-fast-tflite";
+import { loadTensorflowModel } from "react-native-fast-tflite";
 import * as Font from "expo-font";
 
 const REVENUECAT_API_KEY = Platform.select({
@@ -25,10 +25,10 @@ export const initApp = async ({ setModel }) => {
     });
     console.log("✅ Fonts loaded");
 
-    // await Promise.all([
-    //   Purchases.configure({ apiKey: REVENUECAT_API_KEY }),
-    //   initializeDatabase(),
-    // ]);
+    await Promise.all([
+      Purchases.configure({ apiKey: REVENUECAT_API_KEY }),
+      initializeDatabase(),
+    ]);
 
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
@@ -38,11 +38,11 @@ export const initApp = async ({ setModel }) => {
       }
     });
 
-    // const model = await loadTensorflowModel(
-    //   require("@assets/models/ferplus_model_pd_best.tflite")
-    // );
-    // setModel(model);
-    // console.log("🔍 Model after init:", model);
+    const model = await loadTensorflowModel(
+      require("@assets/models/ferplus_model_pd_best.tflite")
+    );
+    setModel(model);
+    console.log("🔍 Model after init:", model);
 
     return unsubscribe;
   } catch (err) {

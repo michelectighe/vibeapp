@@ -6,11 +6,11 @@ import React, {
   useContext,
 } from "react";
 import { View, StyleSheet, Text, Animated } from "react-native";
-// import {
-//   Camera,
-//   useCameraDevice,
-//   useFrameProcessor,
-// } from "react-native-vision-camera";
+import {
+  Camera,
+  useCameraDevice,
+  useFrameProcessor,
+} from "react-native-vision-camera";
 import { Worklets } from "react-native-worklets-core";
 import {
   useNavigation,

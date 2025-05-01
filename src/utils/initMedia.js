@@ -1,4 +1,4 @@
-//import { Camera } from "react-native-vision-camera";
+import { Camera } from "react-native-vision-camera";
 import { AudioRecorder } from "react-native-audio";
 import SoundLevel from "react-native-sound-level";
 
@@ -11,15 +11,15 @@ export const initMedia = async (
     //console.log("🎙️ Initializing media...");
 
 
-    // const devices = await Camera.getAvailableCameraDevices();
-    // if (!devices || devices.length === 0) {
-    //   console.warn("No cameras available.");
-    //   return;
-    // }
+    const devices = await Camera.getAvailableCameraDevices();
+    if (!devices || devices.length === 0) {
+      console.warn("No cameras available.");
+      return;
+    }
 
-    // // Safe to use the first camera
-    // const device = devices[0];
-    // // Proceed with camera usage...
+    // Safe to use the first camera
+    const device = devices[0];
+    // Proceed with camera usage...
 
 
 

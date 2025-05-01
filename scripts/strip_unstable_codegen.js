@@ -5,15 +5,18 @@ const nodeModulesPath = path.resolve(__dirname, '../node_modules');
 
 // List of known problematic packages to patch
 const packagesToPatch = [
-  'react-native-svg',
-  'react-native-screens',
-  'react-native-reanimated',
-  'react-native-gesture-handler',
-  'react-native-worklets-core',
-  'vision-camera-resize-plugin',
-  '@react-native-async-storage/async-storage',
-  'react-native-vector-icons',
-  'react-native-fast-tflite',
+  // 'react-native-svg',
+  // '@react-native-async-storage/async-storage',
+  //'react-native-screens',
+  //'react-native-reanimated',
+  //'react-native-gesture-handler',
+  //'vision-camera-resize-plugin',
+  //'react-native-vector-icons',
+  //'react-native-safe-area-context',
+  // 'react-native-fast-tflite',
+  // 'react-native-keychain',
+  // 'react-native-worklets-core',
+  // 'react-native',
 
 
   // Add others here if needed
@@ -21,10 +24,30 @@ const packagesToPatch = [
 
 console.log('🔍 Scanning for codegenConfig in node_modules...\n');
 
-fs.readdirSync(nodeModulesPath).forEach((pkgName) => {
+function getAllPackages(dirPath) {
+  const packages = [];
+
+  fs.readdirSync(dirPath).forEach((entry) => {
+    const entryPath = path.join(dirPath, entry);
+
+    if (entry.startsWith('@')) {
+      // Scoped packages
+      fs.readdirSync(entryPath).forEach((scopedPkg) => {
+        packages.push(path.join(entry, scopedPkg));
+      });
+    } else {
+      packages.push(entry);
+    }
+  });
+
+  return packages;
+}
+
+const allPackages = getAllPackages(nodeModulesPath);
+
+allPackages.forEach((pkgName) => {
   const pkgJsonPath = path.join(nodeModulesPath, pkgName, 'package.json');
 
-  // Skip scoped packages like @react-native/xxx
   if (!fs.existsSync(pkgJsonPath)) return;
 
   try {
