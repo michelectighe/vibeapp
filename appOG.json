@@ -1,0 +1,54 @@
+{
+    "expo": {
+      "name": "VibeKey",
+      "slug": "vibeapp",
+      "scheme": "vibekey",
+      "sdkVersion": "52.0.0",
+      "version": "1.0.0",
+      "orientation": "default",
+      "icon": "./assets/logo.png",
+      "userInterfaceStyle": "dark",
+      "newArchEnabled": true,
+      "jsEngine": "hermes",
+      "plugins": ["react-native-vision-camera", "expo-sqlite"],
+      "ios": {
+        "supportsTablet": true,
+        "bundleIdentifier": "com.vibe.vibekey",
+        "buildNumber": "1.0.0",
+        "infoPlist": {
+          "ITSAppUsesNonExemptEncryption": false,
+          "CFBundleURLTypes": [
+            {
+              "CFBundleURLSchemes": ["vibekey"]
+            }
+          ],
+          "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to access your camera"
+        }
+      },
+      "android": {
+        "adaptiveIcon": {
+          "foregroundImage": "./assets/logo.png",
+          "backgroundColor": "#ffffff"
+        },
+        "package": "com.vibe.vibekey",
+        "intentFilters": [
+          {
+            "action": "VIEW",
+            "data": {
+              "scheme": "vibekey",
+              "host": "share"
+            },
+            "category": ["BROWSABLE", "DEFAULT"]
+          }
+        ],
+        "permissions": ["android.permission.CAMERA"]
+      },
+      "extra": {
+        "eas": {
+          "projectId": "01b8c6d7-1776-4ff0-9c6b-7c7dcdeacf66"
+        }
+      },
+      "owner": "micheletighe"
+    }
+  }
+  

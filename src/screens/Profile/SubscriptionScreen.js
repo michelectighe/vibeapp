@@ -1,0 +1,131 @@
+import React, { useState, useEffect, useContext } from "react";
+import {
+  View,
+  Text,
+  ActivityIndicator,
+  TouchableOpacity,
+  StyleSheet,
+  ImageBackground,
+} from "react-native";
+import Purchases from "react-native-purchases";
+
+import { setSubscriptionStatus } from "@utils";
+import { profileAssets, profileStyles } from "@styles/StylesProfile";
+import { ScrollContainer, GradientBackground } from "@components";
+import { Colors, Fonts } from "@constants";
+
+const SubscriptionScreen = ({ navigation, route }) => {
+  const { themeColors, theme } = useContext(ThemeContext);
+  const { returnTo } = route.params || {};
+  const [packages, setPackages] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // const fetchPackages = async () => {
+    //   try {
+    //     const offerings = await Purchases.getOfferings();
+    //     if (offerings.current) {
+    //       setPackages(offerings.current.availablePackages);
+    //     }
+    //   } catch (error) {
+    //     console.error("Error fetching subscription packages:", error);
+    //   }
+    //   setLoading(false);
+    // };
+    // fetchPackages();
+  }, []);
+
+  const handleSubscribe = async (selectedPackage) => {
+    try {
+      const purchase = await Purchases.purchasePackage(selectedPackage);
+      if (purchase.customerInfo.activeSubscriptions.length > 0) {
+        await setSubscriptionStatus(true);
+        alert("Subscription Successful!");
+        navigation.navigate(returnTo || "Home");
+      }
+    } catch (error) {
+      console.error("Purchase failed:", error);
+      alert("Purchase failed. Please try again.");
+    }
+  };
+
+  return (
+    // <ImageBackground
+    //   source={profileAssets.background}
+    //   style={profileStyles.bg}
+    //   resizeMode="cover"
+    // >
+    <GradientBackground
+      colors={[
+        Colors.VibeGradient1,
+        Colors.VibeGradient2,
+        Colors.VibeGradient1,
+      ]}
+    >
+      <ScrollContainer>
+        <Text style={profileStyles.title}>Go Premium</Text>
+
+        <View style={profileStyles.featuresBox}>
+          <Text style={profileStyles.feature}>
+            🔓 Unlock All Features for $4.99/month
+          </Text>
+          <Text style={profileStyles.feature}>
+            ✔ Calculate your vibrational frequency in real time and elevate
+            your energy
+          </Text>
+          <Text style={profileStyles.feature}>
+            ✔ Reveal your chakra scores for deeper self-awareness and balance
+          </Text>
+          <Text style={profileStyles.feature}>
+            ✔ Curated meditations and spiritual guidance to raise your
+            frequency
+          </Text>
+          <Text style={profileStyles.feature}>
+            ✔ Guided journaling for reflection, manifestation, and inner growth
+          </Text>
+          <Text style={profileStyles.feature}>
+            ✔ Vibe Match to discover your energetic compatibility with others
+            through vibrational frequency alignment
+          </Text>
+          <Text style={profileStyles.feature}>
+            ✔ Meditation location tool to find sacred spaces for deeper
+            connection and healing{" "}
+          </Text>
+          <Text style={profileStyles.feature}>
+            ✔ A personalized selection of healing tools, including meditation,
+            sound healing, and customized spiritual practices
+          </Text>
+          <Text style={profileStyles.feature}>
+            ✔ Curated meditations and spiritual guidance to raise your
+            frequency
+          </Text>
+        </View>
+
+        {loading ? (
+          <ActivityIndicator size="large" color="#fff" />
+        ) : (
+          packages.map((pkg) => (
+            <TouchableOpacity
+              key={pkg.identifier}
+              style={profileStyles.subscribeButton}
+              onPress={() => handleSubscribe(pkg)}
+            >
+              <Text style={profileStyles.subscribeText}>
+                Subscribe for {pkg.product.priceString}
+              </Text>
+            </TouchableOpacity>
+          ))
+        )}
+
+        <TouchableOpacity
+          onPress={() => navigation.navigate("VibeKeyHome")}
+          style={profileStyles.cancelButton}
+        >
+          <Text style={profileStyles.cancelText}>Cancel</Text>
+        </TouchableOpacity>
+      </ScrollContainer>
+    </GradientBackground>
+  );
+};
+
+export default SubscriptionScreen;

@@ -1,0 +1,38 @@
+# Node modules and build artifacts
+node_modules/
+dist/
+.build/
+build/
+*.log
+npm-debug.log*
+
+# macOS system files
+.DS_Store
+
+# Metro + bundler cache
+.expo/
+.expo-shared/
+metro-output.txt
+
+# iOS
+ios/Pods/
+ios/build/
+ios/DerivedData/
+*.xcworkspace
+*.xcuserdata
+
+# Android
+android/.gradle/
+android/app/build/
+
+# Env and secrets
+.env
+.env.*
+
+# VS Code
+.vscode/
+
+# Misc
+*.patch
+*.orig
+*.swp
