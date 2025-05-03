@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 5,
     left: 10,
-    backgroundColor: "transparent", // "rgba(0, 0, 0, 0.4)", // optional: for better text readability
+    backgroundColor: "transparent", 
     padding: 12,
     borderRadius: 12,
   },

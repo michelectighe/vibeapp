@@ -170,13 +170,6 @@ const rawStyles = {
     paddingVertical: 12,
     color: "#000",
   },
-  scrollContainer: {
-    alignItems: "center",
-    alignContent: "stretch",
-    padding: 0,
-    width: "100%",
-    paddingBottom: 150,
-  },
   signInText: {
     color: "white",
     marginBottom: 20,

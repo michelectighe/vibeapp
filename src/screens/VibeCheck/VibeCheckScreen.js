@@ -48,11 +48,7 @@ export const VibeCheckScreen = () => {
 
   return (
     <GradientBackground
-      colors={[
-        Colors.VibeGradient1,
-        Colors.VibeGradient2,
-        Colors.VibeGradient1,
-      ]}
+      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
       <SafeAreaView style={{ flex: 1 }} edges={["bottom"]}>
         <View style={styles.container}>
@@ -68,14 +64,14 @@ export const VibeCheckScreen = () => {
               <CustomSpiritualButton
                 label="How does this work?"
                 onPress={openInfo}
-                color={Colors.vcButtonColor}
-                textColor={Colors.vcButtonTextColor}
+                color={Colors.buttonBackground}
+                textColor={Colors.lightText}
               />
               <CustomSpiritualButton
                 label="Let's Begin"
                 onPress={goToNextScreen}
-                color={Colors.vcButtonColor}
-                textColor={Colors.vcButtonTextColor}
+                color={Colors.buttonBackground}
+                textColor={Colors.lightText}
               />
             </View>
           </View>

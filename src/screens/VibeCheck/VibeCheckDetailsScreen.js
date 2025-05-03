@@ -90,15 +90,15 @@ export const VibeCheckDetailsScreen = () => {
 
   return (
     <GradientBackground
-      colors={[
-        Colors.VibeGradient1,
-        Colors.VibeGradient2,
-        Colors.VibeGradient1,
-      ]}
+      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
       <SafeAreaView style={{ flex: 1 }} edges={["bottom"]}>
         <View style={styles.container}>
-          <ScrollContainer>
+          <ScrollView
+            style={globalStyles.scrollView}
+            contentContainerStyle={globalStyles.scrollContent}
+            showsVerticalScrollIndicator={false}
+          >
             <View style={styles.scrollInner}>
               {options.map((item, index) => (
                 <ExpandableItem
@@ -110,7 +110,7 @@ export const VibeCheckDetailsScreen = () => {
                 />
               ))}
             </View>
-          </ScrollContainer>
+          </ScrollView>
           <Button title="Continue" onPress={goToNextScreen} />
         </View>
       </SafeAreaView>

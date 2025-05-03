@@ -3,8 +3,8 @@
 <CustomSpiritualButton
   label="Send Reset Email"
   onPress={handleReset}
-  color={Colors.vcButtonColor}
-  textColor={Colors.vcButtonTextColor}
+  color={Colors.buttonBackground}
+  textColor={Colors.lightText}
 />
 ********************************************************/
 

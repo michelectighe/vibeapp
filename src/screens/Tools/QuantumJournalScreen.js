@@ -11,6 +11,7 @@ import {
 import { quantumJournalPrompts } from "@data";
 import { styles } from "./QuantumJournalScreen.styles";
 import { useAmbientControlForScreen } from "@hooks";
+import { globalStyles } from "@styles";
 
 export const QuantumJournalScreen = () => {
   useAmbientControlForScreen(true);
@@ -52,7 +53,11 @@ export const QuantumJournalScreen = () => {
       <Text style={styles.prompt}>{animatedText}</Text>
 
       {!isTyping && (
-        <ScrollView style={styles.inputContainer}>
+        <ScrollView
+          style={globalStyles.scrollView}
+          contentContainerStyle={globalStyles.scrollContent}
+          showsVerticalScrollIndicator={false}
+        >
           <TextInput
             multiline
             placeholder="Write whatever flows through..."

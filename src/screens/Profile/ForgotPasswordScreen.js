@@ -47,11 +47,7 @@ export const ForgotPasswordScreen = ({ navigation }) => {
     //   resizeMode="cover"
     // >
     <GradientBackground
-      colors={[
-        Colors.VibeGradient1,
-        Colors.VibeGradient2,
-        Colors.VibeGradient1,
-      ]}
+      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <KeyboardAvoidingView
@@ -78,8 +74,8 @@ export const ForgotPasswordScreen = ({ navigation }) => {
             <CustomSpiritualButton
               label="Send Reset Email"
               onPress={handleReset}
-              color={Colors.vcButtonColor}
-              textColor={Colors.vcButtonTextColor}
+              color={Colors.buttonBackground}
+              textColor={Colors.lightText}
             />
             <TouchableOpacity onPress={() => navigation.goBack()}>
               <Text style={styles.backLink}>← Back to Sign In</Text>

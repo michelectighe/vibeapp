@@ -58,13 +58,13 @@ export const SubscriptionScreen = ({ navigation, route }) => {
     //   resizeMode="cover"
     // >
     <GradientBackground
-      colors={[
-        Colors.VibeGradient1,
-        Colors.VibeGradient2,
-        Colors.VibeGradient1,
-      ]}
+      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
-      <ScrollContainer>
+      <ScrollView
+        style={globalStyles.scrollView}
+        contentContainerStyle={globalStyles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
         <Text style={styles.title}>Go Premium</Text>
 
         <View style={styles.featuresBox}>
@@ -123,7 +123,7 @@ export const SubscriptionScreen = ({ navigation, route }) => {
         >
           <Text style={styles.cancelText}>Cancel</Text>
         </TouchableOpacity>
-      </ScrollContainer>
+      </ScrollView>
     </GradientBackground>
   );
 };

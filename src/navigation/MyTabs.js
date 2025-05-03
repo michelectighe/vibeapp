@@ -39,7 +39,7 @@ export const MyTabs = () => {
         headerShown: false,
         tabBarBackground: () => (
           <LinearGradient
-            colors={[Colors.VibeGradient1, Colors.VibeGradient2]}
+            colors={[Colors.gradient1, Colors.gradient2]}
             style={{ flex: 1, opacity: 0.8 }}
           />
         ),

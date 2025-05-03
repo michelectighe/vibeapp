@@ -1,3 +1,4 @@
+export { frequencies } from "./FrequenciesData";
 export { getEnergyCleanseContent } from "./energyCleanseData";
 export { getJournalPrompts } from "./journalPrompts";
 export { metricDetails } from "./metricDetails";

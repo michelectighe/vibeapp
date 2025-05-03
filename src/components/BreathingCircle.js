@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     width: width * 0.5,
     height: width * 0.5,
     borderRadius: width * 0.25,
-    backgroundColor: Colors.vcButtonColor,
+    backgroundColor: Colors.buttonBackground,
     marginBottom: 40,
   },
   phase: {
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginTop: 20,
     marginBottom: 20,
-    color: Colors.vcTextColor,
+    color: Colors.mediumText,
   },
   counter: {
     fontSize: 48,
@@ -122,8 +122,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     fontSize: 48,
     fontWeight: "300",
-    color: Colors.vcButtonTextColor, // or a color that contrasts with the circle
+    color: Colors.lightText, // or a color that contrasts with the circle
   },
 });
-
-

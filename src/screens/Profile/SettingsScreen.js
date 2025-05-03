@@ -13,6 +13,7 @@ import { styles, profileAssets } from "./StylesProfile";
 import { useAuth } from "@context";
 import { useAmbientControlForScreen } from "@hooks";
 import { Fonts, Colors } from "@constants";
+import { globalStyles } from "@styles";
 
 export const SettingsScreen = ({ navigation }) => {
   useAmbientControlForScreen(true);
@@ -37,15 +38,11 @@ export const SettingsScreen = ({ navigation }) => {
     //   resizeMode="cover"
     // >
     <GradientBackground
-      colors={[
-        Colors.VibeGradient1,
-        Colors.VibeGradient2,
-        Colors.VibeGradient1,
-      ]}
+      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
       <ScrollView
-        style={{ paddingHorizontal: 16, marginTop: 80 }}
-        contentContainerStyle={{ paddingBottom: 160 }}
+        style={globalStyles.scrollView}
+        contentContainerStyle={globalStyles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
         <Text style={styles.heading}>Settings</Text>
@@ -53,29 +50,29 @@ export const SettingsScreen = ({ navigation }) => {
         <CustomSpiritualButton
           label="Update Profile"
           onPress={() => navigation.navigate("UpdateProfileScreen")}
-          color={Colors.vcButtonColor}
-          textColor={Colors.vcButtonTextColor}
+          color={Colors.buttonBackground}
+          textColor={Colors.lightText}
         />
 
         <CustomSpiritualButton
           label="Profile Setup"
           onPress={() => navigation.navigate("ProfileSetupScreen")}
-          color={Colors.vcButtonColor}
-          textColor={Colors.vcButtonTextColor}
+          color={Colors.buttonBackground}
+          textColor={Colors.lightText}
         />
         {!user && (
           <CustomSpiritualButton
             label="Sign In"
             onPress={handleSignIn}
-            color={Colors.vcButtonColor}
-            textColor={Colors.vcButtonTextColor}
+            color={Colors.buttonBackground}
+            textColor={Colors.lightText}
           />
         )}
         <CustomSpiritualButton
           label="Sign Out"
           onPress={handleSignOut}
-          color={Colors.vcButtonColor}
-          textColor={Colors.vcButtonTextColor}
+          color={Colors.buttonBackground}
+          textColor={Colors.lightText}
         />
       </ScrollView>
     </GradientBackground>

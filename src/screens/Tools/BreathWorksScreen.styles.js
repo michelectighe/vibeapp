@@ -19,7 +19,7 @@ const rawStyles = {
     marginBottom: 50,
     marginTop: 20,
     textAlign: "center",
-    color: Colors.vcTextColor,
+    color: Colors.mediumText,
   },
   main: {
     flex: 1,

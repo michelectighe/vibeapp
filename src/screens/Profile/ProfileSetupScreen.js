@@ -19,6 +19,7 @@ import { GradientBackground, CustomSpiritualButton } from "@components";
 import { Colors, Fonts } from "@constants";
 import { styles, profileAssets } from "./StylesProfile";
 import { useAmbientControlForScreen } from "@hooks";
+import { globalStyles } from "@styles";
 
 export const ProfileSetupScreen = ({ navigation }) => {
   useAmbientControlForScreen(true);
@@ -68,19 +69,15 @@ export const ProfileSetupScreen = ({ navigation }) => {
     //   resizeMode="cover"
     // >
     <GradientBackground
-      colors={[
-        Colors.VibeGradient1,
-        Colors.VibeGradient2,
-        Colors.VibeGradient1,
-      ]}
+      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
       <View style={styles.container}>
         <Text style={styles.title}>
           Welcome, {user?.displayName || "friend"}
         </Text>
         <ScrollView
-          style={{ paddingHorizontal: 16, marginTop: 80 }}
-          contentContainerStyle={{ paddingBottom: 160 }}
+          style={globalStyles.scrollView}
+          contentContainerStyle={globalStyles.scrollContent}
           showsVerticalScrollIndicator={false}
         >
           {/* <View style={styles.formContainer}> */}
@@ -126,15 +123,15 @@ export const ProfileSetupScreen = ({ navigation }) => {
           <CustomSpiritualButton
             label="Save & Continue"
             onPress={handleSave}
-            color={Colors.vcButtonColor}
-            textColor={Colors.vcButtonTextColor}
+            color={Colors.buttonBackground}
+            textColor={Colors.lightText}
           />
           {/* </View> */}
           <CustomSpiritualButton
             label="Cancel"
             onPress={handleDone}
-            color={Colors.vcButtonColor}
-            textColor={Colors.vcButtonTextColor}
+            color={Colors.buttonBackground}
+            textColor={Colors.lightText}
           />
         </ScrollView>
       </View>

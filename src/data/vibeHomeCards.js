@@ -8,7 +8,7 @@ export const vibeHomeCards = [
     //   icon: "sunny-outline", // Ionicon
     image: require("@assets/images/home/vibe.png"),
     screen: "VibeCheck", // or whatever screen it should open
-    textColor: Colors.lightTextColor,
+    textColor: Colors.lightText,
   },
   {
     id: "vibe-match",
@@ -20,7 +20,7 @@ export const vibeHomeCards = [
       name: "VibeMatch", // <- This is the tab name
       params: { screen: "ShareScreen" }, // <- This is the nested screen
     },
-    textColor: Colors.darkTextColor,
+    textColor: Colors.darkText,
   },
   {
     id: "streaks",
@@ -29,7 +29,7 @@ export const vibeHomeCards = [
     //   icon: "flame-outline",
     image: require("@assets/images/home/streaks.png"),
     screen: "Streaks", // placeholder
-    textColor: Colors.lightTextColor,
+    textColor: Colors.lightText,
   },
   {
     id: "healing-tools",
@@ -41,6 +41,6 @@ export const vibeHomeCards = [
       name: "InnerWork", // <- This is the tools stack name
       params: { screen: "ToolsMainScreen" }, // <- This is the nested screen
     },
-    textColor: Colors.lightTextColor,
+    textColor: Colors.lightText,
   },
 ];

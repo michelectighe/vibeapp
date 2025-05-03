@@ -257,11 +257,7 @@ export const UpdateProfileScreen = ({ navigation }) => {
     //   resizeMode="cover"
     // >
     <GradientBackground
-      colors={[
-        Colors.VibeGradient1,
-        Colors.VibeGradient2,
-        Colors.VibeGradient1,
-      ]}
+      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
       <View style={styles.headingContainer}>
         <Text style={styles.heading}>Update Profile</Text>
@@ -269,7 +265,11 @@ export const UpdateProfileScreen = ({ navigation }) => {
           onPress={() => navigation.navigate("SignInScreen")}
         ></TouchableOpacity>
       </View>
-      <ScrollContainer>
+      <ScrollView
+        style={globalStyles.scrollView}
+        contentContainerStyle={globalStyles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={styles.bg}>
           <View style={[styles.formContainer, { padding: 15 }]}>
             <TextInput
@@ -378,14 +378,14 @@ export const UpdateProfileScreen = ({ navigation }) => {
             <CustomSpiritualButton
               label="Update"
               onPress={handleUpdate}
-              color={Colors.vcButtonColor}
-              textColor={Colors.vcButtonTextColor}
+              color={Colors.buttonBackground}
+              textColor={Colors.lightText}
             />
             <CustomSpiritualButton
               label="Cancel"
               onPress={goBack}
-              color={Colors.vcButtonColor}
-              textColor={Colors.vcButtonTextColor}
+              color={Colors.buttonBackground}
+              textColor={Colors.lightText}
             />
 
             <Animated.Text
@@ -409,7 +409,7 @@ export const UpdateProfileScreen = ({ navigation }) => {
             </Animated.Text>
           </View>
         </View>
-      </ScrollContainer>
+      </ScrollView>
     </GradientBackground>
   );
 };

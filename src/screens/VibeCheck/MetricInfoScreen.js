@@ -5,7 +5,8 @@ import { metricDetails } from "@data";
 import { Colors } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
 import { useNavigation } from "@react-navigation/native";
-import { styles } from "./MetricInfoScreen.styles"; // ✅ Externalized styles
+import { styles } from "./MetricInfoScreen.styles";
+import { globalStyles } from "@styles";
 
 export const MetricInfoScreen = () => {
   useAmbientControlForScreen(false);
@@ -13,22 +14,15 @@ export const MetricInfoScreen = () => {
 
   return (
     <GradientBackground
-      colors={[
-        Colors.VibeGradient1,
-        Colors.VibeGradient2,
-        Colors.VibeGradient1,
-      ]}
+      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
       logo={false}
     >
       <SafeAreaView style={styles.safeArea}>
-        <CloseX
-          xColor={Colors.lightTextColor}
-          onPress={() => navigation.goBack()}
-        />
+        <CloseX xColor={Colors.lightText} onPress={() => navigation.goBack()} />
 
         <ScrollView
-          style={styles.scrollView}
-          contentContainerStyle={styles.contentContainer}
+          style={globalStyles.scrollView}
+          contentContainerStyle={globalStyles.scrollContent}
           showsVerticalScrollIndicator={false}
         >
           {metricDetails.map((item, index) => (

@@ -83,11 +83,7 @@ export const MatchScreen = ({ route }) => {
 
   return (
     <GradientBackground
-      colors={[
-        Colors.VibeGradient1,
-        Colors.VibeGradient2,
-        Colors.VibeGradient1,
-      ]}
+      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
       <View style={styles.container}>
         <Text style={styles.title}>Vibe Match</Text>

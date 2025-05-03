@@ -426,11 +426,7 @@ export const EmotionalStateScreen = () => {
 
   return (
     <GradientBackground
-      colors={[
-        Colors.VibeGradient1,
-        Colors.VibeGradient2,
-        Colors.VibeGradient1,
-      ]}
+      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
       <View style={styles.container}>
         <View style={styles.innerContainer}>
@@ -496,8 +492,8 @@ export const EmotionalStateScreen = () => {
             <CustomSpiritualButton
               label={isAudioRecording ? "Continue" : "Start Recording"}
               onPress={isAudioRecording ? manualStop : startRecording}
-              color={Colors.vcButtonColor}
-              textColor={Colors.vcButtonTextColor}
+              color={Colors.buttonBackground}
+              textColor={Colors.lightText}
             />
           </View>
         </View>

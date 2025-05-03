@@ -9,6 +9,7 @@ import {
 } from "@components";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./MatchComparisonScreen.styles";
+import { globalStyles } from "@styles";
 
 export const MatchComparisonScreen = ({ route }) => {
   useAmbientControlForScreen(true);
@@ -26,11 +27,7 @@ export const MatchComparisonScreen = ({ route }) => {
 
   return (
     <GradientBackground
-      colors={[
-        Colors.VibeGradient1,
-        Colors.VibeGradient2,
-        Colors.VibeGradient1,
-      ]}
+      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
       <View style={styles.header}>
         <Text style={styles.title}>Vibe Comparison</Text>
@@ -38,8 +35,8 @@ export const MatchComparisonScreen = ({ route }) => {
       </View>
 
       <ScrollView
-        style={styles.scroll}
-        contentContainerStyle={styles.scrollContent}
+        style={globalStyles.scrollView}
+        contentContainerStyle={globalStyles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
         <Text style={styles.sectionTitle}>Similarities</Text>

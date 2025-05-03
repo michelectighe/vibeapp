@@ -22,13 +22,7 @@ const rawStyles = {
     fontWeight: "600",
     fontFamily: Fonts.AppFont,
   },
-  scrollContainer: {
-    paddingHorizontal: 16,
-    marginTop: 50,
-  },
-  scrollContent: {
-    paddingBottom: 160,
-  },
+
 };
 
 export const styles = StyleSheet.create(scaledStyle(rawStyles));

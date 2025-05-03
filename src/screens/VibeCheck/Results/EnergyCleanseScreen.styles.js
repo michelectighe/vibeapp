@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
     fontFamily: Fonts.Script,
     textAlign: "center",
     marginBottom: 12,
-    color: Colors.vcTextColor,
+    color: Colors.mediumText,
   },
   sectionTitle: {
     fontSize: 24,

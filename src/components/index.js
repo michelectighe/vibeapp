@@ -27,8 +27,5 @@ export { ModalTrigger } from "./ModalTrigger";
 export { ProfileAvatar } from "./ProfileAvatar";
 export { ProgressDots } from "./ProgressDots";
 export { ResultSelector } from "./ResultSelector";
-export { ScrollContainer } from "./ScrollContainer";
 export { ThemeWrapper } from "./ThemeWrapper";
 export { TypewriterText } from "./TypewriterText";
-
-// etc.

@@ -165,11 +165,7 @@ export const SignInScreen = ({ navigation, returnTo }) => {
     //   resizeMode="cover"
     // >
     <GradientBackground
-      colors={[
-        Colors.VibeGradient1,
-        Colors.VibeGradient2,
-        Colors.VibeGradient1,
-      ]}
+      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
       <View style={styles.container}>
         <Text style={styles.heading}>Sign In</Text>
@@ -230,8 +226,8 @@ export const SignInScreen = ({ navigation, returnTo }) => {
               <CustomSpiritualButton
                 label="Sign In"
                 onPress={handleSignIn}
-                color={Colors.vcButtonColor}
-                textColor={Colors.vcButtonTextColor}
+                color={Colors.buttonBackground}
+                textColor={Colors.lightText}
               />
 
               <TouchableOpacity
@@ -264,4 +260,3 @@ export const SignInScreen = ({ navigation, returnTo }) => {
     </GradientBackground>
   );
 };
-

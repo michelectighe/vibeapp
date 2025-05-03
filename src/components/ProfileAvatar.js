@@ -18,7 +18,7 @@ export const ProfileAvatar = ({ size = 32 }) => {
         height: size,
         borderRadius: size / 2,
         marginRight: 0,
-        borderColor: Colors.vcButtonColor,
+        borderColor: Colors.buttonBackground,
         borderWidth: 2,
       }}
     />
@@ -30,7 +30,7 @@ export const ProfileAvatar = ({ size = 32 }) => {
         borderRadius: size / 2,
         justifyContent: "center",
         alignItems: "center",
-        borderColor: Colors.vcButtonColor,
+        borderColor: Colors.buttonBackground,
         borderWidth: 2,
       }}
     >

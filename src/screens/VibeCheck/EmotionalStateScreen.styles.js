@@ -30,9 +30,9 @@ const rawStyles = {
   cameraContainer: {
     width: "60%",
     aspectRatio: 3 / 4,
-    borderRadius: 30, // soft corners instead of a full circle
+    borderRadius: 30, 
     overflow: "hidden",
-    backgroundColor: "transparent", //"rgba(255, 255, 255, 0.1)", // soft glass tint
+    backgroundColor: "transparent", 
     elevation: 10,
     marginTop: 40,
     backdropFilter: Platform.OS === "web" ? "blur(10px)" : undefined,
@@ -84,13 +84,13 @@ const rawStyles = {
     fontSize: 28,
     textAlign: "center",
     marginTop: 20,
-    color: Colors.vcButtonTextColor,
+    color: Colors.lightText,
     fontFamily: Fonts.Script,
     letterSpacing: 1,
   },
 
   phraseBox: {
-    backgroundColor: Colors.vcButtonColor,
+    backgroundColor: Colors.buttonBackground,
     width: "90%",
     borderRadius: 12,
     paddingVertical: 14,
@@ -108,7 +108,7 @@ const rawStyles = {
     fontSize: 28,
     fontStyle: "italic",
     textAlign: "center",
-    color: Colors.vcButtonTextColor,
+    color: Colors.lightText,
     fontFamily: "TypeWriterText",
   },
 

@@ -5,6 +5,7 @@ import { GradientBackground, CustomSpiritualButton, CloseX } from "@components";
 import { getVibeDetails } from "@utils";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./ResultDetailsScreen.styles";
+import { globalStyles } from "@styles";
 
 export const ResultDetailScreen = ({ navigation }) => {
   useAmbientControlForScreen(true);
@@ -51,7 +52,11 @@ export const ResultDetailScreen = ({ navigation }) => {
         </Text>
       </View>
 
-      <ScrollView>
+      <ScrollView
+        style={globalStyles.scrollView}
+        contentContainerStyle={globalStyles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
         <View style={[styles.textContainer, { backgroundColor: overallColor }]}>
           <Text style={styles.overallText}>{overallText1}</Text>
         </View>

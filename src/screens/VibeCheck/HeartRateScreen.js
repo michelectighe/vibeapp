@@ -112,11 +112,7 @@ function HeartRateScreenInner() {
 
   return (
     <GradientBackground
-      colors={[
-        Colors.VibeGradient1,
-        Colors.VibeGradient2,
-        Colors.VibeGradient1,
-      ]}
+      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
       <View style={styles.absoluteFull}>
         <View style={styles.cameraWrapper}>
@@ -129,8 +125,8 @@ function HeartRateScreenInner() {
           <CustomSpiritualButton
             label="Finish"
             onPress={goToNextScreen}
-            color={Colors.vcButtonColor}
-            textColor={Colors.vcButtonTextColor}
+            color={Colors.buttonBackground}
+            textColor={Colors.lightText}
           />
         </View>
       )}

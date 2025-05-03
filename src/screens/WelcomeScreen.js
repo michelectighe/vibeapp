@@ -28,11 +28,7 @@ export const WelcomeScreen = () => {
   return (
     <SafeAreaView style={styles.fullScreenContainer} edges={["bottom"]}>
       <GradientBackground
-        colors={[
-          Colors.VibeGradient1,
-          Colors.VibeGradient2,
-          Colors.VibeGradient1,
-        ]}
+        colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
       >
         <View style={styles.topContainer}>
           <Text style={styles.welcomeText}>Welcome</Text>
@@ -45,14 +41,14 @@ export const WelcomeScreen = () => {
           <CustomSpiritualButton
             label="Sign Up"
             onPress={() => navigation.replace("Tabs", { screen: "Home" })}
-            color={Colors.vcButtonColor}
-            textColor={Colors.vcButtonTextColor}
+            color={Colors.buttonBackground}
+            textColor={Colors.lightText}
           />
           <CustomSpiritualButton
             label="Log In"
             onPress={() => navigation.replace("Tabs", { screen: "Home" })}
-            color={Colors.vcButtonColor}
-            textColor={Colors.vcButtonTextColor}
+            color={Colors.buttonBackground}
+            textColor={Colors.lightText}
           />
         </View>
       </GradientBackground>

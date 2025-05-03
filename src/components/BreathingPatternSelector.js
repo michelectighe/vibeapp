@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   card: {
-    backgroundColor: Colors.vcButtonLight,
+    backgroundColor: Colors.buttonLightBackground,
     borderRadius: 16,
     paddingVertical: 12,
     paddingHorizontal: 16,
@@ -58,17 +58,17 @@ const styles = StyleSheet.create({
 
   selectedCard: {
     borderWidth: 2,
-    borderColor: Colors.vcTextColor,
+    borderColor: Colors.mediumText,
   },
   name: {
     fontSize: 16,
     fontWeight: "bold",
     textAlign: "center",
-    color: Colors.vcButtonTextColor,
+    color: Colors.lightText,
   },
   timing: {
     fontSize: 14,
     marginTop: 4,
-    color: Colors.vcButtonTextColor,
+    color: Colors.lightText,
   },
 });

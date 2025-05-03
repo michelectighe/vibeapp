@@ -12,7 +12,7 @@ const rawStyles = {
   quoteText: {
     fontSize: 48,
     fontFamily: Fonts.Script,
-    color: Colors.vcButtonTextColor,
+    color: Colors.lightText,
     marginLeft: 50,
     marginRight: 50,
     textAlign: "center",

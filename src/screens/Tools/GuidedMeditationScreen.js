@@ -19,6 +19,7 @@ import { MEDITATION_SCREENS } from "@navigation/screens";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { Fonts, Colors } from "@constants";
 import { styles } from "@/screens/Tools/GuidedMeditationScreen.styles";
+import { globalStyles } from "@styles";
 
 const meditationList = [
   {
@@ -96,11 +97,7 @@ export const GuidedMeditationScreen = () => {
 
   return (
     <GradientBackground
-      colors={[
-        Colors.VibeGradient1,
-        Colors.VibeGradient2,
-        Colors.VibeGradient1,
-      ]}
+      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
       {/* <GestureDetector gesture={swipeGesture}> */}
       <SafeAreaView
@@ -118,12 +115,8 @@ export const GuidedMeditationScreen = () => {
           </Text>
         </View>
         <ScrollView
-          style={{
-            paddingHorizontal: 16,
-            marginTop: 50,
-            backgroundColor: "transparent",
-          }}
-          contentContainerStyle={{ paddingBottom: 160 }}
+          style={globalStyles.scrollView}
+          contentContainerStyle={globalStyles.scrollContent}
           showsVerticalScrollIndicator={false}
         >
           {meditationList.map((item) => (

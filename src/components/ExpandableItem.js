@@ -40,11 +40,15 @@ export const ExpandableItem = ({
         />
       </TouchableOpacity>
       {expanded && (
-        <ScrollContainer>
+        <ScrollView
+          style={globalStyles.scrollView}
+          contentContainerStyle={globalStyles.scrollContent}
+          showsVerticalScrollIndicator={false}
+        >
           <Text style={[styles.description, { color: Colors.textSecondary }]}>
             {description}
           </Text>
-        </ScrollContainer>
+        </ScrollView>
       )}
     </View>
   );

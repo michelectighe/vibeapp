@@ -16,11 +16,7 @@ export const BreathWorksScreen = () => {
   return (
     <View style={styles.container}>
       <GradientBackground
-        colors={[
-          Colors.VibeGradient1,
-          Colors.VibeGradient2,
-          Colors.VibeGradient1,
-        ]}
+        colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
         logo={false}
       >
         <View style={styles.top}>

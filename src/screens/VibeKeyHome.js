@@ -8,6 +8,7 @@ import { Colors } from "@constants";
 import { GradientBackground, HomeCard } from "@components";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./VibeKeyHome.styles";
+import { globalStyles } from "@styles";
 
 export const VibeKeyHome = () => {
   useAmbientControlForScreen(true);
@@ -31,11 +32,7 @@ export const VibeKeyHome = () => {
 
   return (
     <GradientBackground
-      colors={[
-        Colors.VibeGradient1,
-        Colors.VibeGradient2,
-        Colors.VibeGradient1,
-      ]}
+      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
       <View style={styles.topContainer}>
         <Text style={styles.welcomeText}>
@@ -43,8 +40,8 @@ export const VibeKeyHome = () => {
         </Text>
 
         <ScrollView
-          style={styles.scrollContainer}
-          contentContainerStyle={styles.scrollContent}
+          style={globalStyles.scrollView}
+          contentContainerStyle={globalStyles.scrollContent}
           showsVerticalScrollIndicator={false}
         >
           {vibeHomeCards.map((card) => (

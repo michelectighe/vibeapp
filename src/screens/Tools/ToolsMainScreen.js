@@ -12,6 +12,7 @@ import {
 import { Colors } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./ToolsMainScreen.styles";
+import { globalStyles } from "@styles";
 
 export const ToolsMainScreen = () => {
   useAmbientControlForScreen(true);
@@ -35,18 +36,14 @@ export const ToolsMainScreen = () => {
 
   return (
     <GradientBackground
-      colors={[
-        Colors.VibeGradient1,
-        Colors.VibeGradient2,
-        Colors.VibeGradient1,
-      ]}
+      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
       <View style={styles.topContainer}>
         <Text style={styles.welcomeText}>Healing Journey</Text>
 
         <ScrollView
-          style={styles.scrollView}
-          contentContainerStyle={styles.scrollContent}
+          style={globalStyles.scrollView}
+          contentContainerStyle={globalStyles.scrollContent}
           showsVerticalScrollIndicator={false}
         >
           {toolsCards.map((card) => (

@@ -6,16 +6,12 @@ import { Colors, Fonts } from "@constants";
 export const ThemeWrapper = ({ children }) => {
   return (
     <GradientBackground
-      colors={[
-        Colors.VibeGradient1,
-        Colors.VibeGradient2,
-        Colors.VibeGradient1,
-      ]}
+      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
       <View style={styles.content}>{children}</View>
     </GradientBackground>
   );
-}
+};
 
 const styles = StyleSheet.create({
   content: {

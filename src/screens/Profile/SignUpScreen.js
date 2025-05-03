@@ -87,13 +87,13 @@ export const SignUpScreen = ({ navigation }) => {
     //   resizeMode="cover"
     // >
     <GradientBackground
-      colors={[
-        Colors.VibeGradient1,
-        Colors.VibeGradient2,
-        Colors.VibeGradient1,
-      ]}
+      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
-      <ScrollContainer>
+      <ScrollView
+        style={globalStyles.scrollView}
+        contentContainerStyle={globalStyles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <KeyboardAvoidingView
             style={{ flex: 1 }}
@@ -182,7 +182,7 @@ export const SignUpScreen = ({ navigation }) => {
             </View>
           </KeyboardAvoidingView>
         </TouchableWithoutFeedback>
-      </ScrollContainer>
+      </ScrollView>
     </GradientBackground>
   );
 };
