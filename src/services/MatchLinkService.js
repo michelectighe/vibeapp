@@ -1,6 +1,6 @@
 import { db } from "@config/firebaseConfig";
 import { doc, setDoc, getDoc, collection } from "firebase/firestore";
-import { generateShortId } from "@utils";
+import { generateShortId } from "@utils/generateShortId";
 
 /**
  * Create a match link for a user's result stored in `users/{uid}/results/{resultId}`
@@ -35,4 +35,3 @@ export const createMatchLink = async (resultId, userId) => {
     throw error;
   }
 };
-export default createMatchLink;

@@ -3,7 +3,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-const JournalPromptCard = ({ item }) => {
+export const JournalPromptCard = ({ item }) => {
   return (
     <View style={styles.card}>
       <Ionicons
@@ -37,5 +37,3 @@ const styles = StyleSheet.create({
     flexWrap: "wrap",
   },
 });
-
-export default JournalPromptCard;

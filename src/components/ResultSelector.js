@@ -12,7 +12,7 @@ import { vibrationLevels } from "@data";
 import { Fonts } from "@constants";
 import { hexToRgba } from "@utils";
 
-export default function ResultSelector({ results, onSelect, onShare }) {
+export const ResultSelector = ({ results, onSelect, onShare }) => {
   const formatDate = (timestamp) => {
     if (!timestamp?.toDate) return "";
     return timestamp.toDate().toLocaleDateString("en-US", {

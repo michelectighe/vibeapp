@@ -6,8 +6,13 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
+import { Colors } from "@constants";
 
-const BreathingPatternSelector = ({ patterns, selectedId, onSelect }) => {
+export const BreathingPatternSelector = ({
+  patterns,
+  selectedId,
+  onSelect,
+}) => {
   return (
     <FlatList
       horizontal
@@ -40,7 +45,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   card: {
-    backgroundColor: "#F5CBA7",
+    backgroundColor: Colors.vcButtonLight,
     borderRadius: 16,
     paddingVertical: 12,
     paddingHorizontal: 16,
@@ -53,17 +58,17 @@ const styles = StyleSheet.create({
 
   selectedCard: {
     borderWidth: 2,
-    borderColor: "#D35400",
+    borderColor: Colors.vcTextColor,
   },
   name: {
     fontSize: 16,
     fontWeight: "bold",
     textAlign: "center",
+    color: Colors.vcButtonTextColor,
   },
   timing: {
     fontSize: 14,
     marginTop: 4,
+    color: Colors.vcButtonTextColor,
   },
 });
-
-export default BreathingPatternSelector;

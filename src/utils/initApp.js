@@ -23,7 +23,7 @@ export const initApp = async ({ setModel }) => {
       AppTitleFont: require("@assets/fonts/Quicksand-regular.ttf"),
       TypeWriterText: require("@assets/fonts/GreatVibes-Regular.ttf"),
     });
-    console.log("✅ Fonts loaded");
+    //   console.log("✅ Fonts loaded");
 
     await Promise.all([
       Purchases.configure({ apiKey: REVENUECAT_API_KEY }),
@@ -42,7 +42,7 @@ export const initApp = async ({ setModel }) => {
       require("@assets/models/ferplus_model_pd_best.tflite")
     );
     setModel(model);
-    console.log("🔍 Model after init:", model);
+    //  console.log("🔍 Model after init:", model);
 
     return unsubscribe;
   } catch (err) {

@@ -1,7 +1,7 @@
 import React from "react";
 import { AppleButton } from "@invertase/react-native-apple-authentication";
 
-const SignInWithApple = () => {
+ const SignInWithApple = () => {
   return (
     <AppleButton
       buttonStyle={AppleButton.Style.BLACK}

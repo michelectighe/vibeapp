@@ -6,7 +6,7 @@ import {
   TouchableWithoutFeedback,
   ScrollView,
 } from "react-native";
-const ScrollContainer = ({ children, style, contentStyle }) => {
+export const ScrollContainer = ({ children, style, contentStyle }) => {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <KeyboardAvoidingView
@@ -25,5 +25,3 @@ const ScrollContainer = ({ children, style, contentStyle }) => {
     </TouchableWithoutFeedback>
   );
 };
-
-export default ScrollContainer;

@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { View, Animated } from "react-native";
 import { Svg, Defs, RadialGradient, Stop, Rect } from "react-native-svg";
 
-const EdgeGlow = ({
+export const EdgeGlow = ({
   width = 250,
   height = 180,
   borderRadius = 20,
@@ -75,4 +75,3 @@ const EdgeGlow = ({
   );
 };
 
-export default EdgeGlow;

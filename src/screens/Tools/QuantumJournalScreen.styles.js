@@ -1,8 +1,9 @@
-import { StyleSheet, Dimensions } from "react-native";
-const { width } = Dimensions.get("window");
+import { StyleSheet } from "react-native";
+import { scaledStyle } from "@utils";
+import { Colors, Fonts } from "@constants";
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 
-
-export default quantumJournalStyles = StyleSheet.create({
+const rawStyles = {
   container: {
     flex: 1,
     backgroundColor: "#FDEBD0",
@@ -44,4 +45,6 @@ export default quantumJournalStyles = StyleSheet.create({
     color: "#FDEBD0",
     fontWeight: "600",
   },
-});
+};
+
+export const styles = StyleSheet.create(scaledStyle(rawStyles));

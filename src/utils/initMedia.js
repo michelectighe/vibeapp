@@ -9,8 +9,6 @@ export const initMedia = async (
 ) => {
   try {
     //console.log("🎙️ Initializing media...");
-
-
     const devices = await Camera.getAvailableCameraDevices();
     if (!devices || devices.length === 0) {
       console.warn("No cameras available.");
@@ -20,10 +18,6 @@ export const initMedia = async (
     // Safe to use the first camera
     const device = devices[0];
     // Proceed with camera usage...
-
-
-
-
 
     // Only request camera if we're using it
     if (frameProcessorActiveRef) {

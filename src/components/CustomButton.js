@@ -2,7 +2,7 @@ import React, { useRef, useEffect } from "react";
 import { ImageBackground, View, Animated, StyleSheet } from "react-native";
 import { SCREEN_WIDTH } from "@utils";
 
-const CustomButton = ({ imgSource = "" }) => {
+export const CustomButton = ({ imgSource = "" }) => {
   const imageFade = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -55,4 +55,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CustomButton;

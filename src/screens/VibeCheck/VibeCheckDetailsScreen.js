@@ -6,7 +6,6 @@ import {
   View,
   Text,
   Modal,
-  StyleSheet,
   Animated,
   Button,
   SafeAreaView,
@@ -14,30 +13,28 @@ import {
 
 import { useNavigation } from "@react-navigation/native";
 import { Ionicons } from "@expo/vector-icons";
-//import { GestureDetector, Gesture } from "react-native-gesture-handler";
-import { runOnJS } from "react-native-reanimated";
 import { GradientBackground, ProgressDots, ScrollContainer } from "@components";
 import { Colors, Fonts } from "@constants";
-
-
 import { useWindowDimensions } from "react-native";
-import { VIBE_CHECK_SCREENS } from "@navigation"; // ✅ Import once, use everywhere
+import { VIBE_CHECK_SCREENS } from "@navigation/screens";
 import { useRoute } from "@react-navigation/native";
-import ExpandableItem from "@utils";
+import { ExpandableItem } from "@utils";
+import { useAmbientControlForScreen } from "@hooks";
+import { styles } from "./VibeCheckDetailsScreen.styles";
 
-const VibeCheckDetailsScreen = () => {
+export const VibeCheckDetailsScreen = () => {
+  useAmbientControlForScreen(false);
   const navigation = useNavigation();
   const route = useRoute();
   const currentIndex = VIBE_CHECK_SCREENS.indexOf(route.name);
   const { width } = useWindowDimensions();
 
   const [selectedOption, setSelectedOption] = useState(null);
-  const scaleAnim = useRef(new Animated.Value(0)).current; // initial scale set to 0
+  const scaleAnim = useRef(new Animated.Value(0)).current;
   const cardWidth = width * 0.5;
   const cardHeight = width * 0.5;
-  // Navigate to the next screen
-  const TAB_BAR_HEIGHT = 95; // adjust if necessary
-  const extraPadding = TAB_BAR_HEIGHT; // 20 extra pixels for safety
+  const TAB_BAR_HEIGHT = 95;
+  const extraPadding = TAB_BAR_HEIGHT;
 
   const goToNextScreen = () => {
     if (currentIndex < VIBE_CHECK_SCREENS.length - 1) {
@@ -45,23 +42,13 @@ const VibeCheckDetailsScreen = () => {
       navigation.navigate(nextScreen);
     }
   };
+
   const goBack = () => {
     if (currentIndex > 0) {
       navigation.goBack();
     }
   };
 
-  // const swipeGesture = Gesture.Pan().onEnd((event) => {
-  //   if (event.translationX < 50 && event.velocityX < 0) {
-  //     // Swipe left → Go forward
-  //     runOnJS(goToNextScreen)();
-  //   } else if (event.translationX > 50 && event.velocityX > 0) {
-  //     // Swipe right → Go back
-  //     runOnJS(goBack)();
-  //   }
-  // });
-
-  // Define the bullet options with labels and descriptions.
   const options = [
     {
       name: "mic-outline",
@@ -110,20 +97,9 @@ const VibeCheckDetailsScreen = () => {
       ]}
     >
       <SafeAreaView style={{ flex: 1 }} edges={["bottom"]}>
-        {/* <GestureDetector gesture={swipeGesture}> */}
-        <View
-          style={{ flex: 1, width: "100%", justifyContent: "center" }}
-          className="items-center"
-        >
-          {/* <ImageBackground
-              style={{ flex: 1, width: "100%", height: "100%" }}
-              source={require("@assets/images/backgroundVibeCheck.webp")}
-              resizeMode="cover"
-            > */}
-
-          {/* Expandable List */}
+        <View style={styles.container}>
           <ScrollContainer>
-            <View style={{ marginHorizontal: 20 }}>
+            <View style={styles.scrollInner}>
               {options.map((item, index) => (
                 <ExpandableItem
                   key={index}
@@ -131,30 +107,13 @@ const VibeCheckDetailsScreen = () => {
                   description={item.description}
                   themeColors={themeColors}
                   theme={theme}
-                //      onToggle={handleItemToggle} // pass the callback
                 />
               ))}
             </View>
           </ScrollContainer>
           <Button title="Continue" onPress={goToNextScreen} />
-
-          {/* ✅ Use the progress dots, passing the state-based currentIndex */}
-          {/* <ProgressDots
-                currentIndex={currentIndex}
-                totalScreens={VIBE_CHECK_SCREENS.length}
-              /> */}
-          {/* </ImageBackground> */}
         </View>
-        {/* </GestureDetector> */}
       </SafeAreaView>
     </GradientBackground>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-  },
-});
-
-export default VibeCheckDetailsScreen;

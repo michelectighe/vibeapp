@@ -10,7 +10,8 @@ import {
   UpdateProfileScreen,
 } from "@screens";
 
-export default function SettingsStack() {
+
+export const SettingsStack = () => {
   const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator

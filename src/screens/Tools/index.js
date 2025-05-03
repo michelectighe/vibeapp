@@ -1,4 +1,7 @@
 //screens/Tools/index.js
-export { default as BreathWorksScreen } from "./BreathWorksScreen";
-export { default as EntangledSelfScreen } from "./EntangledSelfScreen";
-export { default as quantumJournalStyles } from "./QuantumJournalScreen";
+export { BreathWorksScreen } from "./BreathWorksScreen";
+export { EntangledSelfScreen } from "./EntangledSelfScreen";
+export { FrequenciesScreen } from "./FrequenciesScreen";
+export { GuidedMeditationScreen } from "./GuidedMeditationScreen";
+export { QuantumJournalScreen } from "./QuantumJournalScreen";
+export { ToolsMainScreen } from "./ToolsMainScreen";

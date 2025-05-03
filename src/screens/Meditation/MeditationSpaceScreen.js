@@ -16,21 +16,21 @@ import {
   Easing,
   Dimensions,
   TouchableOpacity,
-  SafeAreaView
+  SafeAreaView,
 } from "react-native";
 
 //import { GestureDetector, Gesture } from "react-native-gesture-handler";
 import { runOnJS } from "react-native-reanimated";
 import { useWindowDimensions } from "react-native";
 import { ProgressDots, HomeButton } from "@components";
-import { MEDITATION_SCREENS } from "@navigation"; // ✅ Import once, use everywhere
+import { MEDITATION_SCREENS } from "@navigation/screens"; // ✅ Import once, use everywhere
 import { useRoute } from "@react-navigation/native";
 import { useEnvironment } from "@context";
 import { Fonts, Colors } from "@constants";
-
+import { styles } from "./MeditationSpaceScreen.styles";
 const { width } = Dimensions.get("window");
 
-export default function MeditationSpaceScreen({ navigation }) {
+export const MeditationSpaceScreen = ({ navigation }) => {
   const { width } = useWindowDimensions();
   const { environment } = useEnvironment();
   const cardWidth = width * 0.5;
@@ -228,26 +228,4 @@ export default function MeditationSpaceScreen({ navigation }) {
       {/* </GestureDetector> */}
     </SafeAreaView>
   );
-}
-
-const styles = StyleSheet.create({
-  centerContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 50,
-  },
-  glowCircle: {
-    position: "absolute",
-    backgroundColor: "rgba(0, 122, 255, 0.5)", // Siri-like blue glow
-    shadowColor: "rgba(0, 122, 255, 1)",
-    shadowOpacity: 1,
-    shadowRadius: 30,
-    elevation: 20, // Android shadow
-  },
-  blurView: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-    borderRadius: 9999, // Make sure it's fully round
-  },
-});
+};

@@ -6,7 +6,7 @@ import {
   MatchComparisonScreen,
 } from "@screens";
 
-export default function VibeMatchStack() {
+export const VibeMatchStack = () => {
   const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator
@@ -45,4 +45,4 @@ export default function VibeMatchStack() {
       />
     </Stack.Navigator>
   );
-}
+};

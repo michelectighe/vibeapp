@@ -1,11 +1,5 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  useWindowDimensions,
-} from "react-native";
+import { View, Text, ScrollView, useWindowDimensions } from "react-native";
 import { Fonts, Colors, chakraData } from "@constants";
 import { compareResults } from "@utils";
 import {
@@ -13,11 +7,13 @@ import {
   ChakraComparisonCard,
   ComparisonCard,
 } from "@components";
+import { useAmbientControlForScreen } from "@hooks";
+import { styles } from "./MatchComparisonScreen.styles";
 
-export default function MatchComparisonScreen({ route }) {
+export const MatchComparisonScreen = ({ route }) => {
+  useAmbientControlForScreen(true);
   const { myResult, sharedResult } = route.params;
   const { similarities, differences } = compareResults(myResult, sharedResult);
-  const { width } = useWindowDimensions();
 
   const getVibeSummary = () => {
     const delta = Math.abs(
@@ -36,14 +32,14 @@ export default function MatchComparisonScreen({ route }) {
         Colors.VibeGradient1,
       ]}
     >
-      <View style={{ marginTop: -20 }}>
+      <View style={styles.header}>
         <Text style={styles.title}>Vibe Comparison</Text>
         <Text style={styles.summary}>{getVibeSummary()}</Text>
       </View>
 
       <ScrollView
-        style={{ paddingHorizontal: 16, marginTop: 10 }}
-        contentContainerStyle={{ paddingBottom: 160 }}
+        style={styles.scroll}
+        contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
         <Text style={styles.sectionTitle}>Similarities</Text>
@@ -91,33 +87,4 @@ export default function MatchComparisonScreen({ route }) {
       </ScrollView>
     </GradientBackground>
   );
-}
-
-const styles = StyleSheet.create({
-  title: {
-    fontSize: 28,
-    color: "#fff",
-    fontFamily: Fonts.title,
-    marginBottom: 10,
-    textAlign: "center",
-  },
-  summary: {
-    fontSize: 18,
-    color: "#f0f0f0",
-    textAlign: "center",
-    marginBottom: 15,
-  },
-  sectionTitle: {
-    fontSize: 22,
-    color: "#ccc",
-    fontWeight: "bold",
-    marginTop: 0,
-    marginBottom: 8,
-  },
-  noData: {
-    color: "#999",
-    fontStyle: "italic",
-    textAlign: "center",
-    marginBottom: 10,
-  },
-});
+};

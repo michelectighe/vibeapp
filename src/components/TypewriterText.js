@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Text } from "react-native";
 
-const TypewriterText = ({ text, delay = 100, style }) => {
+export const TypewriterText = ({ text, delay = 100, style }) => {
   const [displayedText, setDisplayedText] = useState("");
 
   useEffect(() => {
@@ -18,5 +18,3 @@ const TypewriterText = ({ text, delay = 100, style }) => {
 
   return <Text style={style}>{displayedText}</Text>;
 };
-
-export default TypewriterText;

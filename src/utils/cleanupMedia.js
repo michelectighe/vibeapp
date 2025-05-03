@@ -1,5 +1,5 @@
 // cleanupAudioRecording.js
-//import { Camera } from "react-native-vision-camera";
+import { Camera } from "react-native-vision-camera";
 import { AudioRecorder } from "react-native-audio";
 import SoundLevel from "react-native-sound-level";
 
@@ -17,8 +17,6 @@ export const cleanupMedia = async (
       console.warn("No cameras available.");
       return;
     }
-
-
 
     if (useCamera) {
       try {

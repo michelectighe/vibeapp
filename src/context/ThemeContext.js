@@ -3,7 +3,7 @@ import { Appearance, PlatformColor } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ThemeWrapper from "@components/ThemeWrapper";
 
-export const ThemeContext = createContext();
+const ThemeContext = createContext();
 
 export const ThemeProvider = ({ children }) => {
   const systemTheme = Appearance.getColorScheme();

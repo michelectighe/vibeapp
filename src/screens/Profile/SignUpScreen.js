@@ -19,11 +19,13 @@ import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db } from "@config/firebaseConfig";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { getFriendlyError } from "@utils";
-import { profileAssets, profileStyles } from "@styles/StylesProfile";
+import { styles, profileAssets } from "./StylesProfile";
 import { GradientBackground, ScrollContainer } from "@components";
 import { Colors, Fonts } from "@constants";
+import { useAmbientControlForScreen } from "@hooks";
 
-const SignUpScreen = ({ navigation }) => {
+export const SignUpScreen = ({ navigation }) => {
+  useAmbientControlForScreen(true);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -81,7 +83,7 @@ const SignUpScreen = ({ navigation }) => {
   return (
     // <ImageBackground
     //   source={profileAssets.background}
-    //   style={profileStyles.bg}
+    //   style={styles.bg}
     //   resizeMode="cover"
     // >
     <GradientBackground
@@ -98,28 +100,28 @@ const SignUpScreen = ({ navigation }) => {
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             keyboardVerticalOffset={80} // tweak if needed for your layout
           >
-            <View style={profileStyles.container}>
-              <View style={profileStyles.headingContainer}>
-                <Text style={profileStyles.heading}>Create Account</Text>
+            <View style={styles.container}>
+              <View style={styles.headingContainer}>
+                <Text style={styles.heading}>Create Account</Text>
                 <TouchableOpacity
                   onPress={() => navigation.navigate("SignInScreen")}
                 >
-                  <Text style={profileStyles.signInText}>
+                  <Text style={styles.signInText}>
                     Already have an account? Sign In
                   </Text>
                 </TouchableOpacity>
               </View>
 
-              <View style={profileStyles.formContainer}>
+              <View style={styles.formContainer}>
                 <TextInput
-                  style={profileStyles.input}
+                  style={styles.input}
                   placeholder="Name"
                   placeholderTextColor="#999"
                   value={name}
                   onChangeText={setName}
                 />
                 <TextInput
-                  style={profileStyles.input}
+                  style={styles.input}
                   placeholder="Email"
                   placeholderTextColor="#999"
                   autoComplete="email"
@@ -127,9 +129,9 @@ const SignUpScreen = ({ navigation }) => {
                   value={email}
                   onChangeText={setEmail}
                 />
-                <View style={profileStyles.passwordContainer}>
+                <View style={styles.passwordContainer}>
                   <TextInput
-                    style={profileStyles.passwordInput}
+                    style={styles.passwordInput}
                     placeholder="Password"
                     placeholderTextColor="#999"
                     autoComplete="password"
@@ -140,7 +142,7 @@ const SignUpScreen = ({ navigation }) => {
                   />
                   <TouchableOpacity
                     onPress={() => setPasswordVisible(!passwordVisible)}
-                    style={profileStyles.eyeIcon}
+                    style={styles.eyeIcon}
                   >
                     <Text>{passwordVisible ? "🙈" : "👁️"}</Text>
                   </TouchableOpacity>
@@ -184,5 +186,3 @@ const SignUpScreen = ({ navigation }) => {
     </GradientBackground>
   );
 };
-
-export default SignUpScreen;

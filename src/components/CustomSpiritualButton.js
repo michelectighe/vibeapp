@@ -17,7 +17,7 @@ import {
   View,
 } from "react-native";
 
-const CustomSpiritualButton = ({ label, onPress, color, textColor }) => {
+export const CustomSpiritualButton = ({ label, onPress, color, textColor }) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -60,5 +60,3 @@ const styles = StyleSheet.create({
     // color: "#fff",
   },
 });
-
-export default CustomSpiritualButton;

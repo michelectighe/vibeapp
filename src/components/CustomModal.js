@@ -8,7 +8,7 @@ import {
   TouchableWithoutFeedback,
 } from "react-native";
 
-const CustomModal = ({ visible, onClose, children }) => {
+export const CustomModal = ({ visible, onClose, children }) => {
   const screenHeight = Dimensions.get("window").height;
   const slideAnim = useRef(new Animated.Value(screenHeight)).current;
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -69,4 +69,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CustomModal;

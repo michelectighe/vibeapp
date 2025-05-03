@@ -9,9 +9,11 @@ import {
   Animated,
 } from "react-native";
 import { quantumJournalPrompts } from "@data";
-import { quantumJournalStyles as styles } from "@styles";
+import { styles } from "./QuantumJournalScreen.styles";
+import { useAmbientControlForScreen } from "@hooks";
 
-const QuantumJournalScreen = () => {
+export const QuantumJournalScreen = () => {
+  useAmbientControlForScreen(true);
   const [prompt, setPrompt] = useState("");
   const [entry, setEntry] = useState("");
   const [isTyping, setIsTyping] = useState(true);
@@ -59,10 +61,7 @@ const QuantumJournalScreen = () => {
             value={entry}
             onChangeText={setEntry}
           />
-          <TouchableOpacity
-            style={styles.saveButton}
-            onPress={handleSave}
-          >
+          <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
             <Text style={styles.saveText}>Save Entry</Text>
           </TouchableOpacity>
         </ScrollView>
@@ -70,5 +69,3 @@ const QuantumJournalScreen = () => {
     </View>
   );
 };
-
-export default QuantumJournalScreen;

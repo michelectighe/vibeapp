@@ -1,30 +1,15 @@
-import React, { useState, useEffect, useContext } from "react";
-import {
-  ImageBackground,
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
+import React, { useState, useEffect } from "react";
+import { View, Text, ScrollView } from "react-native";
 import { useAnalysis } from "@context";
-import { VIBE_CHECK_SCREENS } from "@navigation";
-import {
-  GradientBackground,
-  CustomSpiritualButton,
-  ScrollContainer,
-  CloseX,
-} from "@components";
+import { GradientBackground, CustomSpiritualButton, CloseX } from "@components";
 import { getVibeDetails } from "@utils";
-import { Colors, Fonts } from "@constants";
+import { useAmbientControlForScreen } from "@hooks";
+import { styles } from "./ResultDetailsScreen.styles";
 
-export default function ResultDetailScreen({
-  navigation,
-  close,
-  setNextScreen,
-}) {
-  const backgroundImage = require("@assets/images/backgroundVibeCheck.webp");
+export const ResultDetailScreen = ({ navigation }) => {
+  useAmbientControlForScreen(true);
   const { overallVibrationScore } = useAnalysis();
+
   const [overallLabel, setOverallLabel] = useState();
   const [overallText1, setOverallText1] = useState();
   const [overallText2, setOverallText2] = useState();
@@ -37,13 +22,6 @@ export default function ResultDetailScreen({
   const [label3, setLabel3] = useState();
   const [label4, setLabel4] = useState();
   const [label5, setLabel5] = useState();
-  const [showChakraScreen, setShowChakraScreen] = useState();
-
-  useEffect(() => {
-    return () => {
-      console.log("Cleaning up ResultsScreen...");
-    };
-  }, []);
 
   useEffect(() => {
     const details = getVibeDetails(overallVibrationScore);
@@ -63,51 +41,24 @@ export default function ResultDetailScreen({
     }
   }, []);
 
-  const goToNextScreen = () => {
-    navigation.reset({
-      index: 0,
-      routes: [{ name: "Home" }],
-    });
-  };
-
   return (
-    <View
-      style={{
-        flex: 1,
-        width: "100%",
-        height: "100%",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
+    <View style={styles.root}>
       <CloseX xColor={overallColor} onPress={() => navigation.goBack()} />
-      <View style={{ marginTop: "20%" }}>
-        <Text
-          style={{
-            textAlign: "center",
-            color: "white",
-            textShadowRadius: 1,
-            textShadowOffset: { width: 1, height: 1 },
-            textShadowColor: overallColor,
-            fontSize: 36,
-          }}
-        >
+
+      <View style={styles.headerContainer}>
+        <Text style={[styles.overallLabel, { textShadowColor: overallColor }]}>
           {overallLabel}
         </Text>
       </View>
+
       <ScrollView>
-        <View
-          style={[
-            styles.textContainer,
-            { backgroundColor: overallColor, marginTop: 20 },
-          ]}
-        >
+        <View style={[styles.textContainer, { backgroundColor: overallColor }]}>
           <Text style={styles.overallText}>{overallText1}</Text>
         </View>
+
         <View style={[styles.textContainer, { backgroundColor: overallColor }]}>
           <Text style={styles.chicletHeader}>Curated Spiritual Collection</Text>
-
-          <View style={{ marginTop: 10 }}>
+          <View style={styles.chicletWrapper}>
             <CustomSpiritualButton
               label="Energy Cleanse"
               onPress={() => navigation.navigate("EnergyCleanseScreen")}
@@ -116,7 +67,9 @@ export default function ResultDetailScreen({
             />
             <CustomSpiritualButton
               label="Journal"
-              onPress={() => navigation.navigate("JournalScreen")}
+              onPress={() =>
+                navigation.navigate("Tools", { screen: "QuantumJournalScreen" })
+              }
               color={overallColor2}
               textColor={overallColor}
             />
@@ -128,10 +81,12 @@ export default function ResultDetailScreen({
             />
           </View>
         </View>
+
         <View style={[styles.textContainer, { backgroundColor: overallColor }]}>
           <Text style={styles.textHeader}>{label2}</Text>
           <Text style={styles.overallText}>{overallText2}</Text>
         </View>
+
         <View style={[styles.textContainer, { backgroundColor: overallColor }]}>
           <Text style={styles.textHeader}>{label3}</Text>
           <Text style={styles.overallText}>{overallText3}</Text>
@@ -141,13 +96,14 @@ export default function ResultDetailScreen({
           <Text style={styles.textHeader}>{label4}</Text>
           <Text style={styles.overallText}>{overallText4}</Text>
         </View>
+
         <View style={[styles.textContainer, { backgroundColor: overallColor }]}>
           <Text style={styles.textHeader}>{label5}</Text>
           <Text style={styles.overallText}>{overallText5}</Text>
         </View>
 
         <View style={[styles.textContainer, { backgroundColor: overallColor }]}>
-          <Text style={{ textAlign: "center", fontSize: 18, color: "#f5f6fa" }}>
+          <Text style={styles.finalNote}>
             By recognizing these factors and implementing spiritual practices,
             you can gradually raise your vibrational frequency and realign with
             your highest potential.
@@ -156,40 +112,4 @@ export default function ResultDetailScreen({
       </ScrollView>
     </View>
   );
-}
-const styles = StyleSheet.create({
-  textHeader: {
-    textAlign: "center",
-    fontSize: 18,
-    fontStyle: "bold",
-    color: "#f5f6fa",
-  },
-  overallText: {
-    textAlign: "center",
-    fontSize: 18,
-    color: "#f5f6fa",
-  },
-  textContainer: {
-    margin: 20,
-    marginTop: 0,
-    borderRadius: 20,
-    padding: 10,
-  },
-  chicletWrapper: {
-    marginTop: 10,
-    marginBottom: 10,
-    gap: 10,
-    alignItems: "center",
-  },
-  chicletHeader: {
-    textAlign: "center",
-    fontSize: 18,
-    color: "#f5f6fa",
-    marginBottom: 10,
-  },
-  chicletContainer: {
-    gap: 12, // vertical spacing between chiclets
-    paddingVertical: 10,
-    alignItems: "center",
-  },
-});
+};

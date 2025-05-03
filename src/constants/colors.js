@@ -101,10 +101,13 @@ export const Colors = {
   vcTextColor: "#6A7FDB",
   vcButtonColor: "#0A0F2C",
   vcButtonTextColor: "white",
+  vcButtonLight: "#778DA9",
   activeTab: "#1B263B", // Midnight blue
   inactiveTab: "white",
+
+  lightTextColor: "#FFFFFF",
+  darkTextColor: "#000000",
 
   matchSimilarCard: "pink",
   matchDifferentCard: "grey",
 };
-export default Colors;

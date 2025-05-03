@@ -1,5 +1,5 @@
 // src/data/vibeHomeCards.js
-
+import { Colors } from "@constants";
 export const vibeHomeCards = [
   {
     id: "daily-vibe",
@@ -8,6 +8,7 @@ export const vibeHomeCards = [
     //   icon: "sunny-outline", // Ionicon
     image: require("@assets/images/home/vibe.png"),
     screen: "VibeCheck", // or whatever screen it should open
+    textColor: Colors.lightTextColor,
   },
   {
     id: "vibe-match",
@@ -19,6 +20,7 @@ export const vibeHomeCards = [
       name: "VibeMatch", // <- This is the tab name
       params: { screen: "ShareScreen" }, // <- This is the nested screen
     },
+    textColor: Colors.darkTextColor,
   },
   {
     id: "streaks",
@@ -27,60 +29,18 @@ export const vibeHomeCards = [
     //   icon: "flame-outline",
     image: require("@assets/images/home/streaks.png"),
     screen: "Streaks", // placeholder
+    textColor: Colors.lightTextColor,
   },
   {
-    id: "daily-meditation",
-    title: "Daily Meditation",
-    subtitle: "Take a few minutes to ground yourself",
+    id: "healing-tools",
+    title: "Inner Work",
+    subtitle: "Explore the tools to heal, reflect, and grow",
     // icon: "leaf-outline",
-    image: require("@assets/images/home/meditate.png"),
+    image: require("@assets/images/home/innerWork.png"),
     screen: {
-      name: "Meditate", // <- This is the tab name
-      params: { screen: "GuidedMeditations" }, // <- This is the nested screen
+      name: "InnerWork", // <- This is the tools stack name
+      params: { screen: "ToolsMainScreen" }, // <- This is the nested screen
     },
-  },
-  {
-    id: "daily-frequencies",
-    title: "Healing Sounds",
-    subtitle: "Let the sounds heal you",
-    //  icon: "leaf-outline",
-    image: require("@assets/images/home/sounds.png"),
-    screen: {
-      name: "Meditate", // <- This is the tab name
-      params: { screen: "Frequencies" }, // <- This is the nested screen
-    },
-  },
-  {
-    id: "journal-prompts",
-    title: "Journal Prompts",
-    subtitle: "Release with your pen",
-    //  icon: "cloud-outline",
-    image: require("@assets/images/home/journal.png"),
-    screen: {
-      name: "VibeCheck", // <- This is the tab name
-      params: { screen: "JournalScreen" }, // <- This is the nested screen
-    },
-  },
-  {
-    id: "breath-work",
-    title: "Breath Work",
-    subtitle: "Breathe your nervous system into a peaceful state",
-    //  icon: "cloud-outline",
-    image: require("@assets/images/home/breath.png"),
-    screen: {
-      name: "Tools", // <- This is the tools stack name
-      params: { screen: "BreathWorksScreen" }, // <- This is the nested screen
-    },
-  },
-  {
-    id: "shadow-work",
-    title: "Shadow Work",
-    subtitle: "Let your light shine on your darkness",
-    //  icon: "cloud-outline",
-    image: require("@assets/images/home/shadow.png"),
-    screen: {
-      name: "VibeCheck", // <- This is the tab name
-      params: { screen: "JournalScreen" }, // <- This is the nested screen
-    },
+    textColor: Colors.lightTextColor,
   },
 ];

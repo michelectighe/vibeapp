@@ -17,12 +17,11 @@ import {
   ChakraScreen,
   ChakraDetailModal,
   EnergyCleanseScreen,
-  JournalScreen,
   MetricInfoScreen,
 } from "@screens";
 
 // ✅ Stack Navigator for Analysis-related screens
-export default function VibeCheckStack() {
+export const VibeCheckStack = () => {
   //const Stack = createNativeStackNavigator();
   const Stack = createStackNavigator();
 
@@ -291,33 +290,6 @@ export default function VibeCheckStack() {
       <Stack.Screen
         name="EnergyCleanseScreen"
         component={EnergyCleanseScreen}
-        options={{
-          headerShown: false,
-          gestureEnabled: true,
-          presentation: "modal",
-          cardStyleInterpolator: CardStyleInterpolators.forFadeFromCenter,
-          transitionSpec: {
-            open: {
-              animation: "timing",
-              config: {
-                duration: 1500, // 👈 slow this down
-                easing: Easing.out(Easing.poly(4)),
-              },
-            },
-            close: {
-              animation: "timing",
-              config: {
-                duration: 500, // 👈 match for closing too
-                easing: Easing.out(Easing.poly(4)),
-              },
-            },
-          },
-        }}
-      />
-
-      <Stack.Screen
-        name="JournalScreen"
-        component={JournalScreen}
         options={{
           headerShown: false,
           gestureEnabled: true,

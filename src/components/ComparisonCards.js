@@ -23,23 +23,28 @@ const getLabel = (key) => {
   return labels[key] || key;
 };
 
-export default function ComparisonCard({ keyName, myVal, theirVal }) {
+export const ComparisonCard = ({ keyName, myVal, theirVal }) => {
   const myRange = getScoreRange(myVal);
   const theirRange = getScoreRange(theirVal);
   const label = getLabel(keyName);
 
   if (myRange === theirRange) {
-    const text = comparisonText[keyName]?.[myRange] || `Both scored in the ${myRange} range.`;
+    const text =
+      comparisonText[keyName]?.[myRange] ||
+      `Both scored in the ${myRange} range.`;
     return (
       <View style={styles.similarCard}>
         <Text style={styles.cardLabel}>{label}</Text>
         <Text style={styles.cardBody}>Both: {text}</Text>
       </View>
     );
-  } 
+  }
 
-  const userText = comparisonText[keyName]?.[myRange] || `You scored ${myVal.toFixed(0)}`;
-  const themText = comparisonText[keyName]?.[theirRange] || `They scored ${theirVal.toFixed(0)}`;
+  const userText =
+    comparisonText[keyName]?.[myRange] || `You scored ${myVal.toFixed(0)}`;
+  const themText =
+    comparisonText[keyName]?.[theirRange] ||
+    `They scored ${theirVal.toFixed(0)}`;
 
   return (
     <View style={styles.splitCard}>
@@ -53,7 +58,7 @@ export default function ComparisonCard({ keyName, myVal, theirVal }) {
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   similarCard: {

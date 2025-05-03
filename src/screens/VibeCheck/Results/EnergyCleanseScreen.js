@@ -1,19 +1,14 @@
-// EnergyCleanseScreen.js
 import React from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useAnalysis } from "@context";
 import { GradientBackground, MeditationCard, FrequencyCard } from "@components";
 import { getEnergyCleanseContent } from "@data";
-import { Colors, Fonts } from "@constants";
+import { useAmbientControlForScreen } from "@hooks";
+import { styles } from "./EnergyCleanseScreen.styles";
 
-export default function EnergyCleanseScreen() {
+export const EnergyCleanseScreen = () => {
+  useAmbientControlForScreen(true);
   const { overallVibrationScore } = useAnalysis();
   const navigation = useNavigation();
   const { meditations, frequencies } = getEnergyCleanseContent(
@@ -24,6 +19,7 @@ export default function EnergyCleanseScreen() {
     <GradientBackground colors={["white", "white", "white"]} logo={false}>
       <View style={styles.container}>
         <Text style={styles.title}>Energy Cleanse</Text>
+
         <Text style={styles.sectionTitle}>🧘 Meditations</Text>
         <FlatList
           data={meditations}
@@ -41,31 +37,10 @@ export default function EnergyCleanseScreen() {
 
       <TouchableOpacity
         onPress={() => navigation.goBack()}
-        style={{
-          position: "absolute",
-          top: 50,
-          right: 20,
-          zIndex: 100,
-          padding: 10,
-        }}
+        style={styles.closeButton}
       >
-        <Text style={{ fontSize: 24, color: "#333" }}>✕</Text>
+        <Text style={styles.closeIcon}>✕</Text>
       </TouchableOpacity>
     </GradientBackground>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-    paddingTop: 60,
-    flex: 1,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginVertical: 12,
-    textAlign: "center",
-    color: "#333",
-  },
-});
+};

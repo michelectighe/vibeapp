@@ -2,7 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
 import { VibeHistoryScreen } from "@screens";
 
-export default function StreakStack() {
+export const StreakStack =() => {
   const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator

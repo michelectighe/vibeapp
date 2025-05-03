@@ -93,4 +93,11 @@ export const MotionProvider = ({ children }) => {
     </MotionContext.Provider>
   );
 };
-export const useMotion = () => useContext(MotionContext);
+export const useMotion = () => {
+  const context = useContext(MotionContext);
+  if (!context) {
+    throw new Error("useMotion must be used within a MotionProvider");
+  }
+  return context;
+};
+

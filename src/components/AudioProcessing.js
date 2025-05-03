@@ -1,6 +1,6 @@
 import { fft } from "fft-js";
 
-export default function processAudioBuffer(audioBuffer) {
+export const processAudioBuffer = (audioBuffer) => {
   // Example usage:
   const sampleRate = 44100; // or the sample rate of your audio input
   //const audioBuffer = []/* your raw PCM data as an array of numbers */;

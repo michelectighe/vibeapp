@@ -17,20 +17,26 @@ import {
   Animated,
   Easing,
   Image,
-  SafeAreaView
+  SafeAreaView,
 } from "react-native";
 //import { GestureDetector, Gesture } from "react-native-gesture-handler";
 import { runOnJS } from "react-native-reanimated";
-import { GradientBackground, HomeButton, ScrollContainer, ProgressDots } from "@components";
+import {
+  GradientBackground,
+  HomeButton,
+  ScrollContainer,
+  ProgressDots,
+} from "@components";
 import { Colors, Fonts } from "@constants";
 import { useWindowDimensions } from "react-native";
-import { MEDITATION_SCREENS } from "@navigation";
+import { MEDITATION_SCREENS } from "@navigation/screens";
 import { useRoute } from "@react-navigation/native";
-import ExpandableItem from "@utils";
+import { ExpandableItem } from "@utils";
+import { styles } from "./MeditationScreen.styles";
 
 const { width } = Dimensions.get("window");
 
-export default function MeditationScreen({ navigation }) {
+export const MeditationScreen = ({ navigation }) => {
   const { width } = useWindowDimensions();
   const cardWidth = width * 0.5;
   const cardHeight = width * 0.5;
@@ -197,9 +203,9 @@ export default function MeditationScreen({ navigation }) {
                   color: "white",
                 }}
               >
-                Once we find the perfect spot, you can begin a guided
-                meditation session designed to center your mind, restore your
-                energy, and bring you into a state of peace.
+                Once we find the perfect spot, you can begin a guided meditation
+                session designed to center your mind, restore your energy, and
+                bring you into a state of peace.
               </Animated.Text>
               <Animated.Text
                 style={{
@@ -277,26 +283,4 @@ export default function MeditationScreen({ navigation }) {
       {/* </GestureDetector> */}
     </SafeAreaView>
   );
-}
-
-const styles = StyleSheet.create({
-  centerContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 50,
-  },
-  glowCircle: {
-    position: "absolute",
-    backgroundColor: "rgba(0, 122, 255, 0.5)", // Siri-like blue glow
-    shadowColor: "rgb(72, 72, 73)",
-    shadowOpacity: 1,
-    shadowRadius: 30,
-    elevation: 20, // Android shadow
-  },
-  blurView: {
-    position: "absolute",
-    width: "100%",
-    height: "100%",
-    borderRadius: 9999, // Make sure it's fully round
-  },
-});
+};

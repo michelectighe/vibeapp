@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState, useMemo } from "react";
 import { Animated, Text, StyleSheet } from "react-native";
 import { Fonts, Colors } from "@constants";
 
-const FloatingPhrase = ({ label, delay = 0 }) => {
+const UnmemoizedFloatingPhrase = ({ label, delay = 0 }) => {
   const [displayedLabel, setDisplayedLabel] = useState(label);
   const lastLabelRef = useRef(label);
 
@@ -136,10 +136,12 @@ const styles = StyleSheet.create({
     textShadowColor: "#fff2e0",
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 3,
- //   fontFamily: Fonts.Script,
+    //   fontFamily: Fonts.Script,
   },
 });
 
-export default React.memo(FloatingPhrase, (prev, next) => {
-  return prev.label === next.label;
-});
+export const FloatingPhrase = React.memo(
+  UnmemoizedFloatingPhrase,
+  (prev, next) => prev.label === next.label
+);
+//FloatingPhrase.displayName = "FloatingPhrase";

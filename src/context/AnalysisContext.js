@@ -118,7 +118,7 @@ export const AnalysisProvider = ({ children }) => {
 
   const voiceFrequencyScore = useMemo(() => {
     if (voiceFrequency == null) return null;
-    console.log("VOICE FREQUENCY:", voiceFrequency);
+    //   console.log("VOICE FREQUENCY:", voiceFrequency);
     // const norm = normalize(frequency, 75, 250);
     return evaluateVoiceFrequency(voiceFrequency);
   }, [voiceFrequency]);

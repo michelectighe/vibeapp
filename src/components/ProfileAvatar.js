@@ -1,16 +1,17 @@
 import React from "react";
 import { View, Image, Text, TouchableOpacity } from "react-native";
+import FastImage from "react-native-fast-image";
 import { auth } from "@config/firebaseConfig";
 import { useNavigation } from "@react-navigation/native";
-import { Colors } from "@/constants";
+import { Colors } from "@constants";
 
-const ProfileAvatar = ({ size = 32 }) => {
+export const ProfileAvatar = ({ size = 32 }) => {
   const user = auth.currentUser;
   const profilePic = user?.photoURL;
   const name = user?.displayName || user?.email || "U";
 
   return profilePic ? (
-    <Image
+    <FastImage
       source={{ uri: profilePic }}
       style={{
         width: size,
@@ -39,5 +40,3 @@ const ProfileAvatar = ({ size = 32 }) => {
     </View>
   );
 };
-
-export default ProfileAvatar;

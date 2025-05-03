@@ -3,7 +3,7 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-const FrequencyCard = ({ item, onPress }) => {
+export const FrequencyCard = ({ item, onPress }) => {
   return (
     <TouchableOpacity style={styles.card} onPress={() => onPress?.(item)}>
       <Ionicons
@@ -36,4 +36,3 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FrequencyCard;

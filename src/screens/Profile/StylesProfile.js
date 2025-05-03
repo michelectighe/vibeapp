@@ -1,4 +1,7 @@
 import { StyleSheet } from "react-native";
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@/utils";
+import { scaledStyle } from "@/utils";
+import { Colors, Fonts } from "@/constants";
 import profileBg from "@assets/images/backgroundProfile.jpg";
 import btnImage from "@assets/images/chiclet.webp";
 
@@ -9,7 +12,7 @@ export const profileAssets = {
 
 export const buttonImage = btnImage;
 
-export const profileStyles = StyleSheet.create({
+const rawStyles = {
   backLink: {
     marginTop: 20,
     color: "white",
@@ -215,4 +218,7 @@ export const profileStyles = StyleSheet.create({
   //  marginBottom: 15,
     textAlign: "center",
   },
-});
+};
+
+
+export const styles = StyleSheet.create(scaledStyle(rawStyles));

@@ -3,7 +3,7 @@ import React from "react";
 import { View } from "react-native";
 import { RotateInDownLeft } from "react-native-reanimated";
 
-const ProgressDots = ({ currentIndex, totalScreens }) => {
+export const ProgressDots = ({ currentIndex, totalScreens }) => {
   return (
     <View
       style={{
@@ -28,4 +28,3 @@ const ProgressDots = ({ currentIndex, totalScreens }) => {
   );
 };
 
-export default ProgressDots;

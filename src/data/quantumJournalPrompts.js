@@ -1,4 +1,4 @@
-export default quantumJournalPrompts = [
+export const quantumJournalPrompts = [
   "What truth am I ready to hear today?",
   "What would my future self tell me right now?",
   "What version of me is trying to come through?",

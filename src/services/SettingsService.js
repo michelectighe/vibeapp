@@ -1,6 +1,5 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-
-const MUSIC_PREF_KEY = "backgroundMusicEnabled";
+import { MUSIC_PREF_KEY } from "@constants";
 
 export const saveMusicPreference = async (isEnabled) => {
   try {
@@ -13,7 +12,7 @@ export const saveMusicPreference = async (isEnabled) => {
 export const getMusicPreference = async () => {
   try {
     const value = await AsyncStorage.getItem(MUSIC_PREF_KEY);
-    return value != null ? JSON.parse(value) : true; // default: enabled
+    return value != null ? JSON.parse(value) : true;
   } catch (e) {
     console.error("Failed to load music preference", e);
     return true;

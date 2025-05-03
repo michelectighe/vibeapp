@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-const ExpandableItem = ({
+export const ExpandableItem = ({
   title,
   description,
   themeColors,
@@ -75,5 +75,3 @@ const styles = StyleSheet.create({
     fontSize: 12,
   },
 });
-
-export default ExpandableItem;

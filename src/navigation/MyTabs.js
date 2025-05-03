@@ -6,12 +6,11 @@ import {
   CardStyleInterpolators,
   TransitionSpecs,
 } from "@react-navigation/stack";
-import {
-  SettingsStack,
-  VibeCheckStack,
-  VibeMatchStack,
-  MeditationStack,
-} from "@navigation";
+import { SettingsStack } from "./SettingsStack";
+import { VibeCheckStack } from "./VibeCheckStack";
+import { VibeMatchStack } from "./VibeMatchStack";
+import { MeditationStack } from "./MeditationStack";
+import { ToolsStack } from "./ToolsStack";
 import { Ionicons } from "@expo/vector-icons";
 import LinearGradient from "react-native-linear-gradient";
 import { VibeKeyHome } from "@screens";
@@ -20,7 +19,7 @@ import { Colors } from "@constants";
 
 const Tab = createBottomTabNavigator();
 
-const MyTabs = () => {
+export const MyTabs = () => {
   return (
     <Tab.Navigator
       initialRouteName="Home"
@@ -33,6 +32,10 @@ const MyTabs = () => {
           backgroundColor: "white",
           //    backgroundColor: "transparent", // make it transparent to see the image
         },
+        tabBarLabelStyle: {
+          fontSize: 12,
+          marginTop: 2, // pushes label down
+        },
         headerShown: false,
         tabBarBackground: () => (
           <LinearGradient
@@ -40,6 +43,10 @@ const MyTabs = () => {
             style={{ flex: 1, opacity: 0.8 }}
           />
         ),
+        tabBarIconStyle: {
+          marginTop: 2, // pushes icon up
+          //   marginBottom: 5,
+        },
         tabBarIcon: ({ focused, color, size }) => {
           if (route.name === "Settings") {
             return (
@@ -61,10 +68,12 @@ const MyTabs = () => {
             iconName = focused ? "home" : "home-outline";
           } else if (route.name === "VibeCheck") {
             iconName = focused ? "pulse" : "pulse-outline";
-          } else if (route.name === "Meditate") {
-            iconName = focused ? "leaf" : "leaf-outline";
+          } else if (route.name === "Scan") {
+            iconName = focused ? "scan" : "scan-circle-outline";
           } else if (route.name === "VibeMatch") {
             iconName = focused ? "heart" : "heart-outline";
+          } else if (route.name === "InnerWork") {
+            iconName = focused ? "footsteps" : "footsteps-outline";
           }
 
           return (
@@ -72,7 +81,7 @@ const MyTabs = () => {
               style={{
                 alignItems: "center",
                 justifyContent: "center",
-                marginTop: 10,
+                //   marginTop: 10,
               }}
             >
               <Ionicons name={iconName} size={size} color={color} />
@@ -92,30 +101,7 @@ const MyTabs = () => {
           gestureEnabled: true,
           presentation: "modal",
           cardStyleInterpolator: CardStyleInterpolators.forFadeFromCenter,
-          // transitionSpec: {
-          //   open: {
-          //     animation: "timing",
-          //     config: {
-          //       duration: 500, // 👈 slow this down
-          //       easing: Easing.out(Easing.poly(4)),
-          //     },
-          //   },
-          //   close: {
-          //     animation: "timing",
-          //     config: {
-          //       duration: 500, // 👈 match for closing too
-          //       easing: Easing.out(Easing.poly(4)),
-          //     },
-          //   },
-          // },
         }}
-        // options={{
-        //   //   tabBarStyle: { display: "none" },
-        //   headerShown: false,
-        //   gestureEnabled: true,
-        //   presentation: "modal",
-        //   cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOSInverted,
-        // }}
       />
       <Tab.Screen
         name="VibeCheck"
@@ -125,8 +111,9 @@ const MyTabs = () => {
           tabBarStyle: { display: "none" },
         })}
       />
-      <Tab.Screen name="Meditate" component={MeditationStack} />
+      <Tab.Screen name="Scan" component={MeditationStack} />
       <Tab.Screen name="VibeMatch" component={VibeMatchStack} />
+      <Tab.Screen name="InnerWork" component={ToolsStack} />
       <Tab.Screen
         name="Settings"
         component={SettingsStack}
@@ -135,5 +122,3 @@ const MyTabs = () => {
     </Tab.Navigator>
   );
 };
-
-export default MyTabs;

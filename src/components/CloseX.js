@@ -1,14 +1,15 @@
 import { TouchableOpacity, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { Colors } from "@constants";
 
-const CloseX = ({ xColor = "white", onPress }) => {
+export const CloseX = ({ xColor = Colors.lightTextColor, onPress }) => {
   const navigation = useNavigation();
   return (
     <TouchableOpacity
       onPress={onPress}
       style={{
         position: "absolute",
-        top: 70,
+        top: 50,
         right: 30,
         zIndex: 100,
         padding: 0,
@@ -18,4 +19,3 @@ const CloseX = ({ xColor = "white", onPress }) => {
     </TouchableOpacity>
   );
 };
-export default CloseX;

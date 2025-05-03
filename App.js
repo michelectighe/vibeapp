@@ -15,7 +15,7 @@ import {
   AuthProvider,
   AnalysisProvider,
 } from "@context";
-import { MusicManager, setGlobalErrorHandler } from "@utils";
+import { MusicManager } from "@utils";
 import { SplashScreen, WelcomeScreen } from "@screens";
 
 //setGlobalErrorHandler();
@@ -82,7 +82,6 @@ const fadeTransition = ({ current }) => ({
     opacity: current.progress, //  Fades in based on transition progress
   },
 });
-
 const AppInner = () => {
   // useEffect(() => {
   //   const getInitialUrl = async () => {
@@ -131,9 +130,10 @@ const AppInner = () => {
   );
 };
 
-export default function App() {
+export const App = () => {
   return (
     <ModelProvider>
+      {console.log("made it here")}
       <AuthProvider>
         <UserProfileProvider>
           <AppInner />
@@ -141,4 +141,4 @@ export default function App() {
       </AuthProvider>
     </ModelProvider>
   );
-}
+};

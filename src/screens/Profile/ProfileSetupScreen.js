@@ -17,10 +17,13 @@ import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@config/firebaseConfig";
 import { GradientBackground, CustomSpiritualButton } from "@components";
 import { Colors, Fonts } from "@constants";
-import { profileStyles, profileAssets } from "@styles/StylesProfile";
+import { styles, profileAssets } from "./StylesProfile";
+import { useAmbientControlForScreen } from "@hooks";
 
-const ProfileSetupScreen = ({ navigation }) => {
+export const ProfileSetupScreen = ({ navigation }) => {
+  useAmbientControlForScreen(true);
   const { user } = useAuth();
+
   const { profile, setProfile } = useUserProfile();
 
   const [goals, setGoals] = useState("");
@@ -61,7 +64,7 @@ const ProfileSetupScreen = ({ navigation }) => {
   return (
     // <ImageBackground
     //   source={profileAssets.background}
-    //   style={profileStyles.bg}
+    //   style={styles.bg}
     //   resizeMode="cover"
     // >
     <GradientBackground
@@ -71,8 +74,8 @@ const ProfileSetupScreen = ({ navigation }) => {
         Colors.VibeGradient1,
       ]}
     >
-      <View style={profileStyles.container}>
-        <Text style={profileStyles.title}>
+      <View style={styles.container}>
+        <Text style={styles.title}>
           Welcome, {user?.displayName || "friend"}
         </Text>
         <ScrollView
@@ -80,8 +83,8 @@ const ProfileSetupScreen = ({ navigation }) => {
           contentContainerStyle={{ paddingBottom: 160 }}
           showsVerticalScrollIndicator={false}
         >
-          {/* <View style={profileStyles.formContainer}> */}
-          <Text style={profileStyles.subtitle}>
+          {/* <View style={styles.formContainer}> */}
+          <Text style={styles.subtitle}>
             What is your intention for using VibeKey?
           </Text>
           <TextInput
@@ -91,10 +94,10 @@ const ProfileSetupScreen = ({ navigation }) => {
             placeholderTextColor="#aaa"
             multiline
             numberOfLines={4}
-            style={profileStyles.inputGoals}
+            style={styles.inputGoals}
           />
 
-          <Text style={profileStyles.subtitle}>
+          <Text style={styles.subtitle}>
             What challenges are you currently facing?
           </Text>
           <TextInput
@@ -104,10 +107,10 @@ const ProfileSetupScreen = ({ navigation }) => {
             placeholderTextColor="#aaa"
             multiline
             numberOfLines={3}
-            style={profileStyles.inputGoals}
+            style={styles.inputGoals}
           />
 
-          <Text style={profileStyles.subtitle}>
+          <Text style={styles.subtitle}>
             What kind of support or tools would help?
           </Text>
           <TextInput
@@ -117,7 +120,7 @@ const ProfileSetupScreen = ({ navigation }) => {
             placeholderTextColor="#aaa"
             multiline
             numberOfLines={3}
-            style={profileStyles.inputGoals}
+            style={styles.inputGoals}
           />
           {/* </View> */}
           <CustomSpiritualButton
@@ -138,5 +141,3 @@ const ProfileSetupScreen = ({ navigation }) => {
     </GradientBackground>
   );
 };
-
-export default ProfileSetupScreen;

@@ -10,11 +10,13 @@ import {
 import Purchases from "react-native-purchases";
 
 import { setSubscriptionStatus } from "@utils";
-import { profileAssets, profileStyles } from "@styles/StylesProfile";
+import { styles, profileAssets } from "./StylesProfile";
 import { ScrollContainer, GradientBackground } from "@components";
 import { Colors, Fonts } from "@constants";
+import { useAmbientControlForScreen } from "@hooks";
 
-const SubscriptionScreen = ({ navigation, route }) => {
+export const SubscriptionScreen = ({ navigation, route }) => {
+  useAmbientControlForScreen(true);
   const { themeColors, theme } = useContext(ThemeContext);
   const { returnTo } = route.params || {};
   const [packages, setPackages] = useState([]);
@@ -52,7 +54,7 @@ const SubscriptionScreen = ({ navigation, route }) => {
   return (
     // <ImageBackground
     //   source={profileAssets.background}
-    //   style={profileStyles.bg}
+    //   style={styles.bg}
     //   resizeMode="cover"
     // >
     <GradientBackground
@@ -63,41 +65,39 @@ const SubscriptionScreen = ({ navigation, route }) => {
       ]}
     >
       <ScrollContainer>
-        <Text style={profileStyles.title}>Go Premium</Text>
+        <Text style={styles.title}>Go Premium</Text>
 
-        <View style={profileStyles.featuresBox}>
-          <Text style={profileStyles.feature}>
+        <View style={styles.featuresBox}>
+          <Text style={styles.feature}>
             🔓 Unlock All Features for $4.99/month
           </Text>
-          <Text style={profileStyles.feature}>
-            ✔ Calculate your vibrational frequency in real time and elevate
-            your energy
+          <Text style={styles.feature}>
+            ✔ Calculate your vibrational frequency in real time and elevate your
+            energy
           </Text>
-          <Text style={profileStyles.feature}>
+          <Text style={styles.feature}>
             ✔ Reveal your chakra scores for deeper self-awareness and balance
           </Text>
-          <Text style={profileStyles.feature}>
-            ✔ Curated meditations and spiritual guidance to raise your
-            frequency
+          <Text style={styles.feature}>
+            ✔ Curated meditations and spiritual guidance to raise your frequency
           </Text>
-          <Text style={profileStyles.feature}>
+          <Text style={styles.feature}>
             ✔ Guided journaling for reflection, manifestation, and inner growth
           </Text>
-          <Text style={profileStyles.feature}>
+          <Text style={styles.feature}>
             ✔ Vibe Match to discover your energetic compatibility with others
             through vibrational frequency alignment
           </Text>
-          <Text style={profileStyles.feature}>
+          <Text style={styles.feature}>
             ✔ Meditation location tool to find sacred spaces for deeper
             connection and healing{" "}
           </Text>
-          <Text style={profileStyles.feature}>
+          <Text style={styles.feature}>
             ✔ A personalized selection of healing tools, including meditation,
             sound healing, and customized spiritual practices
           </Text>
-          <Text style={profileStyles.feature}>
-            ✔ Curated meditations and spiritual guidance to raise your
-            frequency
+          <Text style={styles.feature}>
+            ✔ Curated meditations and spiritual guidance to raise your frequency
           </Text>
         </View>
 
@@ -107,10 +107,10 @@ const SubscriptionScreen = ({ navigation, route }) => {
           packages.map((pkg) => (
             <TouchableOpacity
               key={pkg.identifier}
-              style={profileStyles.subscribeButton}
+              style={styles.subscribeButton}
               onPress={() => handleSubscribe(pkg)}
             >
-              <Text style={profileStyles.subscribeText}>
+              <Text style={styles.subscribeText}>
                 Subscribe for {pkg.product.priceString}
               </Text>
             </TouchableOpacity>
@@ -119,13 +119,11 @@ const SubscriptionScreen = ({ navigation, route }) => {
 
         <TouchableOpacity
           onPress={() => navigation.navigate("VibeKeyHome")}
-          style={profileStyles.cancelButton}
+          style={styles.cancelButton}
         >
-          <Text style={profileStyles.cancelText}>Cancel</Text>
+          <Text style={styles.cancelText}>Cancel</Text>
         </TouchableOpacity>
       </ScrollContainer>
     </GradientBackground>
   );
 };
-
-export default SubscriptionScreen;

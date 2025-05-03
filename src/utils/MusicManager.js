@@ -1,16 +1,43 @@
 import React, { useEffect, useRef } from "react";
 import { AppState } from "react-native";
-import { setupPlayer, playTrack, stopTrack } from "@services";
+import {
+  setupPlayer,
+  playTrack,
+  stopTrack,
+  fadeInMusic,
+  getMusicPreference,
+} from "@services";
 
-const MusicManager = () => {
+let shouldPlayAmbient = true;
+let userMusicPref = true;
+
+export const setShouldPlayAmbient = (value) => {
+  shouldPlayAmbient = value;
+};
+
+export const setUserMusicPref = (value) => {
+  userMusicPref = value;
+};
+
+export const MusicManager = () => {
   const appState = useRef(AppState.currentState);
 
   useEffect(() => {
     let isMounted = true;
 
     const init = async () => {
-      await setupPlayer();
-      await playTrack();
+      try {
+        await setupPlayer();
+
+        const musicPref = await getMusicPreference();
+        setUserMusicPref(musicPref);
+
+        if (userMusicPref && shouldPlayAmbient) {
+          await playTrack(); // this will play default ambient (with no flags)
+        }
+      } catch (err) {
+        console.error("❌ Error during music init:", err);
+      }
     };
 
     init();
@@ -24,8 +51,12 @@ const MusicManager = () => {
           appState.current.match(/inactive|background/) &&
           nextAppState === "active"
         ) {
-          // App came back to foreground
-          await playTrack();
+          const musicPref = await getMusicPreference();
+          setUserMusicPref(musicPref);
+
+          if (userMusicPref && shouldPlayAmbient) {
+            await playTrack(); // this will play default ambient (with no flags)
+          }
         } else if (nextAppState.match(/inactive|background/)) {
           // App going to background
           await stopTrack();
@@ -36,6 +67,7 @@ const MusicManager = () => {
     );
 
     return () => {
+      console.log("returning");
       isMounted = false;
       subscription.remove();
       stopTrack();
@@ -44,5 +76,3 @@ const MusicManager = () => {
 
   return null; // This component doesn’t render anything
 };
-
-export default MusicManager;

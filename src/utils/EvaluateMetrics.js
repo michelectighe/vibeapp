@@ -20,7 +20,7 @@ export function evaluateVoiceFrequency(frequencyHz) {
     score = 60;
     label = "very high (strained or anxious)";
   }
-  console.log("eval voice frequency:", score);
+  //  console.log("eval voice frequency:", score);
   return {
     value: frequencyHz,
     score,

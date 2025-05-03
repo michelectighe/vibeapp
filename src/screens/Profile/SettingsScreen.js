@@ -9,12 +9,13 @@ import {
   ScrollView,
 } from "react-native";
 import { GradientBackground, CustomSpiritualButton } from "@components";
-import { profileStyles, profileAssets } from "@styles/StylesProfile";
+import { styles, profileAssets } from "./StylesProfile";
 import { useAuth } from "@context";
-
+import { useAmbientControlForScreen } from "@hooks";
 import { Fonts, Colors } from "@constants";
 
-const SettingsScreen = ({ navigation }) => {
+export const SettingsScreen = ({ navigation }) => {
+  useAmbientControlForScreen(true);
   const { signOut, user } = useAuth();
   const [signOutMessage, setSignOut] = useState("");
 
@@ -32,7 +33,7 @@ const SettingsScreen = ({ navigation }) => {
   return (
     // <ImageBackground
     //   source={profileAssets.background}
-    //   style={profileStyles.bg}
+    //   style={styles.bg}
     //   resizeMode="cover"
     // >
     <GradientBackground
@@ -47,7 +48,7 @@ const SettingsScreen = ({ navigation }) => {
         contentContainerStyle={{ paddingBottom: 160 }}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={profileStyles.heading}>Settings</Text>
+        <Text style={styles.heading}>Settings</Text>
 
         <CustomSpiritualButton
           label="Update Profile"
@@ -80,5 +81,3 @@ const SettingsScreen = ({ navigation }) => {
     </GradientBackground>
   );
 };
-
-export default SettingsScreen;

@@ -1,7 +1,7 @@
 import React, { useState, useMemo, useEffect } from "react";
-import CustomModal from "./CustomModal";
+import { CustomModal } from "./CustomModal";
 
-const ModalTrigger = ({ navigation, children }) => {
+export const ModalTrigger = ({ navigation, children }) => {
   const [modalVisible, setModalVisible] = useState(true);
   const [pendingNav, setPendingNav] = useState(null);
   const [shouldNavigate, setShouldNavigate] = useState(false);
@@ -37,5 +37,3 @@ const ModalTrigger = ({ navigation, children }) => {
     </CustomModal>
   );
 };
-
-export default ModalTrigger;

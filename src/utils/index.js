@@ -1,7 +1,7 @@
 //src/utils/index.js
 
-import { useKickJS } from "../hooks/useKickJS";
-
+//import { useKickJS } from "../hooks/useKickJS";
+export { audioMap } from "./audioMap";
 export {
   isBiometricAvailable,
   saveBiometricOptIn,
@@ -37,11 +37,11 @@ export { hexToRgba } from "./colorUtils";
 export { initApp } from "./initApp";
 export { initMedia } from "./initMedia";
 export { loadResults } from "./loadResults";
-export { default as MusicManager } from "./musicManager";
+export { MusicManager, setShouldPlayAmbient } from "./musicManager";
 export { createRefChecker } from "./runOnJSRefChecker";
 export { saveResults } from "./saveResults";
 export {
   setSubscriptionStatus,
   getSubscriptionStatus,
 } from "./subscriptionUtils";
-
+export { scale, verticalScale, moderateScale, fontScale, scaledStyle } from "./layout";

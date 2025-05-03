@@ -1,42 +1,41 @@
 import React from "react";
-import {
-  TouchableOpacity,
-  View,
-  Text,
-  StyleSheet,
-  ImageBackground,
-} from "react-native";
+import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
-//import FastImage from 'react-native-fast-image';
-{/* <FastImage
-  style={styles.cardImage}
-  source={require('../assets/images/relax.jpg')}
-  resizeMode={FastImage.resizeMode.cover}
-/> */}
-const HomeCard = ({ title, subtitle, icon, onPress, image }) => {
+import FastImage from "react-native-fast-image";
+
+export const HomeCard = ({
+  title,
+  subtitle,
+  icon,
+  onPress,
+  image,
+  textColor,
+}) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.cardWrapper}>
       {image && (
-        <ImageBackground
-          source={image}
-          style={styles.card}
-          imageStyle={styles.backgroundImage}
-          resizeMode="cover"
-        >
+        <View style={styles.card}>
+          <FastImage
+            style={StyleSheet.absoluteFill}
+            source={image}
+            resizeMode={FastImage.resizeMode.cover}
+          />
           <View style={styles.overlay}>
-            <View style={styles.iconContainer}>
+            {/* <View style={styles.iconContainer}>
               <Icon name={icon} size={30} color="#FFF" />
-            </View>
-            <Text style={styles.title}>{title}</Text>
-            <Text style={styles.subtitle}>{subtitle}</Text>
+            </View> */}
+            <Text style={[styles.title, { color: textColor }]}>{title}</Text>
+            <Text style={[styles.subtitle, { color: textColor }]}>
+              {subtitle}
+            </Text>
           </View>
-        </ImageBackground>
+        </View>
       )}
       {!image && (
         <View style={styles.overlay}>
-          <View style={styles.iconContainer}>
+          {/* <View style={styles.iconContainer}>
             <Icon name={icon} size={30} color="#FFF" />
-          </View>
+          </View> */}
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.subtitle}>{subtitle}</Text>
         </View>
@@ -57,14 +56,20 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   card: {
-    padding: 16,
-    height: 200, // or whatever height you prefer
+    height: 200,
+    borderRadius: 12,
+    overflow: "hidden",
     justifyContent: "center",
+    alignItems: "center",
   },
+
   backgroundImage: {
     borderRadius: 12,
   },
   overlay: {
+    position: "absolute",
+    bottom: 5,
+    left: 10,
     backgroundColor: "transparent", // "rgba(0, 0, 0, 0.4)", // optional: for better text readability
     padding: 12,
     borderRadius: 12,
@@ -75,13 +80,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: "600",
-    color: "#FFF",
   },
   subtitle: {
     fontSize: 14,
-    color: "#FFF",
     marginTop: 4,
   },
 });
 
-export default HomeCard;

@@ -2,15 +2,19 @@ import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { useWindowDimensions } from "react-native";
-import { VIBE_CHECK_SCREENS } from "@navigation";
+import { VIBE_CHECK_SCREENS } from "@navigation/screens";
+import { styles } from "./EmotionalTransitionScreen.styles";
 import {
   GradientBackground,
   TypewriterText,
   FloatingPhrase,
 } from "@components";
-import { Fonts, Colors, buddhistSayings } from "@constants";
 
-const EmotionTransitionScreen = () => {
+import { Fonts, Colors, buddhistSayings } from "@constants";
+import { useAmbientControlForScreen } from "@hooks";
+
+export const EmotionTransitionScreen = () => {
+  useAmbientControlForScreen(false);
   const navigation = useNavigation();
   const route = useRoute();
   const currentIndex = VIBE_CHECK_SCREENS.indexOf(route.name);
@@ -40,7 +44,7 @@ const EmotionTransitionScreen = () => {
       ]}
     >
       <View style={styles.container}>
-         {/* Quote */}
+        {/* Quote */}
         <TypewriterText
           text={currentSaying}
           delay={50}
@@ -50,25 +54,3 @@ const EmotionTransitionScreen = () => {
     </GradientBackground>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    //   justifyContent: "center",
-    marginTop: 50,
- //   paddingHorizontal: 24,
-    backgroundColor: "transparent",
-  },
-  quoteText: {
-    fontSize: 48,
-    fontFamily: Fonts.Script,
-    color: Colors.vcButtonTextColor,
-    marginLeft: 50,
-    marginRight: 50,
-    textAlign: "center",
-    lineHeight: 64,
-  //  paddingHorizontal: 10,
-  },
-});
-
-export default EmotionTransitionScreen;

@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { View, StyleSheet } from "react-native";
-import { GradientBackground } from "@components";
+import { GradientBackground } from "./GradientBackground";
 import { Colors, Fonts } from "@constants";
 
-export default function ThemeWrapper({ children }) {
+export const ThemeWrapper = ({ children }) => {
   return (
     <GradientBackground
       colors={[

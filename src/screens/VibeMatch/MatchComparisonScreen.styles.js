@@ -1,0 +1,45 @@
+import { StyleSheet } from "react-native";
+import { Colors, Fonts } from "@constants";
+import { scaledStyle } from "@utils";
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
+
+const rawStyles = {
+  header: {
+    marginTop: -20,
+  },
+  title: {
+    fontSize: 28,
+    color: "#fff",
+    fontFamily: Fonts.title,
+    marginBottom: 10,
+    textAlign: "center",
+  },
+  summary: {
+    fontSize: 18,
+    color: "#f0f0f0",
+    textAlign: "center",
+    marginBottom: 15,
+  },
+  scroll: {
+    paddingHorizontal: 16,
+    marginTop: 10,
+  },
+  scrollContent: {
+    paddingBottom: 160,
+  },
+  sectionTitle: {
+    fontSize: 22,
+    color: "#ccc",
+    fontWeight: "bold",
+    marginTop: 0,
+    marginBottom: 8,
+  },
+  noData: {
+    color: "#999",
+    fontStyle: "italic",
+    textAlign: "center",
+    marginBottom: 10,
+  },
+};
+
+export const styles = StyleSheet.create(scaledStyle(rawStyles));

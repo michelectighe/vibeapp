@@ -1,7 +1,9 @@
 import { StyleSheet, Dimensions } from "react-native";
-const { width, height } = Dimensions.get("window");
+import { scaledStyle } from "@utils";
+import { Colors, Fonts } from "@constants";
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 
-export default StyleSheet.create({
+const rawStyles = {
   container: {
     flex: 1,
     backgroundColor: "#F5CBA7",
@@ -21,8 +23,8 @@ export default StyleSheet.create({
     marginBottom: 40,
   },
   visualArea: {
-    width: width,
-    height: height * 0.3,
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT * 0.3,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -50,4 +52,6 @@ export default StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
   },
-});
+};
+
+export const styles = StyleSheet.create(scaledStyle(rawStyles));

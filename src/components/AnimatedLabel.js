@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Animated, Text, View } from "react-native";
 
-const AnimatedLabel = ({ label = "" }) => {
+export const AnimatedLabel = ({ label = "" }) => {
   const opacity = useRef(new Animated.Value(0)).current;
   const translateY = useRef(new Animated.Value(40)).current;
 
@@ -40,4 +40,4 @@ const AnimatedLabel = ({ label = "" }) => {
   );
 };
 
-export default AnimatedLabel;
+

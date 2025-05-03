@@ -18,6 +18,7 @@ import {
   appleAuth,
 } from "@invertase/react-native-apple-authentication";
 import { MaterialIcons } from "@expo/vector-icons";
+import { useAmbientControlForScreen } from "@hooks";
 
 import {
   getAuth,
@@ -29,7 +30,7 @@ import {
 import { useAuth } from "@context";
 import { GradientBackground, CustomSpiritualButton } from "@components";
 import { Fonts, Colors } from "@constants";
-import { profileStyles, profileAssets } from "@styles/StylesProfile";
+import { styles, profileAssets } from "./StylesProfile";
 import {
   getBiometricOptIn,
   saveBiometricOptIn,
@@ -45,7 +46,8 @@ import {
 //     "104401126316-qlr796caoj090l9h1f402e42ljdf5qvs.apps.googleusercontent.com",
 // });
 
-const SignInScreen = ({ navigation, returnTo }) => {
+export const SignInScreen = ({ navigation, returnTo }) => {
+  useAmbientControlForScreen(true);
   const { signIn } = useAuth();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -159,7 +161,7 @@ const SignInScreen = ({ navigation, returnTo }) => {
   return (
     // <ImageBackground
     //   source={profileAssets.background}
-    //   style={profileStyles.bg}
+    //   style={styles.bg}
     //   resizeMode="cover"
     // >
     <GradientBackground
@@ -169,8 +171,8 @@ const SignInScreen = ({ navigation, returnTo }) => {
         Colors.VibeGradient1,
       ]}
     >
-      <View style={profileStyles.container}>
-        <Text style={profileStyles.heading}>Sign In</Text>
+      <View style={styles.container}>
+        <Text style={styles.heading}>Sign In</Text>
 
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
           <KeyboardAvoidingView
@@ -179,12 +181,12 @@ const SignInScreen = ({ navigation, returnTo }) => {
             keyboardVerticalOffset={80} // tweak if needed for your layout
           >
             {signInError ? (
-              <Text style={profileStyles.error}>{signInError}</Text>
+              <Text style={styles.error}>{signInError}</Text>
             ) : null}
 
-            <View style={profileStyles.formContainer}>
+            <View style={styles.formContainer}>
               <TextInput
-                style={profileStyles.input}
+                style={styles.input}
                 placeholder="Email"
                 placeholderTextColor="#999"
                 autoComplete="email"
@@ -194,9 +196,9 @@ const SignInScreen = ({ navigation, returnTo }) => {
                 autoCapitalize="none"
                 keyboardType="email-address"
               />
-              <View style={profileStyles.passwordContainer}>
+              <View style={styles.passwordContainer}>
                 <TextInput
-                  style={profileStyles.passwordInput}
+                  style={styles.passwordInput}
                   placeholder="Enter Password"
                   placeholderTextColor="#999"
                   secureTextEntry={!passwordVisible}
@@ -207,7 +209,7 @@ const SignInScreen = ({ navigation, returnTo }) => {
                 />
                 <TouchableOpacity
                   onPress={() => setPasswordVisible(!passwordVisible)}
-                  style={profileStyles.eyeIcon}
+                  style={styles.eyeIcon}
                 >
                   {passwordVisible ? (
                     <MaterialIcons
@@ -223,7 +225,7 @@ const SignInScreen = ({ navigation, returnTo }) => {
               <TouchableOpacity
                 onPress={() => navigation.navigate("ForgotPasswordScreen")}
               >
-                <Text style={profileStyles.forgot}>Forgot Password?</Text>
+                <Text style={styles.forgot}>Forgot Password?</Text>
               </TouchableOpacity>
               <CustomSpiritualButton
                 label="Sign In"
@@ -235,10 +237,10 @@ const SignInScreen = ({ navigation, returnTo }) => {
               <TouchableOpacity
                 onPress={() => navigation.navigate("SignUpScreen")}
               >
-                <Text style={[profileStyles.link, { textAlign: "center" }]}>
+                <Text style={[styles.link, { textAlign: "center" }]}>
                   Don't have an account?
                 </Text>
-                <Text style={[profileStyles.link, { textAlign: "center" }]}>
+                <Text style={[styles.link, { textAlign: "center" }]}>
                   Sign Up or Sign in with Apple
                 </Text>
               </TouchableOpacity>
@@ -263,6 +265,3 @@ const SignInScreen = ({ navigation, returnTo }) => {
   );
 };
 
-const styles = StyleSheet.create({});
-
-export default SignInScreen;

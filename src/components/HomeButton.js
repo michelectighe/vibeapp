@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-const HomeButton = () => {
+export const HomeButton = () => {
   const navigation = useNavigation();
   const { width, height } = useWindowDimensions();
 
@@ -48,4 +48,3 @@ const HomeButton = () => {
   );
 };
 
-export default HomeButton;

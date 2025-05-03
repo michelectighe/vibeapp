@@ -4,8 +4,7 @@ import { Colors, Fonts } from "@constants";
 
 const { width } = Dimensions.get("window");
 
-const BreathingCircle = ({ pattern }) => {
-  console.log("patter:", pattern);
+export const BreathingCircle = ({ pattern }) => {
   const [phase, setPhase] = useState("Inhale");
   const phaseRef = useRef("Inhale");
 
@@ -103,6 +102,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginTop: 20,
     marginBottom: 20,
+    color: Colors.vcTextColor,
   },
   counter: {
     fontSize: 48,
@@ -126,4 +126,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default BreathingCircle;
+

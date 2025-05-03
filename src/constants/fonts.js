@@ -4,5 +4,3 @@ export const Fonts = {
   Italic: "AppItalic",
   Script: "TypeWriterText",
 };
-
-export default Fonts;

@@ -4,15 +4,14 @@ import {
   Text,
   FlatList,
   Pressable,
-  StyleSheet,
-  useWindowDimensions,
-  Animated,
   TouchableOpacity,
+  useWindowDimensions,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { Fonts, Colors } from "@constants";
 import { useAnalysis } from "@context";
 import { FuzzyGlow, EdgeGlow } from "@components";
+import { useAmbientControlForScreen } from "@hooks";
+import { styles } from "./ChakraScreen.styles";
 
 const chakraMeta = [
   { id: "root", name: "Root", color: "#e53935" },
@@ -25,6 +24,7 @@ const chakraMeta = [
 ];
 
 const ChakraCard = ({ chakra }) => {
+  useAmbientControlForScreen(true);
   const { width } = useWindowDimensions();
   const navigation = useNavigation();
   const glowSize = chakra.score * 1.5 + 30;
@@ -40,20 +40,7 @@ const ChakraCard = ({ chakra }) => {
 
   return (
     <Pressable onPress={handlePress}>
-      <View
-        style={{
-          width: width - 32,
-          height: 180,
-          borderRadius: 20,
-          backgroundColor: "#fff",
-          alignSelf: "center",
-          justifyContent: "center",
-          alignItems: "center",
-          marginVertical: 7,
-          overflow: "hidden",
-          position: "relative",
-        }}
-      >
+      <View style={[styles.card, { width: width - 32 }]}>
         <EdgeGlow
           width={width - 32}
           height={180}
@@ -71,7 +58,7 @@ const ChakraCard = ({ chakra }) => {
   );
 };
 
-const ChakraScreen = () => {
+export const ChakraScreen = () => {
   const { chakraScores } = useAnalysis();
   const navigation = useNavigation();
 
@@ -82,61 +69,22 @@ const ChakraScreen = () => {
   }));
 
   return (
-    <View style={{ flex: 1,  paddingTop: 60 }}>
+    <View style={styles.screen}>
       <Text style={styles.title}>Chakra Balance</Text>
 
       <FlatList
         data={personalizedChakraData}
         keyExtractor={(item) => item.id}
-        contentContainerStyle={{
-          paddingHorizontal: 16,
-          paddingBottom: 22,
-        }}
+        contentContainerStyle={styles.listContainer}
         renderItem={({ item }) => <ChakraCard chakra={item} />}
       />
 
       <TouchableOpacity
         onPress={() => navigation.goBack()}
-        style={{
-          position: "absolute",
-          top: 50,
-          right: 20,
-          zIndex: 100,
-          padding: 10,
-        }}
+        style={styles.closeButton}
       >
-        <Text style={{ fontSize: 24, color: "#333" }}>✕</Text>
+        <Text style={styles.closeIcon}>✕</Text>
       </TouchableOpacity>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  title: {
-    textAlign: "center",
-    fontSize: 36,
-    fontFamily: Fonts.Script,
-    marginBottom: 10,
-  },
-  textOverlay: {
-    zIndex: 1,
-    alignItems: "center",
-  },
-  name: {
-    fontSize: 20,
-    fontWeight: "bold",
-    color: "#333",
-    marginBottom: 4,
-  },
-  meaning: {
-    fontSize: 16,
-    color: "#666",
-    marginBottom: 6,
-  },
-  score: {
-    fontSize: 16,
-    color: "#000",
-  },
-});
-
-export default ChakraScreen;

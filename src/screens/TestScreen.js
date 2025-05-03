@@ -5,7 +5,7 @@ import { useNavigation, useFocusEffect } from "@react-navigation/native";
 const backgroundImage = require("@assets/images/backgroundVibeKey.webp");
 const logoImage = require("@assets/images/VLogo.png");
 
-export default function TestScreen() {
+export const TestScreen = () => {
   const navigation = useNavigation();
 
   return (

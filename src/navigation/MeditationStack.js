@@ -1,14 +1,9 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import {
-  MeditationScreen,
-  MeditationSpaceScreen,
-  GuidedMeditationScreen,
-  FrequenciesScreen,
-} from "@screens";
+import { MeditationScreen, MeditationSpaceScreen } from "@screens";
 import { EnvironmentProvider } from "@context";
 
 // ✅ Stack Navigator for 'Meditation' section
-export default function MeditationStack() {
+export const MeditationStack = () => {
   const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator
@@ -38,24 +33,6 @@ export default function MeditationStack() {
           </EnvironmentProvider>
         )}
       </Stack.Screen>
-      <Stack.Screen
-        name="GuidedMeditations"
-        component={GuidedMeditationScreen}
-        options={{
-          //        /*headerShown: true*/,
-          tabBarVisible: true,
-          tabBarStyle: { display: "flex" },
-        }}
-      />
-      <Stack.Screen
-        name="Frequencies"
-        component={FrequenciesScreen}
-        options={{
-          headerShown: false,
-          tabBarVisible: true,
-          tabBarStyle: { display: "flex" },
-        }}
-      />
     </Stack.Navigator>
   );
-}
+};

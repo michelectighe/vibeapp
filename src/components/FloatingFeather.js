@@ -3,7 +3,7 @@ import { Animated, Dimensions, Image, StyleSheet, Easing } from "react-native";
 
 const { height, width } = Dimensions.get("window");
 
-const FloatingFeather = ({ startX = 0.3, delay = 0 }) => {
+export const FloatingFeather = ({ startX = 0.3, delay = 0 }) => {
   //Animation values
   const sway = useRef(new Animated.Value(0)).current;
   const rotate = useRef(new Animated.Value(0)).current;
@@ -117,5 +117,3 @@ const styles = StyleSheet.create({
     opacity: 0.6,
   },
 });
-
-export default FloatingFeather;

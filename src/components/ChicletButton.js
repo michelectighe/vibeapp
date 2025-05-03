@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { SCREEN_WIDTH } from "@utils";
 
-const ChicletButton = ({ imgSource = "", label = "" }) => {
+export const ChicletButton = ({ imgSource = "", label = "" }) => {
   const imageFade = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -79,5 +79,3 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
 });
-
-export default ChicletButton;

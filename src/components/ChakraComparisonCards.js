@@ -1,8 +1,9 @@
 import React from "react";
 import { View, Text, StyleSheet, useWindowDimensions } from "react-native";
-import { FuzzyGlow, EdgeGlow } from "@components";
+import { FuzzyGlow } from "./FuzzyGlow";
+import { EdgeGlow } from "./EdgeGlow";
 
-export default function ChakraComparisonCard({ chakra, yourScore, theirScore }) {
+export const ChakraComparisonCard = ({ chakra, yourScore, theirScore }) => {
   const { width } = useWindowDimensions();
 
   const yourGlowSize = (yourScore || 0) * 1.5 + 20;
@@ -25,19 +26,23 @@ export default function ChakraComparisonCard({ chakra, yourScore, theirScore }) 
       <View style={styles.textRow}>
         <View style={styles.half}>
           <Text style={styles.label}>You</Text>
-          <Text style={styles.value}>{yourScore != null ? yourScore : "-"}</Text>
+          <Text style={styles.value}>
+            {yourScore != null ? yourScore : "-"}
+          </Text>
         </View>
         <View style={styles.center}>
           <Text style={styles.chakraName}>{chakra.name}</Text>
         </View>
         <View style={styles.half}>
           <Text style={styles.label}>Them</Text>
-          <Text style={styles.value}>{theirScore != null ? theirScore : "-"}</Text>
+          <Text style={styles.value}>
+            {theirScore != null ? theirScore : "-"}
+          </Text>
         </View>
       </View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   card: {

@@ -1,3 +1,4 @@
 // src/hooks/index.js
-export { useKickJS } from "../hooks/useKickJS";
-export { useOrientation } from "../hooks/useOrientation";
+export { useAmbientControlForScreen } from "./useAmbientControlForScreen";
+export { useKickJS } from "./useKickJS";
+export { useOrientation } from "./useOrientation";

@@ -3,7 +3,7 @@ import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
-const MeditationCard = ({ item, onPress }) => {
+export const MeditationCard = ({ item, onPress }) => {
   return (
     <TouchableOpacity style={styles.card} onPress={() => onPress?.(item)}>
       <Ionicons name="leaf-outline" size={24} color="#4CAF50" style={styles.icon} />
@@ -30,5 +30,3 @@ const styles = StyleSheet.create({
     color: "#333",
   },
 });
-
-export default MeditationCard;

@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { Animated } from "react-native";
 import { Svg, Defs, RadialGradient, Stop, Circle } from "react-native-svg";
 
-const FuzzyGlow = ({ glowSize, glowColor, pulse = true }) => {
+export const FuzzyGlow = ({ glowSize, glowColor, pulse = true }) => {
   const scale = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
@@ -56,4 +56,3 @@ const FuzzyGlow = ({ glowSize, glowColor, pulse = true }) => {
   );
 };
 
-export default FuzzyGlow;

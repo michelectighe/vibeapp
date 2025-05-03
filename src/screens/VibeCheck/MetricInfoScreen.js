@@ -1,10 +1,16 @@
 import React from "react";
-import { ScrollView, SafeAreaView, View } from "react-native";
+import { ScrollView, SafeAreaView } from "react-native";
 import { ExpandableInfoItem, CloseX, GradientBackground } from "@components";
 import { metricDetails } from "@data";
-import { Colors, Fonts } from "@constants";
+import { Colors } from "@constants";
+import { useAmbientControlForScreen } from "@hooks";
+import { useNavigation } from "@react-navigation/native";
+import { styles } from "./MetricInfoScreen.styles"; // ✅ Externalized styles
 
-const MetricInfoScreen = () => {
+export const MetricInfoScreen = () => {
+  useAmbientControlForScreen(false);
+  const navigation = useNavigation();
+
   return (
     <GradientBackground
       colors={[
@@ -14,12 +20,15 @@ const MetricInfoScreen = () => {
       ]}
       logo={false}
     >
-      <SafeAreaView style={{ marginTop: 50 }}>
-        <CloseX xColor="white" />
+      <SafeAreaView style={styles.safeArea}>
+        <CloseX
+          xColor={Colors.lightTextColor}
+          onPress={() => navigation.goBack()}
+        />
 
         <ScrollView
-          style={{ paddingHorizontal: 16, marginTop: 40 }}
-          contentContainerStyle={{ paddingBottom: 160 }}
+          style={styles.scrollView}
+          contentContainerStyle={styles.contentContainer}
           showsVerticalScrollIndicator={false}
         >
           {metricDetails.map((item, index) => (
@@ -35,5 +44,3 @@ const MetricInfoScreen = () => {
     </GradientBackground>
   );
 };
-
-export default MetricInfoScreen;

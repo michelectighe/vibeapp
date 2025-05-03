@@ -7,10 +7,11 @@ import {
   Dimensions,
   Easing,
 } from "react-native";
+import FastImage from "react-native-fast-image";
 
 const { width, height } = Dimensions.get("window");
 
-const AnimatedLogo = () => {
+export const AnimatedLogo = () => {
   const rotateAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -41,7 +42,7 @@ const AnimatedLogo = () => {
           },
         ]}
       />
-      <Image
+      <FastImage
         source={require("@assets/images/VLogo.png")}
         style={styles.logo}
         resizeMode="contain"
@@ -80,4 +81,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AnimatedLogo;
+

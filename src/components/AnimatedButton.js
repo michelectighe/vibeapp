@@ -8,7 +8,7 @@ import {
 } from "react-native";
 import { Fonts, Colors } from "@constants";
 
-const AnimatedButton = ({ buttonType = "", imgSource = "" }) => {
+export const AnimatedButton = ({ buttonType = "", imgSource = "" }) => {
   const imageFade = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -60,4 +60,3 @@ const AnimatedButton = ({ buttonType = "", imgSource = "" }) => {
     </View>
   );
 };
-export default AnimatedButton;

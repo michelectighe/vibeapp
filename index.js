@@ -1,6 +1,6 @@
-import { registerRootComponent } from 'expo';
-import { TurboModuleRegistry } from 'react-native'; // ✅ ADD THIS
-import App from './App';
+import { registerRootComponent } from "expo";
+import { TurboModuleRegistry } from "react-native"; // ✅ ADD THIS
+import { App } from "./App";
 
 // import { unstable_disableTurboModules } from "@utils";
 
@@ -32,10 +32,6 @@ import App from './App';
 //         console.log(`⚠️ Error checking module ${name}:`, e);
 //     }
 // });
-
-
-
-
 
 // This makes it work for both Expo dev and native builds
 registerRootComponent(App);

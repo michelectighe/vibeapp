@@ -6,7 +6,7 @@ if (Platform.OS === 'android') {
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
-const ExpandableInfoItem = ({ icon, title, description }) => {
+export const ExpandableInfoItem = ({ icon, title, description }) => {
   const [expanded, setExpanded] = useState(false);
 
   const toggleExpand = () => {
@@ -61,5 +61,3 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
 });
-
-export default ExpandableInfoItem;

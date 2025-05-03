@@ -1,10 +1,11 @@
 // screens/EntangledSelfScreen.js
-import EntangledSelfStyles from "@/styles/EntangledSelfStyles";
 import React, { useRef, useEffect } from "react";
 import { View, Text, Animated, Easing, TouchableOpacity } from "react-native";
-import { EntangledSelfStyles as styles } from "@styles";
+import { styles } from "./EntangledSelfScreen.styles";
+import { useAmbientControlForScreen } from "@hooks";
 
-const EntangledSelfScreen = () => {
+export const EntangledSelfScreen = () => {
+  useAmbientControlForScreen(true);
   const orb1 = useRef(new Animated.ValueXY({ x: -80, y: 0 })).current;
   const orb2 = useRef(new Animated.ValueXY({ x: 80, y: 0 })).current;
 
@@ -62,5 +63,3 @@ const EntangledSelfScreen = () => {
     </View>
   );
 };
-
-export default EntangledSelfScreen;

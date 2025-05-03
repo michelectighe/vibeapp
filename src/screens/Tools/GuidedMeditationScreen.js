@@ -6,6 +6,7 @@ import {
   ImageBackground,
   StyleSheet,
   SafeAreaView,
+  ScrollView,
 } from "react-native";
 
 import { SCREEN_WIDTH } from "@utils";
@@ -14,9 +15,10 @@ import { playTrack, stopTrack } from "@services";
 import { GradientBackground, ScrollContainer } from "@components";
 ////import { GestureDetector, Gesture } from "react-native-gesture-handler";
 import { useRoute } from "@react-navigation/native";
-import { MEDITATION_SCREENS } from "@navigation";
+import { MEDITATION_SCREENS } from "@navigation/screens";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { Fonts, Colors } from "@constants";
+import { styles } from "@/screens/Tools/GuidedMeditationScreen.styles";
 
 const meditationList = [
   {
@@ -51,7 +53,7 @@ const meditationList = [
   },
 ];
 
-export default function GuidedMeditationScreen() {
+export const GuidedMeditationScreen = () => {
   const [playingId, setPlayingId] = useState(null);
   const route = useRoute();
   const navigation = useNavigation();
@@ -101,13 +103,29 @@ export default function GuidedMeditationScreen() {
       ]}
     >
       {/* <GestureDetector gesture={swipeGesture}> */}
-      <SafeAreaView style={{ flex: 1, alignItems: "center", alignContent: "center" }} edges={["bottom"]}>
+      <SafeAreaView
+        style={{
+          flex: 1,
+          alignItems: "center",
+          alignContent: "center",
+          backgroundColor: "transparent",
+        }}
+        edges={["bottom"]}
+      >
         <View style={styles.titleWrapper}>
           <Text style={[styles.title, { fontSize: 30 }]}>
             Guided Meditations
           </Text>
         </View>
-        <ScrollContainer>
+        <ScrollView
+          style={{
+            paddingHorizontal: 16,
+            marginTop: 50,
+            backgroundColor: "transparent",
+          }}
+          contentContainerStyle={{ paddingBottom: 160 }}
+          showsVerticalScrollIndicator={false}
+        >
           {meditationList.map((item) => (
             <View key={item.id} style={styles.card}>
               <Text style={styles.title}>{item.title}</Text>
@@ -122,62 +140,9 @@ export default function GuidedMeditationScreen() {
               </TouchableOpacity>
             </View>
           ))}
-        </ScrollContainer>
+        </ScrollView>
       </SafeAreaView>
       {/* </GestureDetector> */}
     </GradientBackground>
   );
-}
-
-const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    width: "100%",
-    height: "100%",
-  },
-
-  card: {
-    backgroundColor: "#FDEBD0",
-    width: SCREEN_WIDTH * 0.9,
-    alignContent: "center",
-    borderRadius: 16,
-    padding: 30,
-    marginVertical: 12,
-    shadowColor: "#000",
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 5,
-  },
-  title: {
-    fontSize: 22,
-    fontWeight: "600",
-    marginBottom: 8,
-    color: "#935116",
-    textAlign: "center",
-    fontFamily: Fonts.Script,
-  },
-
-  description: {
-    fontSize: 16,
-    color: "#333",
-    textAlign: "center",
-    marginBottom: 12,
-    fontFamily: Fonts.Script,
-  },
-  button: {
-    backgroundColor: "#F5CBA7",
-    paddingVertical: 10,
-    borderRadius: 10,
-    alignItems: "center",
-  },
-  buttonText: {
-    color: "#935116",
-    fontSize: 18,
-    fontWeight: "500",
-  },
-  titleWrapper: {
-    marginTop: "20%",
-    marginBottom: 0,
-    alignItems: "center",
-  },
-});
+};

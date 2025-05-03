@@ -24,12 +24,13 @@ import {
   saveBiometricOptIn,
   clearSavedCredentials,
   getFriendlyError,
+  setUserMusicPref,
 } from "@utils";
 import * as keychain from "react-native-keychain";
 import { useUserProfile, useAuth } from "@context";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "@config/firebaseConfig";
-import { profileStyles, profileAssets } from "@styles/StylesProfile";
+import { styles, profileAssets } from "./StylesProfile";
 import {
   saveMusicPreference,
   getMusicPreference,
@@ -43,10 +44,12 @@ import {
   CustomSpiritualButton,
 } from "@components";
 import { Colors, Fonts } from "@constants";
+import { useAmbientControlForScreen } from "@hooks";
 
 import { useFocusEffect } from "@react-navigation/native";
 
-const UpdateProfileScreen = ({ navigation }) => {
+export const UpdateProfileScreen = ({ navigation }) => {
+  useAmbientControlForScreen(true);
   const { user, authLoading, updateProfile, updatePassword, updateEmail } =
     useAuth();
   const { profile, setProfile } = useUserProfile();
@@ -170,6 +173,7 @@ const UpdateProfileScreen = ({ navigation }) => {
     const newValue = !musicEnabled;
     //console.log(newValue);
     setMusicEnabled(newValue);
+    setUserMusicPref(newValue);
     await saveMusicPreference(newValue);
     newValue ? await playTrack() : await stopTrack();
   };
@@ -249,7 +253,7 @@ const UpdateProfileScreen = ({ navigation }) => {
   return (
     // <ImageBackground
     //   source={profileAssets.background}
-    //   style={profileStyles.bg}
+    //   style={styles.bg}
     //   resizeMode="cover"
     // >
     <GradientBackground
@@ -259,17 +263,17 @@ const UpdateProfileScreen = ({ navigation }) => {
         Colors.VibeGradient1,
       ]}
     >
-      <View style={profileStyles.headingContainer}>
-        <Text style={profileStyles.heading}>Update Profile</Text>
+      <View style={styles.headingContainer}>
+        <Text style={styles.heading}>Update Profile</Text>
         <TouchableOpacity
           onPress={() => navigation.navigate("SignInScreen")}
         ></TouchableOpacity>
       </View>
       <ScrollContainer>
-        <View style={profileStyles.bg}>
-          <View style={[profileStyles.formContainer, { padding: 15 }]}>
+        <View style={styles.bg}>
+          <View style={[styles.formContainer, { padding: 15 }]}>
             <TextInput
-              style={profileStyles.input}
+              style={styles.input}
               placeholder="Name"
               placeholderTextColor="#999"
               value={name}
@@ -281,7 +285,7 @@ const UpdateProfileScreen = ({ navigation }) => {
             {!isAppleLogin && (
               <View>
                 <TextInput
-                  style={profileStyles.input}
+                  style={styles.input}
                   placeholder="Email"
                   placeholderTextColor="#999"
                   autoComplete="email"
@@ -296,7 +300,7 @@ const UpdateProfileScreen = ({ navigation }) => {
                 />
 
                 <TextInput
-                  style={profileStyles.input}
+                  style={styles.input}
                   placeholder="New Password"
                   placeholderTextColor="#999"
                   secureTextEntry={!passwordVisible}
@@ -309,7 +313,7 @@ const UpdateProfileScreen = ({ navigation }) => {
                   }}
                 />
                 <TextInput
-                  style={[profileStyles.input, { marginBottom: 5 }]}
+                  style={[styles.input, { marginBottom: 5 }]}
                   placeholder="Confirm Password"
                   placeholderTextColor="#999"
                   secureTextEntry={!passwordVisible}
@@ -409,5 +413,3 @@ const UpdateProfileScreen = ({ navigation }) => {
     </GradientBackground>
   );
 };
-
-export default UpdateProfileScreen;

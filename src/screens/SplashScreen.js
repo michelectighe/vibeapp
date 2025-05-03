@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { initApp } from "@utils";
 import { useAuth, useModel } from "@context";
-import { View, Animated, StyleSheet, Dimensions, Easing } from "react-native";
+import { View, Animated, Easing } from "react-native";
 import { AnimatedLogo, GradientBackground } from "@components";
-import { Colors, Fonts } from "@constants";
-const { width, height } = Dimensions.get("window");
+import { Colors } from "@constants";
+import { styles } from "./SplashScreen.styles";
 
-const SplashScreen = ({ navigation, route }) => {
+export const SplashScreen = ({ navigation, route }) => {
   const { model, setModel } = useModel();
   const { user, authLoading } = useAuth();
   const rotateAnim = useRef(new Animated.Value(0)).current;
@@ -18,7 +18,6 @@ const SplashScreen = ({ navigation, route }) => {
   }, [route]);
 
   useEffect(() => {
-    // Start rotating animation (if still used)
     Animated.loop(
       Animated.timing(rotateAnim, {
         toValue: 1,
@@ -28,7 +27,6 @@ const SplashScreen = ({ navigation, route }) => {
       })
     ).start();
 
-    // 👇 Fade in animation
     Animated.timing(fadeAnim, {
       toValue: 1,
       duration: 800,
@@ -41,6 +39,7 @@ const SplashScreen = ({ navigation, route }) => {
       try {
         await new Promise((resolve) => setTimeout(resolve, 300));
         await initApp({ setModel });
+
         if (authLoading) return;
 
         if (matchId) {
@@ -61,7 +60,7 @@ const SplashScreen = ({ navigation, route }) => {
   }, [authLoading, user]);
 
   return (
-    <Animated.View style={{ flex: 1, opacity: fadeAnim }}>
+    <Animated.View style={[styles.animatedView, { opacity: fadeAnim }]}>
       <GradientBackground
         colors={[
           Colors.VibeGradient1,
@@ -77,14 +76,3 @@ const SplashScreen = ({ navigation, route }) => {
     </Animated.View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 100,
-  },
-});
-
-export default SplashScreen;

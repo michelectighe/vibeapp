@@ -1,50 +1,39 @@
-import React, { useState, useRef, useContext } from "react";
-
-import { useWindowDimensions } from "react-native";
+import React, { useState } from "react";
 import {
-  StatusBar,
   View,
   Text,
   TouchableOpacity,
   ImageBackground,
-  Animated,
+  useWindowDimensions,
 } from "react-native";
-import { playTrack, stopTrack, isPlayingTrack } from "@services";
+import { StatusBar } from "react-native";
+import { playTrack, stopTrack } from "@services";
 import { ScrollContainer, GradientBackground } from "@components";
-import { MEDITATION_SCREENS } from "@navigation";
+import { MEDITATION_SCREENS } from "@navigation/screens";
 import { useRoute } from "@react-navigation/native";
-import { Fonts, Colors } from "@constants";
+import { styles } from "./FrequenciesScreen.styles";
+import { Colors } from "@constants";
 
-export default function FrequenciesScreen({ navigation }) {
+export const FrequenciesScreen = ({ navigation }) => {
   const [isPlaying, setIsPlaying] = useState(null);
-
   const { width } = useWindowDimensions();
   const route = useRoute();
   const currentIndex = MEDITATION_SCREENS.indexOf(route.name);
+
   const goToNextScreen = () => {
     if (currentIndex < MEDITATION_SCREENS.length - 1) {
       const nextScreen = MEDITATION_SCREENS[currentIndex + 1];
       navigation.navigate(nextScreen);
     }
   };
+
   const goBack = () => {
     if (currentIndex > 0) {
       navigation.goBack();
     }
   };
 
-  // const swipeGesture = Gesture.Pan().onEnd((event) => {
-  //   if (event.translationX < 50 && event.velocityX < 0) {
-  //     // Swipe left → Go forward
-  //     runOnJS(goToNextScreen)();
-  //   } else if (event.translationX > 50 && event.velocityX > 0) {
-  //     // Swipe right → Go back
-  //     runOnJS(goBack)();
-  //   }
-  // });
-
   const frequencyMap = {
-    // 285: { audio: require('@assets/audio/285hz.mp3'), description: 'Healing physical pain' },
     396: {
       audio: require("@assets/audio/396hz.mp3"),
       description: "Release guilt and fear",
@@ -93,7 +82,7 @@ export default function FrequenciesScreen({ navigation }) {
       await stopTrack();
       setIsPlaying(null);
     } else {
-      await stopTrack(); // Stop any existing
+      await stopTrack();
       await playTrack({
         id: freqString,
         url: frequencyMap[freqString].audio,
@@ -111,79 +100,31 @@ export default function FrequenciesScreen({ navigation }) {
         Colors.VibeGradient1,
       ]}
     >
-      <View
-        style={{
-          flex: 1,
-          width: "100%",
-          height: "100%",
-          marginTop: "10%",
-          paddingTop: StatusBar.currentHeight || 20,
-        }}
-        className="flex-1 items-center"
-      >
-        {/* Title */}
-        <View style={{ flex: 1, paddingBottom: 85 }} className="items-center">
-          <Text
-            style={{
-              color: Colors.textPrimary,
-              fontSize: 24,
-              textAlign: "center",
-            }}
-            className="font-AppFont text-2xl font-bold text-center"
-          >
-            Healing Frequencies
-          </Text>
-
-          {/* Scrollable list of frequencies */}
-          <View style={{ marginBottom: 20 }}>
+      <View style={styles.container}>
+        <View style={styles.titleWrapper}>
+          <Text style={styles.title}>Healing Frequencies</Text>
+          <View style={styles.frequencyList}>
             <ScrollContainer>
               {Object.keys(frequencyMap).map((freq) => (
                 <View key={freq}>
                   <TouchableOpacity
-                    key={freq}
-                    style={{
-                      width: "100%",
-                      heigth: 48,
-                      borderRadius: 20,
-                      overflow: "hidden",
-                      marginTop: 5,
-                    }}
+                    style={styles.touchableWrapper}
                     onPress={() => togglePlayback(parseInt(freq))}
                     activeOpacity={0.9}
                   >
                     <ImageBackground
                       source={imageMap[parseInt(freq)]}
-                      style={{ flex: 1, justifyContent: "flex-end" }}
+                      style={styles.backgroundImage}
                       resizeMode="cover"
                     />
                   </TouchableOpacity>
-                  <View
-                    style={{
-                      backgroundColor: "transparent",
-                      padding: 2,
-                      borderRadius: 20,
-                    }}
-                  >
-                    <Text
-                      style={{
-                        color: Colors.textPrimary,
-                        fontFamily: Fonts.AppFont,
-                        fontSize: 24,
-                        textAlign: "center",
-                      }}
-                    >
+                  <View style={styles.labelWrapper}>
+                    <Text style={styles.freqText}>
                       {isPlaying === parseInt(freq)
                         ? `Stop ${freq} Hz`
                         : `${freq} Hz`}
                     </Text>
-                    <Text
-                      style={{
-                        color: Colors.textPrimary,
-                        fontFamily: Fonts.AppFont,
-                        fontSize: 12,
-                        textAlign: "center",
-                      }}
-                    >
+                    <Text style={styles.descriptionText}>
                       {frequencyMap[freq].description}
                     </Text>
                   </View>
@@ -192,11 +133,7 @@ export default function FrequenciesScreen({ navigation }) {
             </ScrollContainer>
           </View>
         </View>
-        {/* <ProgressDots
-            currentIndex={currentIndex}
-            totalScreens={MEDITATION_SCREENS.length}
-          /> */}
       </View>
     </GradientBackground>
   );
-}
+};
