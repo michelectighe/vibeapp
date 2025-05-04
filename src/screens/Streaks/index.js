@@ -1,2 +1,3 @@
 //screens/Streak/index.js
-export {  VibeHistoryScreen } from "./VibeHistory";
+export { StreakScreen } from "./StreakScreen";
+export { VibeHistoryScreen } from "./VibeHistory";

@@ -38,8 +38,10 @@ export const ToolsMainScreen = () => {
     <GradientBackground
       colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
-      <View style={styles.topContainer}>
-        <Text style={styles.welcomeText}>Healing Journey</Text>
+      <View style={globalStyles.container}>
+        <View style={globalStyles.titleWrapper}>
+          <Text style={styles.welcomeText}>Healing Journey</Text>
+        </View>
 
         <ScrollView
           style={globalStyles.scrollView}

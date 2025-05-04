@@ -22,7 +22,8 @@ import {
   createRefChecker,
 } from "@utils";
 import { useKickJS } from "@hooks";
-import { stylesI  } from "@/screens/VibeCheck/HeartRateScreen.styles";
+import { styles } from "@/screens/VibeCheck/HeartRateScreen.styles";
+import { globalStyles } from "@styles";
 import { Colors, Fonts } from "@constants";
 
 export const HeartRateCamera = ({ onStableReading }) => {

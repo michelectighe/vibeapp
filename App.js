@@ -5,6 +5,7 @@ import React, { useRef, useEffect } from "react";
 // import crashlytics from "@react-native-firebase/crashlytics";
 
 import { NavigationContainer } from "@react-navigation/native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { LogBox, Linking } from "react-native";
 import { enableScreens } from "react-native-screens";
@@ -123,7 +124,6 @@ const AppInner = () => {
           />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="Streaks" component={StreakStack} />
-          <Stack.Screen name="Tools" component={ToolsStack} />
         </Stack.Navigator>
       </NavigationContainer>
     </AnalysisProvider>
@@ -132,13 +132,14 @@ const AppInner = () => {
 
 export const App = () => {
   return (
-    <ModelProvider>
-      {console.log("made it here")}
-      <AuthProvider>
-        <UserProfileProvider>
-          <AppInner />
-        </UserProfileProvider>
-      </AuthProvider>
-    </ModelProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <ModelProvider>
+        <AuthProvider>
+          <UserProfileProvider>
+            <AppInner />
+          </UserProfileProvider>
+        </AuthProvider>
+      </ModelProvider>
+    </GestureHandlerRootView>
   );
 };

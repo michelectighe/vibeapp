@@ -6,3 +6,4 @@ export { quantumJournalPrompts } from "./quantumJournalPrompts";
 export { toolsCards } from "./toolsCards";
 export { vibeHomeCards } from "./vibeHomeCards";
 export { vibrationLevels } from "./vibrationLevels";
+export { welcomeCards } from "./welcomeCards";

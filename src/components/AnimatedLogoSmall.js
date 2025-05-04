@@ -34,7 +34,7 @@ export const AnimatedLogoSmall = () => {
   return (
     <View style={styles.logoContainer}>
       <Animated.Image
-        source={require("@assets/images/dots.png")}
+        source={require("@assets/images/dots.webp")}
         style={[
           styles.dots,
           {
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   logoContainer: {
     width: 150,
     height: 150,
-    position: "relative",
+    position: "absolute",
     justifyContent: "center",
     alignItems: "center",
     overflow: "visible", // this allows logo to grow beyond circle

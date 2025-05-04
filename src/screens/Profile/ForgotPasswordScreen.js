@@ -14,6 +14,7 @@ import {
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "@config/firebaseConfig";
 import { styles, profileAssets } from "./StylesProfile";
+import { globalStyles } from "@styles";
 import { GradientBackground, CustomSpiritualButton } from "@components";
 import { getFriendlyError } from "@utils";
 import { Colors, Fonts } from "@constants";
@@ -55,7 +56,7 @@ export const ForgotPasswordScreen = ({ navigation }) => {
           behavior={Platform.OS === "ios" ? "padding" : "height"}
           keyboardVerticalOffset={80} // tweak if needed for your layout
         >
-          <View style={styles.container}>
+          <View style={globalStyles.container}>
             <Text style={styles.title}>Reset Your Password</Text>
 
             <TextInput

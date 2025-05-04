@@ -14,12 +14,14 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Platform,
+  ScrollView,
 } from "react-native";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db } from "@config/firebaseConfig";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { getFriendlyError } from "@utils";
 import { styles, profileAssets } from "./StylesProfile";
+import { globalStyles } from "@styles";
 import { GradientBackground, ScrollContainer } from "@components";
 import { Colors, Fonts } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
@@ -100,7 +102,7 @@ export const SignUpScreen = ({ navigation }) => {
             behavior={Platform.OS === "ios" ? "padding" : "height"}
             keyboardVerticalOffset={80} // tweak if needed for your layout
           >
-            <View style={styles.container}>
+            <View style={globalStyles.container}>
               <View style={styles.headingContainer}>
                 <Text style={styles.heading}>Create Account</Text>
                 <TouchableOpacity

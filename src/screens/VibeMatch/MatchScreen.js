@@ -9,6 +9,7 @@ import { loadResults } from "@utils";
 import { Colors } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./MatchScreen.styles";
+import { globalStyles } from "@styles";
 
 export const MatchScreen = ({ route }) => {
   useAmbientControlForScreen(true);
@@ -85,7 +86,7 @@ export const MatchScreen = ({ route }) => {
     <GradientBackground
       colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
-      <View style={styles.container}>
+      <View style={globalStyles.container}>
         <Text style={styles.title}>Vibe Match</Text>
         <View>
           <Text style={styles.resultText}>

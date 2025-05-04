@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, ScrollView } from "react-native";
 import { useAnalysis } from "@context";
 import { GradientBackground, CustomSpiritualButton, CloseX } from "@components";
-import { getVibeDetails } from "@utils";
+import { vibrationLevels } from "@data";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./ResultDetailsScreen.styles";
 import { globalStyles } from "@styles";
@@ -24,21 +24,25 @@ export const ResultDetailScreen = ({ navigation }) => {
   const [label4, setLabel4] = useState();
   const [label5, setLabel5] = useState();
 
+  const getVibrationInfo = (score) =>
+    vibrationLevels.find((level) => score >= level.minScore);
+
   useEffect(() => {
-    const details = getVibeDetails(overallVibrationScore);
-    if (details) {
-      setOverallLabel(details.label);
-      setOverallText1(details.text1);
-      setLabel2(details.label2);
-      setOverallText2(details.text2);
-      setLabel3(details.label3);
-      setOverallText3(details.text3);
-      setLabel4(details.label4);
-      setOverallText4(details.text4);
-      setLabel5(details.label5);
-      setOverallText5(details.text5);
-      setColor(details.color);
-      setColor2(details.color2);
+    const result = getVibrationInfo(overallVibrationScore);
+    if (!result) return;
+    if (result) {
+      setOverallLabel(result.label);
+      setOverallText1(result.text1);
+      setLabel2(result.label2);
+      setOverallText2(result.text2);
+      setLabel3(result.label3);
+      setOverallText3(result.text3);
+      setLabel4(result.label4);
+      setOverallText4(result.text4);
+      setLabel5(result.label5);
+      setOverallText5(result.text5);
+      setColor(result.color);
+      setColor2(result.color2);
     }
   }, []);
 

@@ -18,6 +18,7 @@ import {
   Platform,
   Switch,
   Animated,
+  ScrollView,
 } from "react-native";
 import {
   getBiometricOptIn,
@@ -31,6 +32,7 @@ import { useUserProfile, useAuth } from "@context";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "@config/firebaseConfig";
 import { styles, profileAssets } from "./StylesProfile";
+import { globalStyles } from "@styles";
 import {
   saveMusicPreference,
   getMusicPreference,

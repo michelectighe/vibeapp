@@ -100,16 +100,8 @@ export const GuidedMeditationScreen = () => {
       colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
       {/* <GestureDetector gesture={swipeGesture}> */}
-      <SafeAreaView
-        style={{
-          flex: 1,
-          alignItems: "center",
-          alignContent: "center",
-          backgroundColor: "transparent",
-        }}
-        edges={["bottom"]}
-      >
-        <View style={styles.titleWrapper}>
+      <View style={globalStyles.container}>
+        <View style={globalStyles.titleWrapper}>
           <Text style={[styles.title, { fontSize: 30 }]}>
             Guided Meditations
           </Text>
@@ -134,7 +126,7 @@ export const GuidedMeditationScreen = () => {
             </View>
           ))}
         </ScrollView>
-      </SafeAreaView>
+      </View>
       {/* </GestureDetector> */}
     </GradientBackground>
   );

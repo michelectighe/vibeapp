@@ -16,8 +16,14 @@ import {
   StyleSheet,
   View,
 } from "react-native";
+import { Fonts, Colors } from "@constants";
 
-export const CustomSpiritualButton = ({ label, onPress, color, textColor }) => {
+export const CustomSpiritualButton = ({
+  label,
+  onPress,
+  color = Colors.buttonBackground,
+  textColor = Colors.lightText,
+}) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -56,7 +62,6 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 18,
-    fontWeight: "600",
-    // color: "#fff",
+    fontFamily: Fonts.body,
   },
 });

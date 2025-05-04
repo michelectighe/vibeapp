@@ -19,7 +19,7 @@ const rawStyles = {
     marginTop: "5%",
     marginBottom: 50,
     textAlign: "center",
-    color: Colors.textPrimary,
+    color: Colors.lightText,
     fontFamily: Fonts.AppFont,
     padding: 30,
     fontSize: 24,

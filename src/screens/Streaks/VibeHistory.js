@@ -16,6 +16,7 @@ import { getAuth } from "firebase/auth";
 import { Colors, Fonts } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./VibeHistory.styles";
+import { globalStyles } from "@styles";
 
 export const VibeHistoryScreen = ({ navigation }) => {
   useAmbientControlForScreen(true);
@@ -84,7 +85,7 @@ export const VibeHistoryScreen = ({ navigation }) => {
     <GradientBackground
       colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
-      <View style={styles.container}>
+      <View style={globalStyles.container}>
         <View style={styles.innerContainer}>
           <ResultSelector
             results={results}

@@ -35,12 +35,16 @@ import { useVoiceRecording } from "@features/voiceAnalysis/VoiceRecording";
 //import { useFaceDetector } from "react-native-vision-camera-face-detector";
 import {
   FuzzyGlow,
+  FuzzyRectangleGlow,
   GradientBackground,
   CustomSpiritualButton,
+  SparkleOverlay,
 } from "@components";
+import { SectionLayout } from "@/components/SectionLayout";
 import { Fonts, Colors } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./EmotionalStateScreen.styles";
+import { globalStyles } from "@styles";
 
 const phrases = [
   "Try not to look suspicious",
@@ -428,24 +432,27 @@ export const EmotionalStateScreen = () => {
     <GradientBackground
       colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
-      <View style={styles.container}>
+      <View style={globalStyles.container}>
         <View style={styles.innerContainer}>
           {device ? (
             selectedFormat ? (
               // Render camera preview
-              <View
-                style={[
-                  styles.cameraWrapper,
-                  { backgroundColor: "transparent", width: "100%" },
-                ]}
-              >
-                {/* Glow behind the circular view */}
-                <FuzzyGlow
-                  glowSize={400}
+              <View style={styles.glowWrapper}>
+                <FuzzyRectangleGlow
+                  width={250}
+                  height={300}
                   glowColor="white"
-                  pulse={false}
-                  style={styles.fuzzyGlow}
+                  style={{
+                    top: "50%",
+                    left: "50%",
+                    pulse: true,
+                    transform: [
+                      { translateX: -225 }, // (250 + 200) / 2
+                      { translateY: -250 }, // (300 + 200) / 2
+                    ],
+                  }}
                 />
+                <SparkleOverlay width={250} height={300} />
                 <View style={styles.cameraContainer}>
                   {/* Camera view */}
                   <View style={styles.cameraView}>
@@ -455,7 +462,7 @@ export const EmotionalStateScreen = () => {
                         ref={cameraEmotionRef}
                         style={styles.cameraStyle}
                         device={isFocused && device}
-                        isActive={isFocused /*&& model != null*/}
+                        isActive={isFocused}
                         onInitialized={() => {
                           setCameraReady(true);
                         }}

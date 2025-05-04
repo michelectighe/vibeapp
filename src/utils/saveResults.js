@@ -1,5 +1,5 @@
 // utils/saveResults.js
-import { saveResult as saveToLocalDB } from "@database/database";
+import { saveResult as saveToLocalDB } from "@database";
 import {
   getFirestore,
   collection,

@@ -12,6 +12,7 @@ import {
   Platform,
   Button,
   InteractionManager,
+  ScrollView,
 } from "react-native";
 import {
   AppleButton,
@@ -31,6 +32,7 @@ import { useAuth } from "@context";
 import { GradientBackground, CustomSpiritualButton } from "@components";
 import { Fonts, Colors } from "@constants";
 import { styles, profileAssets } from "./StylesProfile";
+import { globalStyles } from "@styles";
 import {
   getBiometricOptIn,
   saveBiometricOptIn,
@@ -167,7 +169,7 @@ export const SignInScreen = ({ navigation, returnTo }) => {
     <GradientBackground
       colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
-      <View style={styles.container}>
+      <View style={globalStyles.container}>
         <Text style={styles.heading}>Sign In</Text>
 
         <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

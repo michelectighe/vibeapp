@@ -16,6 +16,7 @@ import { cleanupMedia } from "@utils";
 import { Colors } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./VibeCheckScreen.styles";
+import { globalStyles } from "@styles";
 
 export const VibeCheckScreen = () => {
   useAmbientControlForScreen(false);
@@ -51,7 +52,7 @@ export const VibeCheckScreen = () => {
       colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
       <SafeAreaView style={{ flex: 1 }} edges={["bottom"]}>
-        <View style={styles.container}>
+        <View style={globalStyles.container}>
           <HomeButton />
           <View style={styles.content}>
             <Text style={styles.descriptionText}>

@@ -14,6 +14,7 @@ import { Colors } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
 import { EnvironmentProvider, MotionProvider } from "@context";
 import { styles } from "./HeartRateScreen.styles";
+import { globalStyles } from "@styles";
 
 function HeartRateScreenInner() {
   const route = useRoute();

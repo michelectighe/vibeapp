@@ -34,10 +34,12 @@ export const VibeKeyHome = () => {
     <GradientBackground
       colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
-      <View style={styles.topContainer}>
-        <Text style={styles.welcomeText}>
-          Welcome Back, {profile?.displayName || "friend"}
-        </Text>
+      <View style={globalStyles.container}>
+        <View style={globalStyles.titleWrapper}>
+          <Text style={globalStyles.title}>
+            Welcome Back, {profile?.displayName || "friend"}
+          </Text>
+        </View>
 
         <ScrollView
           style={globalStyles.scrollView}

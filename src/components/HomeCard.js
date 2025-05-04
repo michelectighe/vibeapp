@@ -2,6 +2,7 @@ import React from "react";
 import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import FastImage from "react-native-fast-image";
+import { Fonts } from "@constants";
 
 export const HomeCard = ({
   title,
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 5,
     left: 10,
-    backgroundColor: "transparent", 
+    backgroundColor: "transparent",
     padding: 12,
     borderRadius: 12,
   },
@@ -80,10 +81,12 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: "600",
+    fontFamily: Fonts.Body,
   },
   subtitle: {
     fontSize: 14,
     marginTop: 4,
+    fontWeight: "700",
+    fontFamily: Fonts.Body,
   },
 });
-

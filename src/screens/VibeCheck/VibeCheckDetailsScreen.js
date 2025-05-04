@@ -21,6 +21,7 @@ import { useRoute } from "@react-navigation/native";
 import { ExpandableItem } from "@utils";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./VibeCheckDetailsScreen.styles";
+import { globalStyles } from "@styles";
 
 export const VibeCheckDetailsScreen = () => {
   useAmbientControlForScreen(false);
@@ -93,7 +94,7 @@ export const VibeCheckDetailsScreen = () => {
       colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
       <SafeAreaView style={{ flex: 1 }} edges={["bottom"]}>
-        <View style={styles.container}>
+        <View style={globalStyles.container}>
           <ScrollView
             style={globalStyles.scrollView}
             contentContainerStyle={globalStyles.scrollContent}

@@ -28,7 +28,10 @@ export const vibeHomeCards = [
     subtitle: "See how consistent you’ve been",
     //   icon: "flame-outline",
     image: require("@assets/images/home/streaks.png"),
-    screen: "Streaks", // placeholder
+    screen: {
+      name: "StreakStack", // <- This is the tools stack name
+      params: { screen: "StreakScreen" }, // <- This is the nested screen
+    },
     textColor: Colors.lightText,
   },
   {

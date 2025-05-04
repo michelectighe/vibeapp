@@ -3,11 +3,13 @@ import { View, StyleSheet } from "react-native";
 import { LinearGradient } from "react-native-linear-gradient";
 import { AnimatedLogoSmall } from "./AnimatedLogoSmall";
 import { FloatingFeather } from "./FloatingFeather";
+import { globalStyles } from "@/styles";
+
 export const GradientBackground = ({ children, colors, logo = true }) => {
   const gradientColors = colors || ["#5E2B97", "#B18BD7", "#5E2B97"];
 
   return (
-    <View style={styles.container}>
+    <View style={globalStyles.container}>
       <LinearGradient colors={gradientColors} style={styles.gradient}>
         <FloatingFeather startX={0} delay={0} />
         <FloatingFeather startX={0.1} delay={1000} />
@@ -30,12 +32,9 @@ const styles = StyleSheet.create({
   gradient: {
     flex: 1,
     width: "100%",
-    //    justifyContent: "center",
-    alignItems: "stretch",
   },
   content: {
     flex: 1,
     width: "100%",
-    alignItems: "stretch",
   },
 });

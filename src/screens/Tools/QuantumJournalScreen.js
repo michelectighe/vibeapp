@@ -48,7 +48,7 @@ export const QuantumJournalScreen = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={globalStyles.container}>
       <Text style={styles.title}>Quantum Journal</Text>
       <Text style={styles.prompt}>{animatedText}</Text>
 

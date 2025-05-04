@@ -34,7 +34,7 @@ export const AnimatedLogo = () => {
   return (
     <View style={styles.logoContainer}>
       <Animated.Image
-        source={require("@assets/images/dots.png")}
+        source={require("@assets/images/dots.webp")}
         style={[
           styles.dots,
           {

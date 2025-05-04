@@ -6,15 +6,16 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 const rawStyles = {
   container: {
     flex: 1,
+    marginTop: "25%",
     width: "100%",
-    height: 160,
+    height: "100%",
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "transparent",
   },
   cameraContainer: {
-    marginTop: -30,
-    width: 120,
+    marginTop: 0,
+    width: "120",
     height: 120,
     borderRadius: 80,
     backgroundColor: "#ccc",
@@ -87,6 +88,6 @@ const rawStyles = {
     right: 0,
     width: "90%",
   },
-  };
+};
 
-  export const styles = StyleSheet.create(scaledStyle(rawStyles));
+export const styles = StyleSheet.create(scaledStyle(rawStyles));

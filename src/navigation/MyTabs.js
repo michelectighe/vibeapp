@@ -10,6 +10,7 @@ import { SettingsStack } from "./SettingsStack";
 import { VibeCheckStack } from "./VibeCheckStack";
 import { VibeMatchStack } from "./VibeMatchStack";
 import { MeditationStack } from "./MeditationStack";
+import { StreakStack } from "./StreakStack";
 import { ToolsStack } from "./ToolsStack";
 import { Ionicons } from "@expo/vector-icons";
 import LinearGradient from "react-native-linear-gradient";
@@ -26,7 +27,6 @@ export const MyTabs = () => {
       screenOptions={({ route }) => ({
         tabBarStyle: {
           position: "absolute",
-
           marginLeft: 0,
           borderTopWidth: 0,
           backgroundColor: "white",
@@ -39,8 +39,8 @@ export const MyTabs = () => {
         headerShown: false,
         tabBarBackground: () => (
           <LinearGradient
-            colors={[Colors.gradient1, Colors.gradient2]}
-            style={{ flex: 1, opacity: 0.8 }}
+            colors={[Colors.gradient2, Colors.gradient1]}
+            style={{ flex: 1, opacity: 1 }}
           />
         ),
         tabBarIconStyle: {
@@ -106,18 +106,38 @@ export const MyTabs = () => {
       <Tab.Screen
         name="VibeCheck"
         component={VibeCheckStack}
+        options={{
+          tabBarLabel: "Check",
+        }}
         screenOptions={({ navigation }) => ({
           headerShown: false,
           tabBarStyle: { display: "none" },
         })}
       />
       <Tab.Screen name="Scan" component={MeditationStack} />
-      <Tab.Screen name="VibeMatch" component={VibeMatchStack} />
-      <Tab.Screen name="InnerWork" component={ToolsStack} />
+      <Tab.Screen
+        name="VibeMatch"
+        component={VibeMatchStack}
+        options={{ tabBarLabel: "Match" }}
+      />
+      <Tab.Screen
+        name="InnerWork"
+        component={ToolsStack}
+        options={{ tabBarLabel: "Journey" }}
+      />
       <Tab.Screen
         name="Settings"
         component={SettingsStack}
         options={{ tabBarLabel: () => null }}
+      />
+      <Tab.Screen
+        name="StreakStack"
+        component={StreakStack}
+        options={{
+          tabBarItemStyle: { display: "none" },
+          tabBarButton: () => null, // Hides button
+          //   tabBarStyle: { display: "none" }, // Only use this if you want to hide the bar entirely
+        }}
       />
     </Tab.Navigator>
   );

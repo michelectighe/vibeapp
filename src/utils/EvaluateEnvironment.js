@@ -6,31 +6,31 @@ export function evaluateEnvironment({ soundLevelDb, magnetometerValue }) {
   // //console.log("eval this mag:", magnetometerValue);
 
   if (soundScore >= 80) {
-    soundLabel = "whispering stillness";
+    soundLabel = "Whispering stillness";
   } else if (soundScore >= 55) {
-    soundLabel = "soft hum of life";
+    soundLabel = "Soft hum of life";
   } else if (soundScore >= 45) {
-    soundLabel = "energetic surroundings";
+    soundLabel = "Energetic surroundings";
   } else {
-    soundLabel = "chaotic vibration";
+    soundLabel = "Chaotic vibration";
   }
 
   // MAGNETOMETER SCORE
   let magnetometerScore = 0;
-  let magnetometerLabel = "interference";
+  let magnetometerLabel = "Interference";
 
   if (magnetometerValue === 0 || isNaN(magnetometerValue)) {
     magnetometerScore = 10;
     magnetometerLabel = ""; // invalid
   } else if (magnetometerValue >= 25 && magnetometerValue <= 65) {
     magnetometerScore = 100;
-    magnetometerLabel = "natural resonance";
+    magnetometerLabel = "Natural resonance";
   } else if (magnetometerValue > 65 && magnetometerValue < 100) {
     magnetometerScore = 50;
-    magnetometerLabel = "urban pulse";
+    magnetometerLabel = "Urban pulse";
   } else if (magnetometerValue >= 100) {
     magnetometerScore = 20;
-    magnetometerLabel = "electric tension";
+    magnetometerLabel = "Electric tension";
   } else {
     magnetometerScore = 30;
     magnetometerLabel = ""; // uncertain
@@ -39,11 +39,11 @@ export function evaluateEnvironment({ soundLevelDb, magnetometerValue }) {
   // OVERALL SCORE
   const overallScore = Math.round((soundScore + magnetometerScore) / 2);
 
-  let overallLabel = "poor";
-  if (overallScore >= 80) overallLabel = "excellent";
-  else if (overallScore >= 60) overallLabel = "good";
-  else if (overallScore >= 40) overallLabel = "fair";
-  else overallLabel = "poor";
+  let overallLabel = "Poor location";
+  if (overallScore >= 80) overallLabel = "Excellent location";
+  else if (overallScore >= 60) overallLabel = "Good location";
+  else if (overallScore >= 40) overallLabel = "Fair location";
+  else overallLabel = "Poor location";
 
   return {
     sound: {

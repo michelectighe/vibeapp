@@ -2,6 +2,7 @@
 import React, { useRef, useEffect } from "react";
 import { View, Text, Animated, Easing, TouchableOpacity } from "react-native";
 import { styles } from "./EntangledSelfScreen.styles";
+import { globalStyles } from "@styles";
 import { useAmbientControlForScreen } from "@hooks";
 
 export const EntangledSelfScreen = () => {
@@ -48,7 +49,7 @@ export const EntangledSelfScreen = () => {
   }, []);
 
   return (
-    <View style={styles.container}>
+    <View style={globalStyles.container}>
       <Text style={styles.title}>Entangled Self</Text>
       <Text style={styles.subtitle}>You are not alone. You never were.</Text>
 

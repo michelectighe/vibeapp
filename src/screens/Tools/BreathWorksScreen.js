@@ -8,13 +8,14 @@ import {
 import { BREATH_PATTERNS, Colors } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./BreathWorksScreen.styles";
+import { globalStyles } from "@styles";
 
 export const BreathWorksScreen = () => {
   useAmbientControlForScreen(true);
   const [selectedPattern, setSelectedPattern] = useState(BREATH_PATTERNS[0]);
 
   return (
-    <View style={styles.container}>
+    <View style={globalStyles.container}>
       <GradientBackground
         colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
         logo={false}

@@ -9,7 +9,7 @@ const rawStyles = {
   },
   scrollView: {
     paddingHorizontal: 16,
-    marginTop: 40,
+    marginTop: 50,
   },
   contentContainer: {
     paddingBottom: 160,

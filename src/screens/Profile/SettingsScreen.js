@@ -15,6 +15,7 @@ import { useAmbientControlForScreen } from "@hooks";
 import { Fonts, Colors } from "@constants";
 import { globalStyles } from "@styles";
 
+
 export const SettingsScreen = ({ navigation }) => {
   useAmbientControlForScreen(true);
   const { signOut, user } = useAuth();

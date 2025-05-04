@@ -33,6 +33,7 @@ import { MEDITATION_SCREENS } from "@navigation/screens";
 import { useRoute } from "@react-navigation/native";
 import { ExpandableItem } from "@utils";
 import { styles } from "./MeditationScreen.styles";
+import { globalStyles } from "@styles";
 
 const { width } = Dimensions.get("window");
 
@@ -147,7 +148,7 @@ export const MeditationScreen = ({ navigation }) => {
   ];
 
   return (
-    <SafeAreaView style={{ flex: 1 }} edges={["bottom"]}>
+    <View style={globalStyles.container}>
       {/* <GestureDetector gesture={swipeGesture}> */}
       <View
         style={{ flex: 1, width: "100%", height: "100%" }}
@@ -179,7 +180,7 @@ export const MeditationScreen = ({ navigation }) => {
                   position: "absolute",
                   top: "10%",
                   fontFamily: "AppTitleFont",
-                  fontSize: 16,
+                  fontSize: 24,
                   width: "90%",
                   textAlign: "center",
                   color: "#362819",
@@ -197,7 +198,7 @@ export const MeditationScreen = ({ navigation }) => {
                   top: "43%",
                   //   fontWeight: "bold",
                   fontFamily: "AppTitleFont",
-                  fontSize: 16,
+                  fontSize: 24,
                   width: "90%",
                   textAlign: "center",
                   color: "white",
@@ -216,7 +217,7 @@ export const MeditationScreen = ({ navigation }) => {
                   //   right: 0,
                   alignItems: "center",
                   fontFamily: "AppTitleFont",
-                  fontSize: 16,
+                  fontSize: 24,
                   width: "90%",
                   textAlign: "center",
                   color: "#362819",
@@ -234,7 +235,7 @@ export const MeditationScreen = ({ navigation }) => {
                   // left: 0,
                   // right: 0,
                   alignItems: "center",
-                  fontSize: 16,
+                  fontSize: 24,
                   width: "90%",
                   textAlign: "center",
                   color: "#362819",
@@ -281,6 +282,6 @@ export const MeditationScreen = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       {/* </GestureDetector> */}
-    </SafeAreaView>
+    </View>
   );
 };

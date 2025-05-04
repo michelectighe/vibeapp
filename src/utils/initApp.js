@@ -1,6 +1,6 @@
 import Purchases from "react-native-purchases";
 import { Platform } from "react-native";
-import { initializeDatabase } from "@database/database";
+import { initializeDatabase } from "@database";
 import { auth } from "@config/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 import { loadTensorflowModel } from "react-native-fast-tflite";
@@ -16,12 +16,13 @@ export const initApp = async ({ setModel }) => {
     //console.log("🌀 Initializing app...");
 
     await Font.loadAsync({
-      Orbitron: require("@assets/fonts/Orbitron-Regular.ttf"),
-      AppFont: require("@assets/fonts/Orbitron-Regular.ttf"),
-      //AppFont: require("@assets/fonts/Quicksand-regular.ttf"),
+      AppFontRegular: require("@assets/fonts/Nunito-Regular.ttf"),
+      AppFontBold: require("@assets/fonts/Nunito-Bold.ttf"),
+      AppFontItalic: require("@assets/fonts/Nunito-Bold.ttf"),
       AppItalic: require("@assets/fonts/Raleway-Italic-VariableFont_wght.ttf"),
       AppTitleFont: require("@assets/fonts/Quicksand-regular.ttf"),
-      TypeWriterText: require("@assets/fonts/GreatVibes-Regular.ttf"),
+      TypeWriterText: require("@assets/fonts/HomemadeApple-Regular.ttf"),
+      JournalText: require("@assets/fonts/HomemadeApple-Regular.ttf"),
     });
     //   console.log("✅ Fonts loaded");
 

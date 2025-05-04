@@ -4,25 +4,17 @@ import { scaledStyle } from "@utils";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 
 const rawStyles = {
-  container: {
-    flex: 1,
-    marginTop: -50,
-    width: "100%",
-    height: "100%",
-    alignItems: "center",
-    //    justifyContent: "center",
-  },
-  background: {
-    flex: 1,
-    width: "100%",
-    height: "100%",
-  },
   innerContainer: {
+    position: "absolute",
+    top: "15%",
     alignItems: "center",
     width: "100%",
     height: "100%",
+    marginTop: 0,
+    backgroundColor: "red"
   },
-  cameraWrapper: {
+  glowWrapper: {
+    width: "100%",
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "transparent",
@@ -30,11 +22,11 @@ const rawStyles = {
   cameraContainer: {
     width: "60%",
     aspectRatio: 3 / 4,
-    borderRadius: 30, 
+    borderRadius: 30,
     overflow: "hidden",
-    backgroundColor: "transparent", 
+    backgroundColor: "transparent",
     elevation: 10,
-    marginTop: 40,
+    marginTop: 0,
     backdropFilter: Platform.OS === "web" ? "blur(10px)" : undefined,
     alignItems: "center",
     justifyContent: "center",
@@ -81,11 +73,11 @@ const rawStyles = {
     color: "#fff", // Adjust according to themeColors if needed
   },
   promptText: {
-    fontSize: 28,
+    fontSize: 20,
     textAlign: "center",
     marginTop: 20,
     color: Colors.lightText,
-    fontFamily: Fonts.Script,
+    fontFamily: Fonts.AppFont,
     letterSpacing: 1,
   },
 
@@ -109,23 +101,15 @@ const rawStyles = {
     fontStyle: "italic",
     textAlign: "center",
     color: Colors.lightText,
-    fontFamily: "TypeWriterText",
+    fontFamily: Fonts.AppFont,
   },
-
   continueContainer: {
     position: "absolute",
-    bottom: 50,
+    bottom: 100,
     width: "100%",
     paddingHorizontal: 20,
     marginBottom: 30,
     alignItems: "center",
-  },
-
-  recordButton: {
-    color: "black",
-    padding: 12,
-    borderRadius: 8,
-    textAlign: "center",
   },
 };
 

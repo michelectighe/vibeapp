@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
   View,
-  Image,
   TouchableOpacity,
   Text,
   ImageBackground,
   ActivityIndicator,
   SafeAreaView,
 } from "react-native";
+import FastImage from "react-native-fast-image";
 import { playTrack } from "@services";
 import { useAnalysis } from "@context";
 import { Ionicons } from "@expo/vector-icons";
@@ -17,6 +17,7 @@ import { vibrationLevels } from "@data";
 import { Colors } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./ResultsScreen.styles";
+import { globalStyles } from "@styles";
 
 Text.defaultProps = Text.defaultProps || {};
 Text.defaultProps.allowFontScaling = false;
@@ -103,7 +104,7 @@ export const ResultsScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container} edges={["bottom"]}>
+    <SafeAreaView style={globalStyles.container} edges={["bottom"]}>
       <CloseX
         xColor={overallColor}
         onPress={() =>
@@ -132,7 +133,7 @@ export const ResultsScreen = ({ navigation }) => {
             onPress={() => navigation.navigate("ResultDetails")}
             style={styles.infoButton}
           >
-            <Image
+            <FastImage
               source={infoImage}
               style={styles.infoImage}
               resizeMode="contain"

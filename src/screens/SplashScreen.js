@@ -5,6 +5,7 @@ import { View, Animated, Easing } from "react-native";
 import { AnimatedLogo, GradientBackground } from "@components";
 import { Colors } from "@constants";
 import { styles } from "./SplashScreen.styles";
+import { globalStyles } from "@styles";
 
 export const SplashScreen = ({ navigation, route }) => {
   const { model, setModel } = useModel();
@@ -65,7 +66,7 @@ export const SplashScreen = ({ navigation, route }) => {
         colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
         logo={false}
       >
-        <View style={styles.container}>
+        <View style={globalStyles.container}>
           <AnimatedLogo />
         </View>
       </GradientBackground>

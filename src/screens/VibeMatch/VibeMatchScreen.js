@@ -5,6 +5,7 @@ import { VIBE_MATCH_SCREENS } from "@navigation/screens";
 import { HomeButton } from "@components";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./VibeMatchScreen.styles";
+import { globalStyles } from "@styles";
 
 export const VibeMatchScreen = ({ navigation }) => {
   useAmbientControlForScreen(true);
@@ -26,7 +27,7 @@ export const VibeMatchScreen = ({ navigation }) => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={globalStyles.container}>
       <ImageBackground
         style={styles.background}
         source={backgroundImage}

@@ -1,6 +1,8 @@
 export const Fonts = {
-  Title: "AppTitleFont",
-  Body: "AppFont",
+  Title: "AppFontBold",
+  AppFont: "AppFontRegular",
+  AppFontBold: "AppFontBold",
+  AppFontItalic: "AppFontItalic",
   Italic: "AppItalic",
   Script: "TypeWriterText",
 };

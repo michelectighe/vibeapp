@@ -1,16 +1,26 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import { VibeHistoryScreen } from "@screens";
+import { VibeHistoryScreen, StreakScreen } from "@screens";
 
-export const StreakStack =() => {
+export const StreakStack = () => {
   const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator
-      initialRouteName="VibeHistory"
+      initialRouteName="StreakScreen"
       screenOptions={({ navigation }) => ({
         headerShown: false,
       })}
     >
+      <Stack.Screen
+        name="StreakScreen"
+        component={StreakScreen}
+        options={{
+          headerShown: false,
+          tabBarVisible: true,
+          tabBarStyle: { display: "flex" },
+          title: "",
+        }}
+      />
       <Stack.Screen
         name="VibeHistory"
         component={VibeHistoryScreen}
@@ -23,4 +33,4 @@ export const StreakStack =() => {
       />
     </Stack.Navigator>
   );
-}
+};

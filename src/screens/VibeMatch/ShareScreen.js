@@ -7,6 +7,7 @@ import { createMatchLink } from "@services";
 import { Colors } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./ShareScreen.styles";
+import { globalStyles } from "@styles";
 
 export const ShareScreen = ({ navigation }) => {
   useAmbientControlForScreen(true);
@@ -47,7 +48,7 @@ export const ShareScreen = ({ navigation }) => {
     <GradientBackground
       colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
-      <View style={styles.container}>
+      <View style={globalStyles.container}>
         <View style={styles.innerContainer}>
           <ResultSelector
             results={results}

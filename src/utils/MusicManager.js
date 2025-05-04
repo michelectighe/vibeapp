@@ -34,6 +34,7 @@ export const MusicManager = () => {
 
         if (userMusicPref && shouldPlayAmbient) {
           await playTrack(); // this will play default ambient (with no flags)
+          fadeInMusic();
         }
       } catch (err) {
         console.error("❌ Error during music init:", err);
@@ -56,6 +57,7 @@ export const MusicManager = () => {
 
           if (userMusicPref && shouldPlayAmbient) {
             await playTrack(); // this will play default ambient (with no flags)
+            fadeInMusic();
           }
         } else if (nextAppState.match(/inactive|background/)) {
           // App going to background

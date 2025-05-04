@@ -12,6 +12,7 @@ import { useAnalysis } from "@context";
 import { FuzzyGlow, EdgeGlow } from "@components";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./ChakraScreen.styles";
+import { globalStyles } from "@styles";
 
 const chakraMeta = [
   { id: "root", name: "Root", color: "#e53935" },

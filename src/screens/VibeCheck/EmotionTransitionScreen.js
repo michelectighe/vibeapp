@@ -4,6 +4,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { useWindowDimensions } from "react-native";
 import { VIBE_CHECK_SCREENS } from "@navigation/screens";
 import { styles } from "./EmotionalTransitionScreen.styles";
+import { globalStyles } from "@styles";
 import {
   GradientBackground,
   TypewriterText,
@@ -39,13 +40,15 @@ export const EmotionTransitionScreen = () => {
     <GradientBackground
       colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
-      <View style={styles.container}>
+      <View style={globalStyles.container}>
         {/* Quote */}
-        <TypewriterText
-          text={currentSaying}
-          delay={50}
-          style={styles.quoteText}
-        />
+        <View style={styles.typeWriterContainer}>
+          <TypewriterText
+            text={currentSaying}
+            delay={50}
+            style={styles.quoteText}
+          />
+        </View>
       </View>
     </GradientBackground>
   );

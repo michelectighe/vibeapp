@@ -10,6 +10,7 @@ import { useNavigation, useRoute } from "@react-navigation/native";
 import { Fonts, Colors, chakraInsights } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./ChakraDetailModal.styles";
+import { globalStyles } from "@styles";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 

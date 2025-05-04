@@ -1,18 +1,23 @@
 import React, { useRef, useCallback } from "react";
-import { Animated, View, Text, SafeAreaView } from "react-native";
+import { View, Text, ScrollView, SafeAreaView, Animated } from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { useUserProfile, useAuth } from "@context";
-import { GradientBackground, CustomSpiritualButton } from "@components";
+import {
+  GradientBackground,
+  SectionLayout,
+  CustomSpiritualButton,
+  AnimatedHorizontalScroll,
+} from "@components";
 import { Colors } from "@constants";
+import { welcomeCards } from "@data";
 import { styles } from "./WelcomeScreen.styles";
+import { globalStyles } from "@styles";
 
 export const WelcomeScreen = () => {
-  const positionY = useRef(new Animated.Value(-100)).current;
+  const positionY = useRef(new Animated.Value(-30)).current;
   const navigation = useNavigation();
   const { profile, loading } = useUserProfile();
   const { user } = useAuth();
-
-  if (loading) return <Text>Loading...</Text>;
 
   useFocusEffect(
     useCallback(() => {
@@ -25,33 +30,81 @@ export const WelcomeScreen = () => {
     }, [])
   );
 
-  return (
-    <SafeAreaView style={styles.fullScreenContainer} edges={["bottom"]}>
-      <GradientBackground
-        colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
-      >
-        <View style={styles.topContainer}>
-          <Text style={styles.welcomeText}>Welcome</Text>
-          <Text style={styles.welcomeQuestion}>
-            Wondering what your vibrational frequency is?
-          </Text>
-        </View>
+  const slideAnim = useRef(new Animated.Value(300)).current;
 
-        <View style={styles.buttonWrapper}>
-          <CustomSpiritualButton
-            label="Sign Up"
-            onPress={() => navigation.replace("Tabs", { screen: "Home" })}
-            color={Colors.buttonBackground}
-            textColor={Colors.lightText}
-          />
-          <CustomSpiritualButton
-            label="Log In"
-            onPress={() => navigation.replace("Tabs", { screen: "Home" })}
-            color={Colors.buttonBackground}
-            textColor={Colors.lightText}
-          />
-        </View>
-      </GradientBackground>
-    </SafeAreaView>
+  useFocusEffect(
+    useCallback(() => {
+      Animated.timing(slideAnim, {
+        toValue: 0,
+        duration: 1500,
+        useNativeDriver: true,
+      }).start();
+    }, [])
+  );
+
+  if (loading) return <Text>Loading...</Text>;
+
+  return (
+    <GradientBackground
+      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
+    >
+      <SectionLayout
+        topFlex={1}
+        middleFlex={2}
+        bottomFlex={2}
+        topContent={
+          <>
+            <Text style={styles.welcomeText}>Welcome</Text>
+            <Text style={[styles.welcomeText, { fontSize: 18 }]}>
+              Ever wonder what your vibrational frequency is?
+            </Text>
+          </>
+        }
+        middleContent={
+          <AnimatedHorizontalScroll>
+            {welcomeCards.map((card, index) => (
+              <View key={index} style={styles.infoCard}>
+                <Text style={styles.cardTitle}>{card.title}</Text>
+                <Text style={styles.cardDescription}>{card.description}</Text>
+              </View>
+            ))}
+          </AnimatedHorizontalScroll>
+        }
+        bottomContent={
+          <View style={styles.buttonWrapper}>
+            <CustomSpiritualButton
+              label="Log In"
+              onPress={() =>
+                navigation.navigate("Tabs", {
+                  screen: "Settings",
+                  params: {
+                    screen: "SignInScreen",
+                  },
+                })
+              }
+              color={Colors.buttonBackground}
+              textColor={Colors.lightText}
+            />
+            <CustomSpiritualButton
+              label="Sign Up"
+              onPress={() =>
+                navigation.replace("Settings", { screen: "SignUpScreen" })
+              }
+              color={Colors.buttonBackground}
+              textColor={Colors.lightText}
+            />
+            <CustomSpiritualButton
+              label="Continue as Guest"
+              onPress={() => navigation.replace("Tabs", { screen: "Home" })}
+              color={Colors.buttonBackground}
+              textColor={Colors.lightText}
+            />
+            <Text style={[styles.welcomeTextBottom]}>
+              Use VibeKey to Unlock the Energy Behind Your Mood
+            </Text>
+          </View>
+        }
+      />
+    </GradientBackground>
   );
 };

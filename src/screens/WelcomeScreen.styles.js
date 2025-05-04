@@ -4,38 +4,71 @@ import { Colors, Fonts } from "@constants";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 
 const rawStyles = {
-  fullScreenContainer: {
-    flex: 1,
-  },
   topContainer: {
+    flex: 1,
+    marginTop: "10%",
+    width: "100%",
     alignItems: "center",
   },
   welcomeText: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
+    width: "80%",
     textAlign: "center",
     fontSize: 28,
-    color: "white",
-    fontWeight: "600",
-    marginBottom: 10,
+    color: Colors.darkText,
+    // fontWeight: "600",
+    marginBottom: 20,
+    fontFamily: Fonts.AppFontBold,
   },
-  welcomeQuestion: {
-    position: "absolute",
-    top: 100,
-    width: "80%",
-    textAlign: "center",
-    fontSize: 24,
-    color: "white",
+  cardScrollContainer: {
+    marginTop: 30,
+    height: 200,
+  },
+
+  cardScrollContent: {
+    paddingHorizontal: 20,
+  },
+
+  infoCard: {
+    backgroundColor: Colors.cardBackground,
+    borderRadius: 16,
+    padding: 20,
+    marginRight: 16,
+    width: 280,
+    height: "100%",
+    justifyContent: "center",
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 6,
+    elevation: 3,
+  },
+
+  cardTitle: {
+    fontSize: 22,
     fontWeight: "600",
-    marginBottom: 10,
+    color: Colors.darkText,
+    marginBottom: 6,
+    fontFamily: Fonts.AppFont,
+    textAlign: "center",
+  },
+
+  cardDescription: {
+    fontSize: 16,
+    color: Colors.darkText,
+    fontFamily: Fonts.AppFont,
+    textAlign: "justify",
   },
   buttonWrapper: {
-    position: "absolute",
-    bottom: 100,
     alignSelf: "center",
     width: "80%",
+  },
+  welcomeTextBottom: {
+    width: "100%",
+    textAlign: "center",
+    marginTop: 20,
+    fontSize: 14,
+    color: Colors.darkText,
+    fontFamily: Fonts.AppFontBold,
   },
 };
 

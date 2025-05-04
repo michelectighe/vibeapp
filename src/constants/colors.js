@@ -29,7 +29,44 @@ export const Colors = {
   lightText: "#FFFFFF", // #FFFFFF
   darkText: "#000000", // #000000
   mediumText: "#6A7FDB", // #6A7FDB
+  meditationText: "rgb(80, 45, 21)",
 
   matchSimilarCard: "#A3E4D7", // #A3E4D7
   matchDifferentCard: "#E59866", // #E59866
+
+  /******************************************* */
+
+  // 🌿 Tab button colors
+  activeTab: "#0B3D2E", // deep evergreen (main highlight)
+  inactiveTab: "#E6F1EC", // pale sage (soft neutral)
+
+  // 🔘 Button colors
+
+  buttonLightBackground: "#EDE5D0", // soft mint green (for alt buttons)
+  buttonLightBackground: "#EDE5D0", // soft mint green (for alt buttons)
+  buttonBackground: "#103D28", // deep, muted pine green
+  cardBackground: "#EDE5D0",
+  //buttonBackground: "#254D3E", // deep, muted pine green
+
+  // 🌀 Background gradient colors
+  //gradient1: "#0B3D2E", // top: deep racing green
+  //gradient2: "#122D1D", // bottom: blackened pine
+  gradient1: "#E3F4E3", //(very pale sage)
+  gradient2: "#1F5F43", // Muted forest-teal (middle)
+
+  //  gradient2: "#2F7D57", // Muted forest-teal (middle)
+
+  // ✨ Text Colors
+  lightText: "#F1FAF2", // off-white with a hint of green
+  darkText: "#2F4F4F", // forest bark
+  mediumText: "#6ABF8E", // vibrant jade
+  meditationText: "#4A5D4D", // earthy moss brown-green
+
+  // 🌸 Match Result Cards
+  matchSimilarCard: "#B2F2BB", // pastel green (positive)
+  matchDifferentCard: "#F7DC6F", // gold/saffron (contrast/alert)
+
+  stickyNotes: "#e7e43d", //#e7e43d
+
+  background: "transparent",
 };

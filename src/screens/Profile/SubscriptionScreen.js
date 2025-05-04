@@ -6,11 +6,13 @@ import {
   TouchableOpacity,
   StyleSheet,
   ImageBackground,
+  ScrollView,
 } from "react-native";
 import Purchases from "react-native-purchases";
 
 import { setSubscriptionStatus } from "@utils";
 import { styles, profileAssets } from "./StylesProfile";
+import { globalStyles } from "@styles";
 import { ScrollContainer, GradientBackground } from "@components";
 import { Colors, Fonts } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";

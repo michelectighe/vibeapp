@@ -7,6 +7,7 @@ import { useAmbientControlForScreen } from "@hooks";
 import { useNavigation } from "@react-navigation/native";
 import { styles } from "./MetricInfoScreen.styles";
 import { globalStyles } from "@styles";
+import { AnimatedVerticalScroll } from "@/components";
 
 export const MetricInfoScreen = () => {
   useAmbientControlForScreen(false);
@@ -21,8 +22,8 @@ export const MetricInfoScreen = () => {
         <CloseX xColor={Colors.lightText} onPress={() => navigation.goBack()} />
 
         <ScrollView
-          style={globalStyles.scrollView}
-          contentContainerStyle={globalStyles.scrollContent}
+          style={styles.scrollView}
+          contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
         >
           {metricDetails.map((item, index) => (

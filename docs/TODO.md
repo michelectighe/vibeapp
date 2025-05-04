@@ -24,12 +24,12 @@
 
 ### 1. Core Screens Polish
 
-- [ ] EmotionalStateScreen:
+- [x] EmotionalStateScreen:
 - [x] Mirror-style camera view (less rounded)
 - [ ] Soft fuzzy glow behind camera - make it rectangular instead of circle
 - [x] “Say this phrase” with random funny prompts
 - [x] Fade in camera after "Take a breath" overlay (delay & transition tuning)
-- [ ] Confirm scoring logic on all metric screens (motion, environment, etc.)
+- [x] Confirm scoring logic on all metric screens (motion, environment, etc.)
 - [x] Fix Chakra details open
 - [ ] Check hr stable
 - [x] add 2 more buttons for resultdetails (journaling, meditation, sound)
@@ -37,12 +37,12 @@
 ### 2. Layout & styling
 
 - [ ] Choose fonts
-- [ ] Adjustable font sizes
-- [ ] Adjustable layout for phone sizes
-- [ ] Fix colors in colors.js (use only these throughout app.. no hardcoding)
+- [x] Adjustable font sizes
+- [x] Adjustable layout for phone sizes
+- [x] Fix colors in colors.js (use only these throughout app.. no hardcoding)
 - [ ] Figure out logo placement and size
 - [ ] Splash screen
-- [ ] Scroll bar sharpness?
+- [x] Scroll bar sharpness?
 - [ ] Fix feathers
 
 ### 3. Meditation Space Screen Polish
@@ -90,6 +90,7 @@
 
 ### 9. App Flow Testing
 
+- [ ] Welcome screen content and navigation
 - [ ] Full analysis run-through (all metrics, save result)
 - [ ] Skip metric flow: test skipped metrics save correctly
 - [ ] Match result works end-to-end

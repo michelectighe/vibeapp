@@ -18,8 +18,8 @@ import { db } from "@config/firebaseConfig";
 import { GradientBackground, CustomSpiritualButton } from "@components";
 import { Colors, Fonts } from "@constants";
 import { styles, profileAssets } from "./StylesProfile";
-import { useAmbientControlForScreen } from "@hooks";
 import { globalStyles } from "@styles";
+import { useAmbientControlForScreen } from "@hooks";
 
 export const ProfileSetupScreen = ({ navigation }) => {
   useAmbientControlForScreen(true);
@@ -71,7 +71,7 @@ export const ProfileSetupScreen = ({ navigation }) => {
     <GradientBackground
       colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
-      <View style={styles.container}>
+      <View style={globalStyles.container}>
         <Text style={styles.title}>
           Welcome, {user?.displayName || "friend"}
         </Text>

@@ -55,6 +55,7 @@
     "react-native-svg": "^15.11.2",
     "react-native-tflite": "^0.0.2",
     "react-native-track-player": "^4.1.1",
+    "react-native-uuid": "^2.0.3",
     "react-native-vector-icons": "^10.2.0",
     "react-native-vision-camera": "^4.6.4",
     "vision-camera-resize-plugin": "^3.2.0"

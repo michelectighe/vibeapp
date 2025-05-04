@@ -11,10 +11,6 @@ const rawStyles = {
     height: "100%",
     alignItems: "center",
   },
-  titleWrapper: {
-    flex: 1,
-    alignItems: "center",
-  },
   title: {
     color: Colors.lightText,
     fontSize: 24,
@@ -42,13 +38,13 @@ const rawStyles = {
     borderRadius: 20,
   },
   freqText: {
-    color: Colors.textPrimary,
+    color: Colors.lightText,
     fontFamily: Fonts.AppFont,
     fontSize: 24,
     textAlign: "center",
   },
   descriptionText: {
-    color: Colors.textPrimary,
+    color: Colors.lightText,
     fontFamily: Fonts.AppFont,
     fontSize: 12,
     textAlign: "center",
