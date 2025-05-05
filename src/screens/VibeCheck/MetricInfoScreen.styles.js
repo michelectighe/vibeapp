@@ -11,8 +11,13 @@ const rawStyles = {
     paddingHorizontal: 16,
     marginTop: 50,
   },
+  scrollContent: {
+    paddingTop: 0, // this matches the height of your title/logo area
+    paddingHorizontal: 0,
+    paddingBottom: 100,
+  },
   contentContainer: {
-    paddingBottom: 160,
+    paddingBottom: 2000,
   },
   };
 

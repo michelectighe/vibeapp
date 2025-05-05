@@ -11,6 +11,43 @@ const rawStyles = {
     backgroundColor: Colors.background,
     position: "relative",
   },
+  formContainer: {
+    width: SCREEN_WIDTH * .9,
+    alignItems: "stretch",
+  },
+  inputContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "white",
+    borderRadius: 15,
+    paddingHorizontal: 12,
+    marginBottom: 15,
+    width: "100%",
+  },
+  input: {
+    width: "100%",
+    alignItems: "center",
+    backgroundColor: "white",
+    padding: 12,
+    borderRadius: 15,
+    marginBottom: 15,
+    fontSize: 16,
+    //   textAlignVertical: "top",
+  },
+  passwordContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "white",
+    borderRadius: 15,
+    paddingHorizontal: 12,
+    marginBottom: 15,
+    width: "100%",
+  },
+  passwordInput: {
+    flex: 1,
+    paddingVertical: 12,
+    color: "#000",
+  },
   scrollView: {
     position: "absolute",
     top: 0,
@@ -19,7 +56,7 @@ const rawStyles = {
     right: 0,
     zIndex: 1,
   },
-   scrollContent: {
+  scrollContent: {
     paddingTop: 230, // this matches the height of your title/logo area
     paddingHorizontal: 20,
     paddingBottom: 100,
@@ -27,7 +64,7 @@ const rawStyles = {
   titleWrapper: {
     zIndex: 1,
     position: "absolute",
-    top: 130,
+    top: 70,
     left: 0,
     right: 0,
     alignItems: "center",

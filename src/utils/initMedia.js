@@ -8,20 +8,21 @@ export const initMedia = async (
   mode = "audio" // or "soundLevel", or "both"
 ) => {
   try {
-    //console.log("🎙️ Initializing media...");
-    const devices = await Camera.getAvailableCameraDevices();
-    if (!devices || devices.length === 0) {
-      console.warn("No cameras available.");
-      return;
-    }
+    console.log("🎙️ Initializing media...");
+     const devices = await Camera.getAvailableCameraDevices();
+     if (!devices || devices.length === 0) {
+       console.warn("No cameras available.");
+       return;
+     }
 
     // Safe to use the first camera
-    const device = devices[0];
+    // const device = devices[0];
     // Proceed with camera usage...
 
     // Only request camera if we're using it
     if (frameProcessorActiveRef) {
-      const cameraPermission = await Camera.getCameraPermissionStatus();
+      const cameraPermission = Camera.getCameraPermissionStatus();
+      console.log("camera permission:", cameraPermission);
       if (cameraPermission !== "authorized" && cameraPermission !== "granted") {
         const newStatus = await Camera.requestCameraPermission();
         if (newStatus !== "authorized" && newStatus !== "granted")
@@ -35,7 +36,7 @@ export const initMedia = async (
 
     // Mic permission needed for both modes
     if (mode === "audio" || mode === "soundLevel" || mode === "both") {
-      const micPermission = await Camera.getMicrophonePermissionStatus();
+      const micPermission = Camera.getMicrophonePermissionStatus();
       if (micPermission !== "authorized" && micPermission !== "granted") {
         const newStatus = await Camera.requestMicrophonePermission();
         if (newStatus !== "authorized" && newStatus !== "granted")

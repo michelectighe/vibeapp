@@ -5,6 +5,7 @@ import {
   SafeAreaView,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
+import { SCREEN_WIDTH } from "@/utils";
 
 export const SectionLayout = ({
   topContent,
@@ -21,6 +22,7 @@ export const SectionLayout = ({
   const sharedStyle = {
     justifyContent: "center",
     alignItems: "center",
+    width: SCREEN_WIDTH,
   };
 
   return (
@@ -61,13 +63,10 @@ const rawStyles = {
   },
   container: {
     flex: 1,
+    width: SCREEN_WIDTH,
   },
   topPadding: {
-    paddingTop: 40,
-  },
-  bottomPadding: {
-    paddingBottom: 20, // base padding
-    gap: 16,
+    paddingTop: 20,
   },
 };
 

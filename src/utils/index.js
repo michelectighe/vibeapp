@@ -1,5 +1,7 @@
 //src/utils/index.js
 
+import { signInWithApple } from "@/utils/signInWithApple";
+
 //import { useKickJS } from "../hooks/useKickJS";
 export { audioMap } from "./audioMap";
 export {
@@ -44,4 +46,11 @@ export {
   setSubscriptionStatus,
   getSubscriptionStatus,
 } from "./subscriptionUtils";
-export { scale, verticalScale, moderateScale, fontScale, scaledStyle } from "./layout";
+export {
+  scale,
+  verticalScale,
+  moderateScale,
+  fontScale,
+  scaledStyle,
+} from "./layout";
+export { signInWithApple } from "./signInWithApple";

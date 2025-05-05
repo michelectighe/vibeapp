@@ -9,10 +9,11 @@ export const setupPlayer = async () => {
 
 export const playTrack = async (
   id = "ambient",
-  url = require("@assets/audio/Enchantment.mp3"),
+  //  url = require("@assets/audio/Enchantment.mp3"),
+  url = require("@assets/audio/binaural.mp3"),
   title = "Enchantment",
   artist = "VibeKey",
-  vol = 0.5,
+  vol = 0.03,
   fadeIn = true
 ) => {
   await TrackPlayer.reset();
@@ -21,7 +22,7 @@ export const playTrack = async (
   if (fadeIn) {
     await TrackPlayer.setVolume(0); // start silent
     await TrackPlayer.play();
-    await fadeInMusic(vol); // fade to target volume
+    await fadeInMusic((targetVolume = vol)); // fade to target volume
   } else {
     await TrackPlayer.setVolume(vol);
     await TrackPlayer.play();

@@ -9,6 +9,7 @@ import { GradientBackground, HomeCard } from "@components";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./VibeKeyHome.styles";
 import { globalStyles } from "@styles";
+import { SectionLayout } from "@/components";
 
 export const VibeKeyHome = () => {
   useAmbientControlForScreen(true);
@@ -34,6 +35,8 @@ export const VibeKeyHome = () => {
     <GradientBackground
       colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
+
+      
       <View style={globalStyles.container}>
         <View style={globalStyles.titleWrapper}>
           <Text style={globalStyles.title}>

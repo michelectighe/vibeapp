@@ -3,6 +3,8 @@ import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 import FastImage from "react-native-fast-image";
 import { Fonts } from "@constants";
+import { scaledStyle } from "@utils";
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@/utils";
 
 export const HomeCard = ({
   title,
@@ -45,9 +47,9 @@ export const HomeCard = ({
   );
 };
 
-const styles = StyleSheet.create({
+const rawStyles = {
   cardWrapper: {
-    width: 350,
+    width: "100%",
     borderRadius: 12,
     overflow: "hidden",
     marginBottom: 12,
@@ -57,7 +59,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   card: {
-    height: 200,
+    height: SCREEN_HEIGHT * .2,
     borderRadius: 12,
     overflow: "hidden",
     justifyContent: "center",
@@ -89,4 +91,6 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     fontFamily: Fonts.Body,
   },
-});
+};
+
+const styles = StyleSheet.create(scaledStyle(rawStyles));

@@ -15,10 +15,15 @@ import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "@config/firebaseConfig";
 import { styles, profileAssets } from "./StylesProfile";
 import { globalStyles } from "@styles";
-import { GradientBackground, CustomSpiritualButton } from "@components";
+import {
+  GradientBackground,
+  CustomSpiritualButton,
+  SectionLayout,
+} from "@components";
 import { getFriendlyError } from "@utils";
 import { Colors, Fonts } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
+import { SCREEN_WIDTH } from "@/utils";
 
 export const ForgotPasswordScreen = ({ navigation }) => {
   useAmbientControlForScreen(true);
@@ -42,48 +47,57 @@ export const ForgotPasswordScreen = ({ navigation }) => {
   };
 
   return (
-    // <ImageBackground
-    //   source={profileAssets.background}
-    //   style={styles.bg}
-    //   resizeMode="cover"
-    // >
     <GradientBackground
       colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <KeyboardAvoidingView
-          style={{ flex: 1 }}
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-          keyboardVerticalOffset={80} // tweak if needed for your layout
-        >
-          <View style={globalStyles.container}>
-            <Text style={styles.title}>Reset Your Password</Text>
-
-            <TextInput
-              style={styles.input}
-              placeholder="Enter your email"
-              placeholderTextColor="#999"
-              value={email}
-              onChangeText={setEmail}
-              autoCapitalize="none"
-              keyboardType="email-address"
-            />
-
-            {error ? <Text style={styles.error}>{error}</Text> : null}
-            {message ? <Text style={styles.success}>{message}</Text> : null}
-
-            <CustomSpiritualButton
-              label="Send Reset Email"
-              onPress={handleReset}
-              color={Colors.buttonBackground}
-              textColor={Colors.lightText}
-            />
-            <TouchableOpacity onPress={() => navigation.goBack()}>
-              <Text style={styles.backLink}>← Back to Sign In</Text>
-            </TouchableOpacity>
+      <SectionLayout
+        topFlex={1}
+        middleFlex={2}
+        bottomFlex={1}
+        topContent={
+          <View style={globalStyles.titleWrapper}>
+            <Text style={globalStyles.title}>Reset Your Password</Text>
           </View>
-        </KeyboardAvoidingView>
-      </TouchableWithoutFeedback>
+        }
+        middleContent={
+          <>
+            <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+              <KeyboardAvoidingView
+                style={{ flex: 1, width: SCREEN_WIDTH * 0.9 }}
+                behavior={Platform.OS === "ios" ? "padding" : "height"}
+                keyboardVerticalOffset={80} // tweak if needed for your layout
+              >
+                <View style={styles.middle}>
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Enter your email"
+                    placeholderTextColor="#999"
+                    value={email}
+                    onChangeText={setEmail}
+                    autoCapitalize="none"
+                    keyboardType="email-address"
+                  />
+
+                  {error ? <Text style={styles.error}>{error}</Text> : null}
+                  {message ? (
+                    <Text style={styles.success}>{message}</Text>
+                  ) : null}
+
+                  <CustomSpiritualButton
+                    label="Send Reset Email"
+                    onPress={handleReset}
+                    color={Colors.buttonBackground}
+                    textColor={Colors.lightText}
+                  />
+                  <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <Text style={styles.backLink}>← Back to Sign In</Text>
+                  </TouchableOpacity>
+                </View>
+              </KeyboardAvoidingView>
+            </TouchableWithoutFeedback>
+          </>
+        }
+      />
     </GradientBackground>
     // </ImageBackground>
   );
