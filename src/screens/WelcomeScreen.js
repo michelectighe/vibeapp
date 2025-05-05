@@ -11,9 +11,10 @@ import {
 import { Colors } from "@constants";
 import { welcomeCards } from "@data";
 import { styles } from "./WelcomeScreen.styles";
-import { globalStyles } from "@styles";
+import { useAmbientControlForScreen } from "@hooks";
 
 export const WelcomeScreen = () => {
+  useAmbientControlForScreen(true);
   const positionY = useRef(new Animated.Value(-30)).current;
   const navigation = useNavigation();
   const { profile, loading } = useUserProfile();
@@ -51,7 +52,7 @@ export const WelcomeScreen = () => {
       <SectionLayout
         topFlex={1}
         middleFlex={2}
-        bottomFlex={2}
+        bottomFlex={1}
         topContent={
           <>
             <Text style={styles.welcomeText}>Welcome</Text>

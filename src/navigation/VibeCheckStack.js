@@ -18,6 +18,7 @@ import {
   ChakraDetailModal,
   EnergyCleanseScreen,
   MetricInfoScreen,
+  AudioPerceptionScreen,
 } from "@screens";
 
 // ✅ Stack Navigator for Analysis-related screens
@@ -107,6 +108,33 @@ export const VibeCheckStack = () => {
         }}
       />
       <Stack.Screen
+        name="AudioPerceptionScreen"
+        component={AudioPerceptionScreen}
+        options={{
+          //   tabBarStyle: { display: "none" },
+          headerShown: false,
+          gestureEnabled: true,
+          presentation: "modal",
+          cardStyleInterpolator: CardStyleInterpolators.forFadeFromCenter,
+          transitionSpec: {
+            open: {
+              animation: "timing",
+              config: {
+                duration: 500, // 👈 slow this down
+                easing: Easing.out(Easing.poly(4)),
+              },
+            },
+            close: {
+              animation: "timing",
+              config: {
+                duration: 500, // 👈 match for closing too
+                easing: Easing.out(Easing.poly(4)),
+              },
+            },
+          },
+        }}
+      />
+      <Stack.Screen
         name="VibeCheckDetails"
         component={VibeCheckDetailsScreen}
         options={{
@@ -174,13 +202,13 @@ export const VibeCheckStack = () => {
                 easing: Easing.out(Easing.poly(4)),
               },
             },
-            close: {
-              animation: "timing",
-              config: {
-                duration: 500, // 👈 match for closing too
-                easing: Easing.out(Easing.poly(4)),
-              },
-            },
+            // close: {
+            //   animation: "timing",
+            //   config: {
+            //     duration: 500, // 👈 match for closing too
+            //     easing: Easing.out(Easing.poly(4)),
+            //   },
+            // },
           },
         }}
       />
@@ -286,7 +314,6 @@ export const VibeCheckStack = () => {
         component={ChakraDetailModal}
         options={{ headerShown: false, presentation: "transparentModal" }}
       />
-
       <Stack.Screen
         name="EnergyCleanseScreen"
         component={EnergyCleanseScreen}
@@ -315,4 +342,4 @@ export const VibeCheckStack = () => {
       />
     </Stack.Navigator>
   );
-}
+};

@@ -49,7 +49,7 @@ export const CustomSpiritualButton = ({
 
 const styles = StyleSheet.create({
   button: {
-    marginVertical: 8,
+    marginVertical: 5,
     paddingVertical: 14,
     paddingHorizontal: 20,
     borderRadius: 16,

@@ -19,7 +19,7 @@ export const MetricInfoScreen = () => {
       logo={false}
     >
       <SafeAreaView style={styles.safeArea}>
-        <CloseX xColor={Colors.lightText} onPress={() => navigation.goBack()} />
+        <CloseX xColor={Colors.darkText} onPress={() => navigation.goBack()} />
 
         <ScrollView
           style={styles.scrollView}

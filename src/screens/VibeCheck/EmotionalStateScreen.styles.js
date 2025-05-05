@@ -4,15 +4,6 @@ import { scaledStyle } from "@utils";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 
 const rawStyles = {
-  innerContainer: {
-    position: "absolute",
-    top: "15%",
-    alignItems: "center",
-    width: "100%",
-    height: "100%",
-    marginTop: 0,
-    backgroundColor: "red"
-  },
   glowWrapper: {
     width: "100%",
     alignItems: "center",
@@ -64,30 +55,24 @@ const rawStyles = {
     fontSize: 18,
     width: "100%",
   },
-  instructions: {
-    textAlign: "center",
-    marginTop: 40,
-    fontSize: 18,
-    padding: 10,
-    width: "85%",
-    color: "#fff", // Adjust according to themeColors if needed
-  },
   promptText: {
     fontSize: 20,
     textAlign: "center",
-    marginTop: 20,
+    marginTop: 30,
+    marginBottom: 20,
     color: Colors.lightText,
     fontFamily: Fonts.AppFont,
     letterSpacing: 1,
   },
 
   phraseBox: {
-    backgroundColor: Colors.buttonBackground,
+    backgroundColor: Colors.lightText,
     width: "90%",
-    borderRadius: 12,
-    paddingVertical: 14,
-    paddingHorizontal: 24,
-    marginVertical: 20,
+    height: "75%",
+     borderRadius: 12,
+     paddingVertical: 14,
+    paddingHorizontal: 20,
+    // marginVertical: 20,
     alignSelf: "center",
     shadowColor: "#000",
     shadowOpacity: 0.15,
@@ -98,17 +83,16 @@ const rawStyles = {
 
   phraseText: {
     fontSize: 28,
-    fontStyle: "italic",
     textAlign: "center",
-    color: Colors.lightText,
+    color: Colors.darkText,
     fontFamily: Fonts.AppFont,
   },
   continueContainer: {
     position: "absolute",
-    bottom: 100,
-    width: "100%",
-    paddingHorizontal: 20,
-    marginBottom: 30,
+    bottom: 0,
+    width: "90%",
+ //   paddingHorizontal: 20,
+ //   marginBottom: 30,
     alignItems: "center",
   },
 };

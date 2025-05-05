@@ -9,6 +9,7 @@ import {
   GradientBackground,
   TypewriterText,
   FloatingPhrase,
+  SectionLayout,
 } from "@components";
 
 import { Fonts, Colors, buddhistSayings } from "@constants";
@@ -40,16 +41,20 @@ export const EmotionTransitionScreen = () => {
     <GradientBackground
       colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
-      <View style={globalStyles.container}>
-        {/* Quote */}
-        <View style={styles.typeWriterContainer}>
-          <TypewriterText
-            text={currentSaying}
-            delay={50}
-            style={styles.quoteText}
-          />
-        </View>
-      </View>
+      <SectionLayout
+        topFlex={0}
+        middleFlex={1}
+        bottomFlex={0}
+        middleContent={
+          <>
+            <TypewriterText
+              text={currentSaying}
+              delay={50}
+              style={styles.quoteText}
+            />
+          </>
+        }
+      />
     </GradientBackground>
   );
 };

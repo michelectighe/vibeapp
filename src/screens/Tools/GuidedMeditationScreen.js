@@ -10,10 +10,8 @@ import {
 } from "react-native";
 
 import { SCREEN_WIDTH } from "@utils";
-import { runOnJS } from "react-native-reanimated";
 import { playTrack, stopTrack } from "@services";
 import { GradientBackground, ScrollContainer } from "@components";
-////import { GestureDetector, Gesture } from "react-native-gesture-handler";
 import { useRoute } from "@react-navigation/native";
 import { MEDITATION_SCREENS } from "@navigation/screens";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
@@ -62,15 +60,20 @@ export const GuidedMeditationScreen = () => {
 
   const handlePress = async (item) => {
     if (playingId === item.id) {
+      console.log("trying to play meditation");
       await stopTrack();
       setPlayingId(null);
     } else {
       await stopTrack();
-      await playTrack({
-        id: item.id,
-        url: item.audio,
-        title: item.title,
-      });
+      await playTrack(
+        (id = item.id),
+        (url = item.audio),
+        (title = item.title),
+        (artist = "VibeKey"),
+        (vol = 1),
+        (fadeIn = true)
+      );
+
       setPlayingId(item.id);
     }
   };
@@ -100,33 +103,31 @@ export const GuidedMeditationScreen = () => {
       colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
       {/* <GestureDetector gesture={swipeGesture}> */}
-      <View style={globalStyles.container}>
-        <View style={globalStyles.titleWrapper}>
-          <Text style={[styles.title, { fontSize: 30 }]}>
-            Guided Meditations
-          </Text>
-        </View>
-        <ScrollView
-          style={globalStyles.scrollView}
-          contentContainerStyle={globalStyles.scrollContent}
-          showsVerticalScrollIndicator={false}
-        >
-          {meditationList.map((item) => (
-            <View key={item.id} style={styles.card}>
-              <Text style={styles.title}>{item.title}</Text>
-              <Text style={styles.description}>{item.description}</Text>
-              <TouchableOpacity
-                style={styles.button}
-                onPress={() => handlePress(item)}
-              >
-                <Text style={styles.buttonText}>
-                  {playingId === item.id ? "Stop" : "Play"}
-                </Text>
-              </TouchableOpacity>
-            </View>
-          ))}
-        </ScrollView>
+      {/* //  <View style={globalStyles.container}> */}
+      <View style={styles.titleWrapper}>
+        <Text style={[styles.title, { fontSize: 30 }]}>Guided Meditations</Text>
       </View>
+      <ScrollView
+        style={globalStyles.scrollView}
+        contentContainerStyle={globalStyles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        {meditationList.map((item) => (
+          <View key={item.id} style={styles.card}>
+            <Text style={styles.title}>{item.title}</Text>
+            <Text style={styles.description}>{item.description}</Text>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => handlePress(item)}
+            >
+              <Text style={styles.buttonText}>
+                {playingId === item.id ? "Stop" : "Play"}
+              </Text>
+            </TouchableOpacity>
+          </View>
+        ))}
+      </ScrollView>
+      {/* </View> */}
       {/* </GestureDetector> */}
     </GradientBackground>
   );

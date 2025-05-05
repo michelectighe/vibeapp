@@ -17,6 +17,7 @@ import { Colors } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./VibeCheckScreen.styles";
 import { globalStyles } from "@styles";
+import { SectionLayout } from "@/components";
 
 export const VibeCheckScreen = () => {
   useAmbientControlForScreen(false);
@@ -51,33 +52,36 @@ export const VibeCheckScreen = () => {
     <GradientBackground
       colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
-      <SafeAreaView style={{ flex: 1 }} edges={["bottom"]}>
-        <View style={globalStyles.container}>
-          <HomeButton />
-          <View style={styles.content}>
-            <Text style={styles.descriptionText}>
-              Unlock your vibrational frequency by tuning into the harmony of
-              your voice, movement, heart rhythm, surroundings and emotions.
-              This sacred insight guides you toward deeper alignment, balance,
-              and energetic elevation.
-            </Text>
-            <View style={styles.buttonContainer}>
-              <CustomSpiritualButton
-                label="How does this work?"
-                onPress={openInfo}
-                color={Colors.buttonBackground}
-                textColor={Colors.lightText}
-              />
-              <CustomSpiritualButton
-                label="Let's Begin"
-                onPress={goToNextScreen}
-                color={Colors.buttonBackground}
-                textColor={Colors.lightText}
-              />
-            </View>
+      <SectionLayout
+        topFlex={3}
+        middleFlex={0}
+        bottomFlex={1}
+        equalHeight={false}
+        topContent={
+          <Text style={styles.descriptionText}>
+            Unlock your vibrational frequency by tuning into the harmony of your
+            voice, movement, heart rhythm, surroundings and emotions. This
+            sacred insight guides you toward deeper alignment, balance, and
+            energetic elevation.
+          </Text>
+        }
+        bottomContent={
+          <View style={styles.buttonContainer}>
+            <CustomSpiritualButton
+              label="How does this work?"
+              onPress={openInfo}
+              color={Colors.buttonBackground}
+              textColor={Colors.lightText}
+            />
+            <CustomSpiritualButton
+              label="Let's Begin"
+              onPress={goToNextScreen}
+              color={Colors.buttonBackground}
+              textColor={Colors.lightText}
+            />
           </View>
-        </View>
-      </SafeAreaView>
+        }
+      />
     </GradientBackground>
   );
 };

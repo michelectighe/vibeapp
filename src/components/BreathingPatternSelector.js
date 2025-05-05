@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   card: {
-    backgroundColor: Colors.buttonLightBackground,
+    backgroundColor: Colors.cardBackground,
     borderRadius: 16,
     paddingVertical: 12,
     paddingHorizontal: 16,
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: 160,
-    height: 80, // 👈 limit card height
+    height: 160, // 👈 limit card height
   },
 
   selectedCard: {
@@ -64,11 +64,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     textAlign: "center",
-    color: Colors.lightText,
+    color: Colors.darkText,
   },
   timing: {
     fontSize: 14,
     marginTop: 4,
-    color: Colors.lightText,
+    color: Colors.darkText,
   },
 });

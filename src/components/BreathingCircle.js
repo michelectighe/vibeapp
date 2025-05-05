@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     marginBottom: 40,
   },
   phase: {
-    fontSize: 28,
+    fontSize: 36,
     fontWeight: "bold",
     marginTop: 20,
     marginBottom: 20,

@@ -9,6 +9,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { LogBox, Linking } from "react-native";
 import { enableScreens } from "react-native-screens";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 import { MyTabs, StreakStack, ToolsStack } from "@navigation";
 import {
   UserProfileProvider,
@@ -133,13 +134,15 @@ const AppInner = () => {
 export const App = () => {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <ModelProvider>
-        <AuthProvider>
-          <UserProfileProvider>
-            <AppInner />
-          </UserProfileProvider>
-        </AuthProvider>
-      </ModelProvider>
+      <SafeAreaProvider>
+        <ModelProvider>
+          <AuthProvider>
+            <UserProfileProvider>
+              <AppInner />
+            </UserProfileProvider>
+          </AuthProvider>
+        </ModelProvider>
+      </SafeAreaProvider>
     </GestureHandlerRootView>
   );
 };

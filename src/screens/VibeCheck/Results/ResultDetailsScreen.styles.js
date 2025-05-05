@@ -11,7 +11,9 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
   },
   headerContainer: {
-    marginTop: "20%",
+    position: "absolute",
+    top: "10%",
+    marginTop: "10%",
   },
   overallLabel: {
     textAlign: "center",

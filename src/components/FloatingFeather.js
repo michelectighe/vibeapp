@@ -41,6 +41,7 @@ export const FloatingFeather = ({ startX = 0.3, delay = 0 }) => {
       })
     ).start();
 
+
     // Rotation loop
     Animated.loop(
       Animated.sequence([

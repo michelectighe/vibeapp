@@ -4,12 +4,6 @@ import { Colors, Fonts } from "@constants";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 
 const rawStyles = {
-  topContainer: {
-    flex: 1,
-    marginTop: "10%",
-    width: "100%",
-    alignItems: "center",
-  },
   welcomeText: {
     width: "80%",
     textAlign: "center",
@@ -19,14 +13,6 @@ const rawStyles = {
     marginBottom: 20,
     fontFamily: Fonts.AppFontBold,
   },
-  cardScrollContainer: {
-    marginTop: 30,
-    height: 200,
-  },
-
-  cardScrollContent: {
-    paddingHorizontal: 20,
-  },
 
   infoCard: {
     backgroundColor: Colors.cardBackground,
@@ -34,7 +20,7 @@ const rawStyles = {
     padding: 20,
     marginRight: 16,
     width: 280,
-    height: "100%",
+    height: "80%",
     justifyContent: "center",
     shadowColor: "#000",
     shadowOpacity: 0.1,
@@ -44,10 +30,13 @@ const rawStyles = {
   },
 
   cardTitle: {
+    position: "absolute",
+    top: "20%",
+    left: 0,
+    right: 0,
     fontSize: 22,
-    fontWeight: "600",
     color: Colors.darkText,
-    marginBottom: 6,
+    marginBottom: 20,
     fontFamily: Fonts.AppFont,
     textAlign: "center",
   },
@@ -56,11 +45,12 @@ const rawStyles = {
     fontSize: 16,
     color: Colors.darkText,
     fontFamily: Fonts.AppFont,
-    textAlign: "justify",
+    textAlign: "center",
   },
   buttonWrapper: {
-    alignSelf: "center",
-    width: "80%",
+    marginTop: "20%",
+    width: "90%",
+    backgroundColor: "transparent"
   },
   welcomeTextBottom: {
     width: "100%",

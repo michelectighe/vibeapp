@@ -4,35 +4,38 @@ import { Colors, Fonts } from "@constants";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 
 const rawStyles = {
-  container: {
-    flex: 1,
-    backgroundColor: "#FDEBD0",
-    padding: 24,
+  top: {
+    marginTop: 40,
   },
   title: {
     fontSize: 28,
     fontWeight: "600",
     textAlign: "center",
     marginBottom: 20,
-    color: "#5C3B1E",
+    color: Colors.darkText,
   },
   prompt: {
     fontSize: 20,
     textAlign: "center",
     marginVertical: 20,
-    color: "#7D4F20",
+    color: Colors.lightText,
+    width: "70%",
   },
   inputContainer: {
     flex: 1,
+    height: "100%",
+    width: "100%",
   },
   textInput: {
     backgroundColor: "#FFF8EE",
     borderRadius: 16,
     padding: 16,
     fontSize: 16,
-    color: "#3C2F2F",
+    color: Colors.darkText,
+    fontFamily: Fonts.Script,
     minHeight: 200,
     textAlignVertical: "top",
+    marginBottom: 20,
   },
   saveButton: {
     backgroundColor: "#7D4F20",

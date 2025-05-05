@@ -6,12 +6,20 @@ import {
   TextInput,
   ScrollView,
   TouchableOpacity,
-  Animated,
+  KeyboardAvoidingView,
+  TouchableWithoutFeedback,
+  Keyboard,
+  Platform,
 } from "react-native";
 import { quantumJournalPrompts } from "@data";
 import { styles } from "./QuantumJournalScreen.styles";
 import { useAmbientControlForScreen } from "@hooks";
-import { globalStyles } from "@styles";
+import {
+  GradientBackground,
+  SectionLayout,
+  CustomSpiritualButton,
+} from "@/components";
+import { Colors } from "@/constants";
 
 export const QuantumJournalScreen = () => {
   useAmbientControlForScreen(true);
@@ -39,7 +47,6 @@ export const QuantumJournalScreen = () => {
   }, []);
 
   const handleSave = () => {
-    // Save logic to Firestore or AsyncStorage
     console.log("Saved:", { prompt, entry });
     setEntry("");
     setPrompt("");
@@ -48,29 +55,60 @@ export const QuantumJournalScreen = () => {
   };
 
   return (
-    <View style={globalStyles.container}>
-      <Text style={styles.title}>Quantum Journal</Text>
-      <Text style={styles.prompt}>{animatedText}</Text>
+    <GradientBackground
+      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
+    >
+      <SectionLayout
+        topFlex={1}
+        middleFlex={3}
+        bottomFlex={1}
+        topContent={
+          <View style={styles.top}>
+            <Text style={styles.title}>Quantum Journal</Text>{" "}
+            <Text style={styles.prompt}>{animatedText}</Text>
+          </View>
+        }
+        middleContent={
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <KeyboardAvoidingView
+              style={{ flex: 1 }}
+              behavior={Platform.OS === "ios" ? "padding" : "height"}
+              keyboardVerticalOffset={80} // tweak if needed for your layout
+            >
+              <View style={{ width: "90%" }}>
+                {!isTyping && (
+                  <ScrollView
+                    style={{ marginTop: 20, minWidth: "90%" }}
+                    contentContainerStyle={{ paddingBottom: 40 }}
+                    showsVerticalScrollIndicator={false}
+                  >
+                    <TextInput
+                      multiline
+                      placeholder="Write whatever flows through..."
+                      placeholderTextColor="#888"
+                      style={styles.textInput}
+                      value={entry}
+                      onChangeText={setEntry}
+                    />
 
-      {!isTyping && (
-        <ScrollView
-          style={globalStyles.scrollView}
-          contentContainerStyle={globalStyles.scrollContent}
-          showsVerticalScrollIndicator={false}
-        >
-          <TextInput
-            multiline
-            placeholder="Write whatever flows through..."
-            placeholderTextColor="#888"
-            style={styles.textInput}
-            value={entry}
-            onChangeText={setEntry}
-          />
-          <TouchableOpacity style={styles.saveButton} onPress={handleSave}>
-            <Text style={styles.saveText}>Save Entry</Text>
-          </TouchableOpacity>
-        </ScrollView>
-      )}
-    </View>
+                    <CustomSpiritualButton
+                      label="Save Entry"
+                      onPress={handleSave}
+                      color={Colors.buttonBackground}
+                      textColor={Colors.lightText}
+                    />
+                  </ScrollView>
+                )}
+              </View>
+            </KeyboardAvoidingView>
+          </TouchableWithoutFeedback>
+        }
+        bottomContent={
+          <Text style={{ fontSize: 16, color: "#ccc" }}>
+            Your words shape your reality ✨
+          </Text>
+        }
+      />
+    </GradientBackground>
   );
 };

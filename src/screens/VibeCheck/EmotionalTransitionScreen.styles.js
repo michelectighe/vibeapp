@@ -4,14 +4,9 @@ import { scaledStyle } from "@utils";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 
 const rawStyles = {
-  typeWriterContainer: {
-    flex: 1,
-    marginTop: "50%",
-    backgroundColor: "transparent",
-  },
   quoteText: {
     fontSize: 48,
-    fontFamily: Fonts.Script,
+    fontFamily: Fonts.AppFont,
     color: Colors.lightText,
     marginLeft: 50,
     marginRight: 50,

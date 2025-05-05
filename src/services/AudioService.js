@@ -13,7 +13,7 @@ export const playTrack = async (
   title = "Enchantment",
   artist = "VibeKey",
   vol = 0.5,
-  fadeIn = true,
+  fadeIn = true
 ) => {
   await TrackPlayer.reset();
   await TrackPlayer.add({ id, url, title, artist });

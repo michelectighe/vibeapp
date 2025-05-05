@@ -432,69 +432,76 @@ export const EmotionalStateScreen = () => {
     <GradientBackground
       colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
-      <View style={globalStyles.container}>
-        <View style={styles.innerContainer}>
-          {device ? (
-            selectedFormat ? (
-              // Render camera preview
-              <View style={styles.glowWrapper}>
-                <FuzzyRectangleGlow
-                  width={250}
-                  height={300}
-                  glowColor="white"
-                  style={{
-                    top: "50%",
-                    left: "50%",
-                    pulse: true,
-                    transform: [
-                      { translateX: -225 }, // (250 + 200) / 2
-                      { translateY: -250 }, // (300 + 200) / 2
-                    ],
-                  }}
-                />
-                <SparkleOverlay width={250} height={300} />
-                <View style={styles.cameraContainer}>
-                  {/* Camera view */}
-                  <View style={styles.cameraView}>
-                    {device && selectedFormat && isFocused && (
-                      <Camera
-                        key={isFocused ? "active" : "inactive"}
-                        ref={cameraEmotionRef}
-                        style={styles.cameraStyle}
-                        device={isFocused && device}
-                        isActive={isFocused}
-                        onInitialized={() => {
-                          setCameraReady(true);
-                        }}
-                        format={selectedFormat}
-                        audio={false}
-                        frameProcessor={model && emotionProcessor}
-                        frameProcessorFps={1}
-                        fps={15}
-                        pixelFormat="yuv"
-                      />
-                    )}
+      <SectionLayout
+        topFlex={3}
+        middleFlex={2}
+        bottomFlex={1}
+        topContent={
+          <>
+            {device ? (
+              selectedFormat ? (
+                // Render camera preview
+                <View style={styles.glowWrapper}>
+                  <FuzzyRectangleGlow
+                    width={250}
+                    height={300}
+                    glowColor="white"
+                    style={{
+                      top: "50%",
+                      left: "50%",
+                      pulse: true,
+                      transform: [
+                        { translateX: -225 }, // (250 + 200) / 2
+                        { translateY: -250 }, // (300 + 200) / 2
+                      ],
+                    }}
+                  />
+                  <SparkleOverlay width={250} height={300} />
+                  <View style={styles.cameraContainer}>
+                    {/* Camera view */}
+                    <View style={styles.cameraView}>
+                      {device && selectedFormat && isFocused && (
+                        <Camera
+                          key={isFocused ? "active" : "inactive"}
+                          ref={cameraEmotionRef}
+                          style={styles.cameraStyle}
+                          device={isFocused && device}
+                          isActive={isFocused}
+                          onInitialized={() => {
+                            setCameraReady(true);
+                          }}
+                          format={selectedFormat}
+                          audio={false}
+                          frameProcessor={model && emotionProcessor}
+                          frameProcessorFps={1}
+                          fps={15}
+                          pixelFormat="yuv"
+                        />
+                      )}
+                    </View>
                   </View>
                 </View>
-              </View>
+              ) : (
+                <Text>No supported camera format found</Text>
+              )
             ) : (
-              <Text>No supported camera format found</Text>
-            )
-          ) : (
-            <Text>Camera not ready</Text>
-          )}
-
+              <Text>Camera not ready</Text>
+            )}
+          </>
+        }
+        middleContent={
           <View style={styles.textContainer}>
             {/* <Text style={styles.prompt}>Let your voice flow</Text> */}
             {/* <Text style={styles.statusText}>
-              Facial Emotion: {emotion || "Analyzing..."}
-            </Text> */}
+                  Facial Emotion: {emotion || "Analyzing..."}
+                </Text> */}
             <Text style={styles.promptText}>Say this phrase:</Text>
             <View style={styles.phraseBox}>
               <Text style={styles.phraseText}>{currentPhrase}</Text>
             </View>
           </View>
-
+        }
+        bottomContent={
           <View style={styles.continueContainer}>
             <CustomSpiritualButton
               label={isAudioRecording ? "Continue" : "Start Recording"}
@@ -503,8 +510,8 @@ export const EmotionalStateScreen = () => {
               textColor={Colors.lightText}
             />
           </View>
-        </View>
-      </View>
+        }
+      />
     </GradientBackground>
   );
 };

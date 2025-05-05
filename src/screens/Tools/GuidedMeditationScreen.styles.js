@@ -5,13 +5,8 @@ import { Colors, Fonts } from "@constants";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 
 const rawStyles = {
-  background: {
-    flex: 1,
-    width: "100%",
-    height: "100%",
-  },
   card: {
-    backgroundColor: Colors.buttonLightBackground,
+    backgroundColor: Colors.cardBackground,
     width: SCREEN_WIDTH * 0.9,
     alignContent: "center",
     borderRadius: 16,
@@ -22,21 +17,25 @@ const rawStyles = {
     shadowRadius: 8,
     elevation: 5,
   },
+  titleWrapper: {
+   marginTop: "30%",
+   marginBottom: 0,
+   alignItems: "center",
+   backgroundColor: "transparent",
+  },
   title: {
     fontSize: 22,
-    fontWeight: "600",
-    marginBottom: 0,
-    color: Colors.lightText,
+    color: Colors.darkText,
     textAlign: "center",
-    fontFamily: Fonts.Script,
+    fontFamily: Fonts.AppFont,
     backgroundColor: "transparent",
   },
   description: {
     fontSize: 16,
-    color: Colors.lightText,
+    color: Colors.darkText,
     textAlign: "center",
     marginBottom: 12,
-    fontFamily: Fonts.Script,
+    fontFamily: Fonts.AppFont,
   },
   button: {
     backgroundColor: Colors.buttonBackground,
@@ -49,12 +48,7 @@ const rawStyles = {
     fontSize: 18,
     fontWeight: "500",
   },
-  titleWrapper: {
-    marginTop: 0,
-    marginBottom: 0,
-    alignItems: "center",
-    backgroundColor: "transparent",
-  },
+
 };
 
 export const styles = StyleSheet.create(scaledStyle(rawStyles));

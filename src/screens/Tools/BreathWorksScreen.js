@@ -4,6 +4,7 @@ import {
   BreathingCircle,
   BreathingPatternSelector,
   GradientBackground,
+  SectionLayout,
 } from "@components";
 import { BREATH_PATTERNS, Colors } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
@@ -15,24 +16,36 @@ export const BreathWorksScreen = () => {
   const [selectedPattern, setSelectedPattern] = useState(BREATH_PATTERNS[0]);
 
   return (
-    <View style={globalStyles.container}>
-      <GradientBackground
-        colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
-        logo={false}
-      >
-        <View style={styles.top}>
-          <Text style={styles.title}>{selectedPattern.name}</Text>
-          <BreathingPatternSelector
-            patterns={BREATH_PATTERNS}
-            selectedId={selectedPattern.id}
-            onSelect={setSelectedPattern}
-          />
-        </View>
-
-        <View style={styles.main}>
-          <BreathingCircle pattern={selectedPattern} key={selectedPattern.id} />
-        </View>
-      </GradientBackground>
-    </View>
+    <GradientBackground
+      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
+      logo={false}
+    >
+      <SectionLayout
+        topFlex={2}
+        middleFlex={0}
+        bottomFlex={1}
+        topContent={
+          <>
+            <View style={styles.main}>
+              <BreathingCircle
+                pattern={selectedPattern}
+                key={selectedPattern.id}
+              />
+            </View>
+          </>
+        }
+        bottomContent={
+          <View>
+            <BreathingPatternSelector
+              patterns={BREATH_PATTERNS}
+              selectedId={selectedPattern.id}
+              onSelect={setSelectedPattern}
+            />
+            <Text style={styles.title}>{selectedPattern.name}</Text>
+            {/* <Text style={styles.title}>{selectedPattern.timing}</Text> */}
+          </View>
+        }
+      />
+    </GradientBackground>
   );
 };

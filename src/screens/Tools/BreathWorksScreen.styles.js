@@ -9,17 +9,11 @@ const rawStyles = {
     flex: 1,
     backgroundColor: "transparent",
   },
-  top: {
-    paddingTop: 60,
-    // paddingHorizontal: 20,
-  },
+
   title: {
     fontSize: 24,
-    fontWeight: "600",
-    marginBottom: 50,
-    marginTop: 20,
     textAlign: "center",
-    color: Colors.mediumText,
+    color: Colors.darkText,
   },
   main: {
     flex: 1,
