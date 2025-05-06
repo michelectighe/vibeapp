@@ -42,7 +42,7 @@ export { hexToRgba } from "./colorUtils";
 export { initApp } from "./initApp";
 export { initMedia } from "./initMedia";
 export { loadResults } from "./loadResults";
-export { MusicManager, setShouldPlayAmbient } from "./musicManager";
+export { MusicManager, setShouldPlayAmbient, setUserMusicPref } from "./musicManager";
 export { createRefChecker } from "./runOnJSRefChecker";
 export { saveResults } from "./saveResults";
 export {
@@ -57,3 +57,5 @@ export {
   scaledStyle,
 } from "./layout";
 export { signInWithApple } from "./signInWithApple";
+
+export { isPasswordValid, getPasswordStrength } from "./validatePassword";

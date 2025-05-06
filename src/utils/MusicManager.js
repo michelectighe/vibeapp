@@ -8,7 +8,6 @@ import {
   getMusicPreference,
 } from "@services";
 
-
 let shouldPlayAmbient = true;
 let userMusicPref = true;
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, ActivityIndicator, Share, Text } from "react-native";
+import { View, ActivityIndicator, Share, Text, Modal } from "react-native";
 import { getAuth } from "firebase/auth";
 import { useAuth } from "@context";
 import { loadResults, SCREEN_HEIGHT } from "@utils";
@@ -7,7 +7,7 @@ import { GradientBackground, ResultSelector, SectionLayout } from "@components";
 import { createMatchLink } from "@services";
 import { Colors } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
-import { SubscriptionModal } from "@components/SubscriptionModal"; // ✅ import
+import { SubscriptionModal } from "@components";
 import { styles } from "./ShareScreen.styles";
 import { globalStyles } from "@styles";
 import { useNavigation } from "@react-navigation/native";
@@ -22,16 +22,18 @@ export const ShareScreen = ({ navigation }) => {
 
   useEffect(() => {
     if (authLoading) return;
-
+    console.log("ispremium:", isPremium);
     if (!user) {
       navigation.replace("Tabs", {
         screen: "Settings",
         params: {
           screen: "SignInScreen",
         },
-      })
+      });
     } else if (!isPremium) {
+      console.log("not premium - show modal");
       setShowSubModal(true);
+      setLoading(false);
     } else {
       fetchResults();
     }
@@ -54,7 +56,7 @@ export const ShareScreen = ({ navigation }) => {
     }
   };
 
-  if (loading || authLoading) {
+  if (loading) {
     return (
       <ActivityIndicator
         size="large"
@@ -97,10 +99,17 @@ export const ShareScreen = ({ navigation }) => {
         onClose={(shouldUpgrade) => {
           setShowSubModal(false);
           if (!shouldUpgrade) {
-            navigation.replace("Home"); // 👈 send them away if not upgrading
-          } else {
-            navigation.navigate("Subscription"); // 👈 or your upgrade screen
+            navigation.replace("Tabs", { screen: "Home" });
           }
+        }}
+        onUpgrade={() => {
+          navigation.navigate("Tabs", {
+            screen: "Settings",
+            params: {
+              screen: "SubscriptionScreen",
+              params: { returnTo: "ShareScreen" },
+            },
+          });
         }}
       />
     </>

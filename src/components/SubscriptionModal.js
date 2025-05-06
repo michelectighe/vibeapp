@@ -1,56 +1,121 @@
-// components/SubscriptionModal.js
-import React from "react";
-import { Modal, View, Text, TouchableOpacity } from "react-native";
+import React, { useEffect } from "react";
+import {
+  Modal,
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Dimensions,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { BlurView } from "expo-blur";
+import { Colors, Fonts } from "@constants"; // optional if you're using custom colors/fonts
 
-export const SubscriptionModal = ({ visible, onClose }) => {
+const { width, height } = Dimensions.get("window");
+
+export const SubscriptionModal = ({ visible, onClose, onUpgrade }) => {
   const navigation = useNavigation();
+
+  useEffect(() => {
+    console.log("🧪 SubscriptionModal visible?", visible);
+  }, [visible]);
+
+  if (!visible) return null;
 
   return (
     <Modal visible={visible} transparent animationType="fade">
-      <View
-        style={{
-          flex: 1,
-          backgroundColor: "rgba(0,0,0,0.5)",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <View
-          style={{
-            width: "80%",
-            backgroundColor: "#fff",
-            padding: 20,
-            borderRadius: 10,
-            alignItems: "center",
-          }}
-        >
-          <Text style={{ fontSize: 18, marginBottom: 10 }}>
-            Premium Feature
+      <BlurView intensity={40} tint="dark" style={styles.blurOverlay}>
+        <View style={styles.modalContainer}>
+          <Text style={styles.title}>Go Premium</Text>
+
+          <Text style={styles.trialInfo}>✨ 7-Day Free Trial</Text>
+          <Text style={styles.description}>
+            Unlock premium features to elevate your frequency, gain deep
+            insights, and explore your full vibrational potential.
           </Text>
-          <Text style={{ textAlign: "center", marginBottom: 20 }}>
-            This feature is available to Premium users. Upgrade to access it!
-          </Text>
+          <Text style={styles.cancelInfo}>Cancel anytime. No pressure. 🌿</Text>
 
           <TouchableOpacity
+            style={styles.upgradeButton}
             onPress={() => {
-              onClose(false); // false = user declined
+              onClose(false); // hide modal
+              onUpgrade?.(); // let the parent handle what to do
             }}
-            style={{ marginVertical: 5 }}
           >
-            <Text style={{ color: "red" }}>Not Now</Text>
+            <Text style={styles.upgradeText}>Start Free Trial</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
-            onPress={() => {
-              onClose(true); // true = user wants to upgrade
-            }}
-            style={{ marginVertical: 5 }}
+            onPress={() => onClose(false)}
+            style={styles.cancelButton}
           >
-            <Text style={{ color: "green" }}>Upgrade Now</Text>
+            <Text style={styles.cancelText}>Maybe Later</Text>
           </TouchableOpacity>
         </View>
-      </View>
+      </BlurView>
     </Modal>
   );
 };
+
+const styles = StyleSheet.create({
+  blurOverlay: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  modalContainer: {
+    width: width * 0.85,
+    backgroundColor: "#fff",
+    padding: 25,
+    borderRadius: 20,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
+    elevation: 8,
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: "bold",
+    marginBottom: 10,
+    color: Colors.textDark || "#333",
+  },
+  trialInfo: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: "#3f7e44",
+    marginBottom: 10,
+  },
+  description: {
+    fontSize: 15,
+    textAlign: "center",
+    marginBottom: 15,
+    color: "#444",
+  },
+  cancelInfo: {
+    fontSize: 13,
+    fontStyle: "italic",
+    color: "#666",
+    marginBottom: 20,
+  },
+  upgradeButton: {
+    backgroundColor: "#3f7e44",
+    paddingVertical: 12,
+    paddingHorizontal: 25,
+    borderRadius: 30,
+    marginBottom: 10,
+  },
+  upgradeText: {
+    color: "#fff",
+    fontWeight: "600",
+    fontSize: 16,
+  },
+  cancelButton: {
+    paddingVertical: 6,
+  },
+  cancelText: {
+    color: "#999",
+    fontSize: 14,
+  },
+});

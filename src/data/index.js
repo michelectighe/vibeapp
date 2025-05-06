@@ -7,3 +7,4 @@ export { toolsCards } from "./toolsCards";
 export { vibeHomeCards } from "./vibeHomeCards";
 export { vibrationLevels } from "./vibrationLevels";
 export { welcomeCards } from "./welcomeCards";
+export { subscriptionFeatures } from "./subscriptionFeatures";

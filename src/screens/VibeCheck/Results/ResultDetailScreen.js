@@ -76,9 +76,7 @@ export const ResultDetailScreen = ({ navigation }) => {
             />
             <CustomSpiritualButton
               label="Journal"
-              onPress={() =>
-                navigation.navigate("Tools", { screen: "QuantumJournalScreen" })
-              }
+              onPress={() => navigation.navigate("JournalScreen")}
               color={overallColor2}
               textColor={overallColor}
             />

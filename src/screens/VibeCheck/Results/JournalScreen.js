@@ -13,7 +13,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { quantumJournalPrompts } from "@data";
-import { styles } from "./QuantumJournalScreen.styles";
+import { styles } from "./JournalScreen.styles";
 import { useAmbientControlForScreen } from "@hooks";
 import {
   GradientBackground,
@@ -23,7 +23,7 @@ import {
 } from "@/components";
 import { Colors } from "@/constants";
 
-export const QuantumJournalScreen = () => {
+export const JournalScreen = () => {
   useAmbientControlForScreen(true);
   const navigation = useNavigation();
   const [prompt, setPrompt] = useState("");
@@ -58,16 +58,14 @@ export const QuantumJournalScreen = () => {
   };
 
   return (
-    <GradientBackground
-      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
-    >
+    <GradientBackground colors={["white", "white", "white"]} logo={false}>
       <SectionLayout
         topFlex={1}
         middleFlex={3}
         bottomFlex={1}
         topContent={
           <View style={styles.top}>
-            <Text style={styles.title}>Quantum Journal</Text>{" "}
+            <Text style={styles.title}>Daily Journal</Text>{" "}
             <Text style={styles.prompt}>{animatedText}</Text>
           </View>
         }

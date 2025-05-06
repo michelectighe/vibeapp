@@ -10,7 +10,7 @@ export const VibeMatchStack = () => {
   const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator
-      initialRouteName="VibeMatchScreen"
+      initialRouteName="ShareScreen"
       screenOptions={({ navigation }) => ({
         headerShown: false,
       })}

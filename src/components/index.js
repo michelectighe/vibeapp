@@ -36,6 +36,8 @@ export { ProgressDots } from "./ProgressDots";
 export { ResultSelector } from "./ResultSelector";
 export { SectionLayout } from "./SectionLayout";
 export { SectionLayoutNotSafe } from "./SectionLayoutNotSafe";
+export { SubscriptionModal } from "./SubscriptionModal";
 export { SparkleOverlay } from "./SparkleOverlay";
 export { ThemeWrapper } from "./ThemeWrapper";
 export { TypewriterText } from "./TypewriterText";
+export { ProfileInput } from "./ProfileInput";

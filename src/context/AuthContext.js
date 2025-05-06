@@ -24,16 +24,6 @@ export const AuthProvider = ({ children }) => {
       setUser(user);
       setAuthLoading(false);
 
-      // if (__DEV__) {
-      //   setIsPremium(true);
-      //   setPremiumDetails({
-      //     productIdentifier: "debug_product",
-      //     expiresDate: "2099-12-31",
-      //     willRenew: true,
-      //     periodType: "debug",
-      //   });
-      // }
-
       if (user) {
         try {
           await Purchases.logIn(user.uid);
@@ -55,6 +45,16 @@ export const AuthProvider = ({ children }) => {
           } else {
             setIsPremium(false);
             setPremiumDetails(null);
+
+            // if (__DEV__) {
+            // setIsPremium(true);
+            // setPremiumDetails({
+            //   productIdentifier: "debug_product",
+            //   expiresDate: "2099-12-31",
+            //   willRenew: true,
+            //   periodType: "debug",
+            // });
+            // }
           }
         } catch (e) {
           console.error("RevenueCat error:", e);
