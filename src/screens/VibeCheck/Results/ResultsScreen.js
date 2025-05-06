@@ -70,7 +70,7 @@ export const ResultsScreen = ({ navigation }) => {
             (url = audioSource),
             (title = "Result"),
             (artist = "VibeKey"),
-            (vol = 1)
+            (vol = 0.5)
           );
         }
       } catch (e) {

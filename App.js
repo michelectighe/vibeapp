@@ -19,6 +19,7 @@ import {
 } from "@context";
 import { MusicManager } from "@utils";
 import { SplashScreen, WelcomeScreen } from "@screens";
+import { initializeRevenueCat } from "@utils";
 
 //setGlobalErrorHandler();
 // setTimeout(() => {
@@ -85,6 +86,10 @@ const fadeTransition = ({ current }) => ({
   },
 });
 const AppInner = () => {
+  useEffect(() => {
+    initializeRevenueCat();
+  }, []);
+
   // useEffect(() => {
   //   const getInitialUrl = async () => {
   //     const url = await Linking.getInitialURL();

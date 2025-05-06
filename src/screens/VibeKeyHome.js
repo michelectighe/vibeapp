@@ -9,7 +9,7 @@ import { GradientBackground, HomeCard } from "@components";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./VibeKeyHome.styles";
 import { globalStyles } from "@styles";
-import { SectionLayout } from "@/components";
+import { SectionLayoutNotSafe } from "@/components";
 
 export const VibeKeyHome = () => {
   useAmbientControlForScreen(true);
@@ -31,37 +31,43 @@ export const VibeKeyHome = () => {
     }, [])
   );
 
+
   return (
     <GradientBackground
       colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
+      <SectionLayoutNotSafe
+        topFlex={1}
+        middleFlex={0}
+        bottomFlex={0}
+        topContent={
+          <>
+            <View style={styles.titleWrapper}>
+              <Text style={globalStyles.title}>
+                Welcome Back, {profile?.displayName || "friend"}
+              </Text>
+            </View>
 
-      
-      <View style={globalStyles.container}>
-        <View style={globalStyles.titleWrapper}>
-          <Text style={globalStyles.title}>
-            Welcome Back, {profile?.displayName || "friend"}
-          </Text>
-        </View>
-
-        <ScrollView
-          style={globalStyles.scrollView}
-          contentContainerStyle={globalStyles.scrollContent}
-          showsVerticalScrollIndicator={false}
-        >
-          {vibeHomeCards.map((card) => (
-            <HomeCard
-              key={card.id}
-              title={card.title}
-              subtitle={card.subtitle}
-              icon={card.icon}
-              image={card.image}
-              textColor={card.textColor}
-              onPress={() => navigation.navigate(card.screen)}
-            />
-          ))}
-        </ScrollView>
-      </View>
+            <ScrollView
+              style={globalStyles.scrollView}
+              contentContainerStyle={globalStyles.scrollContent}
+              showsVerticalScrollIndicator={false}
+            >
+              {vibeHomeCards.map((card) => (
+                <HomeCard
+                  key={card.id}
+                  title={card.title}
+                  subtitle={card.subtitle}
+                  icon={card.icon}
+                  image={card.image}
+                  textColor={card.textColor}
+                  onPress={() => navigation.navigate(card.screen)}
+                />
+              ))}
+            </ScrollView>
+          </>
+        }
+      />
     </GradientBackground>
   );
 };

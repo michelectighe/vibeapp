@@ -1,48 +1,57 @@
+import { appleAuth } from "@invertase/react-native-apple-authentication";
 import {
-  AppleButton,
-  appleAuth,
-} from "@invertase/react-native-apple-authentication";
+  OAuthProvider,
+  signInWithCredential,
+  updateProfile,
+  getAuth,
+} from "firebase/auth";
 
 export const signInWithApple = async () => {
   try {
+    const auth = getAuth();
+
     const appleAuthRequestResponse = await appleAuth.performRequest({
       requestedOperation: appleAuth.Operation.LOGIN,
       requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
     });
-    if (appleAuthRequestResponse.fullName) {
-      const { givenName } = appleAuthRequestResponse.fullName;
-      const displayName = `${givenName ?? ""}`.trim();
-      const { identityToken, nonce } = appleAuthRequestResponse;
 
-      if (!identityToken) {
-        throw new Error("Apple Sign-In failed - no identity token returned");
-      }
+    const { identityToken, nonce, fullName } = appleAuthRequestResponse;
 
-      const provider = new OAuthProvider("apple.com");
-      const credential = provider.credential({
-        idToken: identityToken,
-        rawNonce: nonce,
-      });
-
-      await signInWithCredential(auth, credential);
-      console.log("after signinwithcred");
-      if (displayName && auth.currentUser) {
-        await updateProfile(auth.currentUser, { displayName });
-      }
-      setError("");
-      resetAndLeave();
+    if (!identityToken) {
+      throw new Error("Apple Sign-In failed: No identity token returned");
     }
+
+    const provider = new OAuthProvider("apple.com");
+    const credential = provider.credential({
+      idToken: identityToken,
+      rawNonce: nonce,
+    });
+
+    // Sign in with Firebase using Apple credentials
+    const result = await signInWithCredential(auth, credential);
+    const { user } = result;
+
+    // Only update name if available and this is the FIRST login
+    if (fullName?.givenName && user.displayName == null) {
+      const displayName = fullName.givenName;
+      await updateProfile(user, { displayName });
+    }
+
+    return { success: true };
   } catch (error) {
-    //  console.error("❌ iOS sign-in error:", error);
-    // 👇 Check for Apple native cancellation
+    console.log("🍏 Apple Sign-In error:", error);
+
+    // Detect cancel
     if (
       error?.message?.includes("AuthorizationError") &&
       error?.message?.includes("1001")
     ) {
-      setError("You cancelled Apple sign-in.");
-    } else {
-      const friendly = getFriendlyError(error.code);
-      setError(friendly || "There was a problem signing in with Apple.");
+      return { success: false, cancelled: true };
     }
+
+    return {
+      success: false,
+      message: error?.message || "Apple sign-in failed",
+    };
   }
 };

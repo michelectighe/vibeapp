@@ -1,8 +1,11 @@
 //src/utils/index.js
 
+import { initializeRevenueCat } from "@/utils/initRevCat";
 import { signInWithApple } from "@/utils/signInWithApple";
 
 //import { useKickJS } from "../hooks/useKickJS";
+export { initializeRevenueCat } from "./initRevCat";
+export { startPurchaseFlow } from "./purchaseSubscription";
 export { audioMap } from "./audioMap";
 export {
   isBiometricAvailable,

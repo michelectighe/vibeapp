@@ -69,6 +69,14 @@ export const UpdateProfileScreen = ({ navigation }) => {
   const [musicEnabled, setMusicEnabled] = useState(true);
   const [isAppleLogin, setIsAppleLogin] = useState(false);
   const [confirmationAnim] = useState(new Animated.Value(0));
+  const { isPremium, premiumDetails } = useAuth();
+
+  if (isPremium && premiumDetails) {
+    console.log("Subscribed to:", premiumDetails.productIdentifier);
+    console.log("Renews automatically?", premiumDetails.willRenew);
+    console.log("Expires on:", premiumDetails.expiresDate);
+  }
+  const expiry = new Date(premiumDetails.expiresDate).toLocaleDateString();
 
   if (authLoading) {
     return (

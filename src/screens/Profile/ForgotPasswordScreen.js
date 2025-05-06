@@ -89,8 +89,11 @@ export const ForgotPasswordScreen = ({ navigation }) => {
                     color={Colors.buttonBackground}
                     textColor={Colors.lightText}
                   />
-                  <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Text style={styles.backLink}>← Back to Sign In</Text>
+                  <TouchableOpacity
+                    style={globalStyles.link}
+                    onPress={() => navigation.goBack()}
+                  >
+                    <Text style={globalStyles.link}>← Back to Sign In</Text>
                   </TouchableOpacity>
                 </View>
               </KeyboardAvoidingView>

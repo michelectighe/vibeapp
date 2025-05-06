@@ -1,28 +1,47 @@
 import React, { useEffect, useState } from "react";
-import { View, ActivityIndicator, Share } from "react-native";
+import { View, ActivityIndicator, Share, Text } from "react-native";
 import { getAuth } from "firebase/auth";
+import { useAuth } from "@context";
 import { loadResults, SCREEN_HEIGHT } from "@utils";
-import { GradientBackground, ResultSelector } from "@components";
+import { GradientBackground, ResultSelector, SectionLayout } from "@components";
 import { createMatchLink } from "@services";
 import { Colors } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
+import { SubscriptionModal } from "@components/SubscriptionModal"; // ✅ import
 import { styles } from "./ShareScreen.styles";
 import { globalStyles } from "@styles";
+import { useNavigation } from "@react-navigation/native";
 
 export const ShareScreen = ({ navigation }) => {
   useAmbientControlForScreen(true);
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [showSubModal, setShowSubModal] = useState(false);
   const auth = getAuth();
+  const { user, authLoading, isPremium } = useAuth(); // 🔑 assuming `isPremium` is part of auth context
 
   useEffect(() => {
-    const fetchResults = async () => {
-      const data = await loadResults();
-      setResults(data);
-      setLoading(false);
-    };
-    fetchResults();
-  }, []);
+    if (authLoading) return;
+
+    if (!user) {
+      navigation.replace("Tabs", {
+        screen: "Settings",
+        params: {
+          screen: "SignInScreen",
+        },
+      })
+    } else if (!isPremium) {
+      setShowSubModal(true);
+    } else {
+      fetchResults();
+    }
+  }, [authLoading, user, isPremium]);
+
+  const fetchResults = async () => {
+    const data = await loadResults();
+    setResults(data);
+    setLoading(false);
+  };
 
   const onShare = async (item) => {
     try {
@@ -35,7 +54,7 @@ export const ShareScreen = ({ navigation }) => {
     }
   };
 
-  if (loading) {
+  if (loading || authLoading) {
     return (
       <ActivityIndicator
         size="large"
@@ -45,18 +64,45 @@ export const ShareScreen = ({ navigation }) => {
   }
 
   return (
-    <GradientBackground
-      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
-    >
-      <View style={globalStyles.container}>
-        <View style={styles.innerContainer}>
-          <ResultSelector
-            results={results}
-            onSelect={(item) => console.log("Selected:", item)}
-            onShare={onShare}
-          />
-        </View>
-      </View>
-    </GradientBackground>
+    <>
+      <GradientBackground
+        colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
+      >
+        <SectionLayout
+          topFlex={1}
+          middleFlex={3}
+          bottomFlex={0}
+          topContent={
+            <View style={globalStyles.titleWrapper}>
+              <Text style={globalStyles.title}>Vibe Match</Text>
+              <Text style={globalStyles.subTitle}>
+                Let's see if your vibe is in sync.
+              </Text>
+            </View>
+          }
+          middleContent={
+            <View>
+              <ResultSelector
+                results={results}
+                onSelect={(item) => console.log("Selected:", item)}
+                onShare={onShare}
+              />
+            </View>
+          }
+        />
+      </GradientBackground>
+
+      <SubscriptionModal
+        visible={showSubModal}
+        onClose={(shouldUpgrade) => {
+          setShowSubModal(false);
+          if (!shouldUpgrade) {
+            navigation.replace("Home"); // 👈 send them away if not upgrading
+          } else {
+            navigation.navigate("Subscription"); // 👈 or your upgrade screen
+          }
+        }}
+      />
+    </>
   );
 };

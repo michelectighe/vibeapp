@@ -6,10 +6,6 @@ import { onAuthStateChanged } from "firebase/auth";
 import { loadTensorflowModel } from "react-native-fast-tflite";
 import * as Font from "expo-font";
 
-const REVENUECAT_API_KEY = Platform.select({
-  ios: "appl_XwtnTCtapUFWuqbJzwsJllWWxcj",
-  android: "your_android_revenuecat_api_key",
-});
 
 export const initApp = async ({ setModel }) => {
   try {
@@ -25,12 +21,8 @@ export const initApp = async ({ setModel }) => {
       JournalText: require("@assets/fonts/HomemadeApple-Regular.ttf"),
     });
     //   console.log("✅ Fonts loaded");
-
-    await Promise.all([
-      Purchases.configure({ apiKey: REVENUECAT_API_KEY }),
-      initializeDatabase(),
-    ]);
-
+    initializeDatabase();
+    
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         //console.log("user logged in:", currentUser.email);

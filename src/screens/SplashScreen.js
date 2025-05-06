@@ -39,6 +39,7 @@ export const SplashScreen = ({ navigation, route }) => {
     const startApp = async () => {
       try {
         await new Promise((resolve) => setTimeout(resolve, 300));
+
         await initApp({ setModel });
 
         if (authLoading) return;

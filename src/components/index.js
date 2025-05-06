@@ -35,6 +35,7 @@ export { ProfileAvatar } from "./ProfileAvatar";
 export { ProgressDots } from "./ProgressDots";
 export { ResultSelector } from "./ResultSelector";
 export { SectionLayout } from "./SectionLayout";
+export { SectionLayoutNotSafe } from "./SectionLayoutNotSafe";
 export { SparkleOverlay } from "./SparkleOverlay";
 export { ThemeWrapper } from "./ThemeWrapper";
 export { TypewriterText } from "./TypewriterText";

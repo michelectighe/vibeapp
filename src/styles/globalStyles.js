@@ -12,7 +12,7 @@ const rawStyles = {
     position: "relative",
   },
   formContainer: {
-    width: SCREEN_WIDTH * .9,
+    width: SCREEN_WIDTH * 0.9,
     alignItems: "stretch",
   },
   inputContainer: {
@@ -57,9 +57,9 @@ const rawStyles = {
     zIndex: 1,
   },
   scrollContent: {
-    paddingTop: 230, // this matches the height of your title/logo area
+    paddingTop: 200, // this matches the height of your title/logo area
     paddingHorizontal: 20,
-    paddingBottom: 100,
+    paddingBottom: 160,
   },
   titleWrapper: {
     zIndex: 1,
@@ -82,6 +82,18 @@ const rawStyles = {
     fontSize: 30,
     color: Colors.darkText,
     fontFamily: Fonts.AppFontBold,
+  },
+  subTitle: {
+    textAlign: "center",
+    fontSize: 18,
+    color: Colors.darkText,
+    fontFamily: Fonts.AppFontBold,
+  },
+  link: {
+    alignSelf: "flex-start",
+    color: "white",
+    marginBottom: 20,
+    fontSize: 18,
   },
 };
 

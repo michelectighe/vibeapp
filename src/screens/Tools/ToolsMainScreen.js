@@ -8,6 +8,7 @@ import {
   GradientBackground,
   CustomSpiritualButton,
   HomeCard,
+  SectionLayoutNotSafe,
 } from "@components";
 import { Colors } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
@@ -38,29 +39,36 @@ export const ToolsMainScreen = () => {
     <GradientBackground
       colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
-      <View style={globalStyles.container}>
-        <View style={globalStyles.titleWrapper}>
-          <Text style={styles.welcomeText}>Healing Journey</Text>
-        </View>
+      <SectionLayoutNotSafe
+        topFlex={1}
+        middleFlex={0}
+        bottomFlex={0}
+        topContent={
+          <>
+            <View style={styles.titleWrapper}>
+              <Text style={globalStyles.title}>Healing Journey</Text>
+            </View>
 
-        <ScrollView
-          style={globalStyles.scrollView}
-          contentContainerStyle={globalStyles.scrollContent}
-          showsVerticalScrollIndicator={false}
-        >
-          {toolsCards.map((card) => (
-            <HomeCard
-              key={card.id}
-              title={card.title}
-              subtitle={card.subtitle}
-              icon={card.icon}
-              image={card.image}
-              textColor={card.textColor}
-              onPress={() => navigation.navigate(card.screen)}
-            />
-          ))}
-        </ScrollView>
-      </View>
+            <ScrollView
+              style={globalStyles.scrollView}
+              contentContainerStyle={globalStyles.scrollContent}
+              showsVerticalScrollIndicator={false}
+            >
+              {toolsCards.map((card) => (
+                <HomeCard
+                  key={card.id}
+                  title={card.title}
+                  subtitle={card.subtitle}
+                  icon={card.icon}
+                  image={card.image}
+                  textColor={card.textColor}
+                  onPress={() => navigation.navigate(card.screen)}
+                />
+              ))}
+            </ScrollView>
+          </>
+        }
+      />
     </GradientBackground>
   );
 };

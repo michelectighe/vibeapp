@@ -10,21 +10,18 @@ const rawStyles = {
     textAlign: "center",
     marginBottom: 10,
   },
-  
   eyeIcon: {
     padding: 8,
   },
   forgot: {
+    alignSelf: "flex-start",
     color: "white",
     marginTop: 0,
     fontSize: 14,
     marginBottom: 20,
+    backgroundColor: "red"
   },
-  link: {
-    color: "white",
-    marginBottom: 20,
-    fontSize: 18,
-  },
+
 };
 
 export const styles = StyleSheet.create(scaledStyle(rawStyles));

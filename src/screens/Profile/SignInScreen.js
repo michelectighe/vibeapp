@@ -99,49 +99,16 @@ export const SignInScreen = ({ navigation, returnTo }) => {
     tryFaceID();
   }, []);
 
-  // const signInWithApple = async () => {
-  //   try {
-  //     const appleAuthRequestResponse = await appleAuth.performRequest({
-  //       requestedOperation: appleAuth.Operation.LOGIN,
-  //       requestedScopes: [appleAuth.Scope.EMAIL, appleAuth.Scope.FULL_NAME],
-  //     });
-  //     if (appleAuthRequestResponse.fullName) {
-  //       const { givenName } = appleAuthRequestResponse.fullName;
-  //       const displayName = `${givenName ?? ""}`.trim();
-  //       const { identityToken, nonce } = appleAuthRequestResponse;
-
-  //       if (!identityToken) {
-  //         throw new Error("Apple Sign-In failed - no identity token returned");
-  //       }
-
-  //       const provider = new OAuthProvider("apple.com");
-  //       const credential = provider.credential({
-  //         idToken: identityToken,
-  //         rawNonce: nonce,
-  //       });
-
-  //       await signInWithCredential(auth, credential);
-  //       console.log("after signinwithcred");
-  //       if (displayName && auth.currentUser) {
-  //         await updateProfile(auth.currentUser, { displayName });
-  //       }
-  //       setError("");
-  //       resetAndLeave();
-  //     }
-  //   } catch (error) {
-  //     //  console.error("❌ iOS sign-in error:", error);
-  //     // 👇 Check for Apple native cancellation
-  //     if (
-  //       error?.message?.includes("AuthorizationError") &&
-  //       error?.message?.includes("1001")
-  //     ) {
-  //       setError("You cancelled Apple sign-in.");
-  //     } else {
-  //       const friendly = getFriendlyError(error.code);
-  //       setError(friendly || "There was a problem signing in with Apple.");
-  //     }
-  //   }
-  // };
+  const handleAppleLogin = async () => {
+    const result = await signInWithApple();
+    if (result.cancelled) {
+      Alert.alert("Apple sign-in cancelled");
+    } else if (!result.success) {
+      Alert.alert("Sign-in Error", result.message);
+    } else {
+      resetAndLeave();
+    }
+  };
 
   const handleSignIn = async (providedEmail, providedPassword) => {
     setError("");
@@ -198,7 +165,12 @@ export const SignInScreen = ({ navigation, returnTo }) => {
                     style={styles.link}
                     onPress={() => navigation.navigate("SignUpScreen")}
                   >
-                    <Text style={[styles.link, { textAlign: "center" }]}>
+                    <Text
+                      style={[
+                        globalStyles.link,
+                        { alignSelf: "center", textAlign: "center" },
+                      ]}
+                    >
                       Don't have an account? Sign Up
                     </Text>
                   </TouchableOpacity>
@@ -230,13 +202,13 @@ export const SignInScreen = ({ navigation, returnTo }) => {
                     >
                       {passwordVisible ? (
                         <MaterialIcons
-                          name="visibility-off"
+                          name="visibility"
                           size={24}
                           color="#888"
                         />
                       ) : (
                         <MaterialIcons
-                          name="visibility"
+                          name="visibility-off"
                           size={24}
                           color="#888"
                         />
@@ -245,9 +217,10 @@ export const SignInScreen = ({ navigation, returnTo }) => {
                   </View>
                 </View>
                 <TouchableOpacity
+                  style={globalStyles.link}
                   onPress={() => navigation.navigate("ForgotPasswordScreen")}
                 >
-                  <Text style={styles.forgot}>Forgot Password?</Text>
+                  <Text style={globalStyles.link}>Forgot Password?</Text>
                 </TouchableOpacity>
                 <View>
                   <CustomSpiritualButton
@@ -258,15 +231,16 @@ export const SignInScreen = ({ navigation, returnTo }) => {
                   />
                 </View>
 
-                <TouchableOpacity
-                  onPress={() => navigation.navigate("SignUpScreen")}
+                <Text
+                  style={[
+                    globalStyles.link,
+                    { alignSelf: "center", textAlign: "center", marginTop: 20 },
+                  ]}
                 >
-                  <Text style={[styles.link, { textAlign: "center", marginTop: 10 }]}>
-                   Or Sign in with Apple
-                  </Text>
-                </TouchableOpacity>
+                  Or Sign in with Apple
+                </Text>
 
-                <View style={{ marginTop: 30, alignItems: "center" }}>
+                <View style={{ marginTop: 20, alignItems: "center" }}>
                   <AppleButton
                     buttonStyle={AppleButton.Style.WHITE}
                     buttonType={AppleButton.Type.SIGN_IN}
@@ -275,7 +249,7 @@ export const SignInScreen = ({ navigation, returnTo }) => {
                       height: 44,
                     }}
                     onPress={() => {
-                      signInWithApple();
+                      handleAppleLogin();
                     }}
                   />
                 </View>
