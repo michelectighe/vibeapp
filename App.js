@@ -35,6 +35,10 @@ enableScreens();
 LogBox.ignoreLogs([
   "Support for defaultProps will be removed",
   "Text strings must be rendered within a <Text> component",
+  "Sending `playback-state` with no listeners registered",
+  "Sending `playback-track-changed` with no listeners registered",
+  "Sending `playback-active-track-changed` with no listeners registered",
+  "Sending `playback-play-when-ready-changed` with no listeners registered",
 ]);
 
 // const linking = {

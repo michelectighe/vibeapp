@@ -41,13 +41,14 @@
 - [x] Adjustable layout for phone sizes
 - [x] Fix colors in colors.js (use only these throughout app.. no hardcoding)
 - [x] Figure out logo placement and size
-- [ ] Splash screen
+- [x] Splash screen
 - [x] Scroll bar sharpness?
 - [x] Fix feathers
 - [x] emotional transition screen: change timing to exit after text (change font)
 - [x] heart rate screen - change layout
 - [ ] apply sectionLayout to all screens
 - [x] style results screen
+- [x] breathing screen: change circle to fuzzy glow
 
 ### 3. Navigaton
 

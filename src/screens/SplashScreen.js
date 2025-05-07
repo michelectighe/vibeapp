@@ -64,10 +64,10 @@ export const SplashScreen = ({ navigation, route }) => {
   return (
     <Animated.View style={[styles.animatedView, { opacity: fadeAnim }]}>
       <GradientBackground
-        colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
+        colors={[Colors.gradient2, Colors.gradient1, Colors.gradient1]}
         logo={false}
       >
-        <View style={globalStyles.container}>
+        <View style={styles.container}>
           <AnimatedLogo />
         </View>
       </GradientBackground>

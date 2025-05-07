@@ -1,12 +1,19 @@
 import React, { useEffect, useRef, useState } from "react";
 import { View, Text, Animated, StyleSheet, Dimensions } from "react-native";
 import { Colors, Fonts } from "@constants";
+import { FuzzyGlow } from "./FuzzyGlow";
 
 const { width } = Dimensions.get("window");
 
 export const BreathingCircle = ({ pattern }) => {
   const [phase, setPhase] = useState("Inhale");
   const phaseRef = useRef("Inhale");
+  const phaseColors = {
+    Inhale: Colors.inhale, // mint green
+    Exhale: Colors.exhale, // soft pink
+    Hold: Colors.hold, // warm yellow
+    "Hold After Exhale": Colors.hold, // use same as Hold, or change
+  };
 
   const [counter, setCounter] = useState(pattern.inhale);
   const scaleAnim = useRef(new Animated.Value(1)).current;
@@ -39,10 +46,10 @@ export const BreathingCircle = ({ pattern }) => {
   const next = () => {
     switch (phaseRef.current) {
       case "Inhale":
-        startPhase("Hold", pattern.hold1, 1.2);
+        startPhase("Hold", pattern.hold1, 1.1);
         break;
       case "Hold":
-        startPhase("Exhale", pattern.exhale, 1);
+        startPhase("Exhale", pattern.exhale, .4);
         break;
       case "Exhale":
         if (pattern.hold2 > 0) {
@@ -62,18 +69,19 @@ export const BreathingCircle = ({ pattern }) => {
   useEffect(() => {
     startPhase("Inhale", pattern.inhale, 1.5);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  const glowColor = phaseColors[phase] || "white";
 
   return (
     <View style={styles.wrapper}>
       <View style={styles.circleWrapper}>
-        <Animated.View
-          style={[
-            styles.circle,
-            {
-              transform: [{ scale: scaleAnim }],
-            },
-          ]}
+        {/* <Animated.View style={[styles.fuzzy, { transform: [{ scale: scaleAnim }] }]}> */}
+        <FuzzyGlow
+          glowColor={glowColor}
+          glowSize={width * 0.5}
+          pulse={false}
+          externalScale={scaleAnim}
         />
+        {/* </Animated.View> */}
         <Text style={styles.counterInside}>{counter}</Text>
       </View>
 
@@ -88,13 +96,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     marginBottom: 20,
   },
-  circle: {
-    width: width * 0.5,
-    height: width * 0.5,
-    borderRadius: width * 0.25,
-    backgroundColor: Colors.buttonBackground,
-    marginBottom: 40,
-  },
   phase: {
     fontSize: 36,
     fontWeight: "bold",
@@ -107,12 +108,16 @@ const styles = StyleSheet.create({
     fontWeight: "300",
   },
   circleWrapper: {
+    position: "relative", // ← ADD THIS LINE
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 40,
     marginTop: 40,
     width: width * 0.5,
     height: width * 0.5,
+  },
+  fuzzy: {
+    alignItems: "center",
   },
   counterInside: {
     position: "absolute",

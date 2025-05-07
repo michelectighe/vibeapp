@@ -1,3 +1,4 @@
+import TrackPlayer, { Event } from "react-native-track-player";
 import { useEffect, useRef } from "react";
 import { AppState } from "react-native";
 import { setupPlayer, playTrack, stopTrack, getMusicPreference } from "@services";
@@ -27,7 +28,7 @@ export const MusicManager = () => {
         setUserMusicPref(musicPref);
 
         if (userMusicPref && shouldPlayAmbient) {
-          await playTrack(); // this will play default ambient (with no flags)
+          await playTrack();
         }
       } catch (err) {
         console.error("❌ Error during music init:", err);
@@ -35,6 +36,16 @@ export const MusicManager = () => {
     };
 
     init();
+
+    // 🔁 TrackPlayer event listeners
+    const listeners = [
+      TrackPlayer.addEventListener(Event.PlaybackState, () => {
+      }),
+      TrackPlayer.addEventListener(Event.PlaybackActiveTrackChanged, () => {
+      }),
+      TrackPlayer.addEventListener(Event.PlaybackPlayWhenReadyChanged, () => {
+      }),
+    ];
 
     const subscription = AppState.addEventListener("change", async (nextAppState) => {
       if (!isMounted) return;
@@ -44,10 +55,9 @@ export const MusicManager = () => {
         setUserMusicPref(musicPref);
 
         if (userMusicPref && shouldPlayAmbient) {
-          await playTrack(); // this will play default ambient (with no flags)
+          await playTrack();
         }
       } else if (nextAppState.match(/inactive|background/)) {
-        // App going to background
         await stopTrack();
       }
 
@@ -55,12 +65,13 @@ export const MusicManager = () => {
     });
 
     return () => {
-      console.log("returning");
+      console.log("🛑 Cleaning up MusicManager");
       isMounted = false;
       subscription.remove();
+      listeners.forEach((l) => l.remove());
       stopTrack();
     };
   }, []);
 
-  return null; // This component doesn’t render anything
+  return null;
 };

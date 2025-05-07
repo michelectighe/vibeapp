@@ -19,12 +19,7 @@ import { GradientBackground, CustomSpiritualButton, SectionLayout } from "@compo
 import { Fonts, Colors } from "@constants";
 import { styles } from "./SignInScreen.style";
 import { globalStyles } from "@styles";
-import {
-  getBiometricOptIn,
-  getSavedCredentials,
-  getFriendlyError,
-  signInWithApple,
-} from "@utils";
+import { getBiometricOptIn, getSavedCredentials, getFriendlyError, signInWithApple } from "@utils";
 
 // GoogleSignin.configure({
 //   webClientId:
@@ -33,7 +28,9 @@ import {
 //     "104401126316-qlr796caoj090l9h1f402e42ljdf5qvs.apps.googleusercontent.com",
 // });
 
-export const SignInScreen = ({ navigation, returnTo }) => {
+export const SignInScreen = ({ navigation, route }) => {
+  const returnTo = route?.params?.returnTo;
+  console.log("ReturnTo Value:", returnTo);
   useAmbientControlForScreen(true);
   const { signIn } = useAuth();
   const [email, setEmail] = useState("");
@@ -77,7 +74,7 @@ export const SignInScreen = ({ navigation, returnTo }) => {
     };
 
     tryFaceID();
-  }, []);  // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleAppleLogin = async () => {
     const result = await signInWithApple();
@@ -105,16 +102,27 @@ export const SignInScreen = ({ navigation, returnTo }) => {
     resetAndLeave();
   };
   const resetAndLeave = () => {
-    // navigation.reset({
-    //   index: 0,
-    //   routes: [{ name: "Home" }],
-    // });
-    navigation.reset({
-      index: 0,
-      routes: [returnTo || { name: "Home" }],
-    });
-    //   navigation.navigate(returnTo || "Tabs", { screen: "Home" });
+    console.log("returnto:", returnTo);
+    if (returnTo && typeof returnTo === "object") {
+      console.log("object return:", returnTo);
+      navigation.reset({
+        index: 0,
+        routes: [returnTo],
+      });
+    } else if (typeof returnTo === "string") {
+      console.log("string return:", returnTo);
+      navigation.reset({
+        index: 0,
+        routes: [{ name: returnTo }],
+      });
+    } else {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "Tabs", screen: "Home" }],
+      });
+    }
   };
+
   return (
     // <ImageBackground
     //   source={profileAssets.background}

@@ -1,4 +1,6 @@
+
 import TrackPlayer from "react-native-track-player";
+
 
 export const setupPlayer = async () => {
   console.log("trying to set up player now");
@@ -35,7 +37,6 @@ export const stopTrack = async () => {
 
 export const isPlayingTrack = async () => {
   const state = await TrackPlayer.getPlaybackState();
-  console.log("state:", state);
   return state;
 };
 

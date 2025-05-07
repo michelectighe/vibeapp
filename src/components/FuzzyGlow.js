@@ -2,19 +2,19 @@ import React, { useEffect, useRef } from "react";
 import { Animated } from "react-native";
 import { Svg, Defs, RadialGradient, Stop, Circle } from "react-native-svg";
 
-export const FuzzyGlow = ({ glowSize, glowColor, pulse = true }) => {
-  const scale = useRef(new Animated.Value(1)).current;
+export const FuzzyGlow = ({ glowSize, glowColor, pulse = true, externalScale }) => {
+  const internalScale = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
-    if (pulse) {
+    if (pulse && !externalScale) {
       const pulseAnimation = Animated.loop(
         Animated.sequence([
-          Animated.timing(scale, {
+          Animated.timing(internalScale, {
             toValue: 1.2,
             duration: 1000,
             useNativeDriver: true,
           }),
-          Animated.timing(scale, {
+          Animated.timing(internalScale, {
             toValue: 1,
             duration: 1000,
             useNativeDriver: true,
@@ -25,7 +25,9 @@ export const FuzzyGlow = ({ glowSize, glowColor, pulse = true }) => {
 
       return () => pulseAnimation.stop();
     }
-  }, [pulse]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [pulse, externalScale]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const scaleToUse = externalScale ?? internalScale;
 
   return (
     <Animated.View
@@ -33,7 +35,11 @@ export const FuzzyGlow = ({ glowSize, glowColor, pulse = true }) => {
         position: "absolute",
         top: "50%",
         left: "50%",
-        transform: [{ translateX: -glowSize / 2 }, { translateY: -glowSize / 2 }, { scale }],
+        transform: [
+          { translateX: -glowSize / 2 },
+          { translateY: -glowSize / 2 },
+          { scale: scaleToUse },
+        ],
         width: glowSize,
         height: glowSize,
       }}

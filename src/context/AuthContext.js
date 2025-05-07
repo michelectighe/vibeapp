@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
           await Purchases.logIn(user.uid);
 
           const customerInfo = await Purchases.getCustomerInfo();
-          console.log("📦 RevenueCat customerInfo:", customerInfo); // Optional: debug log
+     //     console.log("📦 RevenueCat customerInfo:", customerInfo); // Optional: debug log
 
           const entitlement = customerInfo?.entitlements?.active?.Premium_Access;
 

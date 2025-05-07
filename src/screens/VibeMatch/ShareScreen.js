@@ -25,7 +25,12 @@ export const ShareScreen = ({ navigation }) => {
         screen: "Settings",
         params: {
           screen: "SignInScreen",
-          params: { returnTo: "ShareScreen" },
+          params: {
+            returnTo: {
+              name: "VibeMatch",
+              params: { screen: "ShareScreen" },
+            },
+          },
         },
       });
     } else if (!isPremium) {

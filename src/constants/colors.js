@@ -40,5 +40,9 @@ export const Colors = {
 
   stickyNotes: "#e7e43d", //#e7e43d
 
+  inhale: "#4FBF9F", // Soft muted mint (matches light sage)
+  exhale: "#2F7967", // Dusty teal (midpoint between sage and forest)
+  hold: "#C3F0DD",
+
   background: "transparent",
 };
