@@ -219,9 +219,13 @@ PODS:
     - Yoga
   - ExpoAsset (11.0.5):
     - ExpoModulesCore
+  - ExpoBlur (14.0.3):
+    - ExpoModulesCore
   - ExpoFileSystem (18.0.12):
     - ExpoModulesCore
-  - ExpoFont (13.3.0):
+  - ExpoFont (13.3.1):
+    - ExpoModulesCore
+  - ExpoHaptics (14.0.1):
     - ExpoModulesCore
   - ExpoKeepAwake (14.0.3):
     - ExpoModulesCore
@@ -277,8 +281,8 @@ PODS:
   - libwebp/sharpyuv (1.5.0)
   - libwebp/webp (1.5.0):
     - libwebp/sharpyuv
-  - PurchasesHybridCommon (13.29.1):
-    - RevenueCat (= 5.22.2)
+  - PurchasesHybridCommon (13.31.0):
+    - RevenueCat (= 5.23.0)
   - RCT-Folly (2024.10.14.00):
     - boost
     - DoubleConversion
@@ -1943,7 +1947,7 @@ PODS:
     - React-logger
     - React-perflogger
     - React-utils (= 0.76.9)
-  - RevenueCat (5.22.2)
+  - RevenueCat (5.23.0)
   - RNAppleAuthentication (2.4.1):
     - React-Core
   - RNAudio (4.3.0):
@@ -2017,8 +2021,8 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNPurchases (8.9.6):
-    - PurchasesHybridCommon (= 13.29.1)
+  - RNPurchases (8.9.7):
+    - PurchasesHybridCommon (= 13.31.0)
     - React-Core
   - RNReanimated (3.17.5):
     - DoubleConversion
@@ -2310,8 +2314,10 @@ DEPENDENCIES:
   - expo-dev-menu (from `../node_modules/expo-dev-menu`)
   - expo-dev-menu-interface (from `../node_modules/expo-dev-menu-interface/ios`)
   - ExpoAsset (from `../node_modules/expo-asset/ios`)
+  - ExpoBlur (from `../node_modules/expo-blur/ios`)
   - ExpoFileSystem (from `../node_modules/expo-file-system/ios`)
   - ExpoFont (from `../node_modules/expo-font/ios`)
+  - ExpoHaptics (from `../node_modules/expo-haptics/ios`)
   - ExpoKeepAwake (from `../node_modules/expo-keep-awake/ios`)
   - ExpoLinearGradient (from `../node_modules/expo-linear-gradient/ios`)
   - ExpoModulesCore (from `../node_modules/expo-modules-core`)
@@ -2440,10 +2446,14 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-dev-menu-interface/ios"
   ExpoAsset:
     :path: "../node_modules/expo-asset/ios"
+  ExpoBlur:
+    :path: "../node_modules/expo-blur/ios"
   ExpoFileSystem:
     :path: "../node_modules/expo-file-system/ios"
   ExpoFont:
     :path: "../node_modules/expo-font/ios"
+  ExpoHaptics:
+    :path: "../node_modules/expo-haptics/ios"
   ExpoKeepAwake:
     :path: "../node_modules/expo-keep-awake/ios"
   ExpoLinearGradient:
@@ -2637,8 +2647,10 @@ SPEC CHECKSUMS:
   expo-dev-menu: dd3197d2b0107ee036ffd85f95e75a950ab52ada
   expo-dev-menu-interface: 00dc42302a72722fdecec3fa048de84a9133bcc4
   ExpoAsset: 48386d40d53a8c1738929b3ed509bcad595b5516
+  ExpoBlur: 392c1207f71d0ecf22371621c1fbd44ba84d9742
   ExpoFileSystem: 42d363d3b96f9afab980dcef60d5657a4443c655
-  ExpoFont: db9293b9c4585e60e30602ea4d939ad9705fe963
+  ExpoFont: abbb91a911eb961652c2b0a22eef801860425ed6
+  ExpoHaptics: 8d199b2f33245ea85289ff6c954c7ee7c00a5b5d
   ExpoKeepAwake: b0171a73665bfcefcfcc311742a72a956e6aa680
   ExpoLinearGradient: a3126d055dd021c1eb38a2cf28052ccbd1a2b3e2
   ExpoModulesCore: c25d77625038b1968ea1afefc719862c0d8dd993
@@ -2652,7 +2664,7 @@ SPEC CHECKSUMS:
   glog: 08b301085f15bcbb6ff8632a8ebaf239aae04e6a
   hermes-engine: 9e868dc7be781364296d6ee2f56d0c1a9ef0bb11
   libwebp: 02b23773aedb6ff1fd38cec7a77b81414c6842a8
-  PurchasesHybridCommon: 1728ff834821ecfc85e987a565d51eda36213958
+  PurchasesHybridCommon: f694edb3e77b863b6dd92b1097d2558182d11f77
   RCT-Folly: ea9d9256ba7f9322ef911169a9f696e5857b9e17
   RCTDeprecation: ebe712bb05077934b16c6bf25228bdec34b64f83
   RCTRequired: ca91e5dd26b64f577b528044c962baf171c6b716
@@ -2714,7 +2726,7 @@ SPEC CHECKSUMS:
   React-utils: ed818f19ab445000d6b5c4efa9d462449326cc9f
   ReactCodegen: f853a20cc9125c5521c8766b4b49375fec20648b
   ReactCommon: 300d8d9c5cb1a6cd79a67cf5d8f91e4d477195f9
-  RevenueCat: 234d2361e453ce1282cee7e18449d01aba45ebbf
+  RevenueCat: a4db48f41c10fcdd6fd1ef455875e091b32bf70d
   RNAppleAuthentication: c3dddf5918126c9aae85dc2e2ce9fb87835e9e04
   RNAudio: 01b34b0f029b6a1279f975e15dbc1f11fc42b258
   RNCAsyncStorage: ab0ad9a78ead8b9f143f0238a5aa535777b12e65
@@ -2722,7 +2734,7 @@ SPEC CHECKSUMS:
   RNFS: 89de7d7f4c0f6bafa05343c578f61118c8282ed8
   RNGestureHandler: 9c8bf98209e658e1ceb13026f176e4ede1f24491
   RNKeychain: 850638785745df5f70c37251130617a66ec82102
-  RNPurchases: 44561894fbf72dbf21c3c82533951bd075e8fa96
+  RNPurchases: e20d58889e85fa6d248de647176d2cc9968e2628
   RNReanimated: 1940e2891efbdf495b4e2096c7e1394729dbbe64
   RNScreens: 18e02aaafedc00fc2a44bb9566fc0e82274f830e
   RNSoundLevel: a48da8668fbde4f792c0bea948e27ab793bee7e1

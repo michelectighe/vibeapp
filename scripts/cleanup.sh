@@ -17,7 +17,6 @@ npm cache clean --force
 echo "📦 Installing Pods with New Architecture OFF..."
 pod deintegrate
 pod install
-pod install --repo-update
 npm run patch-h
 cd ..
 
