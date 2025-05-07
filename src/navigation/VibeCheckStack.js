@@ -2,13 +2,11 @@
 import {
   createStackNavigator,
   CardStyleInterpolators,
-  TransitionSpecs,
 } from "@react-navigation/stack";
 import { Easing } from "react-native";
 
 import {
   VibeCheckScreen,
-  VibeCheckDetailsScreen,
   HeartRateScreen,
   EmotionalStateScreen,
   ResultsScreen,
@@ -30,7 +28,7 @@ export const VibeCheckStack = () => {
   return (
     <Stack.Navigator
       initialRouteName="VibeCheckScreen"
-      screenOptions={({ navigation }) => ({
+      screenOptions={() => ({
         headerShown: false,
         // tabBarStyle: { display: "none" },
       })}
@@ -133,22 +131,6 @@ export const VibeCheckStack = () => {
               },
             },
           },
-        }}
-      />
-      <Stack.Screen
-        name="VibeCheckDetails"
-        component={VibeCheckDetailsScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="VibeMetrics"
-        component={VibeCheckDetailsScreen}
-        options={{
-          headerShown: false,
-          animation: "fade",
-          animationDuration: 1000,
         }}
       />
 

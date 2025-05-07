@@ -25,12 +25,12 @@ export const EdgeGlow = ({
             duration: 1500,
             useNativeDriver: true,
           }),
-        ])
+        ]),
       );
       animation.start();
       return () => animation.stop();
     }
-  }, [pulse]);
+  }, [pulse]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <View
@@ -74,4 +74,3 @@ export const EdgeGlow = ({
     </View>
   );
 };
-

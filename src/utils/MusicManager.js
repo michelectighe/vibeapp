@@ -1,12 +1,6 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from "react";
 import { AppState } from "react-native";
-import {
-  setupPlayer,
-  playTrack,
-  stopTrack,
-  fadeInMusic,
-  getMusicPreference,
-} from "@services";
+import { setupPlayer, playTrack, stopTrack, getMusicPreference } from "@services";
 
 let shouldPlayAmbient = true;
 let userMusicPref = true;
@@ -42,29 +36,23 @@ export const MusicManager = () => {
 
     init();
 
-    const subscription = AppState.addEventListener(
-      "change",
-      async (nextAppState) => {
-        if (!isMounted) return;
+    const subscription = AppState.addEventListener("change", async (nextAppState) => {
+      if (!isMounted) return;
 
-        if (
-          appState.current.match(/inactive|background/) &&
-          nextAppState === "active"
-        ) {
-          const musicPref = await getMusicPreference();
-          setUserMusicPref(musicPref);
+      if (appState.current.match(/inactive|background/) && nextAppState === "active") {
+        const musicPref = await getMusicPreference();
+        setUserMusicPref(musicPref);
 
-          if (userMusicPref && shouldPlayAmbient) {
-            await playTrack(); // this will play default ambient (with no flags)
-          }
-        } else if (nextAppState.match(/inactive|background/)) {
-          // App going to background
-          await stopTrack();
+        if (userMusicPref && shouldPlayAmbient) {
+          await playTrack(); // this will play default ambient (with no flags)
         }
-
-        appState.current = nextAppState;
+      } else if (nextAppState.match(/inactive|background/)) {
+        // App going to background
+        await stopTrack();
       }
-    );
+
+      appState.current = nextAppState;
+    });
 
     return () => {
       console.log("returning");

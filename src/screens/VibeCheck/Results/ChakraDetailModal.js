@@ -1,16 +1,9 @@
-import React, { useEffect, useRef, useState } from "react";
-import {
-  View,
-  Text,
-  Animated,
-  TouchableWithoutFeedback,
-  Dimensions,
-} from "react-native";
+import React, { useEffect, useRef } from "react";
+import { View, Text, Animated, TouchableWithoutFeedback, Dimensions } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { Fonts, Colors, chakraInsights } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./ChakraDetailModal.styles";
-import { globalStyles } from "@styles";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 
@@ -19,7 +12,6 @@ export const ChakraDetailModal = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const { chakra, originX, originY } = route.params;
-  const [isReady, setIsReady] = useState(false);
 
   const scale = useRef(new Animated.Value(0)).current;
   const translateX = useRef(new Animated.Value(originX)).current;
@@ -27,7 +19,7 @@ export const ChakraDetailModal = () => {
   const opacity = useRef(new Animated.Value(0)).current;
 
   const insight = chakraInsights[chakra.id]?.find(
-    (range) => chakra.score >= range.min && chakra.score <= range.max
+    (range) => chakra.score >= range.min && chakra.score <= range.max,
   );
 
   useEffect(() => {
@@ -53,7 +45,7 @@ export const ChakraDetailModal = () => {
         useNativeDriver: true,
       }),
     ]).start();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleClose = () => {
     Animated.parallel([

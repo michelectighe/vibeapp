@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import { Fonts } from "@constants";
 import { scaledStyle } from "@utils";
 
-export const styles = StyleSheet.create({
+const rawStyles = {
   root: {
     flex: 1,
     width: "100%",
@@ -56,4 +56,6 @@ export const styles = StyleSheet.create({
     fontSize: 18,
     color: "#f5f6fa",
   },
-});
+};
+
+export const styles = StyleSheet.create(scaledStyle(rawStyles));

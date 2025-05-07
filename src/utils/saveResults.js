@@ -1,11 +1,6 @@
 // utils/saveResults.js
 import { saveResult as saveToLocalDB } from "@database";
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  serverTimestamp,
-} from "firebase/firestore";
+import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
 const db = getFirestore();

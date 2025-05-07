@@ -1,12 +1,6 @@
 // SubscriptionScreen.js
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  ActivityIndicator,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
+import { View, Text, ActivityIndicator, TouchableOpacity, ScrollView } from "react-native";
 import Purchases from "react-native-purchases";
 
 import { setSubscriptionStatus } from "@utils";
@@ -55,9 +49,7 @@ export const SubscriptionScreen = ({ navigation, route }) => {
   };
 
   return (
-    <GradientBackground
-      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
-    >
+    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
       <SectionLayoutNotSafe
         topFlex={1}
         middleFlex={0}
@@ -91,9 +83,7 @@ export const SubscriptionScreen = ({ navigation, route }) => {
                   style={styles.subscribeButton}
                   onPress={() => handleSubscribe(pkg)}
                 >
-                  <Text style={styles.subscribeText}>
-                    Subscribe for {pkg.product.priceString}
-                  </Text>
+                  <Text style={styles.subscribeText}>Subscribe for {pkg.product.priceString}</Text>
                 </TouchableOpacity>
               ))
             )}

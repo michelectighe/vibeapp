@@ -31,8 +31,7 @@ export const AuthProvider = ({ children }) => {
           const customerInfo = await Purchases.getCustomerInfo();
           console.log("📦 RevenueCat customerInfo:", customerInfo); // Optional: debug log
 
-          const entitlement =
-            customerInfo?.entitlements?.active?.Premium_Access;
+          const entitlement = customerInfo?.entitlements?.active?.Premium_Access;
 
           if (entitlement) {
             setIsPremium(true);
@@ -96,8 +95,7 @@ export const AuthProvider = ({ children }) => {
       // Try logging out of RevenueCat if initialized properly
       try {
         const customerInfo = await Purchases.getCustomerInfo();
-        const hasSubscription =
-          Object.keys(customerInfo.entitlements.active).length > 0;
+        const hasSubscription = Object.keys(customerInfo.entitlements.active).length > 0;
 
         if (hasSubscription || customerInfo.originalAppUserId) {
           await Purchases.logOut();

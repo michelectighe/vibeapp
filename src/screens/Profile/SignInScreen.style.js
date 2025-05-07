@@ -19,9 +19,8 @@ const rawStyles = {
     marginTop: 0,
     fontSize: 14,
     marginBottom: 20,
-    backgroundColor: "red"
+    backgroundColor: "red",
   },
-
 };
 
 export const styles = StyleSheet.create(scaledStyle(rawStyles));

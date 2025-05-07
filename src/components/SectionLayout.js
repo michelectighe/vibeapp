@@ -1,10 +1,7 @@
 import React from "react";
 import { View, StyleSheet } from "react-native";
 import { scaledStyle } from "@utils";
-import {
-  SafeAreaView,
-  useSafeAreaInsets,
-} from "react-native-safe-area-context";
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { SCREEN_WIDTH } from "@/utils";
 
 export const SectionLayout = ({
@@ -26,29 +23,13 @@ export const SectionLayout = ({
   };
 
   return (
-    <SafeAreaView
-      style={[styles.safeArea, { paddingBottom: insets.bottom + 60 }]}
-    >
+    <SafeAreaView style={[styles.safeArea, { paddingBottom: insets.bottom + 60 }]}>
       <View style={[styles.container, style]}>
-        <View
-          style={[
-            sharedStyle,
-            { flex: equalHeight ? 1 : topFlex },
-            styles.topPadding,
-          ]}
-        >
+        <View style={[sharedStyle, { flex: equalHeight ? 1 : topFlex }, styles.topPadding]}>
           {topContent}
         </View>
-        <View style={[sharedStyle, { flex: equalHeight ? 1 : middleFlex }]}>
-          {middleContent}
-        </View>
-        <View
-          style={[
-            sharedStyle,
-            { flex: equalHeight ? 1 : bottomFlex },
-            styles.bottomPadding,
-          ]}
-        >
+        <View style={[sharedStyle, { flex: equalHeight ? 1 : middleFlex }]}>{middleContent}</View>
+        <View style={[sharedStyle, { flex: equalHeight ? 1 : bottomFlex }, styles.bottomPadding]}>
           {bottomContent}
         </View>
       </View>

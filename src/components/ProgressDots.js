@@ -1,7 +1,6 @@
 // 📌 components/ProgressDots.js
 import React from "react";
 import { View } from "react-native";
-import { RotateInDownLeft } from "react-native-reanimated";
 
 export const ProgressDots = ({ currentIndex, totalScreens }) => {
   return (
@@ -27,4 +26,3 @@ export const ProgressDots = ({ currentIndex, totalScreens }) => {
     </View>
   );
 };
-

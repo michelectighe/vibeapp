@@ -12,7 +12,6 @@ import { useAnalysis } from "@context";
 import { FuzzyGlow, EdgeGlow } from "@components";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./ChakraScreen.styles";
-import { globalStyles } from "@styles";
 
 const chakraMeta = [
   { id: "root", name: "Root", color: "#e53935" },
@@ -42,12 +41,7 @@ const ChakraCard = ({ chakra }) => {
   return (
     <Pressable onPress={handlePress}>
       <View style={[styles.card, { width: width - 32 }]}>
-        <EdgeGlow
-          width={width - 32}
-          height={180}
-          borderRadius={20}
-          glowColor={chakra.color}
-        />
+        <EdgeGlow width={width - 32} height={180} borderRadius={20} glowColor={chakra.color} />
         <FuzzyGlow glowSize={glowSize * 0.9} glowColor={chakra.color} />
         <View style={styles.textOverlay}>
           <Text style={styles.name}>{chakra.name}</Text>
@@ -80,10 +74,7 @@ export const ChakraScreen = () => {
         renderItem={({ item }) => <ChakraCard chakra={item} />}
       />
 
-      <TouchableOpacity
-        onPress={() => navigation.goBack()}
-        style={styles.closeButton}
-      >
+      <TouchableOpacity onPress={() => navigation.goBack()} style={styles.closeButton}>
         <Text style={styles.closeIcon}>✕</Text>
       </TouchableOpacity>
     </View>

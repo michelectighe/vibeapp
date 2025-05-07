@@ -1,8 +1,16 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet, LayoutAnimation, Platform, UIManager } from "react-native";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  LayoutAnimation,
+  Platform,
+  UIManager,
+} from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
 
-if (Platform.OS === 'android') {
+if (Platform.OS === "android") {
   UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
@@ -20,7 +28,6 @@ export const ExpandableInfoItem = ({ icon, title, description }) => {
         <Icon name={icon} size={22} style={styles.icon} />
         <Text style={styles.title}>{title}</Text>
         <TouchableOpacity onPress={toggleExpand}>
-          
           <Icon name="help-circle-outline" size={30} color="#555" />
         </TouchableOpacity>
       </View>

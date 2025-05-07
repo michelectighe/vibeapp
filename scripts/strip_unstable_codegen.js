@@ -1,7 +1,7 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require("fs");
+const path = require("path");
 
-const nodeModulesPath = path.resolve(__dirname, '../node_modules');
+const nodeModulesPath = path.resolve(__dirname, "../node_modules");
 
 // List of known problematic packages to patch
 const packagesToPatch = [
@@ -17,12 +17,10 @@ const packagesToPatch = [
   // 'react-native-keychain',
   // 'react-native-worklets-core',
   // 'react-native',
-
-
   // Add others here if needed
 ];
 
-console.log('🔍 Scanning for codegenConfig in node_modules...\n');
+console.log("🔍 Scanning for codegenConfig in node_modules...\n");
 
 function getAllPackages(dirPath) {
   const packages = [];
@@ -30,7 +28,7 @@ function getAllPackages(dirPath) {
   fs.readdirSync(dirPath).forEach((entry) => {
     const entryPath = path.join(dirPath, entry);
 
-    if (entry.startsWith('@')) {
+    if (entry.startsWith("@")) {
       // Scoped packages
       fs.readdirSync(entryPath).forEach((scopedPkg) => {
         packages.push(path.join(entry, scopedPkg));
@@ -46,12 +44,12 @@ function getAllPackages(dirPath) {
 const allPackages = getAllPackages(nodeModulesPath);
 
 allPackages.forEach((pkgName) => {
-  const pkgJsonPath = path.join(nodeModulesPath, pkgName, 'package.json');
+  const pkgJsonPath = path.join(nodeModulesPath, pkgName, "package.json");
 
   if (!fs.existsSync(pkgJsonPath)) return;
 
   try {
-    const raw = fs.readFileSync(pkgJsonPath, 'utf-8');
+    const raw = fs.readFileSync(pkgJsonPath, "utf-8");
     const pkg = JSON.parse(raw);
 
     if (pkg.codegenConfig) {
@@ -70,4 +68,4 @@ allPackages.forEach((pkgName) => {
   }
 });
 
-console.log('\n✅ Done scanning node_modules.\n');
+console.log("\n✅ Done scanning node_modules.\n");

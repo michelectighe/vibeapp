@@ -64,9 +64,7 @@ export const StreakScreen = () => {
   };
 
   return (
-    <GradientBackground
-      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
-    >
+    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
       <View style={styles.container}>
         <View style={styles.topSection}>
           <Text style={styles.streakTitle}>Your Daily Vibe Goals</Text>
@@ -103,9 +101,7 @@ export const StreakScreen = () => {
         </View>
         <DeleteConfirmationModal
           visible={showDeleteModal.visible}
-          onCancel={() =>
-            setShowDeleteModal({ visible: false, deleteId: null })
-          }
+          onCancel={() => setShowDeleteModal({ visible: false, deleteId: null })}
           onConfirm={() => {
             console.log(showDeleteModal.deleteId);
             if (showDeleteModal.deleteId) {

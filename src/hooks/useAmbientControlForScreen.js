@@ -1,11 +1,6 @@
 import { useFocusEffect } from "@react-navigation/native";
 import { useCallback } from "react";
-import {
-  fadeOutMusic,
-  playTrack,
-  getMusicPreference,
-  isPlayingTrack,
-} from "@services";
+import { fadeOutMusic, playTrack, getMusicPreference, isPlayingTrack } from "@services";
 import { setShouldPlayAmbient } from "@utils";
 import { MUSIC_PREF_KEY } from "@constants";
 
@@ -23,11 +18,7 @@ export const useAmbientControlForScreen = (playMusic = true) => {
           // make sure global and screen ambient are true before playing
           if (!playMusic || !userPref) {
             fadeOutMusic();
-          } else if (
-            playMusic &&
-            userPref &&
-            playingStatus.state !== "playing"
-          ) {
+          } else if (playMusic && userPref && playingStatus.state !== "playing") {
             playTrack();
           }
         } catch (e) {
@@ -40,6 +31,6 @@ export const useAmbientControlForScreen = (playMusic = true) => {
       return () => {
         //console.log("cleanup music control");
       };
-    }, [])
+    }, []), // eslint-disable-line react-hooks/exhaustive-deps
   );
 };

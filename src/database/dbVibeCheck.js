@@ -1,6 +1,5 @@
 import * as SQLite from "expo-sqlite";
 
-let db;
 
 export const saveResult = async (result) => {
   try {
@@ -36,7 +35,7 @@ export const saveResult = async (result) => {
         result.voiceStrength ?? "0",
         result.voiceClarity ?? "0",
         result.emotionalState ?? 0,
-      ]
+      ],
     );
   } catch (error) {
     console.error("🔥 SQL Error Saving Result:", error);
@@ -49,9 +48,7 @@ export const getResults = async (callback) => {
     const db = await SQLite.openDatabaseAsync("vibrationResults.db"); // Open DB here
 
     // Fetch all results
-    const result = await db.getAllAsync(
-      "SELECT * FROM results ORDER BY timestamp DESC;"
-    );
+    const result = await db.getAllAsync("SELECT * FROM results ORDER BY timestamp DESC;");
 
     if (result && Array.isArray(result)) {
       if (callback) {
@@ -70,9 +67,7 @@ export const getlatestResults = async (callback) => {
     const db = await SQLite.openDatabaseAsync("vibrationResults.db"); // Open DB here
 
     // Fetch all results
-    const result = await db.getAllAsync(
-      "SELECT TOP(1) * FROM results ORDER BY timestamp DESC;"
-    );
+    const result = await db.getAllAsync("SELECT TOP(1) * FROM results ORDER BY timestamp DESC;");
 
     if (result && Array.isArray(result)) {
       if (callback) {

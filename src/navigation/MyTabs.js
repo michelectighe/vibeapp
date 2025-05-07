@@ -1,11 +1,8 @@
 // MyTabs.js
 import React from "react";
-import { View, Easing } from "react-native";
+import { View } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import {
-  CardStyleInterpolators,
-  TransitionSpecs,
-} from "@react-navigation/stack";
+import { CardStyleInterpolators } from "@react-navigation/stack";
 import { SettingsStack } from "./SettingsStack";
 import { VibeCheckStack } from "./VibeCheckStack";
 import { VibeMatchStack } from "./VibeMatchStack";
@@ -109,27 +106,15 @@ export const MyTabs = () => {
         options={{
           tabBarLabel: "Check",
         }}
-        screenOptions={({ navigation }) => ({
+        screenOptions={() => ({
           headerShown: false,
           tabBarStyle: { display: "none" },
         })}
       />
       <Tab.Screen name="Scan" component={MeditationStack} />
-      <Tab.Screen
-        name="VibeMatch"
-        component={VibeMatchStack}
-        options={{ tabBarLabel: "Match" }}
-      />
-      <Tab.Screen
-        name="InnerWork"
-        component={ToolsStack}
-        options={{ tabBarLabel: "Journey" }}
-      />
-      <Tab.Screen
-        name="Settings"
-        component={SettingsStack}
-        options={{ tabBarLabel: () => null }}
-      />
+      <Tab.Screen name="VibeMatch" component={VibeMatchStack} options={{ tabBarLabel: "Match" }} />
+      <Tab.Screen name="InnerWork" component={ToolsStack} options={{ tabBarLabel: "Journey" }} />
+      <Tab.Screen name="Settings" component={SettingsStack} options={{ tabBarLabel: () => null }} />
       <Tab.Screen
         name="StreakStack"
         component={StreakStack}

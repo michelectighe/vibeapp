@@ -29,9 +29,7 @@ export const ComparisonCard = ({ keyName, myVal, theirVal }) => {
   const label = getLabel(keyName);
 
   if (myRange === theirRange) {
-    const text =
-      comparisonText[keyName]?.[myRange] ||
-      `Both scored in the ${myRange} range.`;
+    const text = comparisonText[keyName]?.[myRange] || `Both scored in the ${myRange} range.`;
     return (
       <View style={styles.similarCard}>
         <Text style={styles.cardLabel}>{label}</Text>
@@ -40,11 +38,8 @@ export const ComparisonCard = ({ keyName, myVal, theirVal }) => {
     );
   }
 
-  const userText =
-    comparisonText[keyName]?.[myRange] || `You scored ${myVal.toFixed(0)}`;
-  const themText =
-    comparisonText[keyName]?.[theirRange] ||
-    `They scored ${theirVal.toFixed(0)}`;
+  const userText = comparisonText[keyName]?.[myRange] || `You scored ${myVal.toFixed(0)}`;
+  const themText = comparisonText[keyName]?.[theirRange] || `They scored ${theirVal.toFixed(0)}`;
 
   return (
     <View style={styles.splitCard}>

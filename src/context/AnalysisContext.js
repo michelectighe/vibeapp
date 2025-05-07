@@ -1,10 +1,4 @@
-import React, {
-  useEffect,
-  createContext,
-  useState,
-  useMemo,
-  useContext,
-} from "react";
+import React, { useEffect, createContext, useState, useMemo, useContext } from "react";
 import {
   evaluateEnvironment,
   evaluateMotion,
@@ -14,17 +8,6 @@ import {
   evaluateEmotionalState,
 } from "@utils";
 
-const defaultState = {
-  voiceFrequency: null,
-  heartRate: null,
-  sound: null,
-  magnitude: null,
-  motion: null,
-  emotion: null,
-  voiceClarity: null,
-  voiceStrength: null,
-  chakraScores: null,
-};
 
 // Create the Context
 const AnalysisContext = createContext();
@@ -162,12 +145,6 @@ export const AnalysisProvider = ({ children }) => {
     }
   }, [heartRate]);
 
-  const normSleepQuality = normalize(sleepQuality, 0, 10);
-  const normSleepHours = normalize(sleepHours, 0, 10);
-
-  const avgChakraScores =
-    (Object.values(chakraScores).reduce((a, b) => a + b, 0) / 7) * 10;
-  const normAvgChakraScores = normalize(avgChakraScores, 0, 100);
 
   useEffect(() => {
     if (
@@ -197,9 +174,9 @@ export const AnalysisProvider = ({ children }) => {
             motionScore * 0.05 +
             heartRateScore * 0.2 +
             hrvScore * 0.1 +
-            emotionScore.score * 0.2
+            emotionScore.score * 0.2,
         ),
-        100
+        100,
       );
       //console.log("final overall score:", overallVibrationScore);
       setOverallVibeScore(overallVibrationScore);
@@ -237,10 +214,9 @@ export const AnalysisProvider = ({ children }) => {
 
     const strongestChakra = Object.entries(chakraScores).reduce(
       (a, b) => (b[1] > a[1] ? b : a),
-      []
+      [],
     )[0];
-    if (chakraScores[strongestChakra] >= 8)
-      aura = chakraColors[strongestChakra];
+    if (chakraScores[strongestChakra] >= 8) aura = chakraColors[strongestChakra];
     if (emotionScore?.score > 8) aura = "#DAA520";
     else if (emotionScore?.score < 3) aura = "#808080";
 
@@ -260,7 +236,7 @@ export const AnalysisProvider = ({ children }) => {
     )
       updateChakraScores();
     setAuraColor(getAuraColor());
-  }, [
+  }, [ // eslint-disable-line react-hooks/exhaustive-deps
     overallVibrationScore,
     emotionScore,
     motionScore,

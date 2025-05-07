@@ -4,41 +4,23 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  ImageBackground,
-  StyleSheet,
+  Alert,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
   Platform,
-  Button,
-  InteractionManager,
-  ScrollView,
 } from "react-native";
 
 import { MaterialIcons } from "@expo/vector-icons";
 import { useAmbientControlForScreen } from "@hooks";
-
-import {
-  getAuth,
-  signInWithCredential,
-  OAuthProvider,
-  signInWithEmailAndPassword,
-} from "firebase/auth";
 import { AppleButton } from "@invertase/react-native-apple-authentication";
 import { useAuth } from "@context";
-import {
-  GradientBackground,
-  CustomSpiritualButton,
-  SectionLayout,
-} from "@components";
+import { GradientBackground, CustomSpiritualButton, SectionLayout } from "@components";
 import { Fonts, Colors } from "@constants";
-import { profileAssets } from "./StylesProfile";
 import { styles } from "./SignInScreen.style";
 import { globalStyles } from "@styles";
 import {
   getBiometricOptIn,
-  saveBiometricOptIn,
-  saveCredentials,
   getSavedCredentials,
   getFriendlyError,
   signInWithApple,
@@ -58,7 +40,6 @@ export const SignInScreen = ({ navigation, returnTo }) => {
   const [password, setPassword] = useState("");
   const [signInError, setError] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const auth = getAuth();
 
   useEffect(() => {
     const tryFaceID = async () => {
@@ -69,8 +50,7 @@ export const SignInScreen = ({ navigation, returnTo }) => {
 
         if (optedIn) {
           //console.log("🔑 Fetching credentials...");
-          const { email: savedEmail, password: savedPassword } =
-            await getSavedCredentials();
+          const { email: savedEmail, password: savedPassword } = await getSavedCredentials();
           //console.log("📧 Email:", savedEmail, "🔒 Password:", !!savedPassword);
 
           if (savedEmail && savedPassword) {
@@ -97,7 +77,7 @@ export const SignInScreen = ({ navigation, returnTo }) => {
     };
 
     tryFaceID();
-  }, []);
+  }, []);  // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleAppleLogin = async () => {
     const result = await signInWithApple();
@@ -131,9 +111,9 @@ export const SignInScreen = ({ navigation, returnTo }) => {
     // });
     navigation.reset({
       index: 0,
-      routes: [returnTo || {name:"Home"}],
+      routes: [returnTo || { name: "Home" }],
     });
- //   navigation.navigate(returnTo || "Tabs", { screen: "Home" });
+    //   navigation.navigate(returnTo || "Tabs", { screen: "Home" });
   };
   return (
     // <ImageBackground
@@ -141,9 +121,7 @@ export const SignInScreen = ({ navigation, returnTo }) => {
     //   style={styles.bg}
     //   resizeMode="cover"
     // >
-    <GradientBackground
-      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
-    >
+    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
       <SectionLayout
         topFlex={1}
         middleFlex={3}
@@ -161,22 +139,15 @@ export const SignInScreen = ({ navigation, returnTo }) => {
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 keyboardVerticalOffset={80} // tweak if needed for your layout
               >
-                {signInError ? (
-                  <Text style={styles.error}>{signInError}</Text>
-                ) : null}
+                {signInError ? <Text style={styles.error}>{signInError}</Text> : null}
 
                 <View style={globalStyles.formContainer}>
                   <TouchableOpacity
                     style={styles.link}
                     onPress={() => navigation.navigate("SignUpScreen")}
                   >
-                    <Text
-                      style={[
-                        globalStyles.link,
-                        { alignSelf: "center", textAlign: "center" },
-                      ]}
-                    >
-                      Don't have an account? Sign Up
+                    <Text style={[globalStyles.link, { alignSelf: "center", textAlign: "center" }]}>
+                      Don&apost have an account? Sign Up
                     </Text>
                   </TouchableOpacity>
                   <TextInput
@@ -206,17 +177,9 @@ export const SignInScreen = ({ navigation, returnTo }) => {
                       style={styles.eyeIcon}
                     >
                       {passwordVisible ? (
-                        <MaterialIcons
-                          name="visibility"
-                          size={24}
-                          color="#888"
-                        />
+                        <MaterialIcons name="visibility" size={24} color="#888" />
                       ) : (
-                        <MaterialIcons
-                          name="visibility-off"
-                          size={24}
-                          color="#888"
-                        />
+                        <MaterialIcons name="visibility-off" size={24} color="#888" />
                       )}
                     </TouchableOpacity>
                   </View>

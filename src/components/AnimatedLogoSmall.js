@@ -1,15 +1,6 @@
 import React, { useEffect, useRef } from "react";
-import {
-  View,
-  Image,
-  Animated,
-  StyleSheet,
-  Dimensions,
-  Easing,
-} from "react-native";
+import { View, Animated, StyleSheet, Easing } from "react-native";
 import FastImage from "react-native-fast-image";
-
-const { width, height } = Dimensions.get("window");
 
 export const AnimatedLogoSmall = () => {
   const rotateAnim = useRef(new Animated.Value(0)).current;
@@ -22,9 +13,9 @@ export const AnimatedLogoSmall = () => {
         duration: 10000,
         useNativeDriver: true,
         easing: Easing.linear,
-      })
+      }),
     ).start();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const rotateInterpolate = rotateAnim.interpolate({
     inputRange: [0, 1],
@@ -58,7 +49,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     justifyContent: "center",
     alignItems: "center",
-    overflow: "visible", // this allows logo to grow beyond circle
     overflow: "hidden",
     backgroundColor: "transparent",
   },
@@ -80,4 +70,3 @@ const styles = StyleSheet.create({
     resizeMode: "contain",
   },
 });
-

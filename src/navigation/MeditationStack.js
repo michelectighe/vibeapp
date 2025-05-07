@@ -7,7 +7,7 @@ export const MeditationStack = () => {
   const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator
-      screenOptions={({ navigation }) => ({
+      screenOptions={() => ({
         headerShown: false,
       })}
     >

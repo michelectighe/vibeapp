@@ -1,20 +1,9 @@
-import React, { useContext, useState } from "react";
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ImageBackground,
-  StyleSheet,
-  SafeAreaView,
-  ScrollView,
-} from "react-native";
+import React, { useState } from "react";
+import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 
 import { SCREEN_WIDTH } from "@utils";
 import { playTrack, stopTrack } from "@services";
-import { GradientBackground, ScrollContainer } from "@components";
-import { useRoute } from "@react-navigation/native";
-import { MEDITATION_SCREENS } from "@navigation/screens";
-import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import { GradientBackground } from "@components";
 import { Fonts, Colors } from "@constants";
 import { styles } from "@/screens/Tools/GuidedMeditationScreen.styles";
 import { globalStyles } from "@styles";
@@ -54,10 +43,6 @@ const meditationList = [
 
 export const GuidedMeditationScreen = () => {
   const [playingId, setPlayingId] = useState(null);
-  const route = useRoute();
-  const navigation = useNavigation();
-  const currentIndex = MEDITATION_SCREENS.indexOf(route.name);
-
   const handlePress = async (item) => {
     if (playingId === item.id) {
       console.log("trying to play meditation");
@@ -65,43 +50,13 @@ export const GuidedMeditationScreen = () => {
       setPlayingId(null);
     } else {
       await stopTrack();
-      await playTrack(
-        (id = item.id),
-        (url = item.audio),
-        (title = item.title),
-        (artist = "VibeKey"),
-        (vol = 1),
-        (fadeIn = true)
-      );
-
+      await playTrack(item.id, item.audio, item.title, "VibeKey", 1, true);
       setPlayingId(item.id);
     }
   };
-  const goToNextScreen = () => {
-    if (currentIndex < MEDITATION_SCREENS.length - 1) {
-      const nextScreen = MEDITATION_SCREENS[currentIndex + 1];
-      navigation.navigate(nextScreen);
-    }
-  };
-  const goBack = () => {
-    if (currentIndex > 0) {
-      navigation.goBack();
-    }
-  };
-  // const swipeGesture = Gesture.Pan().onEnd((event) => {
-  //   if (event.translationX < 50 && event.velocityX < 0) {
-  //     // Swipe left → Go forward
-  //     runOnJS(goToNextScreen)();
-  //   } else if (event.translationX > 50 && event.velocityX > 0) {
-  //     // Swipe right → Go back
-  //     runOnJS(goBack)();
-  //   }
-  // });
 
   return (
-    <GradientBackground
-      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
-    >
+    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
       {/* <GestureDetector gesture={swipeGesture}> */}
       {/* //  <View style={globalStyles.container}> */}
       <View style={styles.titleWrapper}>
@@ -116,13 +71,8 @@ export const GuidedMeditationScreen = () => {
           <View key={item.id} style={styles.card}>
             <Text style={styles.title}>{item.title}</Text>
             <Text style={styles.description}>{item.description}</Text>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => handlePress(item)}
-            >
-              <Text style={styles.buttonText}>
-                {playingId === item.id ? "Stop" : "Play"}
-              </Text>
+            <TouchableOpacity style={styles.button} onPress={() => handlePress(item)}>
+              <Text style={styles.buttonText}>{playingId === item.id ? "Stop" : "Play"}</Text>
             </TouchableOpacity>
           </View>
         ))}

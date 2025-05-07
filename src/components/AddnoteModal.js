@@ -1,13 +1,6 @@
 // components/AddNoteModal.js
 import React, { useState } from "react";
-import {
-  Modal,
-  View,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import { Modal, View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
 import { Colors, Fonts } from "@constants";
 
 export const AddNoteModal = ({ visible, onClose, onSave }) => {

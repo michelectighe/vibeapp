@@ -18,6 +18,6 @@ module.exports = {
         cardBg: "var(--cardBg)",
       },
     },
-     plugins: [],
+    plugins: [],
   },
 };

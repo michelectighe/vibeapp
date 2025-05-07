@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import { Colors, Fonts } from "@constants";
 import { scaledStyle } from "@utils";
 
-export const styles = StyleSheet.create({
+const rawStyles = {
   container: {
     padding: 16,
     paddingTop: 60,
@@ -33,4 +33,6 @@ export const styles = StyleSheet.create({
     fontSize: 24,
     color: "#333",
   },
-});
+};
+
+export const styles = StyleSheet.create(scaledStyle(rawStyles));

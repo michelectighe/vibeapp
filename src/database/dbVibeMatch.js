@@ -1,6 +1,5 @@
 import * as SQLite from "expo-sqlite";
 
-let db;
 
 export const saveVibeMatch = async (vibeMatchResult) => {
   try {
@@ -31,13 +30,12 @@ export const saveVibeMatch = async (vibeMatchResult) => {
         vibeMatchResult.clarity1 ?? 0,
         vibeMatchResult.clarity2 ?? 0,
         vibeMatchResult.compatibilityScore ?? 0,
-      ]
+      ],
     );
   } catch (error) {
     console.error("🔥 SQL Error Saving VibeMatchResults:", error);
   }
 };
-
 
 // Function to  all results
 export const getVibeMatchResults = async () => {
@@ -45,9 +43,7 @@ export const getVibeMatchResults = async () => {
     const db = await SQLite.openDatabaseAsync("vibrationResults.db"); // Open DB
 
     // Fetch all results
-    const result = await db.getAllAsync(
-      "SELECT * FROM vibeMatchResults ORDER BY timestamp DESC;"
-    );
+    const result = await db.getAllAsync("SELECT * FROM vibeMatchResults ORDER BY timestamp DESC;");
 
     if (result && Array.isArray(result)) {
       //console.log("✅ Retrieved VibeMatchResults:", result);
@@ -61,7 +57,6 @@ export const getVibeMatchResults = async () => {
     return []; // Return empty array in case of error
   }
 };
-
 
 export const deleteVibeMatchResult = async (id, callback) => {
   try {

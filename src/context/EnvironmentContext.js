@@ -1,11 +1,4 @@
-import React, {
-  createContext,
-  useState,
-  useEffect,
-  useCallback,
-  useContext,
-  useRef,
-} from "react";
+import React, { createContext, useState, useEffect, useCallback, useContext, useRef } from "react";
 import { Magnetometer } from "expo-sensors";
 import SoundLevel from "react-native-sound-level";
 import { useFocusEffect } from "@react-navigation/native";
@@ -45,7 +38,7 @@ export const EnvironmentProvider = ({ children }) => {
           console.error("Error in StopEnvironmentTracking:", error);
         }
       };
-    }, [])
+    }, []),
   );
   // Update calm score based on sound & magnetometer data
   useEffect(() => {
@@ -59,18 +52,16 @@ export const EnvironmentProvider = ({ children }) => {
       setEnvironment(evaluation);
       //  //console.log("length of sound values: ", soundValues.length);
       if (soundValues.length > 0) {
-        const avg =
-          soundValues.reduce((acc, val) => acc + val, 0) / soundValues.length;
+        const avg = soundValues.reduce((acc, val) => acc + val, 0) / soundValues.length;
         setAverageSound(avg);
       }
       if (magnetometerValues.length > 0) {
         const avg =
-          magnetometerValues.reduce((acc, val) => acc + val, 0) /
-          magnetometerValues.length;
+          magnetometerValues.reduce((acc, val) => acc + val, 0) / magnetometerValues.length;
         setAverageMagnitude(avg);
       }
     }
-  }, [latestSound, latestMagnitude]);
+  }, [latestSound, latestMagnitude]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const startEnvironmentTracking = async () => {
     setMagnetometerValues([]);

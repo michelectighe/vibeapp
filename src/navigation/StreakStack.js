@@ -7,7 +7,7 @@ export const StreakStack = () => {
   return (
     <Stack.Navigator
       initialRouteName="StreakScreen"
-      screenOptions={({ navigation }) => ({
+      screenOptions={() => ({
         headerShown: false,
       })}
     >

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text } from "react-native";
 import {
   BreathingCircle,
   BreathingPatternSelector,
@@ -9,7 +9,6 @@ import {
 import { BREATH_PATTERNS, Colors } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./BreathWorksScreen.styles";
-import { globalStyles } from "@styles";
 
 export const BreathWorksScreen = () => {
   useAmbientControlForScreen(true);
@@ -27,10 +26,7 @@ export const BreathWorksScreen = () => {
         topContent={
           <>
             <View style={styles.main}>
-              <BreathingCircle
-                pattern={selectedPattern}
-                key={selectedPattern.id}
-              />
+              <BreathingCircle pattern={selectedPattern} key={selectedPattern.id} />
             </View>
           </>
         }

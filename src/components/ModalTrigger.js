@@ -20,7 +20,7 @@ export const ModalTrigger = ({ navigation, children }) => {
       setShouldNavigate(false);
       setPendingNav(null);
     }
-  }, [modalVisible, shouldNavigate, pendingNav]);
+  }, [modalVisible, shouldNavigate, pendingNav]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const clonedChild = useMemo(() => {
     if (!React.isValidElement(children)) return null;

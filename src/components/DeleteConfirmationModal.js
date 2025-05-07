@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Colors, Fonts } from "@constants";
 
 export const DeleteConfirmationModal = ({
-  id,
+//  id,
   visible,
   onCancel,
   onConfirm,
@@ -15,9 +15,7 @@ export const DeleteConfirmationModal = ({
     <View style={[styles.modalOverlay, containerStyle]}>
       <View style={styles.modalBox}>
         <Text style={styles.modalText}>Remove Note?</Text>
-        <Text style={styles.modalSubText}>
-          Are you sure you want to delete this note?
-        </Text>
+        <Text style={styles.modalSubText}>Are you sure you want to delete this note?</Text>
         <View style={styles.modalButtons}>
           <TouchableOpacity onPress={onCancel} style={styles.cancelButton}>
             <Text style={styles.cancelText}>Cancel</Text>

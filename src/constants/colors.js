@@ -7,33 +7,6 @@ export const Colors = {
   thirdEyeChakra: "#8A2BE2", // #8A2BE2,
   crownChakra: "#DA70D6", // #DA70D6,
 
-  // tab button colors
-  activeTab: "#1B263B", // #1B263B
-  inactiveTab: "#FFFFFF", // #FFFFFF
-
-  buttonBackground: "#B18BD7", // #B18BD7
-  lightText: "#FFFFFF", // #FFFFFF
-
-  //background gradient colors
-  gradient1: "#2E3A87", // #2E3A87
-  gradient2: "#1C1F4A", // #1C1F4A
-
-  //buttonColors
-  buttonBackground: "#0A0F2C", // #0A0F2C
-  buttonLightBackground: "#778DA9", // #778DA9
-
-  activeTab: "#1B263B", // #1B263B
-  inactiveTab: "#FFFFFF", // #FFFFFF
-
-  // Text Colors
-  lightText: "#FFFFFF", // #FFFFFF
-  darkText: "#000000", // #000000
-  mediumText: "#6A7FDB", // #6A7FDB
-  meditationText: "rgb(80, 45, 21)",
-
-  matchSimilarCard: "#A3E4D7", // #A3E4D7
-  matchDifferentCard: "#E59866", // #E59866
-
   /******************************************* */
 
   // 🌿 Tab button colors
@@ -42,7 +15,6 @@ export const Colors = {
 
   // 🔘 Button colors
 
-  buttonLightBackground: "#EDE5D0", // soft mint green (for alt buttons)
   buttonLightBackground: "#EDE5D0", // soft mint green (for alt buttons)
   buttonBackground: "#103D28", // deep, muted pine green
   cardBackground: "#EDE5D0",

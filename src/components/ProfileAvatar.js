@@ -1,8 +1,7 @@
 import React from "react";
-import { View, Image, Text, TouchableOpacity } from "react-native";
+import { View, Text } from "react-native";
 import FastImage from "react-native-fast-image";
 import { auth } from "@config/firebaseConfig";
-import { useNavigation } from "@react-navigation/native";
 import { Colors } from "@constants";
 
 export const ProfileAvatar = ({ size = 32 }) => {
@@ -34,9 +33,7 @@ export const ProfileAvatar = ({ size = 32 }) => {
         borderWidth: 2,
       }}
     >
-      <Text style={{ color: "#fff", fontWeight: "bold" }}>
-        {name.charAt(0).toUpperCase()}
-      </Text>
+      <Text style={{ color: "#fff", fontWeight: "bold" }}>{name.charAt(0).toUpperCase()}</Text>
     </View>
   );
 };

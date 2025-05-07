@@ -4,8 +4,6 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  StyleSheet,
-  ImageBackground,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
@@ -13,13 +11,9 @@ import {
 } from "react-native";
 import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "@config/firebaseConfig";
-import { styles, profileAssets } from "./StylesProfile";
+import { styles } from "./ForgotPasswordScreen.style";
 import { globalStyles } from "@styles";
-import {
-  GradientBackground,
-  CustomSpiritualButton,
-  SectionLayout,
-} from "@components";
+import { GradientBackground, CustomSpiritualButton, SectionLayout } from "@components";
 import { getFriendlyError } from "@utils";
 import { Colors, Fonts } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
@@ -39,17 +33,13 @@ export const ForgotPasswordScreen = ({ navigation }) => {
       setMessage(" Check your inbox for a password reset email.");
     } catch (err) {
       const friendly = getFriendlyError(err.code);
-      setError(
-        friendly || "There was a problem with the entered email address."
-      );
+      setError(friendly || "There was a problem with the entered email address.");
       //  setError(err.message);
     }
   };
 
   return (
-    <GradientBackground
-      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
-    >
+    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
       <SectionLayout
         topFlex={1}
         middleFlex={2}
@@ -79,9 +69,7 @@ export const ForgotPasswordScreen = ({ navigation }) => {
                   />
 
                   {error ? <Text style={styles.error}>{error}</Text> : null}
-                  {message ? (
-                    <Text style={styles.success}>{message}</Text>
-                  ) : null}
+                  {message ? <Text style={styles.success}>{message}</Text> : null}
 
                   <CustomSpiritualButton
                     label="Send Reset Email"
@@ -89,10 +77,7 @@ export const ForgotPasswordScreen = ({ navigation }) => {
                     color={Colors.buttonBackground}
                     textColor={Colors.lightText}
                   />
-                  <TouchableOpacity
-                    style={globalStyles.link}
-                    onPress={() => navigation.goBack()}
-                  >
+                  <TouchableOpacity style={globalStyles.link} onPress={() => navigation.goBack()}>
                     <Text style={globalStyles.link}>← Back to Sign In</Text>
                   </TouchableOpacity>
                 </View>

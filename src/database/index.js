@@ -1,8 +1,4 @@
-export {
-  saveStickyNoteToDB,
-  updateStickyNotePosition,
-  deleteStickyNoteById,
-} from "./dbStickyNote";
+export { saveStickyNoteToDB, updateStickyNotePosition, deleteStickyNoteById } from "./dbStickyNote";
 export { initializeDatabase } from "./dbInit";
 export {
   saveResult,
@@ -11,8 +7,4 @@ export {
   truncateResults,
   deleteResult,
 } from "./dbVibeCheck";
-export {
-  saveVibeMatch,
-  getVibeMatchResults,
-  deleteVibeMatchResult,
-} from "./dbVibeMatch";
+export { saveVibeMatch, getVibeMatchResults, deleteVibeMatchResult } from "./dbVibeMatch";

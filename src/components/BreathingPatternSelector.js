@@ -1,18 +1,8 @@
 import React from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  TouchableOpacity,
-  StyleSheet,
-} from "react-native";
+import { Text, FlatList, TouchableOpacity, StyleSheet } from "react-native";
 import { Colors } from "@constants";
 
-export const BreathingPatternSelector = ({
-  patterns,
-  selectedId,
-  onSelect,
-}) => {
+export const BreathingPatternSelector = ({ patterns, selectedId, onSelect }) => {
   return (
     <FlatList
       horizontal

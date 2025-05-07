@@ -1,36 +1,19 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { View, Text } from "react-native";
 import { HeartRateCamera } from "@features/heartRate/HeartRateCamera";
-import {
-  useFocusEffect,
-  useNavigation,
-  useRoute,
-} from "@react-navigation/native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useAnalysis, useMotion, useEnvironment } from "@context";
-import {
-  GradientBackground,
-  CustomSpiritualButton,
-  SectionLayout,
-} from "@components";
-import { VIBE_CHECK_SCREENS } from "@navigation";
+import { GradientBackground, SectionLayout } from "@components";
 import { debounceLabel } from "@utils";
 import { Colors } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
 import { EnvironmentProvider, MotionProvider } from "@context";
 import { styles } from "./HeartRateScreen.styles";
-import { globalStyles } from "@styles";
 
 function HeartRateScreenInner() {
-  const route = useRoute();
-  const currentIndex = VIBE_CHECK_SCREENS.indexOf(route.name);
-  const { setHeartRate, setSound, setMagnitude, setMotion } = useAnalysis();
+  const { setSound, setMagnitude, setMotion } = useAnalysis();
   const { averageMotion, motionEval, stopMotionTracking } = useMotion();
-  const {
-    environment,
-    averageSound,
-    averageMagnitude,
-    stopEnvironmentTracking,
-  } = useEnvironment();
+  const { environment, averageSound, averageMagnitude, stopEnvironmentTracking } = useEnvironment();
 
   const [stable, setStablized] = useState(false);
   const [spaceLabel, setSpaceLabel] = useState("Neutral");
@@ -54,14 +37,14 @@ function HeartRateScreenInner() {
         stopMotionTracking();
         stopEnvironmentTracking();
       };
-    }, [])
+    }, []), // eslint-disable-line react-hooks/exhaustive-deps
   );
 
   useFocusEffect(
     useCallback(() => {
       const parent = navigation.getParent?.();
       parent?.setOptions({ tabBarStyle: { display: "none" } });
-    }, [navigation])
+    }, [navigation]),
   );
 
   useEffect(() => {
@@ -70,9 +53,9 @@ function HeartRateScreenInner() {
       setMagnitude(averageMagnitude);
       setMotion(averageMotion);
     }
-  }, [stable, averageSound, averageMagnitude, averageMotion]);
+  }, [stable, averageSound, averageMagnitude, averageMotion]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const handleStableReading = (metricsBack) => {
+  const handleStableReading = () => {
     stopMotionTracking();
     stopEnvironmentTracking();
     setStablized(true);
@@ -110,16 +93,8 @@ function HeartRateScreenInner() {
     }
   }, [environment]);
 
-  const goToNextScreen = () => {
-    if (currentIndex < VIBE_CHECK_SCREENS.length - 1) {
-      navigation.navigate(VIBE_CHECK_SCREENS[currentIndex + 1]);
-    }
-  };
-
   return (
-    <GradientBackground
-      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
-    >
+    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
       <SectionLayout
         topFlex={1}
         middleFlex={3}

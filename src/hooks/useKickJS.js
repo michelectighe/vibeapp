@@ -10,5 +10,5 @@ export const useKickJS = (delay = 100) => {
     }, delay);
 
     return () => clearTimeout(timeout);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 };

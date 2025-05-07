@@ -19,6 +19,6 @@ const rawStyles = {
   contentContainer: {
     paddingBottom: 2000,
   },
-  };
+};
 
-  export const styles = StyleSheet.create(scaledStyle(rawStyles));
+export const styles = StyleSheet.create(scaledStyle(rawStyles));

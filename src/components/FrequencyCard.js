@@ -1,17 +1,12 @@
 // components/FrequencyCard.js
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 export const FrequencyCard = ({ item, onPress }) => {
   return (
     <TouchableOpacity style={styles.card} onPress={() => onPress?.(item)}>
-      <Ionicons
-        name="musical-notes-outline"
-        size={24}
-        color="#3F51B5"
-        style={styles.icon}
-      />
+      <Ionicons name="musical-notes-outline" size={24} color="#3F51B5" style={styles.icon} />
       <Text style={styles.title}>{item.title}</Text>
     </TouchableOpacity>
   );
@@ -35,4 +30,3 @@ const styles = StyleSheet.create({
     color: "#333",
   },
 });
-

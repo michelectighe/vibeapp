@@ -1,7 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+
 import React, { useRef, useCallback } from "react";
-import { View, Text, ScrollView, SafeAreaView, Animated } from "react-native";
+import { View, Text, Animated } from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
-import { useUserProfile, useAuth } from "@context";
+import { useUserProfile } from "@context";
 import {
   GradientBackground,
   SectionLayout,
@@ -17,8 +19,7 @@ export const WelcomeScreen = () => {
   useAmbientControlForScreen(true);
   const positionY = useRef(new Animated.Value(-30)).current;
   const navigation = useNavigation();
-  const { profile, loading } = useUserProfile();
-  const { user } = useAuth();
+  const { loading } = useUserProfile();
 
   useFocusEffect(
     useCallback(() => {
@@ -28,7 +29,7 @@ export const WelcomeScreen = () => {
         duration: 1500,
         useNativeDriver: true,
       }).start();
-    }, [])
+    }, []),
   );
 
   const slideAnim = useRef(new Animated.Value(300)).current;
@@ -40,15 +41,13 @@ export const WelcomeScreen = () => {
         duration: 1500,
         useNativeDriver: true,
       }).start();
-    }, [])
+    }, []),
   );
 
   if (loading) return <Text>Loading...</Text>;
 
   return (
-    <GradientBackground
-      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
-    >
+    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
       <SectionLayout
         topFlex={1}
         middleFlex={2}

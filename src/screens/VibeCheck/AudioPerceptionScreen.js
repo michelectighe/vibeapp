@@ -25,10 +25,7 @@ export const AudioPerceptionScreen = () => {
   };
 
   const playRandomSound = async () => {
-    const track =
-      audioPerceptionTracks[
-        Math.floor(Math.random() * audioPerceptionTracks.length)
-      ];
+    const track = audioPerceptionTracks[Math.floor(Math.random() * audioPerceptionTracks.length)];
     setSelectedTrack(track);
     setSelectedWord(null);
     setWordsRevealed(false);
@@ -45,7 +42,7 @@ export const AudioPerceptionScreen = () => {
         selectedTrack.title,
         "VibeKey",
         1,
-        false
+        false,
       );
     }
   };
@@ -55,9 +52,7 @@ export const AudioPerceptionScreen = () => {
   };
 
   return (
-    <GradientBackground
-      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
-    >
+    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
       <SectionLayout
         topFlex={1}
         middleFlex={4}
@@ -112,12 +107,8 @@ export const AudioPerceptionScreen = () => {
           <View style={styles.bottom}>
             {selectedWord && (
               <View style={styles.resultCard}>
-                <Text style={styles.resultTitle}>
-                  You heard: {selectedWord.word}
-                </Text>
-                <Text style={styles.resultFrequency}>
-                  Frequency: {selectedWord.frequency} Hz
-                </Text>
+                <Text style={styles.resultTitle}>You heard: {selectedWord.word}</Text>
+                <Text style={styles.resultFrequency}>Frequency: {selectedWord.frequency} Hz</Text>
                 <Text style={styles.resultMeaning}>{selectedWord.meaning}</Text>
               </View>
             )}

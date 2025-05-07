@@ -1,5 +1,5 @@
 export const getFriendlyError = (errorCode) => {
-  console.log(errorCode)
+  console.log(errorCode);
   switch (errorCode) {
     // SIGN UP ERRORS
     case "auth/email-already-in-use":
@@ -53,7 +53,7 @@ export const getFriendlyError = (errorCode) => {
     case "auth/popup-closed-by-user":
       return "Apple sign-in was cancelled before completion.";
 
-    case "auth/user-cancelled" :
+    case "auth/user-cancelled":
       return "You cancelled the Apple sign-in.";
 
     // BIOMETRIC

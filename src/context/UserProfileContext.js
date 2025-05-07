@@ -6,7 +6,7 @@ import { useAuth } from "./AuthContext";
 const UserProfileContext = createContext();
 
 export const UserProfileProvider = ({ children }) => {
-  const { user, authLoading } = useAuth();
+  const { user } = useAuth();
   const [profile, setProfile] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -39,7 +39,7 @@ export const UserProfileProvider = ({ children }) => {
     };
 
     fetchProfile();
-  }, [user?.uid]);
+  }, [user?.uid]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <UserProfileContext.Provider value={{ profile, setProfile, loading }}>

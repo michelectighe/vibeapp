@@ -5,15 +5,15 @@ import SoundLevel from "react-native-sound-level";
 export const initMedia = async (
   frameProcessorActiveRef = null,
   audioConfig = {},
-  mode = "audio" // or "soundLevel", or "both"
+  mode = "audio", // or "soundLevel", or "both"
 ) => {
   try {
     console.log("🎙️ Initializing media...");
-     const devices = await Camera.getAvailableCameraDevices();
-     if (!devices || devices.length === 0) {
-       console.warn("No cameras available.");
-       return;
-     }
+    const devices = await Camera.getAvailableCameraDevices();
+    if (!devices || devices.length === 0) {
+      console.warn("No cameras available.");
+      return;
+    }
 
     // Safe to use the first camera
     // const device = devices[0];
@@ -57,10 +57,7 @@ export const initMedia = async (
         ...audioConfig,
       };
 
-      await AudioRecorder.prepareRecordingAtPath(
-        mergedConfig.path,
-        mergedConfig.settings
-      );
+      await AudioRecorder.prepareRecordingAtPath(mergedConfig.path, mergedConfig.settings);
       //console.log("✅ AudioRecorder prepared");
     }
 

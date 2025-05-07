@@ -4,36 +4,17 @@ import {
   Text,
   TouchableOpacity,
   ImageBackground,
-  useWindowDimensions,
   ScrollView,
 } from "react-native";
-import { useRoute } from "@react-navigation/native";
 import { styles } from "./FrequenciesScreen.styles";
-import { GradientBackground, ScrollContainer } from "@components";
+import { GradientBackground } from "@components";
 import { playTrack, stopTrack } from "@services";
-import { MEDITATION_SCREENS } from "@navigation/screens";
 import { frequencies } from "@data";
 import { Colors } from "@constants";
 import { globalStyles } from "@styles";
 
-export const FrequenciesScreen = ({ navigation }) => {
+export const FrequenciesScreen = () => {
   const [isPlaying, setIsPlaying] = useState(null);
-  const { width } = useWindowDimensions();
-  const route = useRoute();
-  const currentIndex = MEDITATION_SCREENS.indexOf(route.name);
-
-  const goToNextScreen = () => {
-    if (currentIndex < MEDITATION_SCREENS.length - 1) {
-      const nextScreen = MEDITATION_SCREENS[currentIndex + 1];
-      navigation.navigate(nextScreen);
-    }
-  };
-
-  const goBack = () => {
-    if (currentIndex > 0) {
-      navigation.goBack();
-    }
-  };
 
   const togglePlayback = async (frequencyHz, audio) => {
     const freqString = frequencyHz.toString();
@@ -53,9 +34,7 @@ export const FrequenciesScreen = ({ navigation }) => {
   };
 
   return (
-    <GradientBackground
-      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
-    >
+    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
       <View style={globalStyles.container}>
         <View style={globalStyles.titleWrapper}>
           <Text style={globalStyles.title}>Healing Journey</Text>
@@ -73,11 +52,7 @@ export const FrequenciesScreen = ({ navigation }) => {
                 onPress={() => togglePlayback(hz, audio)}
                 activeOpacity={0.9}
               >
-                <ImageBackground
-                  source={image}
-                  style={styles.backgroundImage}
-                  resizeMode="cover"
-                />
+                <ImageBackground source={image} style={styles.backgroundImage} resizeMode="cover" />
               </TouchableOpacity>
               <View style={styles.labelWrapper}>
                 <Text style={styles.freqText}>

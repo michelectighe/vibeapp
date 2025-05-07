@@ -1,16 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { useWindowDimensions } from "react-native";
 import { VIBE_CHECK_SCREENS } from "@navigation/screens";
 import { styles } from "./EmotionalTransitionScreen.styles";
-import { globalStyles } from "@styles";
-import {
-  GradientBackground,
-  TypewriterText,
-  FloatingPhrase,
-  SectionLayout,
-} from "@components";
+import { GradientBackground, TypewriterText, SectionLayout } from "@components";
 
 import { Fonts, Colors, buddhistSayings } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
@@ -20,7 +13,6 @@ export const EmotionTransitionScreen = () => {
   const navigation = useNavigation();
   const route = useRoute();
   const currentIndex = VIBE_CHECK_SCREENS.indexOf(route.name);
-  const { height } = useWindowDimensions();
   const [currentSaying, setCurrentSaying] = useState("");
 
   useEffect(() => {
@@ -42,23 +34,17 @@ export const EmotionTransitionScreen = () => {
     }, totalDelay);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <GradientBackground
-      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
-    >
+    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
       <SectionLayout
         topFlex={0}
         middleFlex={1}
         bottomFlex={0}
         middleContent={
           <>
-            <TypewriterText
-              text={currentSaying}
-              delay={50}
-              style={styles.quoteText}
-            />
+            <TypewriterText text={currentSaying} delay={50} style={styles.quoteText} />
           </>
         }
       />

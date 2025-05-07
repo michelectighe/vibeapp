@@ -1,19 +1,13 @@
-import React, { useEffect, useRef, useState, useContext } from "react";
+import React, { useState} from "react";
 import {
   View,
   Text,
   TextInput,
   TouchableOpacity,
-  ImageBackground,
-  Animated,
-  StyleSheet,
-  Dimensions,
-  Easing,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
   Platform,
-  ScrollView,
 } from "react-native";
 import { AppleButton } from "@invertase/react-native-apple-authentication";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
@@ -21,14 +15,9 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { auth, db } from "@config/firebaseConfig";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { getFriendlyError, signInWithApple } from "@utils";
-import { profileAssets } from "./StylesProfile";
 import { styles } from "./SignUpScreen.style";
 import { globalStyles } from "@styles";
-import {
-  GradientBackground,
-  SectionLayout,
-  CustomSpiritualButton,
-} from "@components";
+import { GradientBackground, SectionLayout, CustomSpiritualButton } from "@components";
 import { Colors, Fonts } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
 
@@ -39,7 +28,6 @@ export const SignUpScreen = ({ navigation }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const rotateAnim = useRef(new Animated.Value(0)).current;
   const handleSignUpWithApple = async () => {
     signInWithApple();
   };
@@ -62,11 +50,7 @@ export const SignUpScreen = ({ navigation }) => {
         return;
       }
 
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       //console.log("afterUserCredential");
       const user = userCredential.user;
       await updateProfile(userCredential.user, {
@@ -92,14 +76,7 @@ export const SignUpScreen = ({ navigation }) => {
   };
 
   return (
-    // <ImageBackground
-    //   source={profileAssets.background}
-    //   style={styles.bg}
-    //   resizeMode="cover"
-    // >
-    <GradientBackground
-      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
-    >
+    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
       <SectionLayout
         topFlex={1}
         middleFlex={3}
@@ -160,17 +137,9 @@ export const SignUpScreen = ({ navigation }) => {
                         style={styles.eyeIcon}
                       >
                         {passwordVisible ? (
-                          <MaterialIcons
-                            name="visibility-off"
-                            size={24}
-                            color="#888"
-                          />
+                          <MaterialIcons name="visibility-off" size={24} color="#888" />
                         ) : (
-                          <MaterialIcons
-                            name="visibility"
-                            size={24}
-                            color="#888"
-                          />
+                          <MaterialIcons name="visibility" size={24} color="#888" />
                         )}
                       </TouchableOpacity>
                     </View>
@@ -213,12 +182,6 @@ export const SignUpScreen = ({ navigation }) => {
         }
       />
 
-      {/* <ScrollView
-        style={globalStyles.scrollView}
-        contentContainerStyle={globalStyles.scrollContent}
-        showsVerticalScrollIndicator={false}
-      >
-             </ScrollView> */}
     </GradientBackground>
   );
 };

@@ -1,12 +1,8 @@
 import React from "react";
-import { View, Text, ScrollView, useWindowDimensions } from "react-native";
+import { View, Text, ScrollView} from "react-native";
 import { Fonts, Colors, chakraData } from "@constants";
 import { compareResults } from "@utils";
-import {
-  GradientBackground,
-  ChakraComparisonCard,
-  ComparisonCard,
-} from "@components";
+import { GradientBackground, ChakraComparisonCard, ComparisonCard } from "@components";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./MatchComparisonScreen.styles";
 import { globalStyles } from "@styles";
@@ -17,18 +13,14 @@ export const MatchComparisonScreen = ({ route }) => {
   const { similarities, differences } = compareResults(myResult, sharedResult);
 
   const getVibeSummary = () => {
-    const delta = Math.abs(
-      myResult.overallVibrationScore - sharedResult.overallVibrationScore
-    );
+    const delta = Math.abs(myResult.overallVibrationScore - sharedResult.overallVibrationScore);
     if (delta < 15) return "You are incredibly in sync.";
     if (delta < 30) return "You're pretty aligned.";
     return "You're on different wavelengths today.";
   };
 
   return (
-    <GradientBackground
-      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
-    >
+    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
       <View style={styles.header}>
         <Text style={styles.title}>Vibe Comparison</Text>
         <Text style={styles.summary}>{getVibeSummary()}</Text>

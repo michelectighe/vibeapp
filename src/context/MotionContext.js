@@ -1,12 +1,5 @@
 import { useFocusEffect } from "@react-navigation/native";
-import React, {
-  useCallback,
-  createContext,
-  useState,
-  useEffect,
-  useContext,
-  useRef,
-} from "react";
+import React, { useCallback, createContext, useState, useEffect, useContext, useRef } from "react";
 import { Accelerometer } from "expo-sensors";
 import { evaluateMotion } from "@utils";
 
@@ -36,7 +29,7 @@ export const MotionProvider = ({ children }) => {
           console.error("Error in StopMotionTracking:", error);
         }
       };
-    }, [])
+    }, []),
   );
 
   useEffect(() => {
@@ -100,4 +93,3 @@ export const useMotion = () => {
   }
   return context;
 };
-

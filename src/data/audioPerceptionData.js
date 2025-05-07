@@ -99,8 +99,7 @@ export const audioPerceptionTracks = [
       {
         word: "Loyalty",
         frequency: 320,
-        meaning:
-          "You’re grounded in devotion, connection, and heart-centered energy.",
+        meaning: "You’re grounded in devotion, connection, and heart-centered energy.",
       },
     ],
   },

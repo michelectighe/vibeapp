@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Animated, Dimensions, Image, StyleSheet, Easing } from "react-native";
+import { Animated, Dimensions, StyleSheet, Easing } from "react-native";
 
 const { height, width } = Dimensions.get("window");
 
@@ -11,7 +11,6 @@ export const FloatingFeather = ({ startX = 0.3, delay = 0 }) => {
   // 🎲 Randomize sway size and speed for uniqueness
   const swayAmplitude = useRef(Math.random() * 40 + 20).current; // 20–60 px
   const swayDuration = useRef(Math.random() * 3000 + 4000).current; // 4s–7s
-  const horizontalDrift = useRef(Math.random() * 70 - 25).current; // slight X offset
   const fallProgress = useRef(new Animated.Value(0)).current;
   const fallDuration = useRef(Math.random() * 5000 + 25000).current;
 
@@ -28,7 +27,7 @@ export const FloatingFeather = ({ startX = 0.3, delay = 0 }) => {
         delay,
         easing: Easing.linear,
         useNativeDriver: true,
-      })
+      }),
     ).start();
 
     // Sway loop using interpolation for sine wave
@@ -38,7 +37,7 @@ export const FloatingFeather = ({ startX = 0.3, delay = 0 }) => {
         duration: swayDuration,
         easing: Easing.linear,
         useNativeDriver: true,
-      })
+      }),
     ).start();
 
     // Rotation loop
@@ -49,9 +48,8 @@ export const FloatingFeather = ({ startX = 0.3, delay = 0 }) => {
         duration: 8000, // adjust for desired spin speed
         easing: Easing.linear,
         useNativeDriver: true,
-      })
+      }),
     ).start();
-    
 
     // Fade in and out
     Animated.loop(
@@ -68,9 +66,9 @@ export const FloatingFeather = ({ startX = 0.3, delay = 0 }) => {
           delay: 6000,
           useNativeDriver: true,
         }),
-      ])
+      ]),
     ).start();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const translateX = sway.interpolate({
     inputRange: [0, 1],

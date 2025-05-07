@@ -53,5 +53,5 @@ export const styles = scaledStyle(
       color: "#fff",
       textAlign: "center",
     },
-  })
+  }),
 );

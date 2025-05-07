@@ -1,8 +1,9 @@
-import { StyleSheet, Dimensions } from "react-native";
+import { StyleSheet } from "react-native";
 import { Colors, Fonts } from "@constants";
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@/utils";
 import { scaledStyle } from "@utils";
 
-export const styles = StyleSheet.create({
+const rawStyles = {
   screen: {
     flex: 1,
     paddingTop: 60,
@@ -58,4 +59,6 @@ export const styles = StyleSheet.create({
     fontSize: 24,
     color: "#333",
   },
-});
+};
+
+export const styles = StyleSheet.create(scaledStyle(rawStyles));

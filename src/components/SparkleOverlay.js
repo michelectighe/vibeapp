@@ -18,9 +18,9 @@ export const SparkleOverlay = ({ width, height }) => {
           duration: 1200,
           useNativeDriver: true,
         }),
-      ])
+      ]),
     ).start();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const sparkleData = [
     { cx: 5, cy: 60, r: 2 },
@@ -45,14 +45,7 @@ export const SparkleOverlay = ({ width, height }) => {
     >
       <Svg width="100%" height="100%">
         {sparkleData.map((s, i) => (
-          <Circle
-            key={i}
-            cx={s.cx}
-            cy={s.cy}
-            r={s.r}
-            fill="white"
-            opacity={0.8}
-          />
+          <Circle key={i} cx={s.cx} cy={s.cy} r={s.r} fill="white" opacity={0.8} />
         ))}
       </Svg>
     </Animated.View>

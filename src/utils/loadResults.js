@@ -17,7 +17,7 @@ export const loadResults = async () => {
     const q = query(resultsRef, orderBy("timestamp", "desc"));
     const snapshot = await getDocs(q);
 
-    const results = snapshot.docs.map(doc => ({
+    const results = snapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }));

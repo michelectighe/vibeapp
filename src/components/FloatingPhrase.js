@@ -50,7 +50,7 @@ const UnmemoizedFloatingPhrase = ({ label, delay = 0 }) => {
             useNativeDriver: true,
           }),
         ]),
-      ])
+      ]),
     ).start();
 
     Animated.parallel([
@@ -81,7 +81,7 @@ const UnmemoizedFloatingPhrase = ({ label, delay = 0 }) => {
       setDisplayedLabel(label);
       startAnimation();
     }
-  }, [label]);
+  }, [label]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -95,7 +95,7 @@ const UnmemoizedFloatingPhrase = ({ label, delay = 0 }) => {
       clearTimeout(timeout);
       clearInterval(animationInterval.current);
     };
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const rotateInterpolate = rotate.interpolate({
     inputRange: [-1, 0, 1],
@@ -108,16 +108,10 @@ const UnmemoizedFloatingPhrase = ({ label, delay = 0 }) => {
         opacity,
         transform: [
           {
-            translateY: Animated.add(
-              translateY,
-              new Animated.Value(randomYOffset)
-            ),
+            translateY: Animated.add(translateY, new Animated.Value(randomYOffset)),
           },
           {
-            translateX: Animated.add(
-              translateX,
-              new Animated.Value(randomXOffset)
-            ),
+            translateX: Animated.add(translateX, new Animated.Value(randomXOffset)),
           },
           { rotate: rotateInterpolate },
         ],
@@ -142,6 +136,6 @@ const styles = StyleSheet.create({
 
 export const FloatingPhrase = React.memo(
   UnmemoizedFloatingPhrase,
-  (prev, next) => prev.label === next.label
+  (prev, next) => prev.label === next.label,
 );
 //FloatingPhrase.displayName = "FloatingPhrase";

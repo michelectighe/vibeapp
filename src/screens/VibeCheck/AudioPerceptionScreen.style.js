@@ -17,7 +17,7 @@ const rawStyles = {
   wordList: {
     marginTop: 20,
     alignItems: "center",
-    alignContent: "center", 
+    alignContent: "center",
     width: "100%",
   },
   optionsList: {

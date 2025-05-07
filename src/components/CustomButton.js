@@ -11,7 +11,7 @@ export const CustomButton = ({ imgSource = "" }) => {
       duration: 2000,
       useNativeDriver: true,
     }).start();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const SIZE = SCREEN_WIDTH * 0.5; // Button will be 50% of screen width
 
@@ -28,11 +28,7 @@ export const CustomButton = ({ imgSource = "" }) => {
           },
         ]}
       >
-        <ImageBackground
-          source={imgSource}
-          resizeMode="cover"
-          style={styles.imageBackground}
-        />
+        <ImageBackground source={imgSource} resizeMode="cover" style={styles.imageBackground} />
       </Animated.View>
     </View>
   );
@@ -54,4 +50,3 @@ const styles = StyleSheet.create({
     height: "100%",
   },
 });
-

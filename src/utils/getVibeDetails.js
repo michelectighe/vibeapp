@@ -30,11 +30,9 @@ export const getVibeDetails = (score) => {
       text3:
         "Exposure to subtle negative energy through people, media, or stress. Self-doubt or reluctance to fully trust your spiritual path. Unresolved emotions that resurface periodically.",
       label4: "Recommended Meditation:",
-      text4:
-        "Third Eye Activation Meditation – Visualization and chanting to awaken intuition.",
+      text4: "Third Eye Activation Meditation – Visualization and chanting to awaken intuition.",
       label5: "Recommended Spiritual Practice:",
-      text5:
-        "Sacred Chanting – Recite mantras like 'Om Mani Padme Hum' to elevate vibration.",
+      text5: "Sacred Chanting – Recite mantras like 'Om Mani Padme Hum' to elevate vibration.",
       color: "#004aad",
       color2: "#b2d4ff",
     };
@@ -53,8 +51,7 @@ export const getVibeDetails = (score) => {
       text4:
         "Heart Chakra Meditation – Visualizing green energy to cultivate love and forgiveness.",
       label5: "Recommended Spiritual Practice:",
-      text5:
-        "Crystal Healing – Carry high-vibration crystals like rose quartz or citrine.",
+      text5: "Crystal Healing – Carry high-vibration crystals like rose quartz or citrine.",
       color: "#46c9fe",
       color2: "#d6f4ff",
     };
@@ -70,19 +67,16 @@ export const getVibeDetails = (score) => {
       text3:
         "Cleanse your energy regularly with smudging or salt baths. Reduce exposure to negativity in media and conversations. Spend time in nature for grounding.",
       label4: "Recommended Meditation:",
-      text4:
-        "Grounding Meditation – Visualizing roots anchoring your energy to the earth.",
+      text4: "Grounding Meditation – Visualizing roots anchoring your energy to the earth.",
       label5: "Recommended Spiritual Practice:",
-      text5:
-        "Gratitude Journaling – Writing daily reflections to shift toward positivity.",
+      text5: "Gratitude Journaling – Writing daily reflections to shift toward positivity.",
       color: "#29b554",
       color2: "#c1f0d0",
     };
   } else if (score > 50) {
     return {
       label: "Neutral State",
-      text1:
-        "You feel mentally or emotionally drained, lacking direction or inspiration.",
+      text1: "You feel mentally or emotionally drained, lacking direction or inspiration.",
       label2: "Factors Negatively Impacting Your Score:",
       text2:
         "Overconsumption of technology, social media, or negative news. Unhealthy habits such as poor diet, lack of movement, or substance use. Suppressed emotions or avoidance of personal growth.",
@@ -90,8 +84,7 @@ export const getVibeDetails = (score) => {
       text3:
         "Set small, achievable goals for personal development. Limit distractions and focus on self-care. Engage in activities that spark creativity and joy.",
       label4: "Recommended Meditation:",
-      text4:
-        "Body scan meditation – Releasing tension through mindful awareness.",
+      text4: "Body scan meditation – Releasing tension through mindful awareness.",
       label5: "Recommended Spiritual Practice:",
       text5:
         "Cleansing rituals – Using incense, sound bowls, or water therapy to clear stagnant energy.",
@@ -110,19 +103,16 @@ export const getVibeDetails = (score) => {
       text3:
         "Seek emotional healing through therapy or shadow work. Shift focus to positive affirmations and self-compassion. Spend time in uplifting environments and connect with supportive people.",
       label4: "Recommended Meditation:",
-      text4:
-        "Ho'oponopono meditation – A Hawaiian practice of forgiveness and emotional healing.",
+      text4: "Ho'oponopono meditation – A Hawaiian practice of forgiveness and emotional healing.",
       label5: "Recommended Spiritual Practice:",
-      text5:
-        "Shadow work – Journaling or therapy to confront and heal emotional wounds.",
+      text5: "Shadow work – Journaling or therapy to confront and heal emotional wounds.",
       color: "#ff7a00",
       color2: "#ffd2a6",
     };
   } else {
     return {
       label: "Energy Blockage",
-      text1:
-        "You feel disconnected, overwhelmed, and stuck in negative cycles.",
+      text1: "You feel disconnected, overwhelmed, and stuck in negative cycles.",
       label2: "Factors Negatively Impacting Your Score:",
       text2:
         "Deep emotional wounds or unresolved inner turmoil. Lack of purpose, direction, or motivation to change. Surrounded by low-frequency influences or toxic energy.",
@@ -133,8 +123,7 @@ export const getVibeDetails = (score) => {
       text4:
         "Inner child healing meditation – Connecting with your inner child to heal past wounds.",
       label5: "Recommended Spiritual Practice:",
-      text5:
-        "Energy cord cutting – Visualizing the release of toxic energetic ties.",
+      text5: "Energy cord cutting – Visualizing the release of toxic energetic ties.",
       color: "#db0808",
       color2: "#ffb3b3",
     };

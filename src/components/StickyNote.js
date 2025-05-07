@@ -1,17 +1,11 @@
-import React, {
-  useImperativeHandle,
-  forwardRef,
-  useEffect,
-  useState,
-} from "react";
+import React, { useImperativeHandle, forwardRef, useEffect, useState } from "react";
 import * as SQLite from "expo-sqlite";
 import { updateStickyNotePosition } from "@database";
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withSpring,
-  withDelay,
   withTiming,
   runOnJS,
 } from "react-native-reanimated";
@@ -22,16 +16,8 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 
 export const StickyNote = forwardRef(
   (
-    {
-      id,
-      text,
-      doneValue,
-      disableDrag = false,
-      onPress,
-      onDelete,
-      color = Colors.stickyNotes,
-    },
-    ref
+    { id, text, doneValue, disableDrag = false, onPress, onDelete, color = Colors.stickyNotes },
+    ref,
   ) => {
     const offsetX = useSharedValue(0);
     const offsetY = useSharedValue(0);
@@ -51,9 +37,9 @@ export const StickyNote = forwardRef(
     useEffect(() => {
       if (done) {
         checkmarkOpacity.value = withTiming(1, { duration: 300 });
-        checkmarkScale.value = withSpring(.7, { damping: 8 });
+        checkmarkScale.value = withSpring(0.7, { damping: 8 });
       }
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
       const loadPosition = async () => {
@@ -61,7 +47,7 @@ export const StickyNote = forwardRef(
           const db = await SQLite.openDatabaseAsync("vibrationResults.db");
           const results = await db.getFirstAsync(
             "SELECT x, y, rotation FROM sticky_notes WHERE id = ?",
-            [id]
+            [id],
           );
           if (results) {
             offsetX.value = results.x;
@@ -73,7 +59,7 @@ export const StickyNote = forwardRef(
         }
       };
       loadPosition();
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const savePositionWithDone = async (newDoneValue) => {
       try {
@@ -106,13 +92,9 @@ export const StickyNote = forwardRef(
         offsetX.value = withSpring(offsetX.value);
         offsetY.value = withSpring(offsetY.value);
         tackOpacity.value = withTiming(1, { duration: 1000 });
-        tackScale.value = withSpring(
-          1.2,
-          { damping: 10, stiffness: 1000 },
-          () => {
-            tackScale.value = withSpring(1);
-          }
-        );
+        tackScale.value = withSpring(1.2, { damping: 10, stiffness: 1000 }, () => {
+          tackScale.value = withSpring(1);
+        });
         runOnJS(savePositionWithDone)(done);
       });
     const rotateGesture = Gesture.Rotation().onUpdate((e) => {
@@ -126,7 +108,7 @@ export const StickyNote = forwardRef(
 
         if (newDone) {
           checkmarkOpacity.value = withTiming(1, { duration: 400 });
-          checkmarkScale.value = withSpring(.71, { damping: 8 });
+          checkmarkScale.value = withSpring(0.71, { damping: 8 });
         } else {
           checkmarkOpacity.value = withTiming(0, { duration: 300 });
           checkmarkScale.value = withTiming(0.5, { duration: 300 });
@@ -137,7 +119,7 @@ export const StickyNote = forwardRef(
 
     const gesture = Gesture.Simultaneous(
       Gesture.Simultaneous(panGesture, rotateGesture),
-      doubleTapGesture
+      doubleTapGesture,
     );
 
     const animatedStyle = useAnimatedStyle(() => ({
@@ -168,9 +150,7 @@ export const StickyNote = forwardRef(
     }));
 
     const NoteContent = (
-      <Animated.View
-        style={[styles.note, { backgroundColor: color }, animatedStyle]}
-      >
+      <Animated.View style={[styles.note, { backgroundColor: color }, animatedStyle]}>
         {!disableDrag && (
           <Animated.View style={[styles.tacContainer, tackStyle]}>
             <FastImage
@@ -212,8 +192,9 @@ export const StickyNote = forwardRef(
     ) : (
       <GestureDetector gesture={gesture}>{NoteContent}</GestureDetector>
     );
-  }
+  },
 );
+StickyNote.displayName = "StickyNote";
 
 const styles = StyleSheet.create({
   note: {

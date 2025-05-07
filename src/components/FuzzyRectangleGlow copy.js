@@ -2,13 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { Animated } from "react-native";
 import { Svg, Defs, RadialGradient, Stop, Rect } from "react-native-svg";
 
-export const FuzzyRectangleGlow = ({
-  width,
-  height,
-  glowColor,
-  pulse = true,
-  style,
-}) => {
+export const FuzzyRectangleGlow = ({ width, height, glowColor, pulse = true, style }) => {
   const scale = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
@@ -25,12 +19,12 @@ export const FuzzyRectangleGlow = ({
             duration: 1000,
             useNativeDriver: true,
           }),
-        ])
+        ]),
       );
       pulseAnimation.start();
       return () => pulseAnimation.stop();
     }
-  }, [pulse]);
+  }, [pulse]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const padding = 200; // Extra space around the glow
 
@@ -54,14 +48,7 @@ export const FuzzyRectangleGlow = ({
             <Stop offset="100%" stopColor={glowColor} stopOpacity="0" />
           </RadialGradient>
         </Defs>
-        <Rect
-          x="0"
-          y="0"
-          width="100%"
-          height="100%"
-          rx={width / 4}
-          fill="url(#glowGradient)"
-        />
+        <Rect x="0" y="0" width="100%" height="100%" rx={width / 4} fill="url(#glowGradient)" />
       </Svg>
     </Animated.View>
   );

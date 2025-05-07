@@ -1,20 +1,10 @@
 import React, { useEffect } from "react";
-import {
-  Modal,
-  View,
-  Text,
-  TouchableOpacity,
-  StyleSheet,
-  Dimensions,
-} from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { Modal, View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { BlurView } from "expo-blur";
 import { Colors, Fonts } from "@constants"; // optional if you're using custom colors/fonts
-
-const { width, height } = Dimensions.get("window");
+import { SCREEN_WIDTH } from "@/utils";
 
 export const SubscriptionModal = ({ visible, onClose, onUpgrade }) => {
-  const navigation = useNavigation();
 
   useEffect(() => {
     console.log("🧪 SubscriptionModal visible?", visible);
@@ -30,8 +20,8 @@ export const SubscriptionModal = ({ visible, onClose, onUpgrade }) => {
 
           <Text style={styles.trialInfo}>✨ 7-Day Free Trial</Text>
           <Text style={styles.description}>
-            Unlock premium features to elevate your frequency, gain deep
-            insights, and explore your full vibrational potential.
+            Unlock premium features to elevate your frequency, gain deep insights, and explore your
+            full vibrational potential.
           </Text>
           <Text style={styles.cancelInfo}>Cancel anytime. No pressure. 🌿</Text>
 
@@ -45,10 +35,7 @@ export const SubscriptionModal = ({ visible, onClose, onUpgrade }) => {
             <Text style={styles.upgradeText}>Start Free Trial</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity
-            onPress={() => onClose(false)}
-            style={styles.cancelButton}
-          >
+          <TouchableOpacity onPress={() => onClose(false)} style={styles.cancelButton}>
             <Text style={styles.cancelText}>Maybe Later</Text>
           </TouchableOpacity>
         </View>
@@ -64,7 +51,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   modalContainer: {
-    width: width * 0.85,
+    width: SCREEN_WIDTH * 0.85,
     backgroundColor: "#fff",
     padding: 25,
     borderRadius: 20,

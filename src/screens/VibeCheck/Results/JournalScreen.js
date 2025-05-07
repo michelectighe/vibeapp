@@ -5,7 +5,6 @@ import {
   Text,
   TextInput,
   ScrollView,
-  TouchableOpacity,
   KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
@@ -15,12 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import { quantumJournalPrompts } from "@data";
 import { styles } from "./JournalScreen.styles";
 import { useAmbientControlForScreen } from "@hooks";
-import {
-  GradientBackground,
-  SectionLayout,
-  CustomSpiritualButton,
-  CloseX,
-} from "@/components";
+import { GradientBackground, SectionLayout, CustomSpiritualButton, CloseX } from "@/components";
 import { Colors } from "@/constants";
 
 export const JournalScreen = () => {
@@ -33,9 +27,7 @@ export const JournalScreen = () => {
 
   useEffect(() => {
     const newPrompt =
-      quantumJournalPrompts[
-        Math.floor(Math.random() * quantumJournalPrompts.length)
-      ];
+      quantumJournalPrompts[Math.floor(Math.random() * quantumJournalPrompts.length)];
     let i = 0;
     const interval = setInterval(() => {
       setAnimatedText(newPrompt.slice(0, i + 1));
@@ -105,9 +97,7 @@ export const JournalScreen = () => {
           </TouchableWithoutFeedback>
         }
         bottomContent={
-          <Text style={{ fontSize: 16, color: "#ccc" }}>
-            Your words shape your reality ✨
-          </Text>
+          <Text style={{ fontSize: 16, color: "#ccc" }}>Your words shape your reality ✨</Text>
         }
       />
       <CloseX xColor={Colors.darkText} onPress={() => navigation.goBack()} />

@@ -14,7 +14,7 @@ export const ToolsStack = () => {
   return (
     <Stack.Navigator
       initialRouteName="ToolsMainScreen"
-      screenOptions={({ navigation }) => ({
+      screenOptions={() => ({
         headerShown: false,
       })}
     >
@@ -80,4 +80,4 @@ export const ToolsStack = () => {
       />
     </Stack.Navigator>
   );
-}
+};

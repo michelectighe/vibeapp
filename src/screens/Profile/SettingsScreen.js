@@ -1,15 +1,7 @@
 import React, { useState } from "react";
-import {
-  View,
-  Text,
-  ImageBackground,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  ScrollView,
-} from "react-native";
+import { Text, ScrollView } from "react-native";
 import { GradientBackground, CustomSpiritualButton } from "@components";
-import { styles, profileAssets } from "./StylesProfile";
+import { styles } from "./SettingScreen.style";
 import { useAuth } from "@context";
 import { useAmbientControlForScreen } from "@hooks";
 import { Fonts, Colors } from "@constants";
@@ -32,14 +24,7 @@ export const SettingsScreen = ({ navigation }) => {
   };
 
   return (
-    // <ImageBackground
-    //   source={profileAssets.background}
-    //   style={styles.bg}
-    //   resizeMode="cover"
-    // >
-    <GradientBackground
-      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
-    >
+    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
       <ScrollView
         style={globalStyles.scrollView}
         contentContainerStyle={globalStyles.scrollContent}
@@ -80,6 +65,7 @@ export const SettingsScreen = ({ navigation }) => {
           textColor={Colors.lightText}
         />
       </ScrollView>
+      <Text>{signOutMessage}</Text>
     </GradientBackground>
   );
 };

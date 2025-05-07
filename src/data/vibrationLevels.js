@@ -1,5 +1,5 @@
 // data/vibrationLevels.js
-import { Platform } from "react-native";
+import {} from "react-native";
 
 export const vibrationLevels = [
   {
@@ -44,12 +44,10 @@ export const vibrationLevels = [
     text3:
       "Exposure to subtle negative energy through people, media, or stress. Self-doubt or reluctance to fully trust your spiritual path. Unresolved emotions that resurface periodically.",
     label4: "Recommended Meditation:",
-    text4:
-      "Third Eye Activation Meditation – Visualization and chanting to awaken intuition.",
+    text4: "Third Eye Activation Meditation – Visualization and chanting to awaken intuition.",
     label5: "Recommended Spiritual Practice:",
-    text5:
-      "Sacred Chanting – Recite mantras like 'Om Mani Padme Hum' to elevate vibration.",
-    color: "#004aad",
+    text5: "Sacred Chanting – Recite mantras like 'Om Mani Padme Hum' to elevate vibration.",
+    color2: "#004aad",
   },
   {
     id: "level3",
@@ -68,11 +66,9 @@ export const vibrationLevels = [
     text3:
       "Unbalanced lifestyle, emotional overwhelm, or mental clutter. Frequent overstimulation or lack of rest.",
     label4: "Recommended Meditation:",
-    text4:
-      "Heart Chakra Meditation – Visualizing green energy to cultivate love and forgiveness.",
+    text4: "Heart Chakra Meditation – Visualizing green energy to cultivate love and forgiveness.",
     label5: "Recommended Spiritual Practice:",
-    text5:
-      "Crystal Healing – Carry high-vibration crystals like rose quartz or citrine.",
+    text5: "Crystal Healing – Carry high-vibration crystals like rose quartz or citrine.",
 
     color2: "#d6f4ff",
   },
@@ -93,11 +89,9 @@ export const vibrationLevels = [
     text3:
       "Cleanse your energy regularly with smudging or salt baths. Reduce exposure to negativity in media and conversations. Spend time in nature for grounding.",
     label4: "Recommended Meditation:",
-    text4:
-      "Grounding Meditation – Visualizing roots anchoring your energy to the earth.",
+    text4: "Grounding Meditation – Visualizing roots anchoring your energy to the earth.",
     label5: "Recommended Spiritual Practice:",
-    text5:
-      "Gratitude Journaling – Writing daily reflections to shift toward positivity.",
+    text5: "Gratitude Journaling – Writing daily reflections to shift toward positivity.",
     color2: "#c1f0d0",
   },
   {
@@ -108,8 +102,7 @@ export const vibrationLevels = [
     description:
       "Moderate energy levels with fluctuations in mood, focus, and motivation. Some resistance or stress may lower vibration, requiring conscious effort to maintain balance",
     image: require("@assets/images/buttonNeutral.webp"),
-    text1:
-      "You feel mentally or emotionally drained, lacking direction or inspiration.",
+    text1: "You feel mentally or emotionally drained, lacking direction or inspiration.",
     label2: "Factors Negatively Impacting Your Score:",
     text2:
       "Overconsumption of technology, social media, or negative news. Unhealthy habits such as poor diet, lack of movement, or substance use. Suppressed emotions or avoidance of personal growth.",
@@ -117,8 +110,7 @@ export const vibrationLevels = [
     text3:
       "Set small, achievable goals for personal development. Limit distractions and focus on self-care. Engage in activities that spark creativity and joy.",
     label4: "Recommended Meditation:",
-    text4:
-      "Body scan meditation – Releasing tension through mindful awareness.",
+    text4: "Body scan meditation – Releasing tension through mindful awareness.",
     label5: "Recommended Spiritual Practice:",
     text5:
       "Cleansing rituals – Using incense, sound bowls, or water therapy to clear stagnant energy.",
@@ -141,11 +133,9 @@ export const vibrationLevels = [
     text3:
       "Seek emotional healing through therapy or shadow work. Shift focus to positive affirmations and self-compassion. Spend time in uplifting environments and connect with supportive people.",
     label4: "Recommended Meditation:",
-    text4:
-      "Ho'oponopono meditation – A Hawaiian practice of forgiveness and emotional healing.",
+    text4: "Ho'oponopono meditation – A Hawaiian practice of forgiveness and emotional healing.",
     label5: "Recommended Spiritual Practice:",
-    text5:
-      "Shadow work – Journaling or therapy to confront and heal emotional wounds.",
+    text5: "Shadow work – Journaling or therapy to confront and heal emotional wounds.",
 
     color2: "#ffd2a6",
   },
@@ -165,11 +155,9 @@ export const vibrationLevels = [
     text3:
       "Prioritize professional support (therapists, energy healers, or mentors). Engage in movement-based practices to release stagnant energy. Set small, realistic goals for self-improvement.",
     label4: "Recommended Meditation:",
-    text4:
-      "Inner child healing meditation – Connecting with your inner child to heal past wounds.",
+    text4: "Inner child healing meditation – Connecting with your inner child to heal past wounds.",
     label5: "Recommended Spiritual Practice:",
-    text5:
-      "Energy cord cutting – Visualizing the release of toxic energetic ties.",
+    text5: "Energy cord cutting – Visualizing the release of toxic energetic ties.",
     color2: "#ffb3b3",
   },
 ];

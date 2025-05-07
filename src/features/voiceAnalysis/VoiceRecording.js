@@ -1,16 +1,10 @@
-import { useState } from "react";
 import RNFS from "react-native-fs";
 import { toByteArray } from "base64-js";
 import { fft } from "fft-js";
 import { useAnalysis } from "@context";
 
 export const useVoiceRecording = () => {
-  const { setVoiceFrequency, setVoiceStrength, setVoiceClarity } =
-    useAnalysis();
-
-  const [voiceStrengthData, setVoiceStrengthData] = useState([]);
-  const [voiceClarityData, setVoiceClarityData] = useState([]);
-
+  const { setVoiceFrequency, setVoiceStrength, setVoiceClarity } = useAnalysis();
   const analyzeVoiceFromAudioUri = async (audioUri) => {
     try {
       //console.log("analyzing audio:", audioUri);
@@ -28,9 +22,7 @@ export const useVoiceRecording = () => {
       //console.log("📄 Decoded base64 length:", audioByteArray.length);
       if (audioByteArray.length < 10000) {
         const repeatFactor = Math.ceil(10000 / audioByteArray.length);
-        const repeatedAudioByteArray = new Uint8Array(
-          audioByteArray.length * repeatFactor
-        );
+        const repeatedAudioByteArray = new Uint8Array(audioByteArray.length * repeatFactor);
         for (let i = 0; i < repeatFactor; i++) {
           repeatedAudioByteArray.set(audioByteArray, i * audioByteArray.length);
         }
@@ -50,28 +42,19 @@ export const useVoiceRecording = () => {
       const clarityArray = [];
       const frequencyArray = [];
 
-      for (
-        let offset = 0;
-        offset + fftSize < audioFloatArray.length;
-        offset += stepSize
-      ) {
+      for (let offset = 0; offset + fftSize < audioFloatArray.length; offset += stepSize) {
         const fftInput = audioFloatArray.slice(offset, offset + fftSize);
 
-        const rms = Math.sqrt(
-          fftInput.reduce((sum, v) => sum + v * v, 0) / fftInput.length
-        );
+        const rms = Math.sqrt(fftInput.reduce((sum, v) => sum + v * v, 0) / fftInput.length);
         const loudness = 20 * Math.log10(rms * 0.4 + 1e-10);
         loudnessArray.push(loudness);
 
         for (let i = 0; i < fftSize; i++) {
-          fftInput[i] *=
-            0.54 - 0.46 * Math.cos((2 * Math.PI * i) / (fftSize - 1));
+          fftInput[i] *= 0.54 - 0.46 * Math.cos((2 * Math.PI * i) / (fftSize - 1));
         }
 
         const fftResult = fft(fftInput);
-        const magnitudes = fftResult.map((bin) =>
-          Math.sqrt(bin[0] ** 2 + bin[1] ** 2)
-        );
+        const magnitudes = fftResult.map((bin) => Math.sqrt(bin[0] ** 2 + bin[1] ** 2));
 
         const lowerBound = 85;
         const upperBound = 255;
@@ -103,19 +86,15 @@ export const useVoiceRecording = () => {
           totalMagnitude += mag;
         }
 
-        const variance =
-          totalMagnitude > 0 ? weightedVariance / totalMagnitude : 0;
+        const variance = totalMagnitude > 0 ? weightedVariance / totalMagnitude : 0;
 
         const clarity = Math.log10(variance + 1) * 10;
         clarityArray.push(clarity);
       }
 
-      const avgLoudness =
-        loudnessArray.reduce((a, b) => a + b, 0) / loudnessArray.length;
-      const avgClarity =
-        clarityArray.reduce((a, b) => a + b, 0) / clarityArray.length;
-      const avgFrequency =
-        frequencyArray.reduce((a, b) => a + b, 0) / frequencyArray.length;
+      const avgLoudness = loudnessArray.reduce((a, b) => a + b, 0) / loudnessArray.length;
+      const avgClarity = clarityArray.reduce((a, b) => a + b, 0) / clarityArray.length;
+      const avgFrequency = frequencyArray.reduce((a, b) => a + b, 0) / frequencyArray.length;
       // //console.log("averageLoudness:", avgLoudness.toFixed(2));
       // //console.log("averageVoiceClarity:", avgClarity.toFixed(2));
       // //console.log("averageFrequency:", avgFrequency.toFixed());
@@ -129,7 +108,5 @@ export const useVoiceRecording = () => {
 
   return {
     analyzeVoiceFromAudioUri,
-    voiceStrengthData,
-    voiceClarityData,
   };
 };

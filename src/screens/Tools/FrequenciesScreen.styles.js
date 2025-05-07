@@ -1,5 +1,5 @@
 // FrequenciesScreenStyles.js
-import { StyleSheet, StatusBar } from "react-native";
+import { StyleSheet } from "react-native";
 import { scaledStyle } from "@utils";
 import { Colors, Fonts } from "@constants";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
@@ -22,8 +22,8 @@ const rawStyles = {
     marginBottom: 20,
   },
   touchableWrapper: {
-    width: SCREEN_WIDTH * .9,
-    height: SCREEN_HEIGHT * .2,
+    width: SCREEN_WIDTH * 0.9,
+    height: SCREEN_HEIGHT * 0.2,
     borderRadius: 20,
     overflow: "hidden",
     marginTop: 5,
@@ -49,7 +49,6 @@ const rawStyles = {
     fontSize: 12,
     textAlign: "center",
   },
-
 };
 
 export const styles = StyleSheet.create(scaledStyle(rawStyles));

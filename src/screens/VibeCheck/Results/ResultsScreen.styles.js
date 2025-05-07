@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 import { scaledStyle } from "@utils";
 
-export const styles = StyleSheet.create({
+const rawStyles = {
   container: {
     flex: 1,
     backgroundColor: "white",
@@ -57,4 +57,6 @@ export const styles = StyleSheet.create({
   loading: {
     marginTop: 20,
   },
-});
+};
+
+export const styles = StyleSheet.create(scaledStyle(rawStyles));

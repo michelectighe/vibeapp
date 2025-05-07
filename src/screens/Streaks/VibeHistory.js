@@ -1,14 +1,6 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  StyleSheet,
-  ActivityIndicator,
-  ImageBackground,
-  Share,
-} from "react-native";
-import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
+import { View, ActivityIndicator, Share } from "react-native";
+//import { Ionicons } from "@expo/vector-icons";
 import { loadResults, SCREEN_HEIGHT } from "@utils";
 import { GradientBackground, ResultSelector } from "@components";
 import { createMatchLink } from "@services";
@@ -18,7 +10,7 @@ import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./VibeHistory.styles";
 import { globalStyles } from "@styles";
 
-export const VibeHistoryScreen = ({ navigation }) => {
+export const VibeHistoryScreen = () => {
   useAmbientControlForScreen(true);
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -44,47 +36,38 @@ export const VibeHistoryScreen = ({ navigation }) => {
     }
   };
 
-  const formatDate = (timestamp) => {
-    if (!timestamp?.toDate) return "";
+  // const formatDate = (timestamp) => {
+  //   if (!timestamp?.toDate) return "";
 
-    return timestamp.toDate().toLocaleDateString("en-US", {
-      year: "numeric",
-      month: "long",
-      day: "numeric",
-    });
-  };
+  //   return timestamp.toDate().toLocaleDateString("en-US", {
+  //     year: "numeric",
+  //     month: "long",
+  //     day: "numeric",
+  //   });
+  // };
 
-  const renderItem = ({ item }) => (
-    <View style={styles.card}>
-      <View style={styles.cardTop}>
-        <Text style={styles.score}>
-          {item.overallVibrationScore.toFixed(0)}
-        </Text>
-        <Ionicons
-          name="share-outline"
-          size={20}
-          color="#333"
-          onPress={() => onShare(item)}
-          style={styles.shareIcon}
-        />
-      </View>
-      <Text style={styles.date}>{formatDate(item.timestamp)}</Text>
-    </View>
-  );
+  // const renderItem = ({ item }) => (
+  //   <View style={styles.card}>
+  //     <View style={styles.cardTop}>
+  //       <Text style={styles.score}>{item.overallVibrationScore.toFixed(0)}</Text>
+  //       <Ionicons
+  //         name="share-outline"
+  //         size={20}
+  //         color="#333"
+  //         onPress={() => onShare(item)}
+  //         style={styles.shareIcon}
+  //       />
+  //     </View>
+  //     <Text style={styles.date}>{formatDate(item.timestamp)}</Text>
+  //   </View>
+  // );
 
   if (loading) {
-    return (
-      <ActivityIndicator
-        size="large"
-        style={{ marginTop: SCREEN_HEIGHT * 0.2 }}
-      />
-    );
+    return <ActivityIndicator size="large" style={{ marginTop: SCREEN_HEIGHT * 0.2 }} />;
   }
 
   return (
-    <GradientBackground
-      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
-    >
+    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
       <View style={globalStyles.container}>
         <View style={styles.innerContainer}>
           <ResultSelector

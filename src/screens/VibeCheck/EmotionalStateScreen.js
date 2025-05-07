@@ -1,40 +1,17 @@
-import React, {
-  useEffect,
-  useCallback,
-  useMemo,
-  useState,
-  useRef,
-  useContext,
-} from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  useWindowDimensions,
-  Platform,
-} from "react-native";
-import {
-  Camera,
-  useCameraDevice,
-  useFrameProcessor,
-  face,
-} from "react-native-vision-camera";
+import React, { useEffect, useCallback, useMemo, useState, useRef } from "react";
+import { View, Text } from "react-native";
+import { Camera, useCameraDevice, useFrameProcessor /*face*/ } from "react-native-vision-camera";
 import { initMedia, createRefChecker, cleanupMedia } from "@utils";
 import { useResizePlugin } from "vision-camera-resize-plugin";
 import { useAnalysis, useModel } from "@context";
-import {
-  useRoute,
-  useNavigation,
-  useFocusEffect,
-  useIsFocused,
-} from "@react-navigation/native";
+import { useRoute, useNavigation, useFocusEffect, useIsFocused } from "@react-navigation/native";
 import { VIBE_CHECK_SCREENS } from "@navigation/screens";
 import { AudioRecorder } from "react-native-audio";
+import { Worklets } from "react-native-worklets-core";
 import RNFS from "react-native-fs";
 import { useVoiceRecording } from "@features/voiceAnalysis/VoiceRecording";
 //import { useFaceDetector } from "react-native-vision-camera-face-detector";
 import {
-  FuzzyGlow,
   FuzzyRectangleGlow,
   GradientBackground,
   CustomSpiritualButton,
@@ -44,7 +21,6 @@ import { SectionLayout } from "@/components/SectionLayout";
 import { Fonts, Colors } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./EmotionalStateScreen.styles";
-import { globalStyles } from "@styles";
 
 const phrases = [
   "Try not to look suspicious",
@@ -67,7 +43,6 @@ const EMOTIONS = [
 
 export const EmotionalStateScreen = () => {
   useAmbientControlForScreen(false);
-  const { width, height } = useWindowDimensions();
   const route = useRoute();
   const currentIndex = VIBE_CHECK_SCREENS.indexOf(route.name);
   const navigation = useNavigation();
@@ -79,9 +54,7 @@ export const EmotionalStateScreen = () => {
       //console.log("device found");
       return device.formats
         .filter((f) => f.supportsVideoHdr === false)
-        .sort(
-          (a, b) => b.videoWidth * b.videoHeight - a.videoWidth * a.videoHeight
-        )[0]; // format with highest video resolution
+        .sort((a, b) => b.videoWidth * b.videoHeight - a.videoWidth * a.videoHeight)[0]; // format with highest video resolution
     } catch (error) {
       console.error("Error in selectedFormat:", error);
     }
@@ -97,27 +70,24 @@ export const EmotionalStateScreen = () => {
   const MODEL_INPUT = 48;
   const isGrayScale = true;
   const { model } = useModel();
-  const { setEmotions, setVoiceStrength, setVoiceFrequency, setVoiceClarity } =
-    useAnalysis();
+  const { setEmotions, setVoiceStrength, setVoiceFrequency, setVoiceClarity } = useAnalysis();
   const [emotion, setEmotion] = useState("Analyzing...");
   const [isAudioRecording, setIsAudioRecording] = useState(false);
   const audioPath = `${RNFS.DocumentDirectoryPath}/test.aac`;
   const [emotionLog, setEmotionLog] = useState([]);
   const [cameraReady, setCameraReady] = useState(false);
   const emotionLogRef = useRef(emotionLog);
-  const faceDetectionOptions = useRef({
-    performanceMode: "fast",
-    classificationMode: "all",
-    contourMode: "none",
-    landmarkMode: "none",
-    windowWidth: width,
-    windowHeight: height,
-  }).current;
+  // const faceDetectionOptions = useRef({
+  //   performanceMode: "fast",
+  //   classificationMode: "all",
+  //   contourMode: "none",
+  //   landmarkMode: "none",
+  //   windowWidth: width,
+  //   windowHeight: height,
+  // }).current;
 
   //const { detectFaces } = useFaceDetector(faceDetectionOptions);
-  const [currentPhrase, setCurrentPhrase] = useState(
-    "Talk like you're negotiating a raise"
-  );
+  const [currentPhrase, setCurrentPhrase] = useState("Talk like you're negotiating a raise");
   // Initialize camera & Sound
   useFocusEffect(
     useCallback(() => {
@@ -135,7 +105,7 @@ export const EmotionalStateScreen = () => {
                 AudioQuality: "Low",
               },
             },
-            "audio"
+            "audio",
           );
           setTimeout(async () => {
             await startRecording();
@@ -153,7 +123,7 @@ export const EmotionalStateScreen = () => {
       return () => {
         //console.log("cleanup focusEffect for initmedia");
       };
-    }, [device, cameraReady])
+    }, [device, cameraReady]), // eslint-disable-line react-hooks/exhaustive-deps
   );
 
   useFocusEffect(
@@ -177,7 +147,7 @@ export const EmotionalStateScreen = () => {
           }
         })();
       };
-    }, [])
+    }, []), // eslint-disable-line react-hooks/exhaustive-deps
   );
 
   useFocusEffect(
@@ -193,7 +163,7 @@ export const EmotionalStateScreen = () => {
       return () => {
         //console.log("cleanup of nav");
       };
-    }, [navigation])
+    }, [navigation]),
   );
 
   useFocusEffect(
@@ -206,8 +176,8 @@ export const EmotionalStateScreen = () => {
               acc[emotion] = (acc[emotion] || 0) + 1;
               return acc;
             }, {});
-            const mostCommonEmotion = Object.keys(emotionCounts).reduce(
-              (a, b) => (emotionCounts[a] > emotionCounts[b] ? a : b)
+            const mostCommonEmotion = Object.keys(emotionCounts).reduce((a, b) =>
+              emotionCounts[a] > emotionCounts[b] ? a : b,
             );
             //console.log("Setting overall emotional state:", mostCommonEmotion);
             setEmotions(mostCommonEmotion);
@@ -218,7 +188,7 @@ export const EmotionalStateScreen = () => {
           console.error("Error in setEmotions useFocus:", error);
         }
       };
-    }, [setEmotions])
+    }, [setEmotions]),
   );
   useEffect(() => {
     const randomIndex = Math.floor(Math.random() * phrases.length);
@@ -378,9 +348,7 @@ export const EmotionalStateScreen = () => {
         }
 
         const floatArray =
-          patch instanceof Float32Array
-            ? patch
-            : new Float32Array(Object.values(patch));
+          patch instanceof Float32Array ? patch : new Float32Array(Object.values(patch));
         let grayscale = floatArray;
 
         try {
@@ -425,13 +393,11 @@ export const EmotionalStateScreen = () => {
         //console.log("Error in emotionProcessor", e);
       }
     },
-    [model]
+    [model],
   );
 
   return (
-    <GradientBackground
-      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
-    >
+    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
       <SectionLayout
         topFlex={3}
         middleFlex={2}
@@ -492,9 +458,7 @@ export const EmotionalStateScreen = () => {
         middleContent={
           <View style={styles.textContainer}>
             {/* <Text style={styles.prompt}>Let your voice flow</Text> */}
-            {/* <Text style={styles.statusText}>
-                  Facial Emotion: {emotion || "Analyzing..."}
-                </Text> */}
+            <Text style={styles.statusText}>Facial Emotion: {emotion || "Analyzing..."}</Text>
             <Text style={styles.promptText}>Say this phrase:</Text>
             <View style={styles.phraseBox}>
               <Text style={styles.phraseText}>{currentPhrase}</Text>

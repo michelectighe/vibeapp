@@ -7,16 +7,11 @@ import {
   KeyboardAvoidingView,
   Keyboard,
   Platform,
-  TouchableOpacity,
 } from "react-native";
 import { useUserProfile, useAuth } from "@context";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "@config/firebaseConfig";
-import {
-  GradientBackground,
-  CustomSpiritualButton,
-  SectionLayout,
-} from "@components";
+import { GradientBackground, CustomSpiritualButton, SectionLayout } from "@components";
 import { Colors } from "@constants";
 import { styles } from "./ProfileSetupScreen.style";
 import { globalStyles } from "@styles";
@@ -63,12 +58,7 @@ export const ProfileSetupScreen = ({ navigation }) => {
   };
 
   const ScrollableInput = ({ value, onChangeText, placeholder }) => (
-    <View
-      style={[
-        styles.inputGoals,
-        { height: SCREEN_HEIGHT * 0.1, width: SCREEN_WIDTH * 0.9 },
-      ]}
-    >
+    <View style={[styles.inputGoals, { height: SCREEN_HEIGHT * 0.1, width: SCREEN_WIDTH * 0.9 }]}>
       <TextInput
         value={value}
         onChangeText={onChangeText}
@@ -82,18 +72,14 @@ export const ProfileSetupScreen = ({ navigation }) => {
   );
 
   return (
-    <GradientBackground
-      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
-    >
+    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
       <SectionLayout
         topFlex={1}
         middleFlex={3}
         bottomFlex={0}
         topContent={
           <View style={globalStyles.titleWrapper}>
-            <Text style={globalStyles.title}>
-              Welcome, {user?.displayName || "friend"}
-            </Text>
+            <Text style={globalStyles.title}>Welcome, {user?.displayName || "friend"}</Text>
           </View>
         }
         middleContent={
@@ -104,27 +90,21 @@ export const ProfileSetupScreen = ({ navigation }) => {
                 behavior={Platform.OS === "ios" ? "padding" : "height"}
                 keyboardVerticalOffset={80} // tweak if needed for your layout
               >
-                <Text style={styles.subtitle}>
-                  What is your intention for using VibeKey?
-                </Text>
+                <Text style={styles.subtitle}>What is your intention for using VibeKey?</Text>
                 <ScrollableInput
                   value={goals}
                   onChangeText={setGoals}
                   placeholder="e.g. Raise my vibration, feel more connected..."
                 />
 
-                <Text style={styles.subtitle}>
-                  What challenges are you currently facing?
-                </Text>
+                <Text style={styles.subtitle}>What challenges are you currently facing?</Text>
                 <ScrollableInput
                   value={challenges}
                   onChangeText={setChallenges}
                   placeholder="e.g. Anxiety, burnout, low energy..."
                 />
 
-                <Text style={styles.subtitle}>
-                  What kind of support or tools would help?
-                </Text>
+                <Text style={styles.subtitle}>What kind of support or tools would help?</Text>
                 <ScrollableInput
                   value={support}
                   onChangeText={setSupport}

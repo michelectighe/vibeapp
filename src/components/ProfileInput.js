@@ -24,11 +24,7 @@ export const ProfileInput = ({
       keyboardType={keyboardType}
       autoCapitalize="none"
     />
-    {!!error && (
-      <Text style={{ color: "#ccc", marginLeft: 15, marginBottom: 8 }}>
-        {error}
-      </Text>
-    )}
+    {!!error && <Text style={{ color: "#ccc", marginLeft: 15, marginBottom: 8 }}>{error}</Text>}
   </View>
 );
 

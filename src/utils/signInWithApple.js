@@ -1,10 +1,5 @@
 import { appleAuth } from "@invertase/react-native-apple-authentication";
-import {
-  OAuthProvider,
-  signInWithCredential,
-  updateProfile,
-  getAuth,
-} from "firebase/auth";
+import { OAuthProvider, signInWithCredential, updateProfile, getAuth } from "firebase/auth";
 
 export const signInWithApple = async () => {
   try {
@@ -42,10 +37,7 @@ export const signInWithApple = async () => {
     console.log("🍏 Apple Sign-In error:", error);
 
     // Detect cancel
-    if (
-      error?.message?.includes("AuthorizationError") &&
-      error?.message?.includes("1001")
-    ) {
+    if (error?.message?.includes("AuthorizationError") && error?.message?.includes("1001")) {
       return { success: false, cancelled: true };
     }
 

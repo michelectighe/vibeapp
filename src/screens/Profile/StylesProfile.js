@@ -119,7 +119,7 @@ const rawStyles = {
     fontSize: 36,
     textAlign: "center",
     marginBottom: 20,
-  //  marginTop: 150,
+    //  marginTop: 150,
   },
   headingContainer: {
     marginTop: 20,
@@ -207,11 +207,10 @@ const rawStyles = {
     color: "white",
     fontSize: 28,
     fontWeight: "bold",
-   // marginTop: 10,
-  //  marginBottom: 15,
+    // marginTop: 10,
+    //  marginBottom: 15,
     textAlign: "center",
   },
 };
-
 
 export const styles = StyleSheet.create(scaledStyle(rawStyles));

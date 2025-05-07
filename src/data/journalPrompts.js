@@ -26,8 +26,7 @@ export const getJournalPrompts = (score) => {
     return [
       {
         id: "j5",
-        prompt:
-          "What are the biggest emotional weights you are carrying today?",
+        prompt: "What are the biggest emotional weights you are carrying today?",
       },
       {
         id: "j6",

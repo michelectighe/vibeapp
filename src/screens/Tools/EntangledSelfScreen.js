@@ -42,11 +42,11 @@ export const EntangledSelfScreen = () => {
               easing: Easing.inOut(Easing.sin),
             }),
           ]),
-        ])
+        ]),
       ).start();
     };
     animateOrbs();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <View style={globalStyles.container}>

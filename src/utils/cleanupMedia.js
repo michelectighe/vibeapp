@@ -8,7 +8,7 @@ export const cleanupMedia = async (
   useSoundLevel = false,
   useCamera = false,
   frameProcessorActiveRef = null,
-  isAudioRecording = false
+  isAudioRecording = false,
 ) => {
   try {
     //console.log("🔇 Cleaning up all media ...");

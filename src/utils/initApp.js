@@ -1,15 +1,13 @@
-import Purchases from "react-native-purchases";
-import { Platform } from "react-native";
 import { initializeDatabase } from "@database";
 import { auth } from "@config/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
+
 import { loadTensorflowModel } from "react-native-fast-tflite";
 import * as Font from "expo-font";
 
 export const initApp = async ({ setModel }) => {
   try {
     //console.log("🌀 Initializing app...");
-
     await Font.loadAsync({
       AppFontRegular: require("@assets/fonts/Nunito-Regular.ttf"),
       AppFontBold: require("@assets/fonts/Nunito-Bold.ttf"),
@@ -29,10 +27,7 @@ export const initApp = async ({ setModel }) => {
         //console.log("user NOT logged in:");
       }
     });
-
-    const model = await loadTensorflowModel(
-      require("@assets/models/ferplus_model_pd_best.tflite")
-    );
+    const model = await loadTensorflowModel(require("@assets/models/ferplus_model_pd_best.tflite"));
     setModel(model);
     //  console.log("🔍 Model after init:", model);
 

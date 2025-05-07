@@ -4,25 +4,39 @@
     "es2021": true,
     "node": true
   },
+
+  "globals": {
+    "__DEV__": "readonly"
+  },
+  "plugins": ["react"],
   "extends": [
     "eslint:recommended",
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
-    "plugin:@typescript-eslint/recommended",
     "prettier"
   ],
-  "parser": "@typescript-eslint/parser",
   "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": "latest",
     "ecmaFeatures": {
       "jsx": true
-    },
-    "ecmaVersion": "latest",
-    "sourceType": "module"
+    }
   },
-  "plugins": ["react", "@typescript-eslint"],
   "rules": {
     "semi": ["error", "always"],
     "quotes": ["error", "double"],
-    "react/react-in-jsx-scope": "off"
+    "react/react-in-jsx-scope": "off",
+    "react/prop-types": "off",
+    "no-unused-vars": [
+      "warn",
+      {
+        "varsIgnorePattern": "^(Colors|Fonts|SCREEN_HEIGHT|SCREEN_WIDTH)$"
+      }
+    ]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }

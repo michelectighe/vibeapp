@@ -1,5 +1,5 @@
 import { db } from "@config/firebaseConfig";
-import { doc, setDoc, getDoc, collection } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { generateShortId } from "@utils/generateShortId";
 
 /**

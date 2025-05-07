@@ -3,19 +3,19 @@ import {
   View,
   TouchableOpacity,
   Text,
-  ImageBackground,
   ActivityIndicator,
   SafeAreaView,
 } from "react-native";
 import FastImage from "react-native-fast-image";
-import { playTrack } from "@services";
+import { saveResults } from "@/utils";
+//import { playTrack } from "@services";
 import { useAnalysis } from "@context";
-import { Ionicons } from "@expo/vector-icons";
+//import { Ionicons } from "@expo/vector-icons";
 import { CustomButton, CloseX } from "@components";
-import { audioMap, SCREEN_HEIGHT, SCREEN_WIDTH, saveResults } from "@utils";
+//import { audioMap, SCREEN_HEIGHT, SCREEN_WIDTH, saveResults } from "@utils";
 import { vibrationLevels } from "@data";
 import { Colors } from "@constants";
-import { useAmbientControlForScreen } from "@hooks";
+//import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./ResultsScreen.styles";
 import { globalStyles } from "@styles";
 
@@ -36,8 +36,8 @@ export const ResultsScreen = ({ navigation }) => {
     voiceClarityScore,
     voiceStrengthScore,
     environmentScore,
-    soundScore,
-    magnitudeScore,
+    // soundScore,
+    // magnitudeScore,
     motionScore,
     heartRateScore,
     hrvScore,
@@ -46,8 +46,7 @@ export const ResultsScreen = ({ navigation }) => {
     chakraScores,
   } = useAnalysis();
 
-  const getVibrationInfo = (score) =>
-    vibrationLevels.find((level) => score >= level.minScore);
+  const getVibrationInfo = (score) => vibrationLevels.find((level) => score >= level.minScore);
 
   useEffect(() => {
     if (overallVibrationScore === null || hasSaved.current) return;
@@ -56,12 +55,12 @@ export const ResultsScreen = ({ navigation }) => {
       try {
         const result = getVibrationInfo(overallVibrationScore);
         if (!result) return;
-
+        saveResultsToDB();
         setLabel(result.label);
         setDescription(result.description);
         setColor(result.color);
         setImage(result.image);
-        const audioSource = audioMap[result.id];
+     //   const audioSource = audioMap[result.id];
 
         hasSaved.current = true;
         // if (audioSource) {
@@ -79,7 +78,7 @@ export const ResultsScreen = ({ navigation }) => {
     };
 
     getDataAndPlayVoice();
-  }, [overallVibrationScore]);
+  }, [overallVibrationScore]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const saveResultsToDB = async () => {
     setSaving(true);
@@ -119,32 +118,22 @@ export const ResultsScreen = ({ navigation }) => {
           {overallVibrationScore.toFixed(0)}%
         </Text>
 
-        <Text style={[styles.label, { textShadowColor: overallColor }]}>
-          {overallLabel}
-        </Text>
+        <Text style={[styles.label, { textShadowColor: overallColor }]}>{overallLabel}</Text>
 
         <CustomButton imgSource={overallImage} />
 
-        <View
-          style={[styles.descriptionBox, { backgroundColor: overallColor }]}
-        >
+        <View style={[styles.descriptionBox, { backgroundColor: overallColor }]}>
           <Text style={styles.descriptionText}>{overallDescription}</Text>
           <TouchableOpacity
             onPress={() => navigation.navigate("ResultDetails")}
             style={styles.infoButton}
           >
-            <FastImage
-              source={infoImage}
-              style={styles.infoImage}
-              resizeMode="contain"
-            />
+            <FastImage source={infoImage} style={styles.infoImage} resizeMode="contain" />
           </TouchableOpacity>
         </View>
       </View>
 
-      {saving && (
-        <ActivityIndicator size="large" color="#fff" style={styles.loading} />
-      )}
+      {saving && <ActivityIndicator size="large" color="#fff" style={styles.loading} />}
     </SafeAreaView>
   );
 };

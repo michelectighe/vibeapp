@@ -16,9 +16,7 @@ export const processAudioBuffer = (audioBuffer) => {
     // Compute the FFT; returns an array of complex numbers [real, imag]
     const phasors = fft(signal);
     // Convert to magnitude spectrum
-    const magnitudes = phasors.map(([real, imag]) =>
-      Math.sqrt(real * real + imag * imag)
-    );
+    const magnitudes = phasors.map(([real, imag]) => Math.sqrt(real * real + imag * imag));
     return magnitudes;
   }
 
@@ -54,4 +52,4 @@ export const processAudioBuffer = (audioBuffer) => {
   }
 
   return centroid, rollOff;
-}
+};

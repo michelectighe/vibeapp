@@ -21,25 +21,11 @@ export const SectionLayoutNotSafe = ({
 
   return (
     <View style={[styles.container, style]}>
-      <View
-        style={[
-          sharedStyle,
-          { flex: equalHeight ? 1 : topFlex },
-          styles.topPadding,
-        ]}
-      >
+      <View style={[sharedStyle, { flex: equalHeight ? 1 : topFlex }, styles.topPadding]}>
         {topContent}
       </View>
-      <View style={[sharedStyle, { flex: equalHeight ? 1 : middleFlex }]}>
-        {middleContent}
-      </View>
-      <View
-        style={[
-          sharedStyle,
-          { flex: equalHeight ? 1 : bottomFlex },
-          styles.bottomPadding,
-        ]}
-      >
+      <View style={[sharedStyle, { flex: equalHeight ? 1 : middleFlex }]}>{middleContent}</View>
+      <View style={[sharedStyle, { flex: equalHeight ? 1 : bottomFlex }, styles.bottomPadding]}>
         {bottomContent}
       </View>
     </View>

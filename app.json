@@ -18,9 +18,7 @@
         "ITSAppUsesNonExemptEncryption": false,
         "CFBundleURLTypes": [
           {
-            "CFBundleURLSchemes": [
-              "vibekey"
-            ]
+            "CFBundleURLSchemes": ["vibekey"]
           }
         ],
         "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to access your camera"
@@ -39,15 +37,10 @@
             "scheme": "vibekey",
             "host": "share"
           },
-          "category": [
-            "BROWSABLE",
-            "DEFAULT"
-          ]
+          "category": ["BROWSABLE", "DEFAULT"]
         }
       ],
-      "permissions": [
-        "android.permission.CAMERA"
-      ]
+      "permissions": ["android.permission.CAMERA"]
     },
     "extra": {
       "eas": {

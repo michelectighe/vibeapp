@@ -2,15 +2,11 @@
 export { AddNoteModal } from "./AddnoteModal";
 export { AnimatedLogo } from "./AnimatedLogo";
 export { AnimatedLogoSmall } from "./AnimatedLogoSmall";
-export {
-  AnimatedHorizontalScroll,
-  AnimatedVerticalScroll,
-} from "./AnimatedScrollView";
+export { AnimatedHorizontalScroll, AnimatedVerticalScroll } from "./AnimatedScrollView";
 export { processAudioBuffer } from "./AudioProcessing";
 export { BreathingCircle } from "./BreathingCircle";
 export { BreathingPatternSelector } from "./BreathingPatternSelector";
 export { ChakraComparisonCard } from "./ChakraComparisonCards";
-export { ChicletButton } from "./ChicletButton";
 export { CloseX } from "./CloseX";
 export { ComparisonCard } from "./ComparisonCards";
 export { CustomButton } from "./CustomButton";

@@ -12,7 +12,7 @@ export const AnimatedHorizontalScroll = ({ children, style, ...props }) => {
         duration: 1500,
         useNativeDriver: true,
       }).start();
-    }, [])
+    }, []), // eslint-disable-line react-hooks/exhaustive-deps
   );
 
   return (
@@ -34,7 +34,7 @@ export const AnimatedVerticalScroll = ({ children, style, ...props }) => {
         duration: 800,
         useNativeDriver: true,
       }).start();
-    }, [])
+    }, []), // eslint-disable-line react-hooks/exhaustive-deps
   );
 
   return (

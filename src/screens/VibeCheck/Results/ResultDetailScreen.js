@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, ScrollView } from "react-native";
 import { useAnalysis } from "@context";
-import { GradientBackground, CustomSpiritualButton, CloseX } from "@components";
+import { CustomSpiritualButton, CloseX } from "@components";
 import { vibrationLevels } from "@data";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./ResultDetailsScreen.styles";
@@ -24,8 +24,7 @@ export const ResultDetailScreen = ({ navigation }) => {
   const [label4, setLabel4] = useState();
   const [label5, setLabel5] = useState();
 
-  const getVibrationInfo = (score) =>
-    vibrationLevels.find((level) => score >= level.minScore);
+  const getVibrationInfo = (score) => vibrationLevels.find((level) => score >= level.minScore);
 
   useEffect(() => {
     const result = getVibrationInfo(overallVibrationScore);
@@ -44,16 +43,14 @@ export const ResultDetailScreen = ({ navigation }) => {
       setColor(result.color);
       setColor2(result.color2);
     }
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <View style={styles.root}>
       <CloseX xColor={overallColor} onPress={() => navigation.goBack()} />
 
       <View style={styles.headerContainer}>
-        <Text style={[styles.overallLabel, { textShadowColor: overallColor }]}>
-          {overallLabel}
-        </Text>
+        <Text style={[styles.overallLabel, { textShadowColor: overallColor }]}>{overallLabel}</Text>
       </View>
 
       <ScrollView
@@ -111,9 +108,8 @@ export const ResultDetailScreen = ({ navigation }) => {
 
         <View style={[styles.textContainer, { backgroundColor: overallColor }]}>
           <Text style={styles.finalNote}>
-            By recognizing these factors and implementing spiritual practices,
-            you can gradually raise your vibrational frequency and realign with
-            your highest potential.
+            By recognizing these factors and implementing spiritual practices, you can gradually
+            raise your vibrational frequency and realign with your highest potential.
           </Text>
         </View>
       </ScrollView>

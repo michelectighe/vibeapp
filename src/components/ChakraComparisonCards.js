@@ -11,12 +11,7 @@ export const ChakraComparisonCard = ({ chakra, yourScore, theirScore }) => {
 
   return (
     <View style={[styles.card, { width: width - 32 }]}>
-      <EdgeGlow
-        width={width - 32}
-        height={180}
-        borderRadius={20}
-        glowColor={chakra.color}
-      />
+      <EdgeGlow width={width - 32} height={180} borderRadius={20} glowColor={chakra.color} />
       <View style={styles.leftGlow}>
         <FuzzyGlow glowSize={yourGlowSize} glowColor={chakra.color} />
       </View>
@@ -26,18 +21,14 @@ export const ChakraComparisonCard = ({ chakra, yourScore, theirScore }) => {
       <View style={styles.textRow}>
         <View style={styles.half}>
           <Text style={styles.label}>You</Text>
-          <Text style={styles.value}>
-            {yourScore != null ? yourScore : "-"}
-          </Text>
+          <Text style={styles.value}>{yourScore != null ? yourScore : "-"}</Text>
         </View>
         <View style={styles.center}>
           <Text style={styles.chakraName}>{chakra.name}</Text>
         </View>
         <View style={styles.half}>
           <Text style={styles.label}>Them</Text>
-          <Text style={styles.value}>
-            {theirScore != null ? theirScore : "-"}
-          </Text>
+          <Text style={styles.value}>{theirScore != null ? theirScore : "-"}</Text>
         </View>
       </View>
     </View>

@@ -8,5 +8,5 @@ export {
   fadeInMusic,
   fadeOutMusic,
 } from "./AudioService";
-export {  createMatchLink } from "./MatchLinkService";
+export { createMatchLink } from "./MatchLinkService";
 export { saveMusicPreference, getMusicPreference } from "./SettingsService";

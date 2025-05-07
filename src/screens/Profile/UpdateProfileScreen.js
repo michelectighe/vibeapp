@@ -1,11 +1,9 @@
-import React, { useEffect, useState, useContext, useRef } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   View,
   Text,
-  ScrollView,
   Switch,
   Animated,
-  TextInput,
   TouchableWithoutFeedback,
   KeyboardAvoidingView,
   Keyboard,
@@ -15,7 +13,6 @@ import { useAuth, useUserProfile } from "@context";
 import {
   saveBiometricOptIn,
   clearSavedCredentials,
-  setUserMusicPref,
   getBiometricOptIn,
   getFriendlyError,
 } from "@utils";
@@ -37,8 +34,7 @@ import { useAmbientControlForScreen } from "@hooks";
 
 export const UpdateProfileScreen = ({ navigation }) => {
   useAmbientControlForScreen(true);
-  const { user, updateProfile, updateEmail, updatePassword, authLoading } =
-    useAuth();
+  const { user, updateProfile, updateEmail, updatePassword, authLoading } = useAuth();
   const { profile } = useUserProfile();
 
   const [name, setName] = useState("");
@@ -55,15 +51,13 @@ export const UpdateProfileScreen = ({ navigation }) => {
   useEffect(() => {
     if (!user) return;
 
-    setIsAppleLogin(
-      user.providerData?.some((p) => p.providerId === "apple.com")
-    );
+    setIsAppleLogin(user.providerData?.some((p) => p.providerId === "apple.com"));
     setName(profile?.name || user.displayName || "");
     setEmail(profile?.email || user.email || "");
 
     getBiometricOptIn().then(setFaceIDEnabled);
     getMusicPreference().then(setMusicEnabled);
-  }, [user]);
+  }, [user]);  // eslint-disable-line react-hooks/exhaustive-deps
 
   const triggerConfirmation = () => {
     console.log("conf trigger");
@@ -97,6 +91,7 @@ export const UpdateProfileScreen = ({ navigation }) => {
 
   const handleUpdate = async () => {
     setPasswordError("");
+    if (!isDirty) return;
     try {
       const updates = {};
       const ref = doc(db, "users", user.uid);
@@ -126,9 +121,7 @@ export const UpdateProfileScreen = ({ navigation }) => {
         updates.name = name;
       }
 
-      faceIDEnabled
-        ? await saveBiometricOptIn(true)
-        : await clearSavedCredentials();
+      faceIDEnabled ? await saveBiometricOptIn(true) : await clearSavedCredentials();
 
       // await setUserMusicPref(musicEnabled);
 
@@ -148,16 +141,12 @@ export const UpdateProfileScreen = ({ navigation }) => {
 
   if (authLoading) {
     return (
-      <Text style={{ color: "#fff", textAlign: "center", marginTop: 50 }}>
-        Authenticating...
-      </Text>
+      <Text style={{ color: "#fff", textAlign: "center", marginTop: 50 }}>Authenticating...</Text>
     );
   }
 
   return (
-    <GradientBackground
-      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
-    >
+    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
       <SectionLayout
         topFlex={1}
         middleFlex={4}

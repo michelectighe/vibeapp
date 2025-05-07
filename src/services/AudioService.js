@@ -14,7 +14,7 @@ export const playTrack = async (
   title = "Enchantment",
   artist = "VibeKey",
   vol = 0.03,
-  fadeIn = true
+  fadeIn = true,
 ) => {
   await TrackPlayer.reset();
   await TrackPlayer.add({ id, url, title, artist });
@@ -22,7 +22,7 @@ export const playTrack = async (
   if (fadeIn) {
     await TrackPlayer.setVolume(0); // start silent
     await TrackPlayer.play();
-    await fadeInMusic((targetVolume = vol)); // fade to target volume
+    await fadeInMusic((vol)); // fade to target volume
   } else {
     await TrackPlayer.setVolume(vol);
     await TrackPlayer.play();
@@ -57,11 +57,7 @@ export const fadeOutMusic = async (duration = 2000, steps = 10) => {
   await TrackPlayer.stop();
 };
 
-export const fadeInMusic = async (
-  targetVolume = 1.0,
-  duration = 2000,
-  steps = 10
-) => {
+export const fadeInMusic = async (targetVolume = 1.0, duration = 2000, steps = 10) => {
   const stepTime = duration / steps;
   const stepSize = targetVolume / steps;
 

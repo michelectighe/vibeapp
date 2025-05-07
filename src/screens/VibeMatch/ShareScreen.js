@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, ActivityIndicator, Share, Text, Modal } from "react-native";
+import { View, ActivityIndicator, Share, Text } from "react-native";
 import { getAuth } from "firebase/auth";
 import { useAuth } from "@context";
 import { loadResults, SCREEN_HEIGHT } from "@utils";
@@ -8,9 +8,7 @@ import { createMatchLink } from "@services";
 import { Colors } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
 import { SubscriptionModal } from "@components";
-import { styles } from "./ShareScreen.styles";
 import { globalStyles } from "@styles";
-import { useNavigation } from "@react-navigation/native";
 
 export const ShareScreen = ({ navigation }) => {
   useAmbientControlForScreen(true);
@@ -37,7 +35,7 @@ export const ShareScreen = ({ navigation }) => {
     } else {
       fetchResults();
     }
-  }, [authLoading, user, isPremium]);
+  }, [authLoading, user, isPremium]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const fetchResults = async () => {
     const data = await loadResults();
@@ -57,19 +55,12 @@ export const ShareScreen = ({ navigation }) => {
   };
 
   if (loading) {
-    return (
-      <ActivityIndicator
-        size="large"
-        style={{ marginTop: SCREEN_HEIGHT * 0.2 }}
-      />
-    );
+    return <ActivityIndicator size="large" style={{ marginTop: SCREEN_HEIGHT * 0.2 }} />;
   }
 
   return (
     <>
-      <GradientBackground
-        colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
-      >
+      <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
         <SectionLayout
           topFlex={1}
           middleFlex={3}
@@ -77,9 +68,7 @@ export const ShareScreen = ({ navigation }) => {
           topContent={
             <View style={globalStyles.titleWrapper}>
               <Text style={globalStyles.title}>Vibe Match</Text>
-              <Text style={globalStyles.subTitle}>
-                Let's see if your vibe is in sync.
-              </Text>
+              <Text style={globalStyles.subTitle}>Let&apos;s see if your vibes are in sync.</Text>
             </View>
           }
           middleContent={

@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import { Appearance, PlatformColor } from "react-native";
+import { Appearance } from "react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import ThemeWrapper from "@components/ThemeWrapper";
 
@@ -26,7 +26,7 @@ export const ThemeProvider = ({ children }) => {
       }
     };
     loadTheme();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Save theme when it changes
   useEffect(() => {

@@ -10,13 +10,12 @@ import {
   UpdateProfileScreen,
 } from "@screens";
 
-
 export const SettingsStack = () => {
   const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator
       initialRouteName="SettingsScreen"
-      screenOptions={({ navigation }) => ({
+      screenOptions={() => ({
         headerShown: false,
       })}
     >
@@ -74,4 +73,4 @@ export const SettingsStack = () => {
       />
     </Stack.Navigator>
   );
-}
+};

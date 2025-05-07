@@ -6,12 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 export const JournalPromptCard = ({ item }) => {
   return (
     <View style={styles.card}>
-      <Ionicons
-        name="create-outline"
-        size={24}
-        color="#9C27B0"
-        style={styles.icon}
-      />
+      <Ionicons name="create-outline" size={24} color="#9C27B0" style={styles.icon} />
       <Text style={styles.prompt}>{item.prompt}</Text>
     </View>
   );

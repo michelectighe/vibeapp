@@ -1,23 +1,11 @@
-import React, { useRef, useState } from "react";
-import {
-  Animated,
-  LayoutAnimation,
-  TouchableOpacity,
-  View,
-  Text,
-  StyleSheet,
-} from "react-native";
+import React, { useState } from "react";
+import { ScrollView, LayoutAnimation, TouchableOpacity, View, Text, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { Colors } from "@/constants";
+import { globalStyles } from "@/styles";
 
-export const ExpandableItem = ({
-  title,
-  description,
-  themeColors,
-  theme,
-  onToggle,
-}) => {
+export const ExpandableItem = ({ title, description, onToggle }) => {
   const [expanded, setExpanded] = useState(false);
-  const animation = useRef(new Animated.Value(0)).current;
 
   const toggleExpand = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -30,9 +18,7 @@ export const ExpandableItem = ({
   return (
     <View style={[styles.itemContainer]}>
       <TouchableOpacity onPress={toggleExpand} style={styles.header}>
-        <Text style={[styles.title, { color: Colors.textPrimary }]}>
-          {title}
-        </Text>
+        <Text style={[styles.title, { color: Colors.textPrimary }]}>{title}</Text>
         <Ionicons
           name={expanded ? "chevron-up" : "chevron-down"}
           size={24}
@@ -45,9 +31,7 @@ export const ExpandableItem = ({
           contentContainerStyle={globalStyles.scrollContent}
           showsVerticalScrollIndicator={false}
         >
-          <Text style={[styles.description, { color: Colors.textSecondary }]}>
-            {description}
-          </Text>
+          <Text style={[styles.description, { color: Colors.textSecondary }]}>{description}</Text>
         </ScrollView>
       )}
     </View>

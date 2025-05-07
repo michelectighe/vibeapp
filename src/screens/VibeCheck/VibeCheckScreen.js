@@ -1,22 +1,13 @@
 import React, { useCallback } from "react";
-import { View, Text, SafeAreaView } from "react-native";
-import {
-  useNavigation,
-  useFocusEffect,
-  useRoute,
-} from "@react-navigation/native";
-import {
-  GradientBackground,
-  HomeButton,
-  CustomSpiritualButton,
-} from "@components";
+import { View, Text } from "react-native";
+import { useNavigation, useFocusEffect, useRoute } from "@react-navigation/native";
+import { GradientBackground, CustomSpiritualButton } from "@components";
 import { VIBE_CHECK_SCREENS } from "@navigation/screens";
 import { useAnalysis } from "@context";
 import { cleanupMedia } from "@utils";
 import { Colors } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./VibeCheckScreen.styles";
-import { globalStyles } from "@styles";
 import { SectionLayout } from "@/components";
 
 export const VibeCheckScreen = () => {
@@ -37,7 +28,7 @@ export const VibeCheckScreen = () => {
         }
       };
       cleanup();
-    }, [])
+    }, []), // eslint-disable-line react-hooks/exhaustive-deps
   );
 
   const goToNextScreen = () => {
@@ -49,9 +40,7 @@ export const VibeCheckScreen = () => {
   const openInfo = () => navigation.navigate("MetricInfoScreen");
 
   return (
-    <GradientBackground
-      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
-    >
+    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
       <SectionLayout
         topFlex={3}
         middleFlex={0}
@@ -59,10 +48,9 @@ export const VibeCheckScreen = () => {
         equalHeight={false}
         topContent={
           <Text style={styles.descriptionText}>
-            Unlock your vibrational frequency by tuning into the harmony of your
-            voice, movement, heart rhythm, surroundings and emotions. This
-            sacred insight guides you toward deeper alignment, balance, and
-            energetic elevation.
+            Unlock your vibrational frequency by tuning into the harmony of your voice, movement,
+            heart rhythm, surroundings and emotions. This sacred insight guides you toward deeper
+            alignment, balance, and energetic elevation.
           </Text>
         }
         bottomContent={

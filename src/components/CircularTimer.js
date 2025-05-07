@@ -26,7 +26,7 @@ export const CircularTimer = ({
         onComplete(); // 🔥 Tell parent the timer finished
       }
     });
-  }, [duration]);
+  }, [duration]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const strokeDashoffset = progress.interpolate({
     inputRange: [0, 1],

@@ -1,22 +1,15 @@
 import "react-native-reanimated";
-// import "./global.css";
 import React, { useRef, useEffect } from "react";
 //import { setJSExceptionHandler } from "react-native-exception-handler";
 // import crashlytics from "@react-native-firebase/crashlytics";
-
 import { NavigationContainer } from "@react-navigation/native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { LogBox, Linking } from "react-native";
+import { LogBox } from "react-native";
 import { enableScreens } from "react-native-screens";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { MyTabs, StreakStack, ToolsStack } from "@navigation";
-import {
-  UserProfileProvider,
-  ModelProvider,
-  AuthProvider,
-  AnalysisProvider,
-} from "@context";
+import { MyTabs, StreakStack } from "@navigation";
+import { UserProfileProvider, ModelProvider, AuthProvider, AnalysisProvider } from "@context";
 import { MusicManager } from "@utils";
 import { SplashScreen, WelcomeScreen } from "@screens";
 import { initializeRevenueCat } from "@utils";
@@ -80,11 +73,6 @@ const linking = {
 };
 
 const Stack = createNativeStackNavigator();
-const fadeTransition = ({ current }) => ({
-  cardStyle: {
-    opacity: current.progress, //  Fades in based on transition progress
-  },
-});
 const AppInner = () => {
   useEffect(() => {
     initializeRevenueCat();
@@ -106,18 +94,13 @@ const AppInner = () => {
   //   return () => sub.remove();
   // }, []);
   const navigationRef = useRef(); // Create a reference for navigation
-  const fadeTransition = ({ current }) => ({
-    cardStyle: {
-      opacity: current.progress,
-    },
-  });
   return (
     <AnalysisProvider>
       <MusicManager />
       <NavigationContainer linking={linking} ref={navigationRef}>
         <Stack.Navigator
           initialRouteName="Splash"
-          screenOptions={({ navigation }) => ({
+          screenOptions={() => ({
             headerShown: false,
             animation: "fade",
           })}

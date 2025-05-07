@@ -1,12 +1,6 @@
 // components/ResultSelector.js
 import React from "react";
-import {
-  View,
-  Text,
-  FlatList,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, Text, FlatList, StyleSheet, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { vibrationLevels } from "@data";
 import { Fonts } from "@constants";
@@ -45,9 +39,7 @@ export const ResultSelector = ({ results, onSelect, onShare }) => {
               style={styles.shareIcon}
             />
           </View>
-          <Text style={styles.score}>
-            {item.overallVibrationScore.toFixed(0)}
-          </Text>
+          <Text style={styles.score}>{item.overallVibrationScore.toFixed(0)}</Text>
           <Text style={styles.date}>{formatDate(item.timestamp)}</Text>
         </View>
       </TouchableOpacity>
@@ -63,7 +55,7 @@ export const ResultSelector = ({ results, onSelect, onShare }) => {
       showsVerticalScrollIndicator={false}
     />
   );
-}
+};
 
 const styles = StyleSheet.create({
   card: {

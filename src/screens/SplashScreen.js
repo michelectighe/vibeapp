@@ -8,7 +8,7 @@ import { styles } from "./SplashScreen.styles";
 import { globalStyles } from "@styles";
 
 export const SplashScreen = ({ navigation, route }) => {
-  const { model, setModel } = useModel();
+  const { setModel } = useModel();
   const { user, authLoading } = useAuth();
   const rotateAnim = useRef(new Animated.Value(0)).current;
   const fadeAnim = useRef(new Animated.Value(0.1)).current;
@@ -25,7 +25,7 @@ export const SplashScreen = ({ navigation, route }) => {
         duration: 7000,
         useNativeDriver: true,
         easing: Easing.linear,
-      })
+      }),
     ).start();
 
     Animated.timing(fadeAnim, {
@@ -33,7 +33,7 @@ export const SplashScreen = ({ navigation, route }) => {
       duration: 800,
       useNativeDriver: true,
     }).start();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const startApp = async () => {
@@ -59,7 +59,7 @@ export const SplashScreen = ({ navigation, route }) => {
       }
     };
     startApp();
-  }, [authLoading, user]);
+  }, [authLoading, user]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Animated.View style={[styles.animatedView, { opacity: fadeAnim }]}>

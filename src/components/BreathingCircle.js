@@ -61,7 +61,7 @@ export const BreathingCircle = ({ pattern }) => {
 
   useEffect(() => {
     startPhase("Inhale", pattern.inhale, 1.5);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <View style={styles.wrapper}>
@@ -77,9 +77,7 @@ export const BreathingCircle = ({ pattern }) => {
         <Text style={styles.counterInside}>{counter}</Text>
       </View>
 
-      <Text style={styles.phase}>
-        {phase.includes("Hold") ? "Hold" : phase}
-      </Text>
+      <Text style={styles.phase}>{phase.includes("Hold") ? "Hold" : phase}</Text>
     </View>
   );
 };

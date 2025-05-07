@@ -1,9 +1,4 @@
 //src/utils/index.js
-
-import { initializeRevenueCat } from "@/utils/initRevCat";
-import { signInWithApple } from "@/utils/signInWithApple";
-
-//import { useKickJS } from "../hooks/useKickJS";
 export { initializeRevenueCat } from "./initRevCat";
 export { startPurchaseFlow } from "./purchaseSubscription";
 export { audioMap } from "./audioMap";
@@ -45,17 +40,8 @@ export { loadResults } from "./loadResults";
 export { MusicManager, setShouldPlayAmbient, setUserMusicPref } from "./musicManager";
 export { createRefChecker } from "./runOnJSRefChecker";
 export { saveResults } from "./saveResults";
-export {
-  setSubscriptionStatus,
-  getSubscriptionStatus,
-} from "./subscriptionUtils";
-export {
-  scale,
-  verticalScale,
-  moderateScale,
-  fontScale,
-  scaledStyle,
-} from "./layout";
+export { setSubscriptionStatus, getSubscriptionStatus } from "./subscriptionUtils";
+export { scale, verticalScale, moderateScale, fontScale, scaledStyle } from "./layout";
 export { signInWithApple } from "./signInWithApple";
 
 export { isPasswordValid, getPasswordStrength } from "./validatePassword";

@@ -18,10 +18,10 @@ const rawStyles = {
     elevation: 5,
   },
   titleWrapper: {
-   marginTop: "30%",
-   marginBottom: 0,
-   alignItems: "center",
-   backgroundColor: "transparent",
+    marginTop: "30%",
+    marginBottom: 0,
+    alignItems: "center",
+    backgroundColor: "transparent",
   },
   title: {
     fontSize: 22,
@@ -48,7 +48,6 @@ const rawStyles = {
     fontSize: 18,
     fontWeight: "500",
   },
-
 };
 
 export const styles = StyleSheet.create(scaledStyle(rawStyles));

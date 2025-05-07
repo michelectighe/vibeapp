@@ -4,17 +4,12 @@ export const startPurchaseFlow = async () => {
   try {
     const offerings = await Purchases.getOfferings();
 
-    if (
-      offerings.current &&
-      offerings.current.availablePackages.length > 0
-    ) {
+    if (offerings.current && offerings.current.availablePackages.length > 0) {
       const packageToBuy = offerings.current.availablePackages[0];
 
       const { customerInfo } = await Purchases.purchasePackage(packageToBuy);
 
-      if (
-        typeof customerInfo.entitlements.active.Premium_Access !== "undefined"
-      ) {
+      if (typeof customerInfo.entitlements.active.Premium_Access !== "undefined") {
         // 🥳 Purchase success, entitlement is now active!
         return { success: true };
       }

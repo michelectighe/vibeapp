@@ -30,7 +30,7 @@ export const CustomModal = ({ visible, onClose, children }) => {
         setIsModalVisible(false);
       });
     }
-  }, [visible]);
+  }, [visible]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (!isModalVisible) return null;
 
@@ -40,12 +40,7 @@ export const CustomModal = ({ visible, onClose, children }) => {
         <View style={styles.overlay} />
       </TouchableWithoutFeedback>
 
-      <Animated.View
-        style={[
-          styles.modalContainer,
-          { transform: [{ translateY: slideAnim }] },
-        ]}
-      >
+      <Animated.View style={[styles.modalContainer, { transform: [{ translateY: slideAnim }] }]}>
         {children}
       </Animated.View>
     </Modal>
@@ -68,4 +63,3 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
 });
-

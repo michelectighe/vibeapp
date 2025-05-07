@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Animated, Text, View } from "react-native";
+import { Animated} from "react-native";
 
 export const AnimatedLabel = ({ label = "" }) => {
   const opacity = useRef(new Animated.Value(0)).current;
@@ -19,7 +19,7 @@ export const AnimatedLabel = ({ label = "" }) => {
       delay: 500,
       useNativeDriver: true,
     }).start();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Animated.Text
@@ -39,5 +39,3 @@ export const AnimatedLabel = ({ label = "" }) => {
     </Animated.Text>
   );
 };
-
-

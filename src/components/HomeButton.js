@@ -1,14 +1,8 @@
-import React, { useContext, useState, useRef, useEffect } from "react";
+import React, { } from "react";
 import {
   ImageBackground,
   TouchableOpacity,
-  StatusBar,
-  SafeAreaView,
   View,
-  Text,
-  Modal,
-  StyleSheet,
-  Animated,
   useWindowDimensions,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -35,9 +29,7 @@ export const HomeButton = () => {
         elevation: 4,
       }} // Dynamically adjust size
     >
-      <View
-        style={{ position: "absolute", top: height - 60, left: width - 60 }}
-      >
+      <View style={{ position: "absolute", top: height - 60, left: width - 60 }}>
         <ImageBackground
           style={{ flex: 1, width: 50, height: 50 }}
           source={buttonImage}
@@ -47,4 +39,3 @@ export const HomeButton = () => {
     </TouchableOpacity>
   );
 };
-

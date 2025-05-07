@@ -32,8 +32,7 @@ const guidelineBaseHeight = 844;
 
 export const scale = (size) => (width / guidelineBaseWidth) * size;
 export const verticalScale = (size) => (height / guidelineBaseHeight) * size;
-export const moderateScale = (size, factor = 0.5) =>
-  size + (scale(size) - size) * factor;
+export const moderateScale = (size, factor = 0.5) => size + (scale(size) - size) * factor;
 export const fontScale = (size) => size * PixelRatio.getFontScale();
 
 // Intelligent scaling
@@ -52,5 +51,5 @@ export const scaledStyle = (styles) =>
       } else {
         return [key, moderateScale(val)];
       }
-    })
+    }),
   );

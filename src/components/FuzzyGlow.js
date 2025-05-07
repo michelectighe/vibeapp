@@ -19,13 +19,13 @@ export const FuzzyGlow = ({ glowSize, glowColor, pulse = true }) => {
             duration: 1000,
             useNativeDriver: true,
           }),
-        ])
+        ]),
       );
       pulseAnimation.start();
 
       return () => pulseAnimation.stop();
     }
-  }, [pulse]);
+  }, [pulse]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Animated.View
@@ -33,11 +33,7 @@ export const FuzzyGlow = ({ glowSize, glowColor, pulse = true }) => {
         position: "absolute",
         top: "50%",
         left: "50%",
-        transform: [
-          { translateX: -glowSize / 2 },
-          { translateY: -glowSize / 2 },
-          { scale },
-        ],
+        transform: [{ translateX: -glowSize / 2 }, { translateY: -glowSize / 2 }, { scale }],
         width: glowSize,
         height: glowSize,
       }}
@@ -55,4 +51,3 @@ export const FuzzyGlow = ({ glowSize, glowColor, pulse = true }) => {
     </Animated.View>
   );
 };
-

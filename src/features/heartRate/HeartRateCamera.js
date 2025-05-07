@@ -1,17 +1,8 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
 import { View, Text, Animated, StyleSheet } from "react-native";
-import {
-  Camera,
-  useCameraDevice,
-  useFrameProcessor,
-} from "react-native-vision-camera";
+import { Camera, useCameraDevice, useFrameProcessor } from "react-native-vision-camera";
 import { Worklets } from "react-native-worklets-core";
-import {
-  useNavigation,
-  useFocusEffect,
-  useIsFocused,
-  useRoute,
-} from "@react-navigation/native";
+import { useNavigation, useFocusEffect, useRoute } from "@react-navigation/native";
 import { useAnalysis } from "@context";
 import {
   removeOutliers,
@@ -22,15 +13,12 @@ import {
   cleanupMedia,
   createRefChecker,
 } from "@utils";
-import { useKickJS } from "@hooks";
-import { globalStyles } from "@styles";
 import { Colors, Fonts } from "@constants";
 import { scaledStyle, SCREEN_HEIGHT, SCREEN_WIDTH } from "@/utils";
 import { CustomSpiritualButton, CircularTimer } from "@/components";
 import { VIBE_CHECK_SCREENS } from "@navigation";
 
 export const HeartRateCamera = ({ onStableReading }) => {
-  if (__DEV__) useKickJS();
   const route = useRoute();
   const currentIndex = VIBE_CHECK_SCREENS.indexOf(route.name);
   const goToNextScreen = () => {
@@ -49,7 +37,6 @@ export const HeartRateCamera = ({ onStableReading }) => {
   const [cameraActive, setCameraActive] = useState(true);
   const [flashMode, setFlashMode] = useState("on");
   const [fingerWarning, setFingerWarning] = useState(null);
-  const [showPlaceholder, setShowPlaceholder] = useState(true);
   const lastWarningRef = useRef(null);
 
   const cameraHeartRef = useRef(null);
@@ -64,13 +51,12 @@ export const HeartRateCamera = ({ onStableReading }) => {
   const cameraOpacity = useRef(new Animated.Value(0)).current;
   const buttonOpacity = useRef(new Animated.Value(0)).current;
   const warningOpacity = useRef(new Animated.Value(0)).current;
+  const newWarningRef = useRef("");
   const frameProcessorHeartActiveRef = useRef(false);
-  const timerExpired = useRef(false);
   const isRefActive = createRefChecker();
 
   const navigation = useNavigation();
   const { setHeartRate } = useAnalysis();
-  const isFocused = useIsFocused();
   const device = useCameraDevice("back");
 
   useFocusEffect(
@@ -92,7 +78,7 @@ export const HeartRateCamera = ({ onStableReading }) => {
       };
       setup();
       return () => {};
-    }, [device, cameraReady])
+    }, [device, cameraReady]), // eslint-disable-line react-hooks/exhaustive-deps
   );
 
   useFocusEffect(
@@ -114,7 +100,7 @@ export const HeartRateCamera = ({ onStableReading }) => {
           if (averageMetrics) setHeartRate(averageMetrics);
         })();
       };
-    }, [])
+    }, []), // eslint-disable-line react-hooks/exhaustive-deps
   );
 
   useEffect(() => {
@@ -129,7 +115,7 @@ export const HeartRateCamera = ({ onStableReading }) => {
     //  if (fingerWarning != null) {
     warningOpacity.setValue(0);
     // }
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const computeAverageMetrics = () => {
     const history = metricsHistoryRef.current;
@@ -141,7 +127,7 @@ export const HeartRateCamera = ({ onStableReading }) => {
         acc.rmssd += metric.rmssd;
         return acc;
       },
-      { bpm: 0, sdnn: 0, rmssd: 0 }
+      { bpm: 0, sdnn: 0, rmssd: 0 },
     );
     return {
       bpm: Math.round(sum.bpm / history.length),
@@ -153,32 +139,26 @@ export const HeartRateCamera = ({ onStableReading }) => {
   const handleFrame = (redIntensity, timestamp) => {
     redDataRef.current.push({ intensity: redIntensity, timestamp });
     const now = timestamp;
-    redDataRef.current = redDataRef.current.filter(
-      (d) => now - d.timestamp <= 6000
-    );
-    intensityRef.current = redDataRef.current.filter(
-      (d) => now - d.timestamp <= 2000
-    );
+    redDataRef.current = redDataRef.current.filter((d) => now - d.timestamp <= 6000);
+    intensityRef.current = redDataRef.current.filter((d) => now - d.timestamp <= 2000);
 
     const intensities = intensityRef.current.map((d) => d.intensity);
     const filteredIntensities = removeOutliers(intensities, 2);
     if (filteredIntensities.length === 0) return;
 
-    const variation =
-      Math.max(...filteredIntensities) - Math.min(...filteredIntensities);
+    const variation = Math.max(...filteredIntensities) - Math.min(...filteredIntensities);
 
     if (variation > 20) {
-      newWarning =
-        "Please ensure your finger is covering the camera lens correctly";
+      newWarningRef.current = "Please ensure your finger is covering the camera lens correctly";
     } else {
-      newWarning = "Hold still while we check your vibe";
+      newWarningRef.current = "Hold still while we check your vibe";
     }
 
     // Only update if it actually changed
-    if (newWarning && lastWarningRef.current !== newWarning) {
+    if (newWarningRef.current && lastWarningRef.current !== newWarningRef.current) {
       console.log("changed");
-      lastWarningRef.current = newWarning;
-      setFingerWarning(newWarning);
+      lastWarningRef.current = newWarningRef.current;
+      setFingerWarning(newWarningRef.current);
       Animated.timing(warningOpacity, {
         toValue: 1,
         duration: 500,
@@ -205,22 +185,14 @@ export const HeartRateCamera = ({ onStableReading }) => {
     const filteredSdnn = removeOutliers(sdnnHistoryRef.current, 2);
     const filteredRmssd = removeOutliers(rmssdHistoryRef.current, 2);
 
-    const bpmVariation =
-      Math.max(...filteredBPM.slice(-30)) - Math.min(...filteredBPM.slice(-30));
-    const rmssdVariation =
-      Math.max(...filteredRmssd.slice(-30)) -
-      Math.min(...filteredRmssd.slice(-30));
+    Math.max(...filteredRmssd.slice(-30)) - Math.min(...filteredRmssd.slice(-30));
 
     const nowTime = Date.now();
     if (nowTime - lastUpdateTimeRef.current >= 1000) {
       setLocalHeartRate({
         bpm: Math.round(filteredBPM.slice(-30).reduce((a, b) => a + b, 0) / 30),
-        sdnn: Math.round(
-          filteredSdnn.slice(-30).reduce((a, b) => a + b, 0) / 30
-        ),
-        rmssd: Math.round(
-          filteredRmssd.slice(-30).reduce((a, b) => a + b, 0) / 30
-        ),
+        sdnn: Math.round(filteredSdnn.slice(-30).reduce((a, b) => a + b, 0) / 30),
+        rmssd: Math.round(filteredRmssd.slice(-30).reduce((a, b) => a + b, 0) / 30),
       });
       lastUpdateTimeRef.current = nowTime;
     }
@@ -236,8 +208,7 @@ export const HeartRateCamera = ({ onStableReading }) => {
       let totalRed = 0;
       for (let i = 0; i < data.length; i += 4) totalRed += data[i];
       const redIntensity = totalRed / (data.length / 4);
-      if (redIntensity !== undefined)
-        handleFrameJS(redIntensity, frame.timestamp);
+      if (redIntensity !== undefined) handleFrameJS(redIntensity, frame.timestamp);
     } catch (err) {
       console.error("❌ HeartRate frame error:", err);
     }
@@ -260,7 +231,6 @@ export const HeartRateCamera = ({ onStableReading }) => {
         duration: 800,
         useNativeDriver: true,
       }).start(() => {
-        setShowPlaceholder(false);
         Animated.timing(buttonOpacity, {
           toValue: 1,
           duration: 800,
@@ -293,7 +263,6 @@ export const HeartRateCamera = ({ onStableReading }) => {
                 duration: 800,
                 useNativeDriver: true,
               }).start(() => {
-                setShowPlaceholder(false);
                 Animated.timing(cameraOpacity, {
                   toValue: 1,
                   duration: 800,
@@ -311,9 +280,7 @@ export const HeartRateCamera = ({ onStableReading }) => {
         />
       </Animated.View>
       {stable && (
-        <Animated.View
-          style={[styles.finishButtonWrapper, { opacity: buttonOpacity }]}
-        >
+        <Animated.View style={[styles.finishButtonWrapper, { opacity: buttonOpacity }]}>
           <CustomSpiritualButton
             label="Finish"
             onPress={goToNextScreen}
@@ -326,20 +293,14 @@ export const HeartRateCamera = ({ onStableReading }) => {
       {/* Heart rate data block */}
       {!stable && (
         <View style={styles.textCenterBlock}>
-          {typeof localHeartRate.bpm === "number" &&
-            !isNaN(localHeartRate.bpm) && (
-              <Text style={styles.bpmText}>
-                {localHeartRate.bpm
-                  ? `❤️ ${localHeartRate.bpm} BPM`
-                  : "Measuring..."}
-              </Text>
-            )}
-          {typeof localHeartRate.rmssd === "number" &&
-            !isNaN(localHeartRate.rmssd) && (
-              <Text style={styles.rmssdText}>
-                RMSSD: {localHeartRate.rmssd.toFixed(0)} ms
-              </Text>
-            )}
+          {typeof localHeartRate.bpm === "number" && !isNaN(localHeartRate.bpm) && (
+            <Text style={styles.bpmText}>
+              {localHeartRate.bpm ? `❤️ ${localHeartRate.bpm} BPM` : "Measuring..."}
+            </Text>
+          )}
+          {typeof localHeartRate.rmssd === "number" && !isNaN(localHeartRate.rmssd) && (
+            <Text style={styles.rmssdText}>RMSSD: {localHeartRate.rmssd.toFixed(0)} ms</Text>
+          )}
         </View>
       )}
 

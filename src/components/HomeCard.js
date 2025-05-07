@@ -1,19 +1,11 @@
 import React from "react";
 import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
-import Icon from "react-native-vector-icons/Ionicons";
 import FastImage from "react-native-fast-image";
 import { Fonts } from "@constants";
 import { scaledStyle } from "@utils";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@/utils";
 
-export const HomeCard = ({
-  title,
-  subtitle,
-  icon,
-  onPress,
-  image,
-  textColor,
-}) => {
+export const HomeCard = ({ title, subtitle, onPress, image, textColor }) => {
   return (
     <TouchableOpacity onPress={onPress} style={styles.cardWrapper}>
       {image && (
@@ -28,9 +20,7 @@ export const HomeCard = ({
               <Icon name={icon} size={30} color="#FFF" />
             </View> */}
             <Text style={[styles.title, { color: textColor }]}>{title}</Text>
-            <Text style={[styles.subtitle, { color: textColor }]}>
-              {subtitle}
-            </Text>
+            <Text style={[styles.subtitle, { color: textColor }]}>{subtitle}</Text>
           </View>
         </View>
       )}
@@ -59,7 +49,7 @@ const rawStyles = {
     elevation: 3,
   },
   card: {
-    height: SCREEN_HEIGHT * .2,
+    height: SCREEN_HEIGHT * 0.2,
     borderRadius: 12,
     overflow: "hidden",
     justifyContent: "center",

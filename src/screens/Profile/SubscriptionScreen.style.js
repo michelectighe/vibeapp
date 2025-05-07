@@ -23,7 +23,7 @@ const rawStyles = {
     color: "#333",
   },
   featuresBox: {
-    height: SCREEN_HEIGHT * .6, // or whatever fits nicely on your layout
+    height: SCREEN_HEIGHT * 0.6, // or whatever fits nicely on your layout
     width: "90%",
     backgroundColor: "#fff",
     borderRadius: 10,

@@ -9,13 +9,7 @@
 ********************************************************/
 
 import React, { useRef, useEffect } from "react";
-import {
-  Animated,
-  TouchableOpacity,
-  Text,
-  StyleSheet,
-  View,
-} from "react-native";
+import { Animated, TouchableOpacity, Text, StyleSheet } from "react-native";
 import { Fonts, Colors } from "@constants";
 
 export const CustomSpiritualButton = ({
@@ -32,7 +26,7 @@ export const CustomSpiritualButton = ({
       duration: 800,
       useNativeDriver: true,
     }).start();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Animated.View style={{ opacity: fadeAnim, width: "100%" }}>

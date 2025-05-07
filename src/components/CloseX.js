@@ -1,9 +1,7 @@
 import { TouchableOpacity, Text } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { Colors } from "@constants";
 
 export const CloseX = ({ xColor = Colors.lightText, onPress }) => {
-  const navigation = useNavigation();
   return (
     <TouchableOpacity
       onPress={onPress}

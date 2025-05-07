@@ -3,7 +3,6 @@ import { View, Text, ActivityIndicator } from "react-native";
 import { doc, getDoc } from "firebase/firestore";
 import { useNavigation } from "@react-navigation/native";
 import { db } from "@config/firebaseConfig";
-import { useAnalysis } from "@context";
 import { GradientBackground, ResultSelector } from "@components";
 import { loadResults } from "@utils";
 import { Colors } from "@constants";
@@ -17,10 +16,7 @@ export const MatchScreen = ({ route }) => {
   const [matchId, setMatchId] = useState(null);
   const [sharedResult, setSharedResult] = useState(null);
   const [myResults, setMyResults] = useState(null);
-  const [myResult, setMyResult] = useState(null);
-  const [showComparison, setShowComparison] = useState(false);
   const [loading, setLoading] = useState(true);
-  const { getLatestResult, currentUser } = useAnalysis();
 
   useEffect(() => {
     setMatchId(route.params?.id || null);
@@ -45,7 +41,7 @@ export const MatchScreen = ({ route }) => {
           "users",
           matchData.sharedByUserId,
           "results",
-          matchData.sharedByResultId
+          matchData.sharedByResultId,
         );
 
         const sharedResultSnap = await getDoc(sharedResultRef);
@@ -70,28 +66,16 @@ export const MatchScreen = ({ route }) => {
     fetchResults();
   }, []);
 
-  useEffect(() => {
-    if (myResult) {
-      setShowComparison(true);
-    }
-  }, [myResult]);
-
   if (loading || !sharedResult || !myResults || myResults.length === 0) {
-    return (
-      <ActivityIndicator size="large" style={{ marginTop: 100 }} color="#fff" />
-    );
+    return <ActivityIndicator size="large" style={{ marginTop: 100 }} color="#fff" />;
   }
 
   return (
-    <GradientBackground
-      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
-    >
+    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
       <View style={globalStyles.container}>
         <Text style={styles.title}>Vibe Match</Text>
         <View>
-          <Text style={styles.resultText}>
-            Select one of your results to compare:
-          </Text>
+          <Text style={styles.resultText}>Select one of your results to compare:</Text>
           <ResultSelector
             results={myResults}
             onSelect={(selected) => {
