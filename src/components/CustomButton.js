@@ -22,7 +22,7 @@ export const CustomButton = ({ imgSource = "", onPress }) => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handlePress = () => {
-   // Haptics.selectionAsync(); // light tap feedback
+    // Haptics.selectionAsync(); // light tap feedback
     Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
 
     if (onPress) onPress();
@@ -31,10 +31,10 @@ export const CustomButton = ({ imgSource = "", onPress }) => {
   const SIZE = SCREEN_WIDTH * 0.5;
   let Touchable = TouchableOpacity;
 
-  // if (Platform.OS === "android") {
-  //   const { TouchableNativeFeedback } = require("react-native");
-  //   Touchable = TouchableNativeFeedback;
-  // }
+  if (Platform.OS === "android") {
+    const { TouchableNativeFeedback } = require("react-native");
+    Touchable = TouchableNativeFeedback;
+  }
 
   return (
     <View style={styles.wrapper}>

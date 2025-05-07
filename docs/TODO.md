@@ -47,7 +47,7 @@
 - [x] emotional transition screen: change timing to exit after text (change font)
 - [x] heart rate screen - change layout
 - [ ] apply sectionLayout to all screens
-- [ ] style results screen
+- [x] style results screen
 
 ### 3. Navigaton
 
@@ -57,15 +57,20 @@
 
 - [ ] Change navigation (button??)
 - [ ] Remove Header
-- [ ] Figure out tab bar with background image
+- [x] Figure out tab bar with background image
 
-### 5. VibeMatch Section
+### 5. VibeCheck Section
+
+- [ ] check emotionalTransitionScreen jitter
+- [ ] verify resultdetails matches results
+
+### 6. VibeMatch Section
 
 - [ ] Test deep linking - when not signed in and when app not open vs already open
 - [ ] Sharpen up match results screen
 - [ ] Improve match selection screen (add option for retaking test first before comparing)
 
-### 6. Results Screen Polish
+### 7. Results Screen Polish
 
 - [x] Chakra visualization cards or bar chart (with color-coded labels)
 - [ ] Expandable sections for each metric with brief insights
@@ -73,7 +78,7 @@
 - [x] Support comparing results (via ID or dynamic link)
 - [ ] Fix link for not signed in
 
-### 7. Profile & Settings
+### 8. Profile & Settings
 
 - [x] SettingsScreen polish with animated logo + background
 - [ ] Update Profile:
@@ -83,40 +88,41 @@
 - [x] Animate confirmation
 - [ ] GoalsScreen: add more details
 
-### 8. Streak Section
+### 9. Streak Section
 
 - [ ] Create:
 - [ ] Add screen to show graph of streaks
 - [ ] Add challenges
 - [ ] Push notifications?
 
-### 9. Meditations & Music
+### 10. Meditations & Music
 
-- [ ] Add 2–3 free meditation MP3 files
+- [x] Add 2–3 free meditation MP3 files
 - [x] Ensure background music doesn’t conflict with analysis
-- [ ] Confirm play/stop logic and styling in Meditation screen
+- [x] Confirm play/stop logic and styling in Meditation screen
 
-### 10. App Flow Testing
+### 11. App Flow Testing
 
-- [ ] Welcome screen content and navigation
+- [x] Welcome screen content and navigation
 - [ ] Full analysis run-through (all metrics, save result)
-- [ ] Skip metric flow: test skipped metrics save correctly
-- [ ] Match result works end-to-end
-- [ ] Test sign-out, login again, and data persists
+- [x] Skip metric flow: test skipped metrics save correctly
+- [x] Match result works end-to-end
+- [x] Test sign-out, login again, and data persists
 - [ ] Confirm all sensors (camera, mic, motion) release properly
 
-### 11. Must do...
+### 12. Must do...
 
 - [ ] figure out subscription details
 - [ ] look in to ads/store products
 - [ ] Get subscription set up correctly on each screen that needs it
 
-### 12. Optional (if time permits)
+### 13. Optional (if time permits)
 
 - [ ] Deep linking: `vibekey://compare?id=...`
 - [ ] Glossary or “What’s this?” tooltips for new users
+- [ ] Haptics
 
-### 13. TEST TEST TEST
+### 14. TEST TEST TEST
 
 ## 🛠️ App Store Prep
 
