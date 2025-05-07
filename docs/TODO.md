@@ -26,7 +26,7 @@
 
 - [x] EmotionalStateScreen:
 - [x] Mirror-style camera view (less rounded)
-- [ ] Soft fuzzy glow behind camera - make it rectangular instead of circle
+- [x] Soft fuzzy glow behind camera - make it rectangular instead of circle
 - [x] “Say this phrase” with random funny prompts
 - [x] Fade in camera after "Take a breath" overlay (delay & transition tuning)
 - [x] Confirm scoring logic on all metric screens (motion, environment, etc.)
@@ -36,28 +36,36 @@
 
 ### 2. Layout & styling
 
-- [ ] Choose fonts
+- [x] Choose fonts
 - [x] Adjustable font sizes
 - [x] Adjustable layout for phone sizes
 - [x] Fix colors in colors.js (use only these throughout app.. no hardcoding)
-- [ ] Figure out logo placement and size
+- [x] Figure out logo placement and size
 - [ ] Splash screen
 - [x] Scroll bar sharpness?
-- [ ] Fix feathers
+- [x] Fix feathers
+- [x] emotional transition screen: change timing to exit after text (change font)
+- [x] heart rate screen - change layout
+- [ ] apply sectionLayout to all screens
+- [ ] style results screen
 
-### 3. Meditation Space Screen Polish
+### 3. Navigaton
+
+- [ ] Fix returnTos
+
+### 4. Meditation Space Screen Polish
 
 - [ ] Change navigation (button??)
 - [ ] Remove Header
 - [ ] Figure out tab bar with background image
 
-### 4. VibeMatch Section
+### 5. VibeMatch Section
 
 - [ ] Test deep linking - when not signed in and when app not open vs already open
 - [ ] Sharpen up match results screen
 - [ ] Improve match selection screen (add option for retaking test first before comparing)
 
-### 5. Results Screen Polish
+### 6. Results Screen Polish
 
 - [x] Chakra visualization cards or bar chart (with color-coded labels)
 - [ ] Expandable sections for each metric with brief insights
@@ -65,7 +73,7 @@
 - [x] Support comparing results (via ID or dynamic link)
 - [ ] Fix link for not signed in
 
-### 6. Profile & Settings
+### 7. Profile & Settings
 
 - [x] SettingsScreen polish with animated logo + background
 - [ ] Update Profile:
@@ -75,20 +83,20 @@
 - [x] Animate confirmation
 - [ ] GoalsScreen: add more details
 
-### 7. Streak Section
+### 8. Streak Section
 
 - [ ] Create:
 - [ ] Add screen to show graph of streaks
 - [ ] Add challenges
 - [ ] Push notifications?
 
-### 8. Meditations & Music
+### 9. Meditations & Music
 
 - [ ] Add 2–3 free meditation MP3 files
 - [x] Ensure background music doesn’t conflict with analysis
 - [ ] Confirm play/stop logic and styling in Meditation screen
 
-### 9. App Flow Testing
+### 10. App Flow Testing
 
 - [ ] Welcome screen content and navigation
 - [ ] Full analysis run-through (all metrics, save result)
@@ -97,15 +105,18 @@
 - [ ] Test sign-out, login again, and data persists
 - [ ] Confirm all sensors (camera, mic, motion) release properly
 
-### 10. Must do...
+### 11. Must do...
 
 - [ ] figure out subscription details
 - [ ] look in to ads/store products
+- [ ] Get subscription set up correctly on each screen that needs it
 
-### 11. Optional (if time permits)
+### 12. Optional (if time permits)
 
 - [ ] Deep linking: `vibekey://compare?id=...`
 - [ ] Glossary or “What’s this?” tooltips for new users
+
+### 13. TEST TEST TEST
 
 ## 🛠️ App Store Prep
 

@@ -22,12 +22,12 @@ export const ShareScreen = ({ navigation }) => {
 
   useEffect(() => {
     if (authLoading) return;
-    console.log("ispremium:", isPremium);
     if (!user) {
-      navigation.replace("Tabs", {
+      navigation.navigate("Tabs", {
         screen: "Settings",
         params: {
           screen: "SignInScreen",
+          params: { returnTo: "ShareScreen" },
         },
       });
     } else if (!isPremium) {

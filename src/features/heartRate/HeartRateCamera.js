@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect, useCallback } from "react";
-import { View, Text, Animated } from "react-native";
+import { View, Text, Animated, StyleSheet } from "react-native";
 import {
   Camera,
   useCameraDevice,
@@ -10,6 +10,7 @@ import {
   useNavigation,
   useFocusEffect,
   useIsFocused,
+  useRoute,
 } from "@react-navigation/native";
 import { useAnalysis } from "@context";
 import {
@@ -22,12 +23,21 @@ import {
   createRefChecker,
 } from "@utils";
 import { useKickJS } from "@hooks";
-import { styles } from "@/screens/VibeCheck/HeartRateScreen.styles";
 import { globalStyles } from "@styles";
 import { Colors, Fonts } from "@constants";
+import { scaledStyle, SCREEN_HEIGHT, SCREEN_WIDTH } from "@/utils";
+import { CustomSpiritualButton, CircularTimer } from "@/components";
+import { VIBE_CHECK_SCREENS } from "@navigation";
 
 export const HeartRateCamera = ({ onStableReading }) => {
   if (__DEV__) useKickJS();
+  const route = useRoute();
+  const currentIndex = VIBE_CHECK_SCREENS.indexOf(route.name);
+  const goToNextScreen = () => {
+    if (currentIndex < VIBE_CHECK_SCREENS.length - 1) {
+      navigation.navigate(VIBE_CHECK_SCREENS[currentIndex + 1]);
+    }
+  };
 
   const [localHeartRate, setLocalHeartRate] = useState({
     bpm: null,
@@ -40,6 +50,7 @@ export const HeartRateCamera = ({ onStableReading }) => {
   const [flashMode, setFlashMode] = useState("on");
   const [fingerWarning, setFingerWarning] = useState(null);
   const [showPlaceholder, setShowPlaceholder] = useState(true);
+  const lastWarningRef = useRef(null);
 
   const cameraHeartRef = useRef(null);
   const redDataRef = useRef([]);
@@ -51,7 +62,10 @@ export const HeartRateCamera = ({ onStableReading }) => {
   const lastUpdateTimeRef = useRef(Date.now());
   const placeholderOpacity = useRef(new Animated.Value(1)).current;
   const cameraOpacity = useRef(new Animated.Value(0)).current;
+  const buttonOpacity = useRef(new Animated.Value(0)).current;
+  const warningOpacity = useRef(new Animated.Value(0)).current;
   const frameProcessorHeartActiveRef = useRef(false);
+  const timerExpired = useRef(false);
   const isRefActive = createRefChecker();
 
   const navigation = useNavigation();
@@ -63,6 +77,7 @@ export const HeartRateCamera = ({ onStableReading }) => {
     useCallback(() => {
       if (!device || !cameraReady) return;
       global.lastTs = 0;
+      cameraOpacity.setValue(0); // reset to invisible
       const setup = async () => {
         await initMedia(frameProcessorHeartActiveRef);
         setCameraActive(true);
@@ -110,6 +125,12 @@ export const HeartRateCamera = ({ onStableReading }) => {
     }).start();
   }, []);
 
+  useEffect(() => {
+    //  if (fingerWarning != null) {
+    warningOpacity.setValue(0);
+    // }
+  }, []);
+
   const computeAverageMetrics = () => {
     const history = metricsHistoryRef.current;
     if (history.length === 0) return null;
@@ -145,19 +166,24 @@ export const HeartRateCamera = ({ onStableReading }) => {
 
     const variation =
       Math.max(...filteredIntensities) - Math.min(...filteredIntensities);
+
     if (variation > 20) {
-      if (
-        fingerWarning !==
-        "Please ensure your finger is covering the camera lens correctly"
-      ) {
-        setFingerWarning(
-          "Please ensure your finger is covering the camera lens correctly"
-        );
-      }
+      newWarning =
+        "Please ensure your finger is covering the camera lens correctly";
     } else {
-      if (fingerWarning !== "Hold still while we check your vibe") {
-        setFingerWarning("Hold still while we check your vibe");
-      }
+      newWarning = "Hold still while we check your vibe";
+    }
+
+    // Only update if it actually changed
+    if (newWarning && lastWarningRef.current !== newWarning) {
+      console.log("changed");
+      lastWarningRef.current = newWarning;
+      setFingerWarning(newWarning);
+      Animated.timing(warningOpacity, {
+        toValue: 1,
+        duration: 500,
+        useNativeDriver: true,
+      }).start();
     }
 
     const smoothed = smoothData(redDataRef.current, 5);
@@ -198,24 +224,7 @@ export const HeartRateCamera = ({ onStableReading }) => {
       });
       lastUpdateTimeRef.current = nowTime;
     }
-
-    if (
-      metrics.bpm &&
-      metrics.bpm >= 40 &&
-      metrics.bpm <= 180 &&
-      metrics.sdnn >= 20 &&
-      metrics.sdnn <= 180 &&
-      metrics.rmssd >= 10 &&
-      metrics.rmssd <= 1000 &&
-      bpmVariation <= 1000 &&
-      rmssdVariation <= 1000
-    ) {
-      setFingerWarning(null);
-      setStable(true);
-      onStableReading(metrics);
-    }
   };
-
   const handleFrameJS = Worklets.createRunOnJS(handleFrame);
 
   const heartRateProcessor = useFrameProcessor((frame) => {
@@ -234,12 +243,38 @@ export const HeartRateCamera = ({ onStableReading }) => {
     }
   }, []);
 
+  const handleTimerExpired = () => {
+    console.log("Timer expired — forcing stable.");
+    if (!stable) {
+      const metrics = computeAverageMetrics() ?? {};
+      setStable(true);
+      onStableReading(metrics); // pass something if you have it
+      setFingerWarning(null);
+      Animated.timing(warningOpacity, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+      Animated.timing(cameraOpacity, {
+        toValue: 0,
+        duration: 800,
+        useNativeDriver: true,
+      }).start(() => {
+        setShowPlaceholder(false);
+        Animated.timing(buttonOpacity, {
+          toValue: 1,
+          duration: 800,
+          useNativeDriver: true,
+        }).start();
+      });
+    }
+  };
+
   return (
     <View style={styles.container}>
-      {device && (
-        <Animated.View
-          style={[styles.cameraContainer, { opacity: cameraOpacity }]}
-        >
+      {/* Circular Camera View */}
+      <Animated.View style={[styles.cameraWrapper, { opacity: cameraOpacity }]}>
+        {device && !stable && (
           <Camera
             ref={cameraHeartRef}
             style={styles.camera}
@@ -267,27 +302,128 @@ export const HeartRateCamera = ({ onStableReading }) => {
               });
             }}
           />
+        )}
+        <CircularTimer
+          duration={30000}
+          size={100}
+          color={Colors.darkText}
+          onComplete={handleTimerExpired}
+        />
+      </Animated.View>
+      {stable && (
+        <Animated.View
+          style={[styles.finishButtonWrapper, { opacity: buttonOpacity }]}
+        >
+          <CustomSpiritualButton
+            label="Finish"
+            onPress={goToNextScreen}
+            color={Colors.buttonBackground}
+            textColor={Colors.lightText}
+          />
         </Animated.View>
       )}
 
-      <Animated.View style={{ opacity: cameraOpacity }}>
-        {typeof localHeartRate.bpm === "number" &&
-          !isNaN(localHeartRate.bpm) && (
-            <Text style={styles.bpmText}>
-              {localHeartRate.bpm
-                ? `❤️ ${localHeartRate.bpm} BPM`
-                : "Measuring..."}
-            </Text>
-          )}
-        {typeof localHeartRate.rmssd === "number" &&
-          !isNaN(localHeartRate.rmssd) && (
-            <Text style={styles.rmssdText}>
-              RMSSD: {localHeartRate.rmssd.toFixed(0)} ms
-            </Text>
-          )}
-        <Text style={styles.warningText}>{fingerWarning}</Text>
-        {stable && <Text style={styles.stableText}>STABLE</Text>}
+      {/* Heart rate data block */}
+      {!stable && (
+        <View style={styles.textCenterBlock}>
+          {typeof localHeartRate.bpm === "number" &&
+            !isNaN(localHeartRate.bpm) && (
+              <Text style={styles.bpmText}>
+                {localHeartRate.bpm
+                  ? `❤️ ${localHeartRate.bpm} BPM`
+                  : "Measuring..."}
+              </Text>
+            )}
+          {typeof localHeartRate.rmssd === "number" &&
+            !isNaN(localHeartRate.rmssd) && (
+              <Text style={styles.rmssdText}>
+                RMSSD: {localHeartRate.rmssd.toFixed(0)} ms
+              </Text>
+            )}
+        </View>
+      )}
+
+      {/* Finger warning */}
+      <Animated.View style={[styles.warningBlock, { opacity: warningOpacity }]}>
+        <Text style={styles.warningText}>{fingerWarning || " "}</Text>
       </Animated.View>
     </View>
   );
 };
+
+const rawStyles = {
+  container: {
+    width: "100%",
+    height: 250, // Lock vertical space
+    position: "relative",
+    backgroundColor: "transparent",
+  },
+
+  cameraWrapper: {
+    position: "absolute",
+    top: 0,
+    alignSelf: "center",
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    overflow: "hidden",
+    backgroundColor: "#000",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  camera: {
+    width: "100%",
+    height: "100%",
+    borderRadius: 50,
+  },
+
+  textCenterBlock: {
+    position: "absolute",
+    top: 110, // Just below the camera
+    alignSelf: "center",
+    alignItems: "center",
+  },
+
+  warningBlock: {
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    alignItems: "center",
+  },
+
+  bpmText: {
+    textAlign: "center",
+    color: Colors.darkText,
+    fontSize: 16,
+  },
+  rmssdText: {
+    color: Colors.darkText,
+    fontFamily: "AppFont",
+    textAlign: "center",
+    marginBottom: 4,
+    fontSize: 14,
+  },
+  stableText: {
+    fontSize: 28,
+    color: Colors.darkText,
+    textAlign: "center",
+    marginTop: 4,
+  },
+  warningText: {
+    color: Colors.darkText,
+    fontSize: 16,
+    textAlign: "center",
+    paddingHorizontal: 20,
+    minHeight: 28, // Ensures it doesn't shift height when disappearing
+  },
+  finishButtonWrapper: {
+    position: "absolute",
+    top: 110, // Just below the camera
+    alignSelf: "center",
+    width: "90%",
+    zIndex: 5,
+  },
+};
+
+export const styles = StyleSheet.create(scaledStyle(rawStyles));

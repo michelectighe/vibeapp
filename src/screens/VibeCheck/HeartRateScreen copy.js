@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { View, Text } from "react-native";
+import { View } from "react-native";
 import { HeartRateCamera } from "@features/heartRate/HeartRateCamera";
 import {
   useFocusEffect,
@@ -7,11 +7,7 @@ import {
   useRoute,
 } from "@react-navigation/native";
 import { useAnalysis, useMotion, useEnvironment } from "@context";
-import {
-  GradientBackground,
-  CustomSpiritualButton,
-  SectionLayout,
-} from "@components";
+import { GradientBackground, CustomSpiritualButton } from "@components";
 import { VIBE_CHECK_SCREENS } from "@navigation";
 import { debounceLabel } from "@utils";
 import { Colors } from "@constants";
@@ -31,7 +27,6 @@ function HeartRateScreenInner() {
     averageMagnitude,
     stopEnvironmentTracking,
   } = useEnvironment();
-
   const [stable, setStablized] = useState(false);
   const [spaceLabel, setSpaceLabel] = useState("Neutral");
   const [magLabel, setMagLabel] = useState("");
@@ -120,30 +115,22 @@ function HeartRateScreenInner() {
     <GradientBackground
       colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
     >
-      <SectionLayout
-        topFlex={1}
-        middleFlex={3}
-        bottomFlex={3}
-        topContent={<View />}
-        middleContent={
-          <View style={styles.cameraContainer}>
-            <HeartRateCamera onStableReading={handleStableReading} />
-          </View>
-        }
-        bottomContent={
-          <View style={styles.infoContainer}>
-            <Text style={styles.labelTitle}>What else is being measured?</Text>
-            <Text style={styles.label}>Backgroung Sound</Text>
-            <Text style={styles.labelResult}>{soundLabel}</Text>
-            <Text style={styles.label}>Surrounding Magnetic Field</Text>
-            <Text style={styles.labelResult}>{magLabel}</Text>
-            <Text style={styles.label}>Your Motion</Text>
-            <Text style={styles.labelResult}>{motionLabel}</Text>
-            <Text style={styles.label}>Overall location Vibration</Text>
-            <Text style={styles.labelResult}>{spaceLabel}</Text>
-          </View>
-        }
-      />
+      <View style={styles.absoluteFull}>
+        <View style={styles.cameraWrapper}>
+          {!stable && <HeartRateCamera onStableReading={handleStableReading} />}
+        </View>
+        {/* Add FloatingPhrase views here if needed */}
+      </View>
+      {stable && (
+        <View style={styles.finishButtonWrapper}>
+          <CustomSpiritualButton
+            label="Finish"
+            onPress={goToNextScreen}
+            color={Colors.buttonBackground}
+            textColor={Colors.lightText}
+          />
+        </View>
+      )}
     </GradientBackground>
   );
 }

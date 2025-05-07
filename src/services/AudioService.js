@@ -10,7 +10,7 @@ export const setupPlayer = async () => {
 export const playTrack = async (
   id = "ambient",
   //  url = require("@assets/audio/Enchantment.mp3"),
-  url = require("@assets/audio/binaural.mp3"),
+  url = require("@assets/audio/waves.mp3"),
   title = "Enchantment",
   artist = "VibeKey",
   vol = 0.03,

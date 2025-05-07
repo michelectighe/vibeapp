@@ -4,84 +4,55 @@ import { Colors, Fonts } from "@constants";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 
 const rawStyles = {
-  container: {
-    flex: 1,
-    marginTop: "25%",
-    width: "100%",
-    height: "100%",
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "transparent",
-  },
   cameraContainer: {
-    marginTop: 0,
-    width: "120",
-    height: 120,
-    borderRadius: 80,
-    backgroundColor: "#ccc",
-    marginBottom: 10,
+    backgroundColor: "white",
+    borderRadius: 16,
+    marginHorizontal: 20,
+    padding: 10,
+    flex: 1,
+    width: "90%", // ✅ Force full width
+    maxWidth: "90%", // ✅ Ensure it doesn’t shrink
+    alignSelf: "stretch", // ✅ Take full horizontal space of parent
+    justifyContent: "center",
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 3 },
+    shadowRadius: 6,
+    elevation: 4,
     overflow: "hidden",
   },
-  camera: {
-    flex: 1,
-  },
-  bpmText: {
-    textAlign: "center",
-    color: "#ffffff",
-  },
-  rmssdText: {
-    color: "#ffffff",
-    fontFamily: "AppFont",
-    textAlign: "center",
-    marginBottom: 2,
-    fontSize: 14,
-  },
-  warningText: {
-    color: "#ffffff",
-    marginTop: 20,
-    fontSize: 24,
-    borderColor: "black",
-    textAlign: "center",
-    paddingTop: 10,
-    paddingRight: 20,
-    paddingLeft: 20,
-  },
-  stableText: {
-    fontSize: 36,
-    color: "#ffffff",
-    textAlign: "center",
-  },
-  absoluteFull: {
+  cameraPlaceholder: {
     flex: 1,
     width: "100%",
-    position: "relative",
   },
-  cameraWrapper: {
-    position: "absolute",
-    top: 80, // fallback if no height provided
-    left: 0,
-    right: 0,
-    alignItems: "center",
-    justifyContent: "center",
-    zIndex: 5,
+  infoContainer: {
+    paddingHorizontal: 24,
+    paddingTop: 12,
   },
-  bottomRight: {
-    position: "absolute",
-    bottom: 100,
-    right: "15%",
-    zIndex: 10,
+  labelTitle: {
+    fontSize: 18,
+    fontFamily: Fonts.medium,
+    marginBottom: 10,
+    color: Colors.lightText,
   },
-  bottomCenter: {
-    position: "absolute",
-    bottom: 80,
-    left: 0,
-    right: 0,
-    alignItems: "center",
-    zIndex: 10,
+  label: {
+    fontSize: 16,
+    fontFamily: Fonts.regular,
+    color: Colors.lightText,
+    marginBottom: 4,
+    textAlign: "center",
+  },
+  labelResult: {
+    fontSize: 16,
+    fontFamily: Fonts.regular,
+    color: Colors.darkText,
+    marginBottom: 4,
+    textAlign: "center",
   },
   finishButtonWrapper: {
     position: "absolute",
-    bottom: 50,
+    bottom: 10,
     marginLeft: "5%",
     marginRight: "5%",
     left: 0,

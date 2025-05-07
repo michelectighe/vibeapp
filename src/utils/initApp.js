@@ -6,7 +6,6 @@ import { onAuthStateChanged } from "firebase/auth";
 import { loadTensorflowModel } from "react-native-fast-tflite";
 import * as Font from "expo-font";
 
-
 export const initApp = async ({ setModel }) => {
   try {
     //console.log("🌀 Initializing app...");
@@ -17,12 +16,12 @@ export const initApp = async ({ setModel }) => {
       AppFontItalic: require("@assets/fonts/Nunito-Bold.ttf"),
       AppItalic: require("@assets/fonts/Raleway-Italic-VariableFont_wght.ttf"),
       AppTitleFont: require("@assets/fonts/Quicksand-regular.ttf"),
-      TypeWriterText: require("@assets/fonts/HomemadeApple-Regular.ttf"),
+      TypeWriterText: require("@assets/fonts/GreatVibes-Regular.ttf"),
       JournalText: require("@assets/fonts/HomemadeApple-Regular.ttf"),
     });
     //   console.log("✅ Fonts loaded");
     initializeDatabase();
-    
+
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
         //console.log("user logged in:", currentUser.email);

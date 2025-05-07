@@ -125,10 +125,15 @@ export const SignInScreen = ({ navigation, returnTo }) => {
     resetAndLeave();
   };
   const resetAndLeave = () => {
+    // navigation.reset({
+    //   index: 0,
+    //   routes: [{ name: "Home" }],
+    // });
     navigation.reset({
       index: 0,
-      routes: [{ name: "Home" }],
+      routes: [returnTo || {name:"Home"}],
     });
+ //   navigation.navigate(returnTo || "Tabs", { screen: "Home" });
   };
   return (
     // <ImageBackground

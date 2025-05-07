@@ -1,0 +1,9 @@
+node_modules
+ios
+android
+build
+dist
+.expo
+.git
+*.png
+*.jpg

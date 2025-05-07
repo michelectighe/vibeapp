@@ -92,7 +92,19 @@ export const AuthProvider = ({ children }) => {
   const signOut = async () => {
     try {
       await firebaseSignOut(auth);
-      await Purchases.logOut(); // also log out from RevenueCat
+
+      // Try logging out of RevenueCat if initialized properly
+      try {
+        const customerInfo = await Purchases.getCustomerInfo();
+        const hasSubscription =
+          Object.keys(customerInfo.entitlements.active).length > 0;
+
+        if (hasSubscription || customerInfo.originalAppUserId) {
+          await Purchases.logOut();
+        }
+      } catch (revCatError) {
+        console.warn("RevenueCat logout skipped:", revCatError.message);
+      }
     } catch (error) {
       console.error("Sign Out Error:", error);
     }

@@ -41,3 +41,4 @@ export { SparkleOverlay } from "./SparkleOverlay";
 export { ThemeWrapper } from "./ThemeWrapper";
 export { TypewriterText } from "./TypewriterText";
 export { ProfileInput } from "./ProfileInput";
+export { CircularTimer } from "./CircularTimer";

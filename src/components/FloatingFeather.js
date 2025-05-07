@@ -41,22 +41,17 @@ export const FloatingFeather = ({ startX = 0.3, delay = 0 }) => {
       })
     ).start();
 
-
     // Rotation loop
+    rotate.setValue(0); // reset before loop
     Animated.loop(
-      Animated.sequence([
-        Animated.timing(rotate, {
-          toValue: 1,
-          duration: 5000,
-          useNativeDriver: true,
-        }),
-        Animated.timing(rotate, {
-          toValue: -1,
-          duration: 5000,
-          useNativeDriver: true,
-        }),
-      ])
+      Animated.timing(rotate, {
+        toValue: 1,
+        duration: 8000, // adjust for desired spin speed
+        easing: Easing.linear,
+        useNativeDriver: true,
+      })
     ).start();
+    
 
     // Fade in and out
     Animated.loop(
@@ -83,8 +78,8 @@ export const FloatingFeather = ({ startX = 0.3, delay = 0 }) => {
   });
 
   const spin = rotate.interpolate({
-    inputRange: [-1, 1],
-    outputRange: ["-25deg", "25deg"],
+    inputRange: [0, 1],
+    outputRange: ["0deg", "360deg"],
   });
 
   return (

@@ -15,7 +15,6 @@ import { useAmbientControlForScreen } from "@hooks";
 import { Fonts, Colors } from "@constants";
 import { globalStyles } from "@styles";
 
-
 export const SettingsScreen = ({ navigation }) => {
   useAmbientControlForScreen(true);
   const { signOut, user } = useAuth();
@@ -49,15 +48,14 @@ export const SettingsScreen = ({ navigation }) => {
         <Text style={styles.heading}>Settings</Text>
 
         <CustomSpiritualButton
-          label="Update Profile"
-          onPress={() => navigation.navigate("UpdateProfileScreen")}
+          label="Goals"
+          onPress={() => navigation.navigate("ProfileSetupScreen")}
           color={Colors.buttonBackground}
           textColor={Colors.lightText}
         />
-
         <CustomSpiritualButton
-          label="Profile Setup"
-          onPress={() => navigation.navigate("ProfileSetupScreen")}
+          label="Update Profile"
+          onPress={() => navigation.navigate("UpdateProfileScreen")}
           color={Colors.buttonBackground}
           textColor={Colors.lightText}
         />
@@ -69,6 +67,12 @@ export const SettingsScreen = ({ navigation }) => {
             textColor={Colors.lightText}
           />
         )}
+        <CustomSpiritualButton
+          label="Subscription"
+          onPress={() => navigation.navigate("SubscriptionScreen")}
+          color={Colors.buttonBackground}
+          textColor={Colors.lightText}
+        />
         <CustomSpiritualButton
           label="Sign Out"
           onPress={handleSignOut}

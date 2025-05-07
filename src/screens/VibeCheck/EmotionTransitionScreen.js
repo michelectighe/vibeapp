@@ -25,14 +25,21 @@ export const EmotionTransitionScreen = () => {
 
   useEffect(() => {
     const randomIndex = Math.floor(Math.random() * buddhistSayings.length);
-    setCurrentSaying(buddhistSayings[randomIndex]);
+    const saying = buddhistSayings[randomIndex];
+    setCurrentSaying(saying);
+
+    const typewriterDelay = 50; // match the delay used in TypewriterText
+    const totalTypingTime = saying.length * typewriterDelay;
+
+    const bufferTime = 2000; // optional buffer after typing ends
+    const totalDelay = totalTypingTime + bufferTime;
 
     const timer = setTimeout(() => {
       if (currentIndex < VIBE_CHECK_SCREENS.length - 1) {
         const nextScreen = VIBE_CHECK_SCREENS[currentIndex + 1];
         navigation.navigate(nextScreen);
       }
-    }, 5000); // 5-second delay
+    }, totalDelay);
 
     return () => clearTimeout(timer);
   }, []);

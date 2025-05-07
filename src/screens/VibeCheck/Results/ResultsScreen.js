@@ -64,15 +64,15 @@ export const ResultsScreen = ({ navigation }) => {
         const audioSource = audioMap[result.id];
 
         hasSaved.current = true;
-        if (audioSource) {
-          await playTrack(
-            (id = "result-voice"),
-            (url = audioSource),
-            (title = "Result"),
-            (artist = "VibeKey"),
-            (vol = 0.5)
-          );
-        }
+        // if (audioSource) {
+        //   await playTrack(
+        //     (id = "result-voice"),
+        //     (url = audioSource),
+        //     (title = "Result"),
+        //     (artist = "VibeKey"),
+        //     (vol = 0.5)
+        //   );
+        // }
       } catch (e) {
         console.warn("getDataAndPlayVoice error:", e);
       }
