@@ -1,8 +1,16 @@
 import React, { useRef, useEffect } from "react";
-import { ImageBackground, View, Animated, StyleSheet } from "react-native";
+import {
+  ImageBackground,
+  View,
+  Animated,
+  StyleSheet,
+  TouchableOpacity,
+  Platform,
+} from "react-native";
+import * as Haptics from "expo-haptics";
 import { SCREEN_WIDTH } from "@utils";
 
-export const CustomButton = ({ imgSource = "" }) => {
+export const CustomButton = ({ imgSource = "", onPress }) => {
   const imageFade = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -13,23 +21,38 @@ export const CustomButton = ({ imgSource = "" }) => {
     }).start();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const SIZE = SCREEN_WIDTH * 0.5; // Button will be 50% of screen width
+  const handlePress = () => {
+   // Haptics.selectionAsync(); // light tap feedback
+    Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
+
+    if (onPress) onPress();
+  };
+
+  const SIZE = SCREEN_WIDTH * 0.5;
+  let Touchable = TouchableOpacity;
+
+  // if (Platform.OS === "android") {
+  //   const { TouchableNativeFeedback } = require("react-native");
+  //   Touchable = TouchableNativeFeedback;
+  // }
 
   return (
     <View style={styles.wrapper}>
-      <Animated.View
-        style={[
-          styles.animatedContainer,
-          {
-            width: SIZE,
-            height: SIZE,
-            borderRadius: SIZE / 2,
-            opacity: imageFade,
-          },
-        ]}
-      >
-        <ImageBackground source={imgSource} resizeMode="cover" style={styles.imageBackground} />
-      </Animated.View>
+      <Touchable onPress={handlePress}>
+        <Animated.View
+          style={[
+            styles.animatedContainer,
+            {
+              width: SIZE,
+              height: SIZE,
+              borderRadius: SIZE / 2,
+              opacity: imageFade,
+            },
+          ]}
+        >
+          <ImageBackground source={imgSource} resizeMode="cover" style={styles.imageBackground} />
+        </Animated.View>
+      </Touchable>
     </View>
   );
 };

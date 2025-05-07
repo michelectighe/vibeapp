@@ -31,7 +31,7 @@
 - [x] Fade in camera after "Take a breath" overlay (delay & transition tuning)
 - [x] Confirm scoring logic on all metric screens (motion, environment, etc.)
 - [x] Fix Chakra details open
-- [ ] Check hr stable
+- [x] Check hr stable
 - [x] add 2 more buttons for resultdetails (journaling, meditation, sound)
 
 ### 2. Layout & styling

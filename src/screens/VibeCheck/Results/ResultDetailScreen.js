@@ -6,6 +6,7 @@ import { vibrationLevels } from "@data";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./ResultDetailsScreen.styles";
 import { globalStyles } from "@styles";
+import { GradientBackground } from "@/components";
 
 export const ResultDetailScreen = ({ navigation }) => {
   useAmbientControlForScreen(true);
@@ -46,73 +47,79 @@ export const ResultDetailScreen = ({ navigation }) => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <View style={styles.root}>
-      <CloseX xColor={overallColor} onPress={() => navigation.goBack()} />
+    <GradientBackground
+      colors={overallColor ? [overallColor, "white", overallColor] : ["white", "white", "white"]}
+    >
+      <View style={styles.root}>
+        <CloseX xColor={"white"} onPress={() => navigation.goBack()} />
 
-      <View style={styles.headerContainer}>
-        <Text style={[styles.overallLabel, { textShadowColor: overallColor }]}>{overallLabel}</Text>
-      </View>
-
-      <ScrollView
-        style={globalStyles.scrollView}
-        contentContainerStyle={globalStyles.scrollContent}
-        showsVerticalScrollIndicator={false}
-      >
-        <View style={[styles.textContainer, { backgroundColor: overallColor }]}>
-          <Text style={styles.overallText}>{overallText1}</Text>
-        </View>
-
-        <View style={[styles.textContainer, { backgroundColor: overallColor }]}>
-          <Text style={styles.chicletHeader}>Curated Spiritual Collection</Text>
-          <View style={styles.chicletWrapper}>
-            <CustomSpiritualButton
-              label="Energy Cleanse"
-              onPress={() => navigation.navigate("EnergyCleanseScreen")}
-              color={overallColor2}
-              textColor={overallColor}
-            />
-            <CustomSpiritualButton
-              label="Journal"
-              onPress={() => navigation.navigate("JournalScreen")}
-              color={overallColor2}
-              textColor={overallColor}
-            />
-            <CustomSpiritualButton
-              label="Chakra Balance"
-              onPress={() => navigation.navigate("ChakraScreen")}
-              color={overallColor2}
-              textColor={overallColor}
-            />
-          </View>
-        </View>
-
-        <View style={[styles.textContainer, { backgroundColor: overallColor }]}>
-          <Text style={styles.textHeader}>{label2}</Text>
-          <Text style={styles.overallText}>{overallText2}</Text>
-        </View>
-
-        <View style={[styles.textContainer, { backgroundColor: overallColor }]}>
-          <Text style={styles.textHeader}>{label3}</Text>
-          <Text style={styles.overallText}>{overallText3}</Text>
-        </View>
-
-        <View style={[styles.textContainer, { backgroundColor: overallColor }]}>
-          <Text style={styles.textHeader}>{label4}</Text>
-          <Text style={styles.overallText}>{overallText4}</Text>
-        </View>
-
-        <View style={[styles.textContainer, { backgroundColor: overallColor }]}>
-          <Text style={styles.textHeader}>{label5}</Text>
-          <Text style={styles.overallText}>{overallText5}</Text>
-        </View>
-
-        <View style={[styles.textContainer, { backgroundColor: overallColor }]}>
-          <Text style={styles.finalNote}>
-            By recognizing these factors and implementing spiritual practices, you can gradually
-            raise your vibrational frequency and realign with your highest potential.
+        <View style={styles.headerContainer}>
+          <Text style={[styles.overallLabel, { textShadowColor: overallColor }]}>
+            {overallLabel}
           </Text>
         </View>
-      </ScrollView>
-    </View>
+
+        <ScrollView
+          style={globalStyles.scrollView}
+          contentContainerStyle={globalStyles.scrollContent}
+          showsVerticalScrollIndicator={false}
+        >
+          <View style={[styles.textContainer, { backgroundColor: overallColor }]}>
+            <Text style={styles.overallText}>{overallText1}</Text>
+          </View>
+
+          <View style={[styles.textContainer, { backgroundColor: overallColor }]}>
+            <Text style={styles.chicletHeader}>Curated Spiritual Collection</Text>
+            <View style={styles.chicletWrapper}>
+              <CustomSpiritualButton
+                label="Energy Cleanse"
+                onPress={() => navigation.navigate("EnergyCleanseScreen")}
+                color={overallColor2}
+                textColor={overallColor}
+              />
+              <CustomSpiritualButton
+                label="Journal"
+                onPress={() => navigation.navigate("JournalScreen")}
+                color={overallColor2}
+                textColor={overallColor}
+              />
+              <CustomSpiritualButton
+                label="Chakra Balance"
+                onPress={() => navigation.navigate("ChakraScreen")}
+                color={overallColor2}
+                textColor={overallColor}
+              />
+            </View>
+          </View>
+
+          <View style={[styles.textContainer, { backgroundColor: overallColor }]}>
+            <Text style={styles.textHeader}>{label2}</Text>
+            <Text style={styles.overallText}>{overallText2}</Text>
+          </View>
+
+          <View style={[styles.textContainer, { backgroundColor: overallColor }]}>
+            <Text style={styles.textHeader}>{label3}</Text>
+            <Text style={styles.overallText}>{overallText3}</Text>
+          </View>
+
+          <View style={[styles.textContainer, { backgroundColor: overallColor }]}>
+            <Text style={styles.textHeader}>{label4}</Text>
+            <Text style={styles.overallText}>{overallText4}</Text>
+          </View>
+
+          <View style={[styles.textContainer, { backgroundColor: overallColor }]}>
+            <Text style={styles.textHeader}>{label5}</Text>
+            <Text style={styles.overallText}>{overallText5}</Text>
+          </View>
+
+          <View style={[styles.textContainer, { backgroundColor: overallColor }]}>
+            <Text style={styles.finalNote}>
+              By recognizing these factors and implementing spiritual practices, you can gradually
+              raise your vibrational frequency and realign with your highest potential.
+            </Text>
+          </View>
+        </ScrollView>
+      </View>
+    </GradientBackground>
   );
 };

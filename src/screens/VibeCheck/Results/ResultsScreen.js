@@ -1,43 +1,34 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  View,
-  TouchableOpacity,
-  Text,
-  ActivityIndicator,
-  SafeAreaView,
-} from "react-native";
+import { View, TouchableOpacity, Text, ActivityIndicator } from "react-native";
 import FastImage from "react-native-fast-image";
-import { saveResults } from "@/utils";
-//import { playTrack } from "@services";
+import { saveResults } from "@utils";
 import { useAnalysis } from "@context";
-//import { Ionicons } from "@expo/vector-icons";
-import { CustomButton, CloseX } from "@components";
-//import { audioMap, SCREEN_HEIGHT, SCREEN_WIDTH, saveResults } from "@utils";
+import { CustomButton, CloseX, GradientBackground, SectionLayoutNotSafe } from "@components";
 import { vibrationLevels } from "@data";
 import { Colors } from "@constants";
-//import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./ResultsScreen.styles";
 import { globalStyles } from "@styles";
+import HapticTest from "@/components/HapticTest";
 
 Text.defaultProps = Text.defaultProps || {};
 Text.defaultProps.allowFontScaling = false;
 
 export const ResultsScreen = ({ navigation }) => {
-  const [overallLabel, setLabel] = useState();
-  const [overallDescription, setDescription] = useState();
-  const [overallImage, setImage] = useState();
-  const [overallColor, setColor] = useState();
+  const [overallLabel, setLabel] = useState(null);
+  const [overallDescription, setDescription] = useState(null);
+  const [overallImage, setImage] = useState(null);
+  const [overallColor, setColor] = useState(null);
   const [saving, setSaving] = useState(false);
-  const infoImage = require("@assets/images/info.webp");
+  const [dataReady, setDataReady] = useState(false);
+
   const hasSaved = useRef(false);
+  const infoImage = require("@assets/images/info.webp");
 
   const {
     voiceFrequencyScore,
     voiceClarityScore,
     voiceStrengthScore,
     environmentScore,
-    // soundScore,
-    // magnitudeScore,
     motionScore,
     heartRateScore,
     hrvScore,
@@ -46,94 +37,124 @@ export const ResultsScreen = ({ navigation }) => {
     chakraScores,
   } = useAnalysis();
 
-  const getVibrationInfo = (score) => vibrationLevels.find((level) => score >= level.minScore);
+  const getVibrationInfo = (score) => {
+    if (typeof score !== "number" || isNaN(score)) return null;
+    return (
+      vibrationLevels.find((level) => score >= level.minScore) ??
+      vibrationLevels[vibrationLevels.length - 1]
+    );
+  };
 
   useEffect(() => {
-    if (overallVibrationScore === null || hasSaved.current) return;
+    if (overallVibrationScore == null || hasSaved.current) return;
 
-    const getDataAndPlayVoice = async () => {
+    let isMounted = true;
+
+    const fetchData = async () => {
       try {
         const result = getVibrationInfo(overallVibrationScore);
         if (!result) return;
-        saveResultsToDB();
+
+        await saveResultsToDB();
+        if (!isMounted) return;
+
         setLabel(result.label);
         setDescription(result.description);
         setColor(result.color);
         setImage(result.image);
-     //   const audioSource = audioMap[result.id];
-
         hasSaved.current = true;
-        // if (audioSource) {
-        //   await playTrack(
-        //     (id = "result-voice"),
-        //     (url = audioSource),
-        //     (title = "Result"),
-        //     (artist = "VibeKey"),
-        //     (vol = 0.5)
-        //   );
-        // }
+        setDataReady(true);
       } catch (e) {
-        console.warn("getDataAndPlayVoice error:", e);
+        console.warn("fetchData error:", e);
       }
     };
-
-    getDataAndPlayVoice();
+    fetchData();
+    return () => {
+      isMounted = false;
+    };
   }, [overallVibrationScore]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const saveResultsToDB = async () => {
     setSaving(true);
     const newResult = {
       timestamp: new Date(),
-      voiceFrequencyScore: voiceFrequencyScore.score,
+      voiceFrequencyScore: voiceFrequencyScore?.score,
       heartRateScore,
       hrvScore,
       motionScore,
       overallVibrationScore,
       chakraScores,
       environmentScore,
-      voiceStrengthScore: voiceStrengthScore.score,
-      voiceClarityScore: voiceClarityScore.score,
-      emotionScore: emotionScore.score,
+      voiceStrengthScore: voiceStrengthScore?.score,
+      voiceClarityScore: voiceClarityScore?.score,
+      emotionScore: emotionScore?.score,
     };
+
     if (newResult) {
       console.log("Saving to local DB:", newResult);
       await saveResults(newResult);
-      setSaving(false);
     }
+    setSaving(false);
   };
 
+  // 👇 Prevent UI rendering until all required data is ready
+  if (!dataReady || !overallLabel || !overallDescription || !overallImage || !overallColor) {
+    return (
+      <GradientBackground colors={["white", "white", "white"]}>
+        <View style={[globalStyles.centered, { flex: 1 }]}>
+          <ActivityIndicator size="large" color={Colors.primary} />
+        </View>
+      </GradientBackground>
+    );
+  }
+
   return (
-    <SafeAreaView style={globalStyles.container} edges={["bottom"]}>
-      <CloseX
-        xColor={overallColor}
-        onPress={() =>
-          navigation.reset({
-            index: 0,
-            routes: [{ name: "Home" }],
-          })
+    <GradientBackground colors={[overallColor, "white", overallColor]}>
+      <SectionLayoutNotSafe
+        topFlex={1}
+        middleFlex={4}
+        bottomFlex={1}
+        topContent={
+          <>
+            <HapticTest />
+            <CloseX
+              xColor={"white"}
+              onPress={() =>
+                navigation.reset({
+                  index: 0,
+                  routes: [{ name: "Home" }],
+                })
+              }
+            />
+            <View style={globalStyles.titleWrapper}>
+              <Text style={[styles.score, { color: overallColor }]}>
+                {overallVibrationScore.toFixed(0)}%
+              </Text>
+              <Text style={[styles.label, { textShadowColor: overallColor }]}>{overallLabel}</Text>
+            </View>
+          </>
+        }
+        middleContent={
+          <View style={styles.innerContent}>
+            <CustomButton
+              imgSource={overallImage}
+              onPress={() => navigation.navigate("ResultDetails")}
+            />
+            <View style={[styles.descriptionBox, { backgroundColor: overallColor }]}>
+              <Text style={styles.descriptionText}>{overallDescription}</Text>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("ResultDetails")}
+                style={styles.infoButton}
+              >
+                <FastImage source={infoImage} style={styles.infoImage} resizeMode="contain" />
+              </TouchableOpacity>
+            </View>
+          </View>
+        }
+        bottomContent={
+          <>{saving && <ActivityIndicator size="large" color="#fff" style={styles.loading} />}</>
         }
       />
-      <View style={styles.innerContent}>
-        <Text style={[styles.score, { color: overallColor }]}>
-          {overallVibrationScore.toFixed(0)}%
-        </Text>
-
-        <Text style={[styles.label, { textShadowColor: overallColor }]}>{overallLabel}</Text>
-
-        <CustomButton imgSource={overallImage} />
-
-        <View style={[styles.descriptionBox, { backgroundColor: overallColor }]}>
-          <Text style={styles.descriptionText}>{overallDescription}</Text>
-          <TouchableOpacity
-            onPress={() => navigation.navigate("ResultDetails")}
-            style={styles.infoButton}
-          >
-            <FastImage source={infoImage} style={styles.infoImage} resizeMode="contain" />
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      {saving && <ActivityIndicator size="large" color="#fff" style={styles.loading} />}
-    </SafeAreaView>
+    </GradientBackground>
   );
 };

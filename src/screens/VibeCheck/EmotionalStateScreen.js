@@ -4,8 +4,7 @@ import { Camera, useCameraDevice, useFrameProcessor /*face*/ } from "react-nativ
 import { initMedia, createRefChecker, cleanupMedia } from "@utils";
 import { useResizePlugin } from "vision-camera-resize-plugin";
 import { useAnalysis, useModel } from "@context";
-import { useRoute, useNavigation, useFocusEffect, useIsFocused } from "@react-navigation/native";
-import { VIBE_CHECK_SCREENS } from "@navigation/screens";
+import { useNavigation, useFocusEffect, useIsFocused } from "@react-navigation/native";
 import { AudioRecorder } from "react-native-audio";
 import { Worklets } from "react-native-worklets-core";
 import RNFS from "react-native-fs";
@@ -17,9 +16,9 @@ import {
   CustomSpiritualButton,
   SparkleOverlay,
 } from "@components";
-import { SectionLayout } from "@/components/SectionLayout";
+import { SectionLayoutNotSafe } from "@/components";
 import { Fonts, Colors } from "@constants";
-import { useAmbientControlForScreen } from "@hooks";
+import { useAmbientControlForScreen, useVibeCheckNavigation } from "@hooks";
 import { styles } from "./EmotionalStateScreen.styles";
 
 const phrases = [
@@ -43,8 +42,7 @@ const EMOTIONS = [
 
 export const EmotionalStateScreen = () => {
   useAmbientControlForScreen(false);
-  const route = useRoute();
-  const currentIndex = VIBE_CHECK_SCREENS.indexOf(route.name);
+  const { goToNextScreen } = useVibeCheckNavigation();
   const navigation = useNavigation();
   const device = useCameraDevice("front");
   const isFocused = useIsFocused();
@@ -226,15 +224,6 @@ export const EmotionalStateScreen = () => {
     stopRecording();
     goToNextScreen();
   };
-  const goToNextScreen = () => {
-    try {
-      if (currentIndex < VIBE_CHECK_SCREENS.length - 1) {
-        navigation.navigate(VIBE_CHECK_SCREENS[currentIndex + 1]);
-      }
-    } catch (error) {
-      console.error("Error in gotToNexScreen:", error);
-    }
-  };
 
   const startRecording = async () => {
     try {
@@ -259,12 +248,7 @@ export const EmotionalStateScreen = () => {
       await AudioRecorder.stopRecording();
       setIsAudioRecording(false);
       const stat = await RNFS.stat(audioPath);
-      // setTimeout(() => {
-      //   goToNextScreen(); // go to next screen before calling analyze.
-      // }, 300); // Gives iOS a moment to release the AV session
 
-      //console.log("📦 File size:", stat.size, "bytes");
-      //console.log("✅ recording saved to:", audioPath);
       if (stat.size > 0) {
         await analyzeVoiceFromAudioUri(audioPath);
       } else {
@@ -398,7 +382,7 @@ export const EmotionalStateScreen = () => {
 
   return (
     <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
-      <SectionLayout
+      <SectionLayoutNotSafe
         topFlex={3}
         middleFlex={2}
         bottomFlex={1}
@@ -458,7 +442,6 @@ export const EmotionalStateScreen = () => {
         middleContent={
           <View style={styles.textContainer}>
             {/* <Text style={styles.prompt}>Let your voice flow</Text> */}
-            <Text style={styles.statusText}>Facial Emotion: {emotion || "Analyzing..."}</Text>
             <Text style={styles.promptText}>Say this phrase:</Text>
             <View style={styles.phraseBox}>
               <Text style={styles.phraseText}>{currentPhrase}</Text>
@@ -473,6 +456,7 @@ export const EmotionalStateScreen = () => {
               color={Colors.buttonBackground}
               textColor={Colors.lightText}
             />
+            <Text style={styles.statusText}>Facial Emotion: {emotion || "Analyzing..."}</Text>
           </View>
         }
       />

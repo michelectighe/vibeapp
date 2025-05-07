@@ -1,7 +1,7 @@
-import React, { useRef, useEffect } from "react";
-import { ImageBackground, View, TouchableOpacity, Animated } from "react-native";
-import { useMeditationNavigation } from "@/hooks";
 import { SectionLayout } from "@/components";
+import { useMeditationNavigation } from "@/hooks";
+import React, { useRef, useEffect } from "react";
+import { Animated, View, TouchableOpacity, ImageBackground } from "react-native";
 
 export const MeditationScreen = () => {
   const { goToNextScreen } = useMeditationNavigation();
@@ -198,9 +198,9 @@ export const MeditationScreen = () => {
                 </View>
 
                 {/* <TouchableOpacity
-              className="p-4 rounded-2xl items-center shadow-md"
-              onPress={() => navigation.navigate(item.screen)}
-            /> */}
+                  className="p-4 rounded-2xl items-center shadow-md"
+                  onPress={() => navigation.navigate(item.screen)}
+                /> */}
               </ImageBackground>
             </TouchableOpacity>
           </View>

@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect, useCallback } from "react";
 import { View, Text, Animated, StyleSheet } from "react-native";
 import { Camera, useCameraDevice, useFrameProcessor } from "react-native-vision-camera";
 import { Worklets } from "react-native-worklets-core";
-import { useNavigation, useFocusEffect, useRoute } from "@react-navigation/native";
+import { useFocusEffect } from "@react-navigation/native";
 import { useAnalysis } from "@context";
 import {
   removeOutliers,
@@ -16,16 +16,10 @@ import {
 import { Colors, Fonts } from "@constants";
 import { scaledStyle, SCREEN_HEIGHT, SCREEN_WIDTH } from "@/utils";
 import { CustomSpiritualButton, CircularTimer } from "@/components";
-import { VIBE_CHECK_SCREENS } from "@navigation";
+import { useVibeCheckNavigation } from "@/hooks";
 
 export const HeartRateCamera = ({ onStableReading }) => {
-  const route = useRoute();
-  const currentIndex = VIBE_CHECK_SCREENS.indexOf(route.name);
-  const goToNextScreen = () => {
-    if (currentIndex < VIBE_CHECK_SCREENS.length - 1) {
-      navigation.navigate(VIBE_CHECK_SCREENS[currentIndex + 1]);
-    }
-  };
+  const { goToNextScreen } = useVibeCheckNavigation();
 
   const [localHeartRate, setLocalHeartRate] = useState({
     bpm: null,
@@ -55,7 +49,6 @@ export const HeartRateCamera = ({ onStableReading }) => {
   const frameProcessorHeartActiveRef = useRef(false);
   const isRefActive = createRefChecker();
 
-  const navigation = useNavigation();
   const { setHeartRate } = useAnalysis();
   const device = useCameraDevice("back");
 
@@ -77,13 +70,16 @@ export const HeartRateCamera = ({ onStableReading }) => {
         metricsHistoryRef.current = [];
       };
       setup();
-      return () => {};
+      return () => {
+        console.log("leaving heartratecamer");
+      };
     }, [device, cameraReady]), // eslint-disable-line react-hooks/exhaustive-deps
   );
 
   useFocusEffect(
     useCallback(() => {
       return () => {
+        console.log("start of usefocus return");
         global.lastTs = 99999999999;
         (async () => {
           await cleanupMedia({
@@ -96,8 +92,10 @@ export const HeartRateCamera = ({ onStableReading }) => {
           setCameraReady(false);
           setCameraActive(false);
           setFlashMode("off");
-          const averageMetrics = computeAverageMetrics();
-          if (averageMetrics) setHeartRate(averageMetrics);
+          console.log("end of usefocus return");
+          //    const averageMetrics = computeAverageMetrics();
+          //   console.log("averageMetric:", averageMetrics);
+          //   if (averageMetrics) setHeartRate(averageMetrics);
         })();
       };
     }, []), // eslint-disable-line react-hooks/exhaustive-deps
@@ -109,15 +107,22 @@ export const HeartRateCamera = ({ onStableReading }) => {
       duration: 10,
       useNativeDriver: true,
     }).start();
+    return () => {
+      console.log("end of useEffect");
+    };
   }, []);
 
   useEffect(() => {
     //  if (fingerWarning != null) {
     warningOpacity.setValue(0);
+    return () => {
+      console.log("warningOpacity useEffect return");
+    };
     // }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const computeAverageMetrics = () => {
+    console.log("in computeAverageMetrics");
     const history = metricsHistoryRef.current;
     if (history.length === 0) return null;
     const sum = history.reduce(
@@ -129,6 +134,7 @@ export const HeartRateCamera = ({ onStableReading }) => {
       },
       { bpm: 0, sdnn: 0, rmssd: 0 },
     );
+    console.log("end of compute metrics:", Math.round(sum.bpm / history.length));
     return {
       bpm: Math.round(sum.bpm / history.length),
       sdnn: (sum.sdnn / history.length).toFixed(0),
@@ -218,9 +224,11 @@ export const HeartRateCamera = ({ onStableReading }) => {
     console.log("Timer expired — forcing stable.");
     if (!stable) {
       const metrics = computeAverageMetrics() ?? {};
+      console.log("metrics:", metrics);
       setStable(true);
+      setHeartRate(metrics);
       onStableReading(metrics); // pass something if you have it
-      setFingerWarning(null);
+      setFingerWarning("");
       Animated.timing(warningOpacity, {
         toValue: 0,
         duration: 300,
@@ -273,7 +281,7 @@ export const HeartRateCamera = ({ onStableReading }) => {
           />
         )}
         <CircularTimer
-          duration={30000}
+          duration={60000}
           size={100}
           color={Colors.darkText}
           onComplete={handleTimerExpired}

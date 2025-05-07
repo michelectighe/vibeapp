@@ -1,20 +1,19 @@
 import React, { useCallback } from "react";
 import { View, Text } from "react-native";
-import { useNavigation, useFocusEffect, useRoute } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { GradientBackground, CustomSpiritualButton } from "@components";
-import { VIBE_CHECK_SCREENS } from "@navigation/screens";
 import { useAnalysis } from "@context";
 import { cleanupMedia } from "@utils";
 import { Colors } from "@constants";
-import { useAmbientControlForScreen } from "@hooks";
+import { useAmbientControlForScreen, useVibeCheckNavigation } from "@hooks";
 import { styles } from "./VibeCheckScreen.styles";
 import { SectionLayout } from "@/components";
 
 export const VibeCheckScreen = () => {
   useAmbientControlForScreen(false);
+  const { goToNextScreen } = useVibeCheckNavigation();
+
   const navigation = useNavigation();
-  const route = useRoute();
-  const currentIndex = VIBE_CHECK_SCREENS.indexOf(route.name);
   const { resetAnalysis } = useAnalysis();
 
   useFocusEffect(
@@ -30,12 +29,6 @@ export const VibeCheckScreen = () => {
       cleanup();
     }, []), // eslint-disable-line react-hooks/exhaustive-deps
   );
-
-  const goToNextScreen = () => {
-    if (currentIndex < VIBE_CHECK_SCREENS.length - 1) {
-      navigation.navigate(VIBE_CHECK_SCREENS[currentIndex + 1]);
-    }
-  };
 
   const openInfo = () => navigation.navigate("MetricInfoScreen");
 

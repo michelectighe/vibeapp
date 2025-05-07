@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Text, ScrollView } from "react-native";
-import { GradientBackground, CustomSpiritualButton } from "@components";
-import { styles } from "./SettingScreen.style";
+import { Text, View } from "react-native";
+import { GradientBackground, CustomSpiritualButton, SectionLayout } from "@components";
 import { useAuth } from "@context";
 import { useAmbientControlForScreen } from "@hooks";
 import { Fonts, Colors } from "@constants";
 import { globalStyles } from "@styles";
+import { styles } from "./SettingScreen.style";
 
 export const SettingsScreen = ({ navigation }) => {
   useAmbientControlForScreen(true);
@@ -16,7 +16,7 @@ export const SettingsScreen = ({ navigation }) => {
     signOut();
     //console.log("signed out");
     setSignOut("Logout Successful");
-    navigation.navigate("SignInScreen");
+    // navigation.navigate("SignInScreen");
   };
 
   const handleSignIn = async () => {
@@ -25,47 +25,63 @@ export const SettingsScreen = ({ navigation }) => {
 
   return (
     <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
-      <ScrollView
-        style={globalStyles.scrollView}
-        contentContainerStyle={globalStyles.scrollContent}
-        showsVerticalScrollIndicator={false}
-      >
-        <Text style={styles.heading}>Settings</Text>
-
-        <CustomSpiritualButton
-          label="Goals"
-          onPress={() => navigation.navigate("ProfileSetupScreen")}
-          color={Colors.buttonBackground}
-          textColor={Colors.lightText}
-        />
-        <CustomSpiritualButton
-          label="Update Profile"
-          onPress={() => navigation.navigate("UpdateProfileScreen")}
-          color={Colors.buttonBackground}
-          textColor={Colors.lightText}
-        />
-        {!user && (
-          <CustomSpiritualButton
-            label="Sign In"
-            onPress={handleSignIn}
-            color={Colors.buttonBackground}
-            textColor={Colors.lightText}
-          />
-        )}
-        <CustomSpiritualButton
-          label="Subscription"
-          onPress={() => navigation.navigate("SubscriptionScreen")}
-          color={Colors.buttonBackground}
-          textColor={Colors.lightText}
-        />
-        <CustomSpiritualButton
-          label="Sign Out"
-          onPress={handleSignOut}
-          color={Colors.buttonBackground}
-          textColor={Colors.lightText}
-        />
-      </ScrollView>
-      <Text>{signOutMessage}</Text>
+      <SectionLayout
+        topFlex={1}
+        middleFlex={1}
+        bottomFlex={1}
+        topContent={
+          <View style={globalStyles.titleWrapper}>
+            <Text style={globalStyles.title}>Settings</Text>
+          </View>
+        }
+        middleContent={
+          <View style={styles.buttonWrapper}>
+            {!user && (
+              <CustomSpiritualButton
+                label="Create Account"
+                onPress={() => navigation.navigate("SignUpScreen")}
+                color={Colors.buttonBackground}
+                textColor={Colors.lightText}
+              />
+            )}
+            <CustomSpiritualButton
+              label="Goals"
+              onPress={() => navigation.navigate("ProfileSetupScreen")}
+              color={Colors.buttonBackground}
+              textColor={Colors.lightText}
+            />
+            <CustomSpiritualButton
+              label="Update Profile"
+              onPress={() => navigation.navigate("UpdateProfileScreen")}
+              color={Colors.buttonBackground}
+              textColor={Colors.lightText}
+            />
+            {!user && (
+              <CustomSpiritualButton
+                label="Sign In"
+                onPress={handleSignIn}
+                color={Colors.buttonBackground}
+                textColor={Colors.lightText}
+              />
+            )}
+            <CustomSpiritualButton
+              label="Subscription"
+              onPress={() => navigation.navigate("SubscriptionScreen")}
+              color={Colors.buttonBackground}
+              textColor={Colors.lightText}
+            />
+            {user && (
+              <CustomSpiritualButton
+                label="Sign Out"
+                onPress={handleSignOut}
+                color={Colors.buttonBackground}
+                textColor={Colors.lightText}
+              />
+            )}
+          </View>
+        }
+        bottomContent={<Text>{signOutMessage}</Text>}
+      />
     </GradientBackground>
   );
 };

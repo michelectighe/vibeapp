@@ -7,13 +7,6 @@ const rawStyles = {
     flex: 1,
     backgroundColor: "white",
   },
-  innerContent: {
-    flex: 1,
-    paddingTop: SCREEN_HEIGHT * 0.1,
-    alignItems: "center",
-    justifyContent: "space-evenly",
-    paddingHorizontal: SCREEN_WIDTH * 0.06,
-  },
   score: {
     fontSize: SCREEN_HEIGHT * 0.06,
     fontWeight: "bold",
@@ -25,7 +18,13 @@ const rawStyles = {
     textAlign: "center",
     textShadowRadius: 2,
     textShadowOffset: { width: 2, height: 2 },
-    marginBottom: SCREEN_HEIGHT * 0.015,
+  },
+  innerContent: {
+    flex: 1,
+    paddingTop: SCREEN_HEIGHT * 0.15,
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    paddingHorizontal: SCREEN_WIDTH * 0.06,
   },
   descriptionBox: {
     marginTop: SCREEN_HEIGHT * 0.02,

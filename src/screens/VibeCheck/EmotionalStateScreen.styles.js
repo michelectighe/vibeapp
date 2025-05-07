@@ -80,7 +80,6 @@ const rawStyles = {
     shadowRadius: 4,
     elevation: 5,
   },
-
   phraseText: {
     fontSize: 28,
     textAlign: "center",
@@ -89,10 +88,8 @@ const rawStyles = {
   },
   continueContainer: {
     position: "absolute",
-    bottom: 0,
+    bottom: 50,
     width: "90%",
-    //   paddingHorizontal: 20,
-    //   marginBottom: 30,
     alignItems: "center",
   },
 };

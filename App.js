@@ -1,4 +1,5 @@
 import "react-native-reanimated";
+import "./src/styles/CustomText"; // must be imported before any screens load
 import React, { useRef, useEffect } from "react";
 //import { setJSExceptionHandler } from "react-native-exception-handler";
 // import crashlytics from "@react-native-firebase/crashlytics";

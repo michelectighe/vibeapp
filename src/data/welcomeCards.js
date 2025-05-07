@@ -6,6 +6,14 @@ export const welcomeCards = [
       "Use your voice, heart rate, emotions & environment to reveal your energetic state.",
   },
   {
+    title: "Match Your Vibe",
+    description: "Find out if you are in sync with your partner.",
+  },
+  {
+    title: "Find a Perfect Meditation Space",
+    description: "Measure the surrounding sound and earths magnitude to find a peaceful spot",
+  },
+  {
     title: "Track Vibrational Trends",
     description: "Monitor shifts in your mood & energy over time.",
   },

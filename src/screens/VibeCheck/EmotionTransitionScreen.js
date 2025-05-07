@@ -1,18 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { } from "react-native";
-import { useNavigation, useRoute } from "@react-navigation/native";
-import { VIBE_CHECK_SCREENS } from "@navigation/screens";
+import {} from "react-native";
 import { styles } from "./EmotionalTransitionScreen.styles";
 import { GradientBackground, TypewriterText, SectionLayout } from "@components";
 
 import { Fonts, Colors, buddhistSayings } from "@constants";
-import { useAmbientControlForScreen } from "@hooks";
+import { useAmbientControlForScreen, useVibeCheckNavigation } from "@hooks";
 
 export const EmotionTransitionScreen = () => {
+  const { goToNextScreen } = useVibeCheckNavigation();
   useAmbientControlForScreen(false);
-  const navigation = useNavigation();
-  const route = useRoute();
-  const currentIndex = VIBE_CHECK_SCREENS.indexOf(route.name);
   const [currentSaying, setCurrentSaying] = useState("");
 
   useEffect(() => {
@@ -27,10 +23,7 @@ export const EmotionTransitionScreen = () => {
     const totalDelay = totalTypingTime + bufferTime;
 
     const timer = setTimeout(() => {
-      if (currentIndex < VIBE_CHECK_SCREENS.length - 1) {
-        const nextScreen = VIBE_CHECK_SCREENS[currentIndex + 1];
-        navigation.navigate(nextScreen);
-      }
+      goToNextScreen();
     }, totalDelay);
 
     return () => clearTimeout(timer);
