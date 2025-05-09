@@ -6,7 +6,7 @@ export const StreakStack = () => {
   const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator
-      initialRouteName="StreakScreen"
+      initialRouteName="VibeHistory"
       screenOptions={() => ({
         headerShown: false,
       })}

@@ -48,3 +48,5 @@ export { isPasswordValid, getPasswordStrength } from "./validatePassword";
 export { getVibrationInfo } from "./vibrationInfo";
 export { isValidScore, formatScoreForDisplay } from "./validScores";
 export { getVibeRecommendations } from "./getRecommendations";
+
+export { getVibeHistory, groupScores } from "./getVibeHistory";

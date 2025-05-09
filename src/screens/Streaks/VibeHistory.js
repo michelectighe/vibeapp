@@ -1,82 +1,111 @@
-import React, { useEffect, useState } from "react";
-import { View, ActivityIndicator, Share } from "react-native";
-//import { Ionicons } from "@expo/vector-icons";
-import { loadResults, SCREEN_HEIGHT } from "@utils";
-import { GradientBackground, ResultSelector } from "@components";
-import { createMatchLink } from "@services";
-import { getAuth } from "firebase/auth";
-import { Colors, Fonts } from "@constants";
-import { useAmbientControlForScreen } from "@hooks";
-import { styles } from "./VibeHistory.styles";
-import { globalStyles } from "@styles";
+import React, { useState, useEffect } from "react";
+import { View, Text, TouchableOpacity, Dimensions, StyleSheet, ScrollView } from "react-native";
+import { BarChart } from "react-native-chart-kit";
+import { SectionLayout } from "@components"; // or your layout wrapper
+import { getVibeHistory, groupScores } from "@/utils";
+
+const screenWidth = Dimensions.get("window").width;
+
+// const mockData = {
+//   daily: [90, 80, 75, 95, 100, 85, 70],
+//   weekly: [85, 78, 92, 88],
+//   monthly: [80, 83, 79, 91, 95],
+// };
 
 export const VibeHistoryScreen = () => {
-  useAmbientControlForScreen(true);
-  const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const auth = getAuth();
+  const [selectedRange, setSelectedRange] = useState("daily");
+  const [data, setData] = useState(null);
+  //  const currentData = mockData[selectedRange];
 
   useEffect(() => {
-    const fetchResults = async () => {
-      const data = await loadResults();
-      setResults(data);
-      setLoading(false);
+    const fetchData = async () => {
+      const scores = await getVibeHistory();
+      const grouped = groupScores(scores, selectedRange);
+      setData(grouped);
     };
-    fetchResults();
-  }, []);
-
-  const onShare = async (item) => {
-    try {
-      const link = await createMatchLink(item.id, auth.currentUser.uid); // use item.id if already saved
-      await Share.share({
-        message: `Compare your vibe with mine! Tap this link to begin: ${link}`,
-      });
-    } catch (err) {
-      console.error("Share error:", err);
-    }
-  };
-
-  // const formatDate = (timestamp) => {
-  //   if (!timestamp?.toDate) return "";
-
-  //   return timestamp.toDate().toLocaleDateString("en-US", {
-  //     year: "numeric",
-  //     month: "long",
-  //     day: "numeric",
-  //   });
-  // };
-
-  // const renderItem = ({ item }) => (
-  //   <View style={styles.card}>
-  //     <View style={styles.cardTop}>
-  //       <Text style={styles.score}>{item.overallVibrationScore.toFixed(0)}</Text>
-  //       <Ionicons
-  //         name="share-outline"
-  //         size={20}
-  //         color="#333"
-  //         onPress={() => onShare(item)}
-  //         style={styles.shareIcon}
-  //       />
-  //     </View>
-  //     <Text style={styles.date}>{formatDate(item.timestamp)}</Text>
-  //   </View>
-  // );
-
-  if (loading) {
-    return <ActivityIndicator size="large" style={{ marginTop: SCREEN_HEIGHT * 0.2 }} />;
-  }
+    console.log("data", data);
+    fetchData();
+  }, [selectedRange]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
-      <View style={globalStyles.container}>
-        <View style={styles.innerContainer}>
-          <ResultSelector
-            results={results}
-            onSelect={(item) => console.log("Selected:", item)}
-            onShare={onShare}
-          />
+    <SectionLayout
+      topFlex={1}
+      middleFlex={4}
+      topContent={
+        <View style={styles.tabContainer}>
+          {["daily", "weekly", "monthly"].map((range) => (
+            <TouchableOpacity
+              key={range}
+              onPress={() => setSelectedRange(range)}
+              style={[styles.tabButton, selectedRange === range && styles.tabButtonActive]}
+            >
+              <Text style={[styles.tabText, selectedRange === range && styles.tabTextActive]}>
+                {range.toUpperCase()}
+              </Text>
+            </TouchableOpacity>
+          ))}
         </View>
-      </View>
-    </GradientBackground>
+      }
+      middleContent={
+        <ScrollView contentContainerStyle={styles.chartContainer}>
+          {/* <BarChart
+            data={{
+              labels: data.map((d) => d.label),
+              datasets: [{ data: data.map((d) => d.value) }],
+            }}
+            width={screenWidth - 40}
+            height={220}
+            fromZero
+            yAxisSuffix=""
+            chartConfig={{
+              backgroundColor: "#fff",
+              backgroundGradientFrom: "#fff",
+              backgroundGradientTo: "#fff",
+              decimalPlaces: 0,
+              color: (opacity = 1) => `rgba(100, 150, 255, ${opacity})`,
+              labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+              style: { borderRadius: 12 },
+            }}
+            style={styles.chartStyle}
+          /> */}
+        </ScrollView>
+      }
+    />
   );
 };
+
+const styles = StyleSheet.create({
+  tabContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    marginTop: 16,
+  },
+  tabButton: {
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    marginHorizontal: 6,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    backgroundColor: "#eee",
+  },
+  tabButtonActive: {
+    backgroundColor: "#6495ed",
+    borderColor: "#6495ed",
+  },
+  tabText: {
+    fontSize: 14,
+    color: "#333",
+  },
+  tabTextActive: {
+    color: "#fff",
+    fontWeight: "bold",
+  },
+  chartContainer: {
+    alignItems: "center",
+    paddingVertical: 20,
+  },
+  chartStyle: {
+    borderRadius: 12,
+  },
+});

@@ -42,7 +42,7 @@ export const vibeHomeCards = [
     image: require("@assets/images/home/streaks.png"),
     screen: {
       name: "StreakStack", // <- This is the tools stack name
-      params: { screen: "StreakScreen" }, // <- This is the nested screen
+      params: { screen: "VibeHistory" }, // <- This is the nested screen
     },
     textColor: Colors.lightText,
   },
