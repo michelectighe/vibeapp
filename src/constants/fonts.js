@@ -1,8 +1,9 @@
 export const Fonts = {
-  Title: "AppFontBold",
-  AppFont: "AppFontRegular",
-  AppFontBold: "AppFontBold",
-  AppFontItalic: "AppFontItalic",
-  Italic: "AppItalic",
-  Script: "TypeWriterText",
+  Title: "Nunito Bold",
+  AppFont: "Nunito Regular",
+  AppFontBold: "Nunito Bold",
+  AppFontItalic: "Nunito Italic",
+  Italic: "Raleway",
+  Script: "Great Vibes Regular",
+  Journal: "Homemade Apple Regular",
 };

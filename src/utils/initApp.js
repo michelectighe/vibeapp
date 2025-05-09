@@ -3,21 +3,10 @@ import { auth } from "@config/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 
 import { loadTensorflowModel } from "react-native-fast-tflite";
-import * as Font from "expo-font";
 
 export const initApp = async ({ setModel }) => {
   try {
     //console.log("🌀 Initializing app...");
-    await Font.loadAsync({
-      AppFontRegular: require("@assets/fonts/Nunito-Regular.ttf"),
-      AppFontBold: require("@assets/fonts/Nunito-Bold.ttf"),
-      AppFontItalic: require("@assets/fonts/Nunito-Bold.ttf"),
-      AppItalic: require("@assets/fonts/Raleway-Italic-VariableFont_wght.ttf"),
-      AppTitleFont: require("@assets/fonts/Quicksand-regular.ttf"),
-      TypeWriterText: require("@assets/fonts/GreatVibes-Regular.ttf"),
-      JournalText: require("@assets/fonts/HomemadeApple-Regular.ttf"),
-    });
-    //   console.log("✅ Fonts loaded");
     initializeDatabase();
 
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
