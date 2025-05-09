@@ -10,7 +10,8 @@
     "test": "jest",
     "patch-h": "./scripts/patch_unsigned_char.sh",
     "clean": "./scripts/cleanup.sh",
-    "cleanjs": "./scripts/cleanjs.sh"
+    "cleanjs": "./scripts/cleanjs.sh",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@expo/metro-runtime": "^4.0.1",
@@ -40,10 +41,12 @@
     "hermes-engine": "^0.11.0",
     "jsrsasign": "^11.1.0",
     "metro-react-native-babel-preset": "^0.76.4",
+    "patch-package": "^8.0.0",
     "react": "18.2.0",
     "react-native": "^0.76.1",
     "react-native-audio": "^4.3.0",
     "react-native-biometrics": "^3.0.1",
+    "react-native-chart-kit": "^6.12.0",
     "react-native-fast-image": "^8.6.3",
     "react-native-fast-tflite": "^1.6.1",
     "react-native-fs": "^2.20.0",
@@ -60,7 +63,6 @@
     "react-native-uuid": "^2.0.3",
     "react-native-vector-icons": "^10.2.0",
     "react-native-vision-camera": "^4.6.4",
-    "victory-native": "^41.17.1",
     "vision-camera-resize-plugin": "^3.2.0"
   },
   "devDependencies": {

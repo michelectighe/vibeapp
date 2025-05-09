@@ -1,31 +1,31 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, Dimensions, StyleSheet, ScrollView } from "react-native";
-import { SectionLayout } from "@components";
+import { BarChart } from "react-native-chart-kit";
+import { SectionLayout } from "@components"; // or your layout wrapper
 import { getVibeHistory, groupScores } from "@/utils";
-import { VictoryBar, VictoryChart, VictoryAxis, VictoryTheme } from "victory-native";
 
 const screenWidth = Dimensions.get("window").width;
+
+// const mockData = {
+//   daily: [90, 80, 75, 95, 100, 85, 70],
+//   weekly: [85, 78, 92, 88],
+//   monthly: [80, 83, 79, 91, 95],
+// };
 
 export const VibeHistoryScreen = () => {
   const [selectedRange, setSelectedRange] = useState("daily");
   const [data, setData] = useState(null);
+  //  const currentData = mockData[selectedRange];
 
   useEffect(() => {
     const fetchData = async () => {
       const scores = await getVibeHistory();
-      console.log("Scores:", scores);
       const grouped = groupScores(scores, selectedRange);
       setData(grouped);
     };
+    console.log("data", data);
     fetchData();
   }, [selectedRange]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const chartData = data
-    ? data.map((d) => ({
-        x: d.label,
-        y: d.value,
-      }))
-    : [];
 
   return (
     <SectionLayout
@@ -49,38 +49,32 @@ export const VibeHistoryScreen = () => {
       middleContent={
         <ScrollView contentContainerStyle={styles.chartContainer}>
           {data && (
-            <VictoryChart
-              width={screenWidth - 20}
-              theme={VictoryTheme.material}
-              domain={{ y: [0, 100] }}
-              animate={{ duration: 800 }}
-            >
-              <VictoryAxis
-                style={{
-                  tickLabels: { fontSize: 12 },
-                  axis: { stroke: "#ccc" },
-                }}
-              />
-              <VictoryAxis
-                dependentAxis
-                tickValues={[0, 20, 40, 60, 80, 100]}
-                style={{
-                  tickLabels: { fontSize: 12 },
-                  axis: { stroke: "#ccc" },
-                  grid: { stroke: "#ccc", strokeDasharray: "4" },
-                }}
-              />
-              <VictoryBar
-                data={chartData}
-                barWidth={20}
-                style={{
-                  data: {
-                    fill: "#6495ed",
-                    strokeWidth: 0,
-                  },
-                }}
-              />
-            </VictoryChart>
+            <BarChart
+              data={{
+                labels: data.map((d) => d.label),
+                datasets: [{ data: data.map((d) => d.value) }],
+              }}
+              width={screenWidth - 40}
+              height={220}
+              fromZero={true}
+              segments={5} // 0, 20, 40, 60, 80, 100
+              chartConfig={{
+                backgroundColor: "#fff",
+                backgroundGradientFrom: "#fff",
+                backgroundGradientTo: "#fff",
+                decimalPlaces: 0,
+                color: (opacity = 1) => `rgba(100, 150, 255, ${opacity})`,
+                labelColor: () => "#000",
+                propsForBackgroundLines: {
+                  stroke: "#ccc",
+                  strokeDasharray: "", // solid lines
+                },
+              }}
+              yLabelsOffset={10}
+              style={{ borderRadius: 12 }}
+              yAxisSuffix=""
+              yAxisInterval={20}
+            />
           )}
         </ScrollView>
       }
