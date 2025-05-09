@@ -1,6 +1,7 @@
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "@config/firebaseConfig";
-import { format, getISOWeek, parseISO } from "date-fns";
+import { format, getISOWeek, startOfWeek } from "date-fns";
+import { getAuth } from "firebase/auth";
 
 export const groupScores = (scores, range) => {
   const buckets = {};
@@ -9,39 +10,49 @@ export const groupScores = (scores, range) => {
     let key;
 
     if (range === "daily") {
-      key = format(timestamp, "yyyy-MM-dd");
+      // Group by date, label with weekday
+      key = format(timestamp, "EEE"); // Mon, Tue, etc.
     } else if (range === "weekly") {
-      const week = getISOWeek(timestamp);
       const year = timestamp.getFullYear();
-      key = `${year}-W${week}`;
+      const week = getISOWeek(timestamp);
+      key = `${year}-W${week}`; // e.g., "2025-W19"
     } else if (range === "monthly") {
-      key = format(timestamp, "yyyy-MM");
+      key = format(timestamp, "MMM"); // Jan, Feb, etc.
     }
 
     if (!buckets[key]) buckets[key] = [];
     buckets[key].push(score);
   });
 
-  // Aggregate (average)
   return Object.entries(buckets)
-    .sort(([a], [b]) => new Date(a) - new Date(b)) // optional: keep it in order
-    .map(([key, values]) => {
-      const avg = values.reduce((sum, s) => sum + s, 0) / values.length;
-      return { label: key, value: Math.round(avg) };
-    });
+    .sort(([a], [b]) => a.localeCompare(b)) // Keeps order: Mon–Sun, Jan–Dec, etc.
+    .map(([label, values]) => ({
+      label,
+      value: Math.round(values.reduce((sum, s) => sum + s, 0) / values.length),
+    }));
 };
 
 export const getVibeHistory = async () => {
-  const querySnapshot = await getDocs(collection(db, "vibeScores")); // adjust path if needed
+  const auth = getAuth();
+  const user = auth.currentUser;
+  if (!user) {
+    console.warn("User not logged in, cannot fetch results.");
+    return [];
+  }
+  const resultsRef = collection(db, "users", user.uid, "results");
+  const querySnapshot = await getDocs(resultsRef);
+
   const scores = [];
   querySnapshot.forEach((doc) => {
     const data = doc.data();
-    if (data.timestamp && data.score) {
+    console.log("getting results for doc:", data.overallVibrationScore);
+    if (data.timestamp?.seconds && data.overallVibrationScore != null) {
       scores.push({
-        timestamp: new Date(data.timestamp.seconds * 1000), // Firestore timestamp
-        score: data.score,
+        timestamp: new Date(data.timestamp.seconds * 1000),
+        score: data.overallVibrationScore,
       });
     }
   });
+  console.log("score:", scores);
   return scores;
 };

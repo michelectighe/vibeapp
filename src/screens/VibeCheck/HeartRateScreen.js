@@ -34,7 +34,7 @@ function HeartRateScreenInner() {
     useCallback(() => {
       setStablized(false);
       return () => {
-        console.log("leaving heartrate");
+   //     console.log("leaving heartrate");
         stopMotionTracking();
         stopEnvironmentTracking();
       };
@@ -46,7 +46,7 @@ function HeartRateScreenInner() {
       const parent = navigation.getParent?.();
       parent?.setOptions({ tabBarStyle: { display: "none" } });
       return () => {
-        console.log("leaving secons focus effect");
+ //       console.log("leaving secons focus effect");
       };
     }, [navigation]),
   );

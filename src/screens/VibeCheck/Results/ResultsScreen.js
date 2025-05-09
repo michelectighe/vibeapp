@@ -39,7 +39,7 @@ export const ResultsScreen = ({ navigation }) => {
   } = useAnalysis();
 
   useEffect(() => {
-    if (overallVibrationScore == null || hasSaved.current) return;
+    if (overallVibrationScore == null || chakraScores == null || hasSaved.current) return;
 
     let isMounted = true;
 
@@ -65,7 +65,7 @@ export const ResultsScreen = ({ navigation }) => {
     return () => {
       isMounted = false;
     };
-  }, [overallVibrationScore]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [overallVibrationScore, chakraScores]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const saveResultsToDB = async () => {
     setSaving(true);

@@ -37,13 +37,13 @@ export const AnalysisProvider = ({ children }) => {
   const [auraColor, setAuraColor] = useState("#DAA520");
   const [overallVibrationScore, setOverallVibeScore] = useState(0);
   const [chakraScores, setChakraScores] = useState({
-    root: 0,
-    sacral: 0,
-    solarPlexus: 0,
-    heart: 0,
-    throat: 0,
-    thirdEye: 0,
-    crown: 0,
+    root: null,
+    sacral: null,
+    solarPlexus: null,
+    heart: null,
+    throat: null,
+    thirdEye: null,
+    crown: null,
   });
   const [vibrationInfo, setVibrationInfo] = useState(null);
 
@@ -283,7 +283,8 @@ export const AnalysisProvider = ({ children }) => {
       voiceClarityScore &&
       voiceFrequencyScore
     )
-      updateChakraScores();
+      console.log("updating chakra scores");
+    updateChakraScores();
     setAuraColor(getAuraColor()); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     overallVibrationScore,
