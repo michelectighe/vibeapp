@@ -26,9 +26,6 @@ export const GradientBackground = ({ children, colors, logo = true }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
   gradient: {
     flex: 1,
     width: "100%",

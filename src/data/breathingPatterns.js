@@ -1,4 +1,4 @@
-export const BREATH_PATTERNS = [
+export const breathingPatterns = [
   {
     id: "box",
     name: "Box Breathing",

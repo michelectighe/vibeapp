@@ -27,7 +27,7 @@ export const SettingsScreen = ({ navigation }) => {
     <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
       <SectionLayout
         topFlex={1}
-        middleFlex={1}
+        middleFlex={8}
         bottomFlex={1}
         topContent={
           <View style={globalStyles.titleWrapper}>
@@ -44,12 +44,6 @@ export const SettingsScreen = ({ navigation }) => {
                 textColor={Colors.lightText}
               />
             )}
-            <CustomSpiritualButton
-              label="Goals"
-              onPress={() => navigation.navigate("ProfileSetupScreen")}
-              color={Colors.buttonBackground}
-              textColor={Colors.lightText}
-            />
             <CustomSpiritualButton
               label="Update Profile"
               onPress={() => navigation.navigate("UpdateProfileScreen")}

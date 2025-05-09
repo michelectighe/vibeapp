@@ -9,6 +9,7 @@ import {
   TouchableWithoutFeedback,
   Keyboard,
   Platform,
+  ActivityIndicator,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { quantumJournalPrompts } from "@data";
@@ -16,6 +17,8 @@ import { styles } from "./JournalScreen.styles";
 import { useAmbientControlForScreen } from "@hooks";
 import { GradientBackground, SectionLayout, CustomSpiritualButton, CloseX } from "@/components";
 import { Colors } from "@/constants";
+import { useAnalysis } from "@/context";
+import { globalStyles } from "@/styles";
 
 export const JournalScreen = () => {
   useAmbientControlForScreen(true);
@@ -24,6 +27,15 @@ export const JournalScreen = () => {
   const [entry, setEntry] = useState("");
   const [isTyping, setIsTyping] = useState(true);
   const [animatedText, setAnimatedText] = useState("");
+  const [overallColor, setColor] = useState();
+  const [overallDarkColor, setColor3] = useState();
+  const { vibrationInfo } = useAnalysis();
+
+  useEffect(() => {
+    if (vibrationInfo == null) return;
+    setColor(vibrationInfo.color);
+    setColor3(vibrationInfo.color3);
+  }, [vibrationInfo]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const newPrompt =
@@ -43,22 +55,32 @@ export const JournalScreen = () => {
 
   const handleSave = () => {
     console.log("Saved:", { prompt, entry });
-    setEntry("");
-    setPrompt("");
+    // setEntry("");
+    //  setPrompt("");
     setAnimatedText("");
     setIsTyping(true);
   };
 
+  // 👇 Prevent UI rendering until all required data is ready
+  if (!overallColor) {
+    return (
+      <GradientBackground colors={["white", "white", "white"]}>
+        <View style={[globalStyles.centered, { flex: 1 }]}>
+          <ActivityIndicator size="large" color={Colors.primary} />
+        </View>
+      </GradientBackground>
+    );
+  }
   return (
-    <GradientBackground colors={["white", "white", "white"]} logo={false}>
+    <GradientBackground colors={["white", overallColor, "white"]}>
       <SectionLayout
-        topFlex={1}
-        middleFlex={3}
+        topFlex={6}
+        middleFlex={12}
         bottomFlex={1}
         topContent={
-          <View style={styles.top}>
-            <Text style={styles.title}>Daily Journal</Text>{" "}
-            <Text style={styles.prompt}>{animatedText}</Text>
+          <View style={styles.titleWrapper}>
+            <Text style={[styles.title, {color: overallDarkColor}]}>Daily Journal</Text>{" "}
+            <Text style={[styles.prompt,  {color: overallDarkColor}]}>{animatedText}</Text>
           </View>
         }
         middleContent={
@@ -68,7 +90,7 @@ export const JournalScreen = () => {
               behavior={Platform.OS === "ios" ? "padding" : "height"}
               keyboardVerticalOffset={80} // tweak if needed for your layout
             >
-              <View style={{ width: "90%" }}>
+              <View style={{ width: "90%", overflow: "hidden" }}>
                 {!isTyping && (
                   <ScrollView
                     style={{ marginTop: 20, minWidth: "90%" }}
@@ -87,7 +109,7 @@ export const JournalScreen = () => {
                     <CustomSpiritualButton
                       label="Save Entry"
                       onPress={handleSave}
-                      color={Colors.buttonBackground}
+                      color={overallColor}
                       textColor={Colors.lightText}
                     />
                   </ScrollView>
@@ -97,10 +119,12 @@ export const JournalScreen = () => {
           </TouchableWithoutFeedback>
         }
         bottomContent={
-          <Text style={{ fontSize: 16, color: "#ccc" }}>Your words shape your reality ✨</Text>
+          <View style={styles.bottomText}>
+            <Text style={{color: overallDarkColor}}>Your words shape your reality</Text>
+          </View>
         }
       />
-      <CloseX xColor={Colors.darkText} onPress={() => navigation.goBack()} />
+      <CloseX xColor={overallColor} onPress={() => navigation.goBack()} />
     </GradientBackground>
   );
 };

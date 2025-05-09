@@ -7,6 +7,15 @@ const rawStyles = {
     flex: 1,
     backgroundColor: "white",
   },
+
+  titleWrapper: {
+    position: "absolute",
+    top: 100,
+    width: SCREEN_WIDTH,
+    alignItems: "center",
+    backgroundColor: "transparent",
+  },
+
   score: {
     fontSize: SCREEN_HEIGHT * 0.06,
     fontWeight: "bold",

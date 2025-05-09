@@ -1,7 +1,19 @@
 // components/AddNoteModal.js
 import React, { useState } from "react";
-import { Modal, View, Text, TextInput, TouchableOpacity, StyleSheet } from "react-native";
-import { Colors, Fonts } from "@constants";
+import {
+  Modal,
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  TouchableWithoutFeedback,
+  KeyboardAvoidingView,
+  Keyboard,
+  Platform,
+} from "react-native";
+import { SCREEN_WIDTH,Colors, Fonts } from "@constants";
+
 
 export const AddNoteModal = ({ visible, onClose, onSave }) => {
   const [text, setText] = useState("");
@@ -15,26 +27,34 @@ export const AddNoteModal = ({ visible, onClose, onSave }) => {
 
   return (
     <Modal transparent animationType="fade" visible={visible}>
-      <View style={styles.overlay}>
-        <View style={styles.modal}>
-          <Text style={styles.title}>New Goal</Text>
-          <TextInput
-            style={styles.input}
-            placeholder="Enter your goal"
-            value={text}
-            onChangeText={setText}
-            multiline
-          />
-          <View style={styles.buttonRow}>
-            <TouchableOpacity onPress={onClose} style={styles.cancel}>
-              <Text style={styles.buttonText}>Cancel</Text>
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handleSave} style={styles.save}>
-              <Text style={styles.buttonText}>Save</Text>
-            </TouchableOpacity>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <KeyboardAvoidingView
+          style={{ flex: 1, width: SCREEN_WIDTH * 0.9 }}
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+          keyboardVerticalOffset={80} // tweak if needed for your layout
+        >
+          <View style={styles.overlay}>
+            <View style={styles.modal}>
+              <Text style={styles.title}>New Goal</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Enter your goal"
+                value={text}
+                onChangeText={setText}
+                multiline
+              />
+              <View style={styles.buttonRow}>
+                <TouchableOpacity onPress={onClose} style={styles.cancel}>
+                  <Text style={styles.buttonText}>Cancel</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={handleSave} style={styles.save}>
+                  <Text style={styles.buttonText}>Save</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
           </View>
-        </View>
-      </View>
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
     </Modal>
   );
 };

@@ -155,7 +155,7 @@ export const SignInScreen = ({ navigation, route }) => {
                     onPress={() => navigation.navigate("SignUpScreen")}
                   >
                     <Text style={[globalStyles.link, { alignSelf: "center", textAlign: "center" }]}>
-                      Don&apost have an account? Sign Up
+                      Don&apos;t have an account? Sign Up
                     </Text>
                   </TouchableOpacity>
                   <TextInput
@@ -216,14 +216,11 @@ export const SignInScreen = ({ navigation, route }) => {
                   Or Sign in with Apple
                 </Text>
 
-                <View style={{ marginTop: 20, alignItems: "center" }}>
+                <View style={{ alignItems: "center" }}>
                   <AppleButton
                     buttonStyle={AppleButton.Style.WHITE}
                     buttonType={AppleButton.Type.SIGN_IN}
-                    style={{
-                      width: 200,
-                      height: 44,
-                    }}
+                    style={styles.appleButton}
                     onPress={() => {
                       handleAppleLogin();
                     }}

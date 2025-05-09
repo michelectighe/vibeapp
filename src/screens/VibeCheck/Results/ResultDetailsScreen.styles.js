@@ -22,6 +22,19 @@ const rawStyles = {
     textShadowOffset: { width: 1, height: 1 },
     fontSize: 36,
   },
+  scrollView: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1,
+  },
+  scrollContent: {
+    paddingTop: 150, // this matches the height of your title/logo area
+ //   paddingHorizontal: 20,
+    paddingBottom: 160,
+  },
   textContainer: {
     margin: 20,
     marginTop: 0,

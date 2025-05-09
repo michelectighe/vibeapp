@@ -111,7 +111,7 @@ export const MeditationScreen = () => {
                       color: "#362819",
                     }}
                   >
-                    Before we begin, let&aposs find the ideal environment for deep relaxation. We
+                    Before we begin, let&apos;s find the ideal environment for deep relaxation. We
                     will analyze the surrounding sound levels and energy to ensure a calm, balanced
                     space.
                   </Animated.Text>

@@ -13,6 +13,7 @@ import {
 import { Colors } from "@constants";
 import { welcomeCards } from "@data";
 import { styles } from "./WelcomeScreen.styles";
+import { globalStyles } from "@/styles";
 import { useAmbientControlForScreen } from "@hooks";
 
 export const WelcomeScreen = () => {
@@ -49,16 +50,16 @@ export const WelcomeScreen = () => {
   return (
     <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
       <SectionLayout
-        topFlex={1}
-        middleFlex={2}
-        bottomFlex={1}
+        topFlex={2}
+        middleFlex={3}
+        bottomFlex={3}
         topContent={
-          <>
+          <View style={globalStyles.titleWrapper}>
             <Text style={styles.welcomeText}>Welcome</Text>
             <Text style={[styles.welcomeText, { fontSize: 18 }]}>
               Ever wonder what your vibrational frequency is?
             </Text>
-          </>
+          </View>
         }
         middleContent={
           <AnimatedHorizontalScroll>

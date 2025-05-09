@@ -17,7 +17,7 @@ const rawStyles = {
     overflow: "hidden",
     backgroundColor: "transparent",
     elevation: 10,
-    marginTop: 0,
+    marginTop: 20,
     backdropFilter: Platform.OS === "web" ? "blur(10px)" : undefined,
     alignItems: "center",
     justifyContent: "center",
@@ -66,9 +66,10 @@ const rawStyles = {
   },
 
   phraseBox: {
+    justifyContent: "center",
     backgroundColor: Colors.lightText,
-    width: "90%",
-    height: "75%",
+    width: SCREEN_WIDTH * .9,
+    height: "65%",
     borderRadius: 12,
     paddingVertical: 14,
     paddingHorizontal: 20,
@@ -81,7 +82,7 @@ const rawStyles = {
     elevation: 5,
   },
   phraseText: {
-    fontSize: 28,
+    fontSize: 24,
     textAlign: "center",
     color: Colors.darkText,
     fontFamily: Fonts.AppFont,

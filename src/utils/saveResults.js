@@ -18,7 +18,7 @@ export const saveResults = async (result) => {
       console.warn("User not logged in, skipping Firestore save.");
       return;
     }
-    console.log("user:", user);
+ //   console.log("user:", user);
     const resultsRef = collection(db, "users", user.uid, "results");
     await addDoc(resultsRef, {
       ...result,

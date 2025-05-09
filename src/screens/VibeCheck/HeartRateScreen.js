@@ -101,7 +101,7 @@ function HeartRateScreenInner() {
     <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
       <SectionLayout
         topFlex={1}
-        middleFlex={3}
+        middleFlex={4}
         bottomFlex={3}
         topContent={<View />}
         middleContent={

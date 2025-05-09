@@ -44,8 +44,8 @@ export const AnimatedLogoSmall = () => {
 
 const styles = StyleSheet.create({
   logoContainer: {
-    width: 150,
-    height: 150,
+    width: 120,
+    height: 120,
     position: "absolute",
     justifyContent: "center",
     alignItems: "center",
@@ -57,8 +57,8 @@ const styles = StyleSheet.create({
     position: "absolute",
     width: 120,
     height: 120,
-    top: 15,
-    left: 15,
+    top: 0,
+    left: 0,
     right: 0,
     bottom: 0,
   },

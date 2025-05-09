@@ -7,7 +7,8 @@ export const FrequencyCard = ({ item, onPress }) => {
   return (
     <TouchableOpacity style={styles.card} onPress={() => onPress?.(item)}>
       <Ionicons name="musical-notes-outline" size={24} color="#3F51B5" style={styles.icon} />
-      <Text style={styles.title}>{item.title}</Text>
+      <Text style={styles.title}>{item.hz}hz - </Text>
+      <Text style={styles.title}>{item.description}</Text>
     </TouchableOpacity>
   );
 };

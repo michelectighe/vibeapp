@@ -1,12 +1,17 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useCallback, useEffect } from "react";
 
 import { ImageBackground, View, Text, Animated } from "react-native";
 import { useEnvironment } from "@context";
 import { Colors } from "@constants";
 import { styles } from "./MeditationSpaceScreen.styles";
 import { globalStyles } from "@styles";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { CloseX } from "@/components";
+import { useAmbientControlForScreen } from "@/hooks";
 
 export const MeditationSpaceScreen = () => {
+  useAmbientControlForScreen(false);
+  const navigation = useNavigation();
   const { environment } = useEnvironment();
   const [combinedCalm, setCombinedCalm] = useState(0);
   const [spaceLabel, setSpaceLabel] = useState("Neutral");
@@ -16,6 +21,17 @@ export const MeditationSpaceScreen = () => {
   // const [glowSizeNum, setGlowSizeNum] = useState(width * 0.5);
   const imageFade = useRef(new Animated.Value(0)).current;
   // const [glowColor, setGlowColor] = useState("#FFFF66");
+
+  useFocusEffect(
+    useCallback(() => {
+      const parent = navigation.getParent?.();
+      parent?.setOptions({ tabBarStyle: { display: "none" } });
+      return () => {
+        console.log("leaving secons focus effect");
+      };
+    }, [navigation]),
+  );
+
 
   useEffect(() => {
     Animated.timing(imageFade, {
@@ -57,6 +73,7 @@ export const MeditationSpaceScreen = () => {
 
   return (
     <View style={globalStyles.container}>
+      <CloseX xColor={Colors.darkText} onPress={() => navigation.goBack()} />
       <ImageBackground
         style={styles.backgroundImage}
         source={require("@assets/images/backgroundMeditation.webp")}

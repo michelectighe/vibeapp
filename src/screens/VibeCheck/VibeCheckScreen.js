@@ -35,7 +35,7 @@ export const VibeCheckScreen = () => {
   return (
     <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
       <SectionLayout
-        topFlex={3}
+        topFlex={5}
         middleFlex={0}
         bottomFlex={1}
         equalHeight={false}

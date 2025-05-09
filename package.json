@@ -25,8 +25,10 @@
     "base64-js": "^1.5.1",
     "buffer": "^6.0.3",
     "expo": "~52.0.46",
+    "expo-blur": "~14.0.3",
     "expo-dev": "^0.0.1",
     "expo-dev-client": "~5.0.20",
+    "expo-haptics": "~14.0.1",
     "expo-linear-gradient": "^14.0.2",
     "expo-modules-core": "~2.2.3",
     "expo-sensors": "^14.0.2",
@@ -41,6 +43,7 @@
     "react-native": "^0.76.1",
     "react-native-audio": "^4.3.0",
     "react-native-biometrics": "^3.0.1",
+    "react-native-chart-kit": "^6.12.0",
     "react-native-fast-image": "^8.6.3",
     "react-native-fast-tflite": "^1.6.1",
     "react-native-fs": "^2.20.0",
@@ -57,9 +60,7 @@
     "react-native-uuid": "^2.0.3",
     "react-native-vector-icons": "^10.2.0",
     "react-native-vision-camera": "^4.6.4",
-    "vision-camera-resize-plugin": "^3.2.0",
-    "expo-blur": "~14.0.3",
-    "expo-haptics": "~14.0.1"
+    "vision-camera-resize-plugin": "^3.2.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",

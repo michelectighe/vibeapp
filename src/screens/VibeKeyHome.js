@@ -8,7 +8,7 @@ import { GradientBackground, HomeCard } from "@components";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./VibeKeyHome.styles";
 import { globalStyles } from "@styles";
-import { SectionLayoutNotSafe } from "@/components";
+import { SectionLayout } from "@/components";
 
 export const VibeKeyHome = () => {
   useAmbientControlForScreen(true);
@@ -33,18 +33,16 @@ export const VibeKeyHome = () => {
         <Text>Loading...</Text>
       ) : (
         <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
-          <SectionLayoutNotSafe
+          <SectionLayout
             topFlex={1}
             middleFlex={0}
             bottomFlex={0}
+            safe={false}
             topContent={
               <>
                 <View style={styles.titleWrapper}>
-                  <Text style={globalStyles.title}>
-                    Welcome Back, {profile?.displayName || "friend"}
-                  </Text>
+                  <Text style={styles.title}>Welcome Back, {profile?.displayName || "friend"}</Text>
                 </View>
-
                 <ScrollView
                   style={globalStyles.scrollView}
                   contentContainerStyle={globalStyles.scrollContent}

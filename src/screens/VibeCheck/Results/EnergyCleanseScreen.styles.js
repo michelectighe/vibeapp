@@ -1,26 +1,37 @@
 import { StyleSheet } from "react-native";
 import { Colors, Fonts } from "@constants";
 import { scaledStyle } from "@utils";
+import { SCREEN_WIDTH } from "@/utils";
 
 const rawStyles = {
-  container: {
-    padding: 16,
-    paddingTop: 60,
-    flex: 1,
+  titleWrapper: {
+    position: "absolute",
+    top: 100,
+    width: SCREEN_WIDTH,
+    alignItems: "center",
+    backgroundColor: "transparent",
   },
   title: {
-    fontSize: 32,
-    fontFamily: Fonts.Script,
+    position: "absolute",
+    top: 0,
+    marginBottom: 0,
+    left: 0,
+    right: 0,
     textAlign: "center",
-    marginBottom: 12,
-    color: Colors.mediumText,
-  },
-  sectionTitle: {
     fontSize: 24,
+    color: Colors.lightText,
+    fontFamily: Fonts.AppFont,
+  },
+middle: {
+
+},
+  sectionTitle: {
+    fontSize: 20,
     fontWeight: "bold",
-    marginVertical: 12,
+    marginVertical: 8,
     textAlign: "center",
-    color: "#333",
+    marginBottom: 0,
+    marginTop: 10,
   },
   closeButton: {
     position: "absolute",

@@ -16,6 +16,7 @@ import { styles } from "./QuantumJournalScreen.styles";
 import { useAmbientControlForScreen } from "@hooks";
 import { GradientBackground, SectionLayout, CustomSpiritualButton, CloseX } from "@/components";
 import { Colors } from "@/constants";
+import { globalStyles } from "@/styles";
 
 export const QuantumJournalScreen = () => {
   useAmbientControlForScreen(true);
@@ -43,8 +44,8 @@ export const QuantumJournalScreen = () => {
 
   const handleSave = () => {
     console.log("Saved:", { prompt, entry });
-    setEntry("");
-    setPrompt("");
+   // setEntry("");
+  //  setPrompt("");
     setAnimatedText("");
     setIsTyping(true);
   };
@@ -52,11 +53,11 @@ export const QuantumJournalScreen = () => {
   return (
     <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
       <SectionLayout
-        topFlex={1}
-        middleFlex={3}
+        topFlex={6}
+        middleFlex={12}
         bottomFlex={1}
         topContent={
-          <View style={styles.top}>
+          <View style={styles.titleWrapper}>
             <Text style={styles.title}>Quantum Journal</Text>{" "}
             <Text style={styles.prompt}>{animatedText}</Text>
           </View>
@@ -68,7 +69,7 @@ export const QuantumJournalScreen = () => {
               behavior={Platform.OS === "ios" ? "padding" : "height"}
               keyboardVerticalOffset={80} // tweak if needed for your layout
             >
-              <View style={{ width: "90%" }}>
+              <View style={{ width: "90%", overflow: "hidden" }}>
                 {!isTyping && (
                   <ScrollView
                     style={{ marginTop: 20, minWidth: "90%" }}
@@ -97,7 +98,9 @@ export const QuantumJournalScreen = () => {
           </TouchableWithoutFeedback>
         }
         bottomContent={
-          <Text style={{ fontSize: 16, color: "#ccc" }}>Your words shape your reality ✨</Text>
+          <View style={styles.bottomText}>
+            <Text style={styles.text}>Your words shape your reality</Text>
+          </View>
         }
       />
       <CloseX xColor={Colors.darkText} onPress={() => navigation.goBack()} />

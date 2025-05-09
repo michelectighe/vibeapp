@@ -16,7 +16,7 @@ import {
   CustomSpiritualButton,
   SparkleOverlay,
 } from "@components";
-import { SectionLayoutNotSafe } from "@/components";
+import { SectionLayout } from "@/components";
 import { Fonts, Colors } from "@constants";
 import { useAmbientControlForScreen, useVibeCheckNavigation } from "@hooks";
 import { styles } from "./EmotionalStateScreen.styles";
@@ -180,7 +180,7 @@ export const EmotionalStateScreen = () => {
             //console.log("Setting overall emotional state:", mostCommonEmotion);
             setEmotions(mostCommonEmotion);
           } else {
-            setEmotions("neutral");
+            setEmotions(null);
           }
         } catch (error) {
           console.error("Error in setEmotions useFocus:", error);
@@ -252,9 +252,9 @@ export const EmotionalStateScreen = () => {
       if (stat.size > 0) {
         await analyzeVoiceFromAudioUri(audioPath);
       } else {
-        setVoiceFrequency(0);
-        setVoiceStrength(0);
-        setVoiceClarity(0);
+        setVoiceFrequency(null);
+        setVoiceStrength(null);
+        setVoiceClarity(null);
       }
 
       uriRef.current = null;
@@ -381,11 +381,15 @@ export const EmotionalStateScreen = () => {
   );
 
   return (
-    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
-      <SectionLayoutNotSafe
+    <GradientBackground
+      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
+      logo={false}
+    >
+      <SectionLayout
         topFlex={3}
         middleFlex={2}
         bottomFlex={1}
+        safe={false}
         topContent={
           <>
             {device ? (

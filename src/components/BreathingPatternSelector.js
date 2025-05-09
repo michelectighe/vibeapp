@@ -42,8 +42,9 @@ const styles = StyleSheet.create({
     marginRight: 12,
     alignItems: "center",
     justifyContent: "center",
+    alignSelf: "center",
     width: 160,
-    height: 160, // 👈 limit card height
+    height: "60%",
   },
 
   selectedCard: {

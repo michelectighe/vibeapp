@@ -12,8 +12,9 @@ const rawStyles = {
     position: "relative",
   },
   formContainer: {
-    width: SCREEN_WIDTH * 0.9,
+    width: SCREEN_WIDTH * .9,
     alignItems: "stretch",
+    alignSelf: "center",
   },
   inputContainer: {
     flexDirection: "row",
@@ -22,17 +23,13 @@ const rawStyles = {
     borderRadius: 15,
     paddingHorizontal: 12,
     marginBottom: 15,
-    width: "100%",
   },
   input: {
-    width: "100%",
-    alignItems: "center",
     backgroundColor: "white",
     padding: 12,
     borderRadius: 15,
     marginBottom: 15,
     fontSize: 16,
-    //   textAlignVertical: "top",
   },
   passwordContainer: {
     flexDirection: "row",
@@ -57,27 +54,17 @@ const rawStyles = {
     zIndex: 1,
   },
   scrollContent: {
-    paddingTop: 200, // this matches the height of your title/logo area
+    paddingTop: 150, // this matches the height of your title/logo area
     paddingHorizontal: 20,
     paddingBottom: 160,
   },
   titleWrapper: {
-    zIndex: 1,
-    position: "absolute",
-    top: 70,
-    left: 0,
-    right: 0,
-    alignItems: "center",
-    paddingTop: 60,
-    paddingBottom: 20,
-    backgroundColor: "transparent", // or a gradient if needed
+    width: "100%",
+   // backgroundColor: "red",
+    alignSelf: "center", // or a gradient if needed
+    justifyContent: "center",
   },
   title: {
-    position: "absolute",
-    top: 0,
-    marginBottom: 0,
-    left: 0,
-    right: 0,
     textAlign: "center",
     fontSize: 30,
     color: Colors.darkText,

@@ -21,6 +21,11 @@ const rawStyles = {
     marginBottom: 20,
     backgroundColor: "red",
   },
+  appleButton: {
+    width: 200,
+    height: 44,
+    marginBottom: 10,
+  }
 };
 
 export const styles = StyleSheet.create(scaledStyle(rawStyles));

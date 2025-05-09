@@ -4,22 +4,31 @@ import { Colors, Fonts } from "@constants";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 
 const rawStyles = {
-  top: {
-    marginTop: 40,
+  titleWrapper: {
+    position: "absolute",
+    top: 70,
+    width: SCREEN_WIDTH,
+    alignItems: "center",
+    backgroundColor: "transparent",
   },
   title: {
-    fontSize: 28,
-    fontWeight: "600",
+    position: "absolute",
+    top: 0,
+    marginBottom: 0,
+    left: 0,
+    right: 0,
     textAlign: "center",
-    marginBottom: 20,
-    color: Colors.darkText,
+    fontSize: 24,
+    color: Colors.lightText,
+    fontFamily: Fonts.AppFont,
   },
   prompt: {
     fontSize: 20,
     textAlign: "center",
+    marginTop: 50,
     marginVertical: 20,
     color: Colors.lightText,
-    width: "70%",
+    width: "80%",
   },
   inputContainer: {
     flex: 1,
@@ -47,6 +56,14 @@ const rawStyles = {
   saveText: {
     color: "#FDEBD0",
     fontWeight: "600",
+  },
+  bottomText: {
+    position: "absolute",
+    bottom: 0,
+    justifyContent: "center",
+  },
+  text: {
+    color: Colors.lightText,
   },
 };
 

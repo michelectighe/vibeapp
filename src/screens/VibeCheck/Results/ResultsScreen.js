@@ -3,12 +3,12 @@ import { View, TouchableOpacity, Text, ActivityIndicator } from "react-native";
 import FastImage from "react-native-fast-image";
 import { saveResults } from "@utils";
 import { useAnalysis } from "@context";
-import { CustomButton, CloseX, GradientBackground, SectionLayoutNotSafe } from "@components";
-import { vibrationLevels } from "@data";
+import { CustomButton, CloseX, GradientBackground, SectionLayout } from "@components";
 import { Colors } from "@constants";
 import { styles } from "./ResultsScreen.styles";
 import { globalStyles } from "@styles";
-import HapticTest from "@/components/HapticTest";
+import { isValidScore } from "@/utils";
+//import HapticTest from "@/components/HapticTest";
 
 Text.defaultProps = Text.defaultProps || {};
 Text.defaultProps.allowFontScaling = false;
@@ -35,15 +35,8 @@ export const ResultsScreen = ({ navigation }) => {
     emotionScore,
     overallVibrationScore,
     chakraScores,
+    vibrationInfo,
   } = useAnalysis();
-
-  const getVibrationInfo = (score) => {
-    if (typeof score !== "number" || isNaN(score)) return null;
-    return (
-      vibrationLevels.find((level) => score >= level.minScore) ??
-      vibrationLevels[vibrationLevels.length - 1]
-    );
-  };
 
   useEffect(() => {
     if (overallVibrationScore == null || hasSaved.current) return;
@@ -52,7 +45,7 @@ export const ResultsScreen = ({ navigation }) => {
 
     const fetchData = async () => {
       try {
-        const result = getVibrationInfo(overallVibrationScore);
+        const result = vibrationInfo;
         if (!result) return;
 
         await saveResultsToDB();
@@ -76,18 +69,21 @@ export const ResultsScreen = ({ navigation }) => {
 
   const saveResultsToDB = async () => {
     setSaving(true);
+
+    const sanitize = (label, value) => (isValidScore(label, value) ? value : -1);
+
     const newResult = {
       timestamp: new Date(),
-      voiceFrequencyScore: voiceFrequencyScore?.score,
-      heartRateScore,
-      hrvScore,
-      motionScore,
-      overallVibrationScore,
-      chakraScores,
-      environmentScore,
-      voiceStrengthScore: voiceStrengthScore?.score,
-      voiceClarityScore: voiceClarityScore?.score,
-      emotionScore: emotionScore?.score,
+      voiceFrequencyScore: sanitize("voiceFrequency", voiceFrequencyScore?.score),
+      heartRateScore: sanitize("heartRateScore", heartRateScore),
+      hrvScore: sanitize("hrvScore", hrvScore),
+      motionScore: sanitize("motionScore", motionScore),
+      environmentScore: sanitize("environmentScore", environmentScore),
+      voiceStrengthScore: sanitize("voiceStrength", voiceStrengthScore?.score),
+      voiceClarityScore: sanitize("voiceClarity", voiceClarityScore?.score),
+      emotionScore: sanitize("emotionScore", emotionScore?.score),
+      overallVibrationScore: sanitize("overallVibrationScore", overallVibrationScore), // optional, could skip check if you trust it
+      chakraScores: chakraScores || {},
     };
 
     if (newResult) {
@@ -109,16 +105,16 @@ export const ResultsScreen = ({ navigation }) => {
   }
 
   return (
-    <GradientBackground colors={[overallColor, "white", overallColor]}>
-      <SectionLayoutNotSafe
-        topFlex={1}
+    <GradientBackground colors={["white", overallColor, "white"]}>
+      <SectionLayout
+        topFlex={2}
         middleFlex={4}
         bottomFlex={1}
+        safe={false}
         topContent={
           <>
-            <HapticTest />
             <CloseX
-              xColor={"white"}
+              xColor={overallColor}
               onPress={() =>
                 navigation.reset({
                   index: 0,
@@ -126,7 +122,7 @@ export const ResultsScreen = ({ navigation }) => {
                 })
               }
             />
-            <View style={globalStyles.titleWrapper}>
+            <View style={styles.titleWrapper}>
               <Text style={[styles.score, { color: overallColor }]}>
                 {overallVibrationScore.toFixed(0)}%
               </Text>

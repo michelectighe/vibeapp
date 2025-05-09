@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { View, Text, ScrollView } from "react-native";
 import { useAnalysis } from "@context";
 import { CustomSpiritualButton, CloseX } from "@components";
-import { vibrationLevels } from "@data";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./ResultDetailsScreen.styles";
 import { globalStyles } from "@styles";
@@ -10,7 +9,7 @@ import { GradientBackground } from "@/components";
 
 export const ResultDetailScreen = ({ navigation }) => {
   useAmbientControlForScreen(true);
-  const { overallVibrationScore } = useAnalysis();
+  const { vibrationInfo } = useAnalysis();
 
   const [overallLabel, setOverallLabel] = useState();
   const [overallText1, setOverallText1] = useState();
@@ -20,15 +19,14 @@ export const ResultDetailScreen = ({ navigation }) => {
   const [overallText5, setOverallText5] = useState();
   const [overallColor, setColor] = useState();
   const [overallColor2, setColor2] = useState();
+  const [overallColor3, setColor3] = useState();
   const [label2, setLabel2] = useState();
   const [label3, setLabel3] = useState();
   const [label4, setLabel4] = useState();
   const [label5, setLabel5] = useState();
 
-  const getVibrationInfo = (score) => vibrationLevels.find((level) => score >= level.minScore);
-
   useEffect(() => {
-    const result = getVibrationInfo(overallVibrationScore);
+    const result = vibrationInfo;
     if (!result) return;
     if (result) {
       setOverallLabel(result.label);
@@ -43,6 +41,7 @@ export const ResultDetailScreen = ({ navigation }) => {
       setOverallText5(result.text5);
       setColor(result.color);
       setColor2(result.color2);
+      setColor3(result.color3);
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -60,8 +59,8 @@ export const ResultDetailScreen = ({ navigation }) => {
         </View>
 
         <ScrollView
-          style={globalStyles.scrollView}
-          contentContainerStyle={globalStyles.scrollContent}
+          style={styles.scrollView}
+          contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
         >
           <View style={[styles.textContainer, { backgroundColor: overallColor }]}>

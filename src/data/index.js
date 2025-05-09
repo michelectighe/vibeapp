@@ -1,4 +1,4 @@
-export { frequencies } from "./FrequenciesData";
+export { frequencies } from "./frequenciesData";
 export { getEnergyCleanseContent } from "./energyCleanseData";
 export { getJournalPrompts } from "./journalPrompts";
 export { metricDetails } from "./metricDetails";
@@ -8,3 +8,5 @@ export { vibeHomeCards } from "./vibeHomeCards";
 export { vibrationLevels } from "./vibrationLevels";
 export { welcomeCards } from "./welcomeCards";
 export { subscriptionFeatures } from "./subscriptionFeatures";
+export { meditationList } from "./meditationList.js";
+export { breathingPatterns } from "./breathingPatterns";

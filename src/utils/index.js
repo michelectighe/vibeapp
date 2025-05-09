@@ -45,3 +45,6 @@ export { scale, verticalScale, moderateScale, fontScale, scaledStyle } from "./l
 export { signInWithApple } from "./signInWithApple";
 
 export { isPasswordValid, getPasswordStrength } from "./validatePassword";
+export { getVibrationInfo } from "./vibrationInfo";
+export { isValidScore, formatScoreForDisplay } from "./validScores";
+export { getVibeRecommendations } from "./getRecommendations";

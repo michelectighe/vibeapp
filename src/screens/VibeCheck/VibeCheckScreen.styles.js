@@ -16,13 +16,12 @@ const rawStyles = {
     alignItems: "center",
   },
   descriptionText: {
-    marginTop: "5%",
-    marginBottom: 50,
+    justifyContent: "center",
     textAlign: "center",
     color: Colors.lightText,
     fontFamily: Fonts.AppFont,
     padding: 30,
-    fontSize: 24,
+    fontSize: 18,
   },
   buttonContainer: {
     position: "absolute",

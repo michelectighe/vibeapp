@@ -45,4 +45,32 @@ export const Colors = {
   hold: "#C3F0DD",
 
   background: "transparent",
+
+  divineColor1: "#5a35cd", // Primary (Purple)
+  divineColor2: "#c8bfff", // Soft/Lavender
+  divineColor3: "#3b238a", // Deep Accent
+
+  transcendentColor1: "#004aad", // Primary (Indigo)
+  transcendentColor2: "#a3c6ff", // Soft/Periwinkle
+  transcendentColor3: "#002b6b", // Deep Accent
+
+  elevatedColor1: "#46c9fe", // Primary (Sky Blue)
+  elevatedColor2: "#d6f4ff", // Soft/Icy Blue
+  elevatedColor3: "#2c8fb3", // Deep Accent
+
+  balancedColor1: "#29b554", // Primary (Leafy Green)
+  balancedColor2: "#c1f0d0", // Soft/Mint
+  balancedColor3: "#1e6e3a", // Deep Accent
+
+  neutralColor1: "#ffd200", // Primary (Golden Yellow)
+  neutralColor2: "#fff5cc", // Soft/Creamy Yellow
+  neutralColor3: "#bfa000", // Deep Accent
+
+  lowColor1: "#ff7a00", // Primary (Orange)
+  lowColor2: "#ffd2a6", // Soft/Peach
+  lowColor3: "#cc5d00", // Deep Accent
+
+  blockColor1: "#db0808", // Primary (Crimson)
+  blockColor2: "#ffb3b3", // Soft/Pink
+  blockColor3: "#910606", // Deep Accent
 };

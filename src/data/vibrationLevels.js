@@ -1,16 +1,16 @@
 // data/vibrationLevels.js
 import {} from "react-native";
+import { Colors } from "@/constants";
 
 export const vibrationLevels = [
   {
     id: "level1",
     label: "Divine Alignment",
     minScore: 91,
-    color: "#5a35cd",
+    color: Colors.divineColor1,
     description:
       "A state of profound spiritual connection and harmony with the universe. Intuition is fully awakened, bringing peace, clarity, and the ability to manifest effortlessly",
     image: require("@assets/images/buttonDivine.webp"),
-
     text1:
       "You are in complete harmony with the universe, radiating love, joy, and peace. Manifestation comes effortlessly, and you attract abundance with ease.",
     label2: "How to Maintain & Elevate:",
@@ -24,13 +24,19 @@ export const vibrationLevels = [
       "Light Body Activation – Visualizing your entire being filled with divine light to strengthen your energetic field.",
     label5: "Be Mindful of:",
     text5: "Over exertion or spiritual burnout from excessive energy work.",
-    color2: "#c8bfff",
+    color2: Colors.divineColor2,
+    color3: Colors.divineColor3,
+    recommendations: {
+      meditations: ["1", "3"], // IDs from `meditationList`
+      frequencies: [396, 528], // Hz values from `frequencies`
+      breathing: ["box", "deep"], // IDs from `BREATH_PATTERNS`
+    },
   },
   {
     id: "level2",
     label: "Transcendent Frequency",
     minScore: 81,
-    color: "#004aad",
+    color: Colors.transcendentColor1,
     description:
       "Elevated energy, profound clarity, and an expanded sense of self. Intuition and manifestation are strong, with a deep sense of peace and purpose",
     image: require("@assets/images/buttonTranscendent.webp"),
@@ -47,13 +53,19 @@ export const vibrationLevels = [
     text4: "Third Eye Activation Meditation – Visualization and chanting to awaken intuition.",
     label5: "Recommended Spiritual Practice:",
     text5: "Sacred Chanting – Recite mantras like 'Om Mani Padme Hum' to elevate vibration.",
-    color2: "#004aad",
+    color2: Colors.transcendentColor2,
+    color3: Colors.transcendentColor3,
+    recommendations: {
+      meditations: ["1", "3"], // IDs from `meditationList`
+      frequencies: [396, 528], // Hz values from `frequencies`
+      breathing: ["box", "deep"], // IDs from `BREATH_PATTERNS`
+    },
   },
   {
     id: "level3",
     label: "Elevated Frequency",
     minScore: 71,
-    color: "#46c9fe",
+    color: Colors.elevatedColor1,
     description:
       "Consistent positivity and emotional balance. Personal energy remains strong, and challenges are managed with resilience, though occasional dips occur.",
     image: require("@assets/images/buttonElevated.webp"),
@@ -70,13 +82,19 @@ export const vibrationLevels = [
     label5: "Recommended Spiritual Practice:",
     text5: "Crystal Healing – Carry high-vibration crystals like rose quartz or citrine.",
 
-    color2: "#d6f4ff",
+    color2: Colors.elevatedColor2,
+    color3: Colors.elevatedColor3,
+    recommendations: {
+      meditations: ["1", "3"], // IDs from `meditationList`
+      frequencies: [396, 528], // Hz values from `frequencies`
+      breathing: ["box", "deep"], // IDs from `BREATH_PATTERNS`
+    },
   },
   {
     id: "level4",
     label: "Balanced State",
     minScore: 61,
-    color: "#29b554",
+    color: Colors.balancedColor1,
     description:
       "Steady energy with manageable fluctuations. Emotional and mental states can shift, but there is a consistent effort toward growth and maintaining stability",
     image: require("@assets/images/buttonBalanced.webp"),
@@ -92,13 +110,19 @@ export const vibrationLevels = [
     text4: "Grounding Meditation – Visualizing roots anchoring your energy to the earth.",
     label5: "Recommended Spiritual Practice:",
     text5: "Gratitude Journaling – Writing daily reflections to shift toward positivity.",
-    color2: "#c1f0d0",
+    color2: Colors.balancedColor2,
+    color3: Colors.balancedColor3,
+    recommendations: {
+      meditations: ["1", "3"], // IDs from `meditationList`
+      frequencies: [396, 528], // Hz values from `frequencies`
+      breathing: ["box", "deep"], // IDs from `BREATH_PATTERNS`
+    },
   },
   {
     id: "level5",
     label: "Neutral State",
     minScore: 51,
-    color: "#ffd200",
+    color: Colors.neutralColor1,
     description:
       "Moderate energy levels with fluctuations in mood, focus, and motivation. Some resistance or stress may lower vibration, requiring conscious effort to maintain balance",
     image: require("@assets/images/buttonNeutral.webp"),
@@ -114,13 +138,19 @@ export const vibrationLevels = [
     label5: "Recommended Spiritual Practice:",
     text5:
       "Cleansing rituals – Using incense, sound bowls, or water therapy to clear stagnant energy.",
-    color2: "#fff5cc",
+    color2: Colors.neutralColor2,
+    color3: Colors.neutralColor3,
+    recommendations: {
+      meditations: ["1", "3"], // IDs from `meditationList`
+      frequencies: [396, 528], // Hz values from `frequencies`
+      breathing: ["box", "deep"], // IDs from `BREATH_PATTERNS`
+    },
   },
   {
     id: "level6",
     label: "Low Resonance",
     minScore: 41,
-    color: "#ff7a00",
+    color: Colors.lowColor1,
     description:
       "Persistent feelings of fatigue, negativity, or disconnection. External stressors and unresolved issues are present, requiring deep work for realignment",
     image: require("@assets/images/buttonLow.webp"),
@@ -137,13 +167,19 @@ export const vibrationLevels = [
     label5: "Recommended Spiritual Practice:",
     text5: "Shadow work – Journaling or therapy to confront and heal emotional wounds.",
 
-    color2: "#ffd2a6",
+    color2: Colors.lowColor2,
+    color3: Colors.lowColor3,
+    recommendations: {
+      meditations: ["1", "3"], // IDs from `meditationList`
+      frequencies: [396, 528], // Hz values from `frequencies`
+      breathing: ["box", "deep"], // IDs from `BREATH_PATTERNS`
+    },
   },
   {
     id: "level7",
     label: "Energy Blockage",
     minScore: 0,
-    color: "#db0808",
+    color: Colors.blockColor1,
     description:
       "A low state where physical, emotional, or mental barriers prevent growth. Feelings of being stuck or overwhelmed, requiring focused effort and healing practices to elevate vibration",
     image: require("@assets/images/buttonBlocked.webp"),
@@ -158,6 +194,12 @@ export const vibrationLevels = [
     text4: "Inner child healing meditation – Connecting with your inner child to heal past wounds.",
     label5: "Recommended Spiritual Practice:",
     text5: "Energy cord cutting – Visualizing the release of toxic energetic ties.",
-    color2: "#ffb3b3",
+    color2: Colors.blockColor2,
+    color3: Colors.blockColor3,
+    recommendations: {
+      meditations: ["1", "3"], // IDs from `meditationList`
+      frequencies: [396, 528], // Hz values from `frequencies`
+      breathing: ["box", "deep"], // IDs from `BREATH_PATTERNS`
+    },
   },
 ];

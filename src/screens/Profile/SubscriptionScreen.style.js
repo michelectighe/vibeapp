@@ -4,39 +4,26 @@ import { Colors, Fonts } from "@constants";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 
 const rawStyles = {
-  titleWrapper: {
-    zIndex: 1,
-    position: "absolute",
-    top: 120,
-    left: 0,
-    right: 0,
-    alignItems: "center",
-    paddingTop: 60,
-    paddingBottom: 20,
-    backgroundColor: "transparent", // or a gradient if needed
-  },
-
-  feature: {
-    fontSize: 16,
-    fontFamily: "AppFont",
-    marginBottom: 10,
-    color: "#333",
-  },
   featuresBox: {
-    height: SCREEN_HEIGHT * 0.6, // or whatever fits nicely on your layout
+    height: "90%", // or whatever fits nicely on your layout
     width: "90%",
     backgroundColor: "#fff",
     borderRadius: 10,
     padding: 10,
+    marginTop:10,
     marginBottom: 20,
     alignSelf: "center",
     overflow: "hidden",
   },
-
+  feature: {
+    fontSize: 16,
+    fontFamily: "AppFont",
+    marginBottom: 10,
+    color: Colors.darkText,
+  },
   featuresScroll: {
     flex: 1,
   },
-
   subscribeButton: {
     backgroundColor: "#fff",
     borderRadius: 15,
@@ -58,6 +45,10 @@ const rawStyles = {
     textAlign: "center",
     marginBottom: 10,
   },
+  cancelButton: {
+justifyContent: "center",
+    // bottom: 10,
+  }
 };
 
 export const styles = StyleSheet.create(scaledStyle(rawStyles));

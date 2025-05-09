@@ -31,7 +31,7 @@ const rawStyles = {
     paddingTop: 12,
   },
   labelTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontFamily: Fonts.medium,
     marginBottom: 10,
     color: Colors.lightText,

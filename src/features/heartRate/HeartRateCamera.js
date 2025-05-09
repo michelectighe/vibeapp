@@ -71,7 +71,7 @@ export const HeartRateCamera = ({ onStableReading }) => {
       };
       setup();
       return () => {
-        console.log("leaving heartratecamer");
+   ///     console.log("leaving heartratecamer");
       };
     }, [device, cameraReady]), // eslint-disable-line react-hooks/exhaustive-deps
   );
@@ -79,7 +79,7 @@ export const HeartRateCamera = ({ onStableReading }) => {
   useFocusEffect(
     useCallback(() => {
       return () => {
-        console.log("start of usefocus return");
+   //     console.log("start of usefocus return");
         global.lastTs = 99999999999;
         (async () => {
           await cleanupMedia({
@@ -92,8 +92,7 @@ export const HeartRateCamera = ({ onStableReading }) => {
           setCameraReady(false);
           setCameraActive(false);
           setFlashMode("off");
-          console.log("end of usefocus return");
-          //    const averageMetrics = computeAverageMetrics();
+           //    const averageMetrics = computeAverageMetrics();
           //   console.log("averageMetric:", averageMetrics);
           //   if (averageMetrics) setHeartRate(averageMetrics);
         })();
@@ -108,7 +107,7 @@ export const HeartRateCamera = ({ onStableReading }) => {
       useNativeDriver: true,
     }).start();
     return () => {
-      console.log("end of useEffect");
+//     console.log("end of useEffect");
     };
   }, []);
 
@@ -116,13 +115,13 @@ export const HeartRateCamera = ({ onStableReading }) => {
     //  if (fingerWarning != null) {
     warningOpacity.setValue(0);
     return () => {
-      console.log("warningOpacity useEffect return");
+  //    console.log("warningOpacity useEffect return");
     };
     // }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const computeAverageMetrics = () => {
-    console.log("in computeAverageMetrics");
+ //   console.log("in computeAverageMetrics");
     const history = metricsHistoryRef.current;
     if (history.length === 0) return null;
     const sum = history.reduce(
@@ -134,7 +133,7 @@ export const HeartRateCamera = ({ onStableReading }) => {
       },
       { bpm: 0, sdnn: 0, rmssd: 0 },
     );
-    console.log("end of compute metrics:", Math.round(sum.bpm / history.length));
+ //   console.log("end of compute metrics:", Math.round(sum.bpm / history.length));
     return {
       bpm: Math.round(sum.bpm / history.length),
       sdnn: (sum.sdnn / history.length).toFixed(0),
@@ -162,7 +161,7 @@ export const HeartRateCamera = ({ onStableReading }) => {
 
     // Only update if it actually changed
     if (newWarningRef.current && lastWarningRef.current !== newWarningRef.current) {
-      console.log("changed");
+    //  console.log("changed");
       lastWarningRef.current = newWarningRef.current;
       setFingerWarning(newWarningRef.current);
       Animated.timing(warningOpacity, {
@@ -224,7 +223,7 @@ export const HeartRateCamera = ({ onStableReading }) => {
     console.log("Timer expired — forcing stable.");
     if (!stable) {
       const metrics = computeAverageMetrics() ?? {};
-      console.log("metrics:", metrics);
+  //    console.log("metrics:", metrics);
       setStable(true);
       setHeartRate(metrics);
       onStableReading(metrics); // pass something if you have it
@@ -281,7 +280,7 @@ export const HeartRateCamera = ({ onStableReading }) => {
           />
         )}
         <CircularTimer
-          duration={60000}
+          duration={1000}
           size={100}
           color={Colors.darkText}
           onComplete={handleTimerExpired}
@@ -323,7 +322,7 @@ export const HeartRateCamera = ({ onStableReading }) => {
 const rawStyles = {
   container: {
     width: "100%",
-    height: 250, // Lock vertical space
+    height: "100%", // Lock vertical space
     position: "relative",
     backgroundColor: "transparent",
   },
@@ -336,7 +335,7 @@ const rawStyles = {
     height: 100,
     borderRadius: 50,
     overflow: "hidden",
-    backgroundColor: "#000",
+    backgroundColor: "blue",
     justifyContent: "center",
     alignItems: "center",
   },

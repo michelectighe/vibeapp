@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
@@ -29,7 +29,8 @@ export const SignUpScreen = ({ navigation }) => {
   const [error, setError] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
   const handleSignUpWithApple = async () => {
-    signInWithApple();
+    await signInWithApple();
+    navigation.replace("UpdateProfileScreen");
   };
   const handleSignUp = async () => {
     //console.log("handlesignup");
@@ -65,7 +66,7 @@ export const SignUpScreen = ({ navigation }) => {
       });
 
       //console.log("✅ User signed up:", name);
-      navigation.replace("ProfileSetupScreen");
+      navigation.replace("UpdateProfileScreen");
 
       //navigation.navigate("SignInScreen");
     } catch (err) {
@@ -181,7 +182,6 @@ export const SignUpScreen = ({ navigation }) => {
           </>
         }
       />
-
     </GradientBackground>
   );
 };

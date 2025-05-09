@@ -7,8 +7,10 @@ export const MeditationStack = () => {
   const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator
-      screenOptions={() => ({
+      initialRouteName="MeditationSpace"
+    screenOptions={() => ({
         headerShown: false,
+         tabBarStyle: { display: "none" },
       })}
     >
       <Stack.Screen

@@ -17,7 +17,11 @@
       "@services/*": ["src/services/*"],
       "@styles/*": ["src/styles/*"],
       "@utils/*": ["src/utils/*"]
-    }
+    },
+    "target": "es6",
+    "module": "commonjs",
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true
   },
   "exclude": ["node_modules", "babel.config.js", "metro.config.js"],
   "include": ["src"]

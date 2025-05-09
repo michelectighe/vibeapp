@@ -13,6 +13,7 @@ export const SectionLayout = ({
   middleFlex = 2,
   bottomFlex = 1,
   style,
+  safe = true, // ✅ new prop
 }) => {
   const insets = useSafeAreaInsets();
 
@@ -22,18 +23,43 @@ export const SectionLayout = ({
     width: SCREEN_WIDTH,
   };
 
+  const Wrapper = safe ? SafeAreaView : View;
+
   return (
-    <SafeAreaView style={[styles.safeArea, { paddingBottom: insets.bottom + 60 }]}>
+    <Wrapper style={[styles.safeArea, safe && { paddingBottom: insets.bottom + 60 }]}>
       <View style={[styles.container, style]}>
-        <View style={[sharedStyle, { flex: equalHeight ? 1 : topFlex }, styles.topPadding]}>
+        <View
+          style={[
+            sharedStyle,
+            { backgroundColor: "transparent", flex: equalHeight ? 1 : topFlex },
+            styles.topPadding,
+          ]}
+        >
           {topContent}
         </View>
-        <View style={[sharedStyle, { flex: equalHeight ? 1 : middleFlex }]}>{middleContent}</View>
-        <View style={[sharedStyle, { flex: equalHeight ? 1 : bottomFlex }, styles.bottomPadding]}>
+        <View
+          style={[
+            sharedStyle,
+            { backgroundColor: "transparent", flex: equalHeight ? 1 : middleFlex },
+          ]}
+        >
+          {middleContent}
+        </View>
+        <View
+          style={[
+            sharedStyle,
+            {
+              backgroundColor: "transparent",
+              flex: equalHeight ? 1 : bottomFlex,
+              justifyContent: "flex-start",
+            },
+            styles.bottomPadding,
+          ]}
+        >
           {bottomContent}
         </View>
       </View>
-    </SafeAreaView>
+    </Wrapper>
   );
 };
 
@@ -48,6 +74,9 @@ const rawStyles = {
   },
   topPadding: {
     paddingTop: 20,
+  },
+  bottomPadding: {
+    paddingBottom: 50,
   },
 };
 

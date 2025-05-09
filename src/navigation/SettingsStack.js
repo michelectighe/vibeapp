@@ -4,7 +4,6 @@ import {
   SettingsScreen,
   SignInScreen,
   SignUpScreen,
-  ProfileSetupScreen,
   ForgotPasswordScreen,
   SubscriptionScreen,
   UpdateProfileScreen,
@@ -39,13 +38,6 @@ export const SettingsStack = () => {
       <Stack.Screen
         name="SignUpScreen"
         component={SignUpScreen}
-        options={{
-          headerShown: false,
-        }}
-      />
-      <Stack.Screen
-        name="ProfileSetupScreen"
-        component={ProfileSetupScreen}
         options={{
           headerShown: false,
         }}

@@ -4,12 +4,11 @@ import { Colors, Fonts } from "@constants";
 
 const rawStyles = {
   welcomeText: {
-    width: "80%",
+    width: "100%",
     textAlign: "center",
     fontSize: 28,
     color: Colors.darkText,
-    // fontWeight: "600",
-    marginBottom: 20,
+  //  marginBottom: 20,
     fontFamily: Fonts.AppFontBold,
   },
 
@@ -19,7 +18,7 @@ const rawStyles = {
     padding: 20,
     marginRight: 16,
     width: 280,
-    height: "80%",
+    height: "100%",
     justifyContent: "center",
     shadowColor: "#000",
     shadowOpacity: 0.1,
@@ -44,7 +43,7 @@ const rawStyles = {
     position: "absolute",
     left: 0,
     right: 0,
-    top: "50%",
+    top: "65%",
    // bottom: "25%",
     fontSize: 16,
     color: Colors.darkText,

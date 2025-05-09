@@ -3,7 +3,7 @@ import { Animated, Text, View, ScrollView } from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { useUserProfile } from "@context";
 import { toolsCards } from "@data";
-import { GradientBackground, HomeCard, SectionLayoutNotSafe } from "@components";
+import { GradientBackground, HomeCard, SectionLayout } from "@components";
 import { Colors } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./ToolsMainScreen.styles";
@@ -32,14 +32,15 @@ export const ToolsMainScreen = () => {
         <Text>Loading...</Text>
       ) : (
         <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
-          <SectionLayoutNotSafe
+          <SectionLayout
             topFlex={1}
             middleFlex={0}
             bottomFlex={0}
+            safe={false}
             topContent={
               <>
                 <View style={styles.titleWrapper}>
-                  <Text style={globalStyles.title}>Healing Journey</Text>
+                  <Text style={styles.title}>Healing Journey</Text>
                 </View>
 
                 <ScrollView

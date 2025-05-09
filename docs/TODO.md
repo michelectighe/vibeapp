@@ -49,6 +49,7 @@
 - [ ] apply sectionLayout to all screens
 - [x] style results screen
 - [x] breathing screen: change circle to fuzzy glow
+- [ ] centralize colors
 
 ### 3. Navigaton
 
@@ -56,7 +57,7 @@
 
 ### 4. Meditation Space Screen Polish
 
-- [ ] Change navigation (button??)
+- [ ] Remove tabbar
 - [ ] Remove Header
 - [x] Figure out tab bar with background image
 

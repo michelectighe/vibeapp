@@ -200,8 +200,8 @@ const styles = StyleSheet.create({
   note: {
     position: "absolute",
     padding: 20,
-    width: 120,
-    height: 120,
+    width: 100,
+    height: 100,
     borderRadius: 10,
     justifyContent: "center",
     alignItems: "center",

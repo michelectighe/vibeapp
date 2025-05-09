@@ -6,7 +6,7 @@ import Purchases from "react-native-purchases";
 import { setSubscriptionStatus } from "@utils";
 import { styles } from "./SubscriptionScreen.style";
 import { globalStyles } from "@styles";
-import { GradientBackground, SectionLayoutNotSafe } from "@components";
+import { GradientBackground, SectionLayout } from "@components";
 import { Colors } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
 import { subscriptionFeatures } from "@data";
@@ -50,16 +50,19 @@ export const SubscriptionScreen = ({ navigation, route }) => {
 
   return (
     <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
-      <SectionLayoutNotSafe
-        topFlex={1}
-        middleFlex={0}
-        bottomFlex={0}
+      <SectionLayout
+        topFlex={2}
+        middleFlex={6}
+        bottomFlex={1}
         topContent={
           <>
-            <View style={styles.titleWrapper}>
+            <View style={globalStyles.titleWrapper}>
               <Text style={globalStyles.title}>Go Premium</Text>
             </View>
-
+          </>
+        }
+        middleContent={
+          <>
             <View style={styles.featuresBox}>
               <ScrollView
                 style={globalStyles.featureScroll}
@@ -87,14 +90,15 @@ export const SubscriptionScreen = ({ navigation, route }) => {
                 </TouchableOpacity>
               ))
             )}
-
-            <TouchableOpacity
-              onPress={() => navigation.navigate("Home")}
-              style={styles.cancelButton}
-            >
-              <Text style={styles.cancelText}>Cancel</Text>
-            </TouchableOpacity>
           </>
+        }
+        bottomContent = {
+          <TouchableOpacity
+          onPress={() => navigation.navigate("Home")}
+          style={styles.cancelButton}
+        >
+          <Text style={styles.cancelText}>Cancel</Text>
+        </TouchableOpacity>
         }
       />
     </GradientBackground>
