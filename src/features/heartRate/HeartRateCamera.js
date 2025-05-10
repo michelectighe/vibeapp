@@ -280,7 +280,7 @@ export const HeartRateCamera = ({ onStableReading }) => {
           />
         )}
         <CircularTimer
-          duration={1000}
+          duration={30000}
           size={100}
           color={Colors.darkText}
           onComplete={handleTimerExpired}

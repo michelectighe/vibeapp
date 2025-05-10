@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, Dimensions, StyleSheet, ScrollView } from "react-native";
 import { BarChart } from "react-native-chart-kit";
 import { SectionLayout } from "@components";
-import { getVibeHistory, groupScores, SCREEN_HEIGHT, SCREEN_WIDTH } from "@/utils";
+import { getVibeHistory, groupScores, SCREEN_WIDTH } from "@/utils";
 
 const screenWidth = Dimensions.get("window").width;
 
@@ -56,7 +56,7 @@ export const VibeHistoryScreen = () => {
                   ],
                 }}
                 width={screenWidth - 20}
-                height={SCREEN_HEIGHT * .3}
+                height={220}
                 fromZero={true}
                 segments={5}
                 withCustomBarColorFromData={true}
@@ -149,7 +149,6 @@ const styles = StyleSheet.create({
     width: SCREEN_WIDTH,
     alignItems: "center",
     paddingRight: 0,
- 
   },
   dayRow: {
     width: SCREEN_WIDTH,
@@ -182,8 +181,6 @@ const styles = StyleSheet.create({
   },
 
   detailsBox: {
-    width: SCREEN_WIDTH *.9,
-    height: "100%",
     marginHorizontal: 20,
     padding: 12,
     borderRadius: 12,

@@ -57,13 +57,15 @@ const styles = StyleSheet.create({
     position: "absolute",
     width: 120,
     height: 120,
-    top: 0,
+    top: 30,
     left: 0,
     right: 0,
     bottom: 0,
   },
 
   logo: {
+    position: "absolute",
+    top: 40,
     width: 100, // make it larger than the container
     height: 100,
     zIndex: 1,

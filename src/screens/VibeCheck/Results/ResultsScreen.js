@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { View, TouchableOpacity, Text, ActivityIndicator } from "react-native";
 import FastImage from "react-native-fast-image";
 import { saveResults } from "@utils/saveResults";
-import { useAnalysis } from "@context";
+import { useAnalysis } from "@context/AnalysisContext";
 import { CustomButton, CloseX, GradientBackground, SectionLayout } from "@components";
 import { Colors } from "@constants";
 import { styles } from "./ResultsScreen.styles";

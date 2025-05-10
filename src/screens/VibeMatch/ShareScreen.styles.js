@@ -4,15 +4,39 @@ import { Colors, Fonts } from "@constants";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 
 const rawStyles = {
-  container: {
-    flex: 1,
-    padding: 0,
+
+    titleWrapper: {
+    position: "absolute",
+    top: 100,
+    width: SCREEN_WIDTH,
+    alignItems: "center",
     backgroundColor: "transparent",
   },
-  innerContainer: {
-    paddingTop: 0,
-    paddingHorizontal: "5%",
+  title: {
+    position: "absolute",
+    top: 0,
+    marginBottom: 0,
+    left: 0,
+    right: 0,
+    textAlign: "center",
+    fontSize: 24,
+    color: Colors.lightText,
+    fontFamily: Fonts.AppFont,
   },
+    subTitle: {
+    position: "absolute",
+    top: 50,
+    marginBottom: 0,
+    left: 0,
+    right: 0,
+    textAlign: "center",
+    fontSize: 18,
+    color: Colors.lightText,
+    fontFamily: Fonts.AppFont,
+  },
+  selectorContainer: {
+    width: SCREEN_WIDTH,
+  }
 };
 
 export const styles = StyleSheet.create(scaledStyle(rawStyles));
