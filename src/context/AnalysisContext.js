@@ -9,6 +9,7 @@ import {
   getVibrationInfo,
   isValidScore,
 } from "@utils";
+import { Colors } from "@/constants";
 
 // Create the Context
 const AnalysisContext = createContext();
@@ -34,7 +35,7 @@ export const AnalysisProvider = ({ children }) => {
   const [voiceStrength, setVoiceStrength] = useState(-1);
   const [voiceClarity, setVoiceClarity] = useState(5);
 
-  const [auraColor, setAuraColor] = useState("#DAA520");
+  const [auraColor, setAuraColor] = useState(Colors.aura70);
   const [overallVibrationScore, setOverallVibeScore] = useState(0);
   const [chakraScores, setChakraScores] = useState({
     root: null,
@@ -242,32 +243,32 @@ export const AnalysisProvider = ({ children }) => {
   ]);
 
   const chakraColors = {
-    root: "#FF0000",
-    sacral: "#FF7F00",
-    solarPlexus: "#DAA520",
-    heart: "#00FF00",
-    throat: "#0000FF",
-    thirdEye: "#4B0082",
-    crown: "#9400D3",
+    root: Colors.rootChakra,
+    sacral: Colors.sacralChakra,
+    solarPlexus: Colors.solarPlexusChakra,
+    heart: Colors.heartChakra,
+    throat: Colors.throatChakra,
+    thirdEye: Colors.thirdEyeChakra,
+    crown: Colors.crownChakra,
   };
 
   const getAuraColor = () => {
-    let aura = "#FFFFFF";
-    if (overallVibrationScore >= 90) aura = "#FFFFFF";
-    else if (overallVibrationScore >= 70) aura = "#9400D3";
-    else if (overallVibrationScore >= 50) aura = "#4B0082";
-    else if (overallVibrationScore >= 30) aura = "#00FF00";
-    else if (overallVibrationScore >= 20) aura = "#FFD700";
-    else if (overallVibrationScore >= 10) aura = "#FF7F00";
-    else aura = "#FF0000";
+    let aura = Colors.white;
+    if (overallVibrationScore >= 90) aura = Colors.white;
+    else if (overallVibrationScore >= 70) aura = Colors.aura70;
+    else if (overallVibrationScore >= 50) aura = Colors.aura50;
+    else if (overallVibrationScore >= 30) aura = Colors.aura30;
+    else if (overallVibrationScore >= 20) aura = Colors.aura20;
+    else if (overallVibrationScore >= 10) aura = Colors.aura10;
+    else aura = Colors.auraNone;
 
     const strongestChakra = Object.entries(chakraScores).reduce(
       (a, b) => (b[1] > a[1] ? b : a),
       [],
     )[0];
     if (chakraScores[strongestChakra] >= 8) aura = chakraColors[strongestChakra];
-    if (emotionScore?.score > 8) aura = "#DAA520";
-    else if (emotionScore?.score < 3) aura = "#808080";
+    if (emotionScore?.score > 8) aura = Colors.goldenRod;
+    else if (emotionScore?.score < 3) aura = Colors.auraGray;
 
     return aura;
   };

@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   splitCard: {
     flexDirection: "row",
     marginBottom: 14,
-    backgroundColor: "#444",
+    backgroundColor: Colors.veryDarkGray,
     borderRadius: 12,
     overflow: "hidden",
   },
@@ -73,16 +73,16 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 12,
     borderRightWidth: 1,
-    borderRightColor: "#333",
+    borderRightColor: Colors.veryDarkGray,
   },
   cardLabel: {
     fontSize: 14,
     fontWeight: "bold",
-    color: "#aaa",
+    color: Colors.mediumGray,
     marginBottom: 4,
   },
   cardBody: {
     fontSize: 16,
-    color: "#fff",
+    color: Colors.white,
   },
 });

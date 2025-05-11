@@ -17,7 +17,7 @@ const rawStyles = {
   card: {
     height: 180,
     borderRadius: 20,
-    backgroundColor: "#fff",
+    backgroundColor: Colors.white,
     alignSelf: "center",
     justifyContent: "center",
     alignItems: "center",
@@ -32,17 +32,17 @@ const rawStyles = {
   name: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#333",
+    color: Colors.veryDarkGray,
     marginBottom: 4,
   },
   meaning: {
     fontSize: 16,
-    color: "#666",
+    color: Colors.darkGray,
     marginBottom: 6,
   },
   score: {
     fontSize: 16,
-    color: "#000",
+    color: Colors.black,
   },
   listContainer: {
     paddingHorizontal: 16,
@@ -57,7 +57,7 @@ const rawStyles = {
   },
   closeIcon: {
     fontSize: 24,
-    color: "#333",
+    color: Colors.veryDarkGray,
   },
 };
 

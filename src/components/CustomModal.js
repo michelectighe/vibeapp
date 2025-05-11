@@ -7,6 +7,7 @@ import {
   StyleSheet,
   TouchableWithoutFeedback,
 } from "react-native";
+import { Colors } from "@/constants";
 
 export const CustomModal = ({ visible, onClose, children }) => {
   const screenHeight = Dimensions.get("window").height;
@@ -57,7 +58,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: "100%",
     height: "100%",
-    backgroundColor: "white",
+    backgroundColor: Colors.white,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     overflow: "hidden",

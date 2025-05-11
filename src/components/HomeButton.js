@@ -1,10 +1,5 @@
-import React, { } from "react";
-import {
-  ImageBackground,
-  TouchableOpacity,
-  View,
-  useWindowDimensions,
-} from "react-native";
+import React from "react";
+import { ImageBackground, TouchableOpacity, View, useWindowDimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 export const HomeButton = () => {
@@ -22,7 +17,7 @@ export const HomeButton = () => {
         padding: 4,
         borderRadius: 20,
         alignContent: "center",
-        shadowColor: "#000",
+        shadowColor: Colors.black,
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.25,
         shadowRadius: 4,

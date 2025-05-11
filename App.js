@@ -41,41 +41,41 @@ LogBox.ignoreLogs([
   "Sending `playback-play-when-ready-changed` with no listeners registered",
 ]);
 
-// const linking = {
-//   prefixes: ["vibekey://"],
-//   config: {
-//     screens: {
-//       Tabs: {
-//         screens: {
-//           VibeMatch: {
-//             screens: {
-//               MatchScreen: {
-//                 path: "match",
-//                 parse: {
-//                   id: (id) => `${id}`,
-//                 },
-//               },
-//             },
-//           },
-//         },
-//       },
-//     },
-//   },
-// };
-
 const linking = {
   prefixes: ["vibekey://"],
   config: {
     screens: {
-      Splash: {
-        path: "match", // optional param for match ID
-        parse: {
-          id: (id) => `${id}`,
+      Tabs: {
+        screens: {
+          VibeMatch: {
+            screens: {
+              MatchScreen: {
+                path: "match",
+                parse: {
+                  id: (id) => `${id}`,
+                },
+              },
+            },
+          },
         },
       },
     },
   },
 };
+
+// const linking = {
+//   prefixes: ["vibekey://"],
+//   config: {
+//     screens: {
+//       Splash: {
+//         path: "match", // optional param for match ID
+//         parse: {
+//           id: (id) => `${id}`,
+//         },
+//       },
+//     },
+//   },
+// };
 
 const Stack = createNativeStackNavigator();
 const AppInner = () => {

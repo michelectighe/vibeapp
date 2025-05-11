@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { Colors, Fonts } from "@constants";
 
 export const DeleteConfirmationModal = ({
-//  id,
+  //  id,
   visible,
   onCancel,
   onConfirm,
@@ -42,12 +42,12 @@ const styles = StyleSheet.create({
     zIndex: 1000,
   },
   modalBox: {
-    backgroundColor: "white",
+    backgroundColor: Colors.white,
     borderRadius: 16,
     padding: 20,
     width: 280,
     alignItems: "center",
-    shadowColor: "#000",
+    shadowColor: Colors.black,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.2,
     shadowRadius: 8,
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
     padding: 10,
     borderRadius: 8,
-    backgroundColor: "#ff6b6b",
+    backgroundColor: Colors.red,
     alignItems: "center",
   },
   cancelText: {
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.Body,
   },
   deleteText: {
-    color: "white",
+    color: Colors.white,
     fontWeight: "bold",
     fontFamily: Fonts.Body,
   },

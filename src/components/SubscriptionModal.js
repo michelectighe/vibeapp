@@ -5,7 +5,6 @@ import { Colors, Fonts } from "@constants"; // optional if you're using custom c
 import { SCREEN_WIDTH } from "@/utils";
 
 export const SubscriptionModal = ({ visible, onClose, onUpgrade }) => {
-
   useEffect(() => {
     console.log("🧪 SubscriptionModal visible?", visible);
   }, [visible]);
@@ -52,11 +51,11 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     width: SCREEN_WIDTH * 0.85,
-    backgroundColor: "#fff",
+    backgroundColor: Colors.white,
     padding: 25,
     borderRadius: 20,
     alignItems: "center",
-    shadowColor: "#000",
+    shadowColor: Colors.black,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 10,
@@ -66,35 +65,35 @@ const styles = StyleSheet.create({
     fontSize: 22,
     fontWeight: "bold",
     marginBottom: 10,
-    color: Colors.textDark || "#333",
+    color: Colors.textDark || Colors.veryDarkGray,
   },
   trialInfo: {
     fontSize: 16,
     fontWeight: "600",
-    color: "#3f7e44",
+    color: Colors.forestGreen,
     marginBottom: 10,
   },
   description: {
     fontSize: 15,
     textAlign: "center",
     marginBottom: 15,
-    color: "#444",
+    color: Colors.veryDarkGray,
   },
   cancelInfo: {
     fontSize: 13,
     fontStyle: "italic",
-    color: "#666",
+    color: Colors.mediumGray,
     marginBottom: 20,
   },
   upgradeButton: {
-    backgroundColor: "#3f7e44",
+    backgroundColor: Colors.forestGreen,
     paddingVertical: 12,
     paddingHorizontal: 25,
     borderRadius: 30,
     marginBottom: 10,
   },
   upgradeText: {
-    color: "#fff",
+    color: Colors.white,
     fontWeight: "600",
     fontSize: 16,
   },
@@ -102,7 +101,7 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
   },
   cancelText: {
-    color: "#999",
+    color: Colors.mediumGray,
     fontSize: 14,
   },
 });

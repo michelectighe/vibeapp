@@ -5,7 +5,7 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 
 const rawStyles = {
   error: {
-    color: "white",
+    color: Colors.white,
     fontSize: 14,
     textAlign: "center",
     marginBottom: 10,
@@ -15,7 +15,7 @@ const rawStyles = {
   },
   forgot: {
     alignSelf: "flex-start",
-    color: "white",
+    color: Colors.white,
     marginTop: 0,
     fontSize: 14,
     marginBottom: 20,
@@ -25,7 +25,7 @@ const rawStyles = {
     width: 200,
     height: 44,
     marginBottom: 10,
-  }
+  },
 };
 
 export const styles = StyleSheet.create(scaledStyle(rawStyles));

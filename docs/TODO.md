@@ -49,51 +49,51 @@
 - [ ] apply sectionLayout to all screens
 - [x] style results screen
 - [x] breathing screen: change circle to fuzzy glow
-- [ ] centralize colors
+- [x] centralize colors
 
 ### 3. Navigaton
 
-- [ ] Fix returnTos
+- [x] Fix returnTos
 
 ### 4. Meditation Space Screen Polish
 
-- [ ] Remove tabbar
-- [ ] Remove Header
+- [x] Remove tabbar
+- [x] Remove Header
 - [x] Figure out tab bar with background image
 
 ### 5. VibeCheck Section
 
 - [ ] check emotionalTransitionScreen jitter
-- [ ] verify resultdetails matches results
+- [x] verify resultdetails matches results
 
 ### 6. VibeMatch Section
 
 - [ ] Test deep linking - when not signed in and when app not open vs already open
 - [ ] Sharpen up match results screen
 - [ ] Improve match selection screen (add option for retaking test first before comparing)
+- [ ] Fix link for not signed in
 
 ### 7. Results Screen Polish
 
 - [x] Chakra visualization cards or bar chart (with color-coded labels)
 - [ ] Expandable sections for each metric with brief insights
-- [ ] Add feedback/suggestions based on vibration score
-- [x] Support comparing results (via ID or dynamic link)
-- [ ] Fix link for not signed in
+- [x] Add feedback/suggestions based on vibration score
+
 
 ### 8. Profile & Settings
 
 - [x] SettingsScreen polish with animated logo + background
-- [ ] Update Profile:
+- [x] Update Profile:
 - [x] Populate name, email, Face ID toggle
 - [x] Biometric/password confirmation before saving
 - [x] Disable Update button until changes made
 - [x] Animate confirmation
-- [ ] GoalsScreen: add more details
+- [x] GoalsScreen: add more details
 
 ### 9. Streak Section
 
-- [ ] Create:
-- [ ] Add screen to show graph of streaks
+- [x] Create:
+- [x] Add screen to show graph of streaks
 - [ ] Add challenges
 - [ ] Push notifications?
 

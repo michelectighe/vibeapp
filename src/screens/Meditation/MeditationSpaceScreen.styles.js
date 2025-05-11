@@ -20,7 +20,7 @@ const rawStyles = {
     padding: 16,
     borderRadius: 20,
     alignItems: "center",
-    shadowColor: "#000",
+    shadowColor: Colors.black,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,

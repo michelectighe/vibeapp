@@ -64,7 +64,7 @@ export const JournalScreen = () => {
   // 👇 Prevent UI rendering until all required data is ready
   if (!overallColor) {
     return (
-      <GradientBackground colors={["white", "white", "white"]}>
+      <GradientBackground colors={[Colors.white, Colors.white, Colors.white]}>
         <View style={[globalStyles.centered, { flex: 1 }]}>
           <ActivityIndicator size="large" color={Colors.primary} />
         </View>
@@ -72,15 +72,15 @@ export const JournalScreen = () => {
     );
   }
   return (
-    <GradientBackground colors={["white", overallColor, "white"]}>
+    <GradientBackground colors={[Colors.white, overallColor, Colors.white]}>
       <SectionLayout
         topFlex={6}
         middleFlex={12}
         bottomFlex={1}
         topContent={
           <View style={styles.titleWrapper}>
-            <Text style={[styles.title, {color: overallDarkColor}]}>Daily Journal</Text>{" "}
-            <Text style={[styles.prompt,  {color: overallDarkColor}]}>{animatedText}</Text>
+            <Text style={[styles.title, { color: overallDarkColor }]}>Daily Journal</Text>{" "}
+            <Text style={[styles.prompt, { color: overallDarkColor }]}>{animatedText}</Text>
           </View>
         }
         middleContent={
@@ -100,7 +100,7 @@ export const JournalScreen = () => {
                     <TextInput
                       multiline
                       placeholder="Write whatever flows through..."
-                      placeholderTextColor="#888"
+                      placeholderTextColor={Colors.mediumGray}
                       style={styles.textInput}
                       value={entry}
                       onChangeText={setEntry}
@@ -120,7 +120,7 @@ export const JournalScreen = () => {
         }
         bottomContent={
           <View style={styles.bottomText}>
-            <Text style={{color: overallDarkColor}}>Your words shape your reality</Text>
+            <Text style={{ color: overallDarkColor }}>Your words shape your reality</Text>
           </View>
         }
       />

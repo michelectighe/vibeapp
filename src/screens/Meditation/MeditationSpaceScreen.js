@@ -17,10 +17,7 @@ export const MeditationSpaceScreen = () => {
   const [spaceLabel, setSpaceLabel] = useState("Neutral");
   const [magLabel, setMagLabel] = useState("");
   const [soundLabel, setSoundLabel] = useState("");
-  // const glowAnim = useRef(new Animated.Value(0.5)).current;
-  // const [glowSizeNum, setGlowSizeNum] = useState(width * 0.5);
   const imageFade = useRef(new Animated.Value(0)).current;
-  // const [glowColor, setGlowColor] = useState("#FFFF66");
 
   useFocusEffect(
     useCallback(() => {
@@ -31,7 +28,6 @@ export const MeditationSpaceScreen = () => {
       };
     }, [navigation]),
   );
-
 
   useEffect(() => {
     Animated.timing(imageFade, {
@@ -51,7 +47,7 @@ export const MeditationSpaceScreen = () => {
   }, [environment]);
 
   // useEffect(() => {
-  //   setGlowColor("white");
+  //   setGlowColor(Colors.white);
   //   setGlowSizeNum(100);
   //   const scaledSize = 30;
   //   Animated.timing(glowAnim, {

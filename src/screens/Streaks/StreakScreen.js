@@ -55,7 +55,7 @@ export const StreakScreen = () => {
       x: 20,
       y: 20,
       rotation: 0,
-      color: "#FFFACD", // default pale yellow
+      color: Colors.yellow, // default pale yellow
       done: false,
     };
     console.log("new note;", newNote);
@@ -94,7 +94,7 @@ export const StreakScreen = () => {
               id={note.id}
               text={note.text}
               doneValue={note.done}
-              color="#FFFACD"
+              color={Colors.paleYellow}
               onDelete={() => handleDeleteNote(note.id)}
             />
           ))}

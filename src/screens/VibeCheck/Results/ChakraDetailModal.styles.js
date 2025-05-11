@@ -1,7 +1,7 @@
 // ChakraDetailModalStyles.js
 import { StyleSheet, Dimensions } from "react-native";
 import { scaledStyle } from "@utils";
-import { Fonts } from "@constants";
+import { Colors, Fonts } from "@constants";
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get("window");
 
@@ -19,13 +19,13 @@ export const styles = scaledStyle(
     title: {
       fontSize: 32,
       fontFamily: Fonts.AppTitle,
-      color: "#fff",
+      color: Colors.white,
       marginBottom: 10,
     },
     description: {
       fontSize: 18,
       fontFamily: Fonts.AppFont,
-      color: "#fff",
+      color: Colors.white,
       marginHorizontal: 20,
       textAlign: "center",
     },
@@ -33,7 +33,7 @@ export const styles = scaledStyle(
       marginTop: 10,
       fontSize: 20,
       fontWeight: "bold",
-      color: "#fff",
+      color: Colors.white,
     },
     insightContainer: {
       marginTop: 30,
@@ -44,13 +44,13 @@ export const styles = scaledStyle(
     insightTitle: {
       fontSize: 20,
       fontWeight: "600",
-      color: "#fff",
+      color: Colors.white,
       marginBottom: 8,
       textAlign: "center",
     },
     insightAdvice: {
       fontSize: 16,
-      color: "#fff",
+      color: Colors.white,
       textAlign: "center",
     },
   }),

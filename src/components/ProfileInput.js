@@ -2,6 +2,7 @@
 import React from "react";
 import { StyleSheet, TextInput, Text, View } from "react-native";
 import { scaledStyle } from "@/utils";
+import { Colors } from "@/constants";
 
 export const ProfileInput = ({
   label,
@@ -16,7 +17,7 @@ export const ProfileInput = ({
     <TextInput
       style={styles.input}
       placeholder={label}
-      placeholderTextColor="#999"
+      placeholderTextColor={Colors.mediumGray}
       secureTextEntry={secure}
       value={value}
       onChangeText={onChangeText}
@@ -24,14 +25,14 @@ export const ProfileInput = ({
       keyboardType={keyboardType}
       autoCapitalize="none"
     />
-    {!!error && <Text style={{ color: "#ccc", marginLeft: 15, marginBottom: 8 }}>{error}</Text>}
+    {!!error && <Text style={{ color: Colors.lightGray, marginLeft: 15, marginBottom: 8 }}>{error}</Text>}
   </View>
 );
 
 const rawStyles = {
   input: {
     width: "100%",
-    backgroundColor: "white",
+    backgroundColor: Colors.white,
     padding: 12,
     borderRadius: 15,
     marginBottom: 15,

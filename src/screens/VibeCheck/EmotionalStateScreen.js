@@ -399,7 +399,7 @@ export const EmotionalStateScreen = () => {
                   <FuzzyRectangleGlow
                     width={250}
                     height={300}
-                    glowColor="white"
+                    glowColor={Colors.white}
                     style={{
                       top: "50%",
                       left: "50%",

@@ -31,6 +31,8 @@ export const vibrationLevels = [
       frequencies: [396, 528], // Hz values from `frequencies`
       breathing: ["box", "deep"], // IDs from `BREATH_PATTERNS`
     },
+    historyDescription:
+      "You were deeply aligned and spiritually connected during this time. Your intuition and energy were at their peak, and you radiated a strong sense of peace and purpose.",
   },
   {
     id: "level2",
@@ -60,6 +62,8 @@ export const vibrationLevels = [
       frequencies: [396, 528], // Hz values from `frequencies`
       breathing: ["box", "deep"], // IDs from `BREATH_PATTERNS`
     },
+    historyDescription:
+      "You experienced a profound sense of inner clarity and purpose. Your intuition was strong, and you flowed through life with peace and elevated awareness.",
   },
   {
     id: "level3",
@@ -89,6 +93,8 @@ export const vibrationLevels = [
       frequencies: [396, 528], // Hz values from `frequencies`
       breathing: ["box", "deep"], // IDs from `BREATH_PATTERNS`
     },
+    historyDescription:
+      "You maintained a high vibrational state, facing challenges with resilience and grace. Positivity and emotional balance were guiding your actions.",
   },
   {
     id: "level4",
@@ -117,6 +123,8 @@ export const vibrationLevels = [
       frequencies: [396, 528], // Hz values from `frequencies`
       breathing: ["box", "deep"], // IDs from `BREATH_PATTERNS`
     },
+    historyDescription:
+      "You were navigating life with steady energy and occasional fluctuations. While moments of clarity emerged, distractions or fatigue may have challenged your focus.",
   },
   {
     id: "level5",
@@ -145,6 +153,8 @@ export const vibrationLevels = [
       frequencies: [396, 528], // Hz values from `frequencies`
       breathing: ["box", "deep"], // IDs from `BREATH_PATTERNS`
     },
+    historyDescription:
+      "Your energy felt moderate and changeable. You may have been managing stress or low motivation, yet remained aware of the need to rebalance.",
   },
   {
     id: "level6",
@@ -166,7 +176,6 @@ export const vibrationLevels = [
     text4: "Ho'oponopono meditation – A Hawaiian practice of forgiveness and emotional healing.",
     label5: "Recommended Spiritual Practice:",
     text5: "Shadow work – Journaling or therapy to confront and heal emotional wounds.",
-
     color2: Colors.lowColor2,
     color3: Colors.lowColor3,
     recommendations: {
@@ -174,6 +183,8 @@ export const vibrationLevels = [
       frequencies: [396, 528], // Hz values from `frequencies`
       breathing: ["box", "deep"], // IDs from `BREATH_PATTERNS`
     },
+    historyDescription:
+      "You were likely feeling emotionally drained or disconnected. Persistent stress or negativity may have lowered your vibration and clarity.",
   },
   {
     id: "level7",
@@ -201,5 +212,7 @@ export const vibrationLevels = [
       frequencies: [396, 528], // Hz values from `frequencies`
       breathing: ["box", "deep"], // IDs from `BREATH_PATTERNS`
     },
+    historyDescription:
+      "You may have felt stuck or overwhelmed, with limited energy for movement or change. Heavy emotions or external pressures were likely affecting your state.",
   },
 ];

@@ -34,7 +34,7 @@ const rawStyles = {
     width: "100%",
   },
   textInput: {
-    backgroundColor: "#FFF8EE",
+    backgroundColor: Colors.lightText,
     borderRadius: 16,
     padding: 16,
     fontSize: 16,

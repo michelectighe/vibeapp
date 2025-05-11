@@ -49,7 +49,7 @@ export const BreathingCircle = ({ pattern }) => {
         startPhase("Hold", pattern.hold1, 1.1);
         break;
       case "Hold":
-        startPhase("Exhale", pattern.exhale, .4);
+        startPhase("Exhale", pattern.exhale, 0.4);
         break;
       case "Exhale":
         if (pattern.hold2 > 0) {
@@ -69,7 +69,7 @@ export const BreathingCircle = ({ pattern }) => {
   useEffect(() => {
     startPhase("Inhale", pattern.inhale, 1.5);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
-  const glowColor = phaseColors[phase] || "white";
+  const glowColor = phaseColors[phase] || Colors.white;
 
   return (
     <View style={styles.wrapper}>

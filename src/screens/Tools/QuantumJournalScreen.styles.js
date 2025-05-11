@@ -36,7 +36,7 @@ const rawStyles = {
     width: "100%",
   },
   textInput: {
-    backgroundColor: "#FFF8EE",
+    backgroundColor: Colors.creamyBeige,
     borderRadius: 16,
     padding: 16,
     fontSize: 16,
@@ -47,14 +47,14 @@ const rawStyles = {
     marginBottom: 20,
   },
   saveButton: {
-    backgroundColor: "#7D4F20",
+    backgroundColor: Colors.deepEarthyBrown,
     padding: 14,
     borderRadius: 16,
     marginTop: 16,
     alignItems: "center",
   },
   saveText: {
-    color: "#FDEBD0",
+    color: Colors.creamyPeach,
     fontWeight: "600",
   },
   bottomText: {

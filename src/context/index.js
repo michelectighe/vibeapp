@@ -5,4 +5,4 @@ export { EnvironmentProvider, useEnvironment } from "./EnvironmentContext";
 export { ModelProvider, useModel } from "./ModelContext";
 export { MotionProvider, useMotion } from "./MotionContext";
 export { ThemeProvider } from "./ThemeContext";
-export { UserProfileProvider, useUserProfile } from "./UserProfileContext";
+export { UserProfileProvider, useUserProfile, updateUserData } from "./UserProfileContext";

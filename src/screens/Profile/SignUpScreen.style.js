@@ -8,7 +8,7 @@ const rawStyles = {
     color: Colors.lightText,
     marginBottom: 20,
     fontSize: 18,
-    alignText: "center",
+    textAlign: "center",
   },
 };
 

@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import { Fonts } from "@constants";
+import { Colors, Fonts } from "@constants";
 import { scaledStyle } from "@utils";
 
 const rawStyles = {
@@ -17,7 +17,7 @@ const rawStyles = {
   },
   overallLabel: {
     textAlign: "center",
-    color: "white",
+    color: Colors.white,
     textShadowRadius: 1,
     textShadowOffset: { width: 1, height: 1 },
     fontSize: 36,
@@ -31,8 +31,8 @@ const rawStyles = {
     zIndex: 1,
   },
   scrollContent: {
-    paddingTop: 150, // this matches the height of your title/logo area
- //   paddingHorizontal: 20,
+    paddingTop: 210, // this matches the height of your title/logo area
+    //   paddingHorizontal: 20,
     paddingBottom: 160,
   },
   textContainer: {
@@ -44,18 +44,18 @@ const rawStyles = {
   overallText: {
     textAlign: "center",
     fontSize: 18,
-    color: "#f5f6fa",
+    color: Colors.lightGray,
   },
   textHeader: {
     textAlign: "center",
     fontSize: 18,
     fontWeight: "bold",
-    color: "#f5f6fa",
+    color: Colors.lightGray,
   },
   chicletHeader: {
     textAlign: "center",
     fontSize: 18,
-    color: "#f5f6fa",
+    color: Colors.lightGray,
     marginBottom: 10,
   },
   chicletWrapper: {
@@ -67,7 +67,7 @@ const rawStyles = {
   finalNote: {
     textAlign: "center",
     fontSize: 18,
-    color: "#f5f6fa",
+    color: Colors.lightGray,
   },
 };
 

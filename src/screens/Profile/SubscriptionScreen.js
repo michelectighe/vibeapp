@@ -78,7 +78,7 @@ export const SubscriptionScreen = ({ navigation, route }) => {
             </View>
 
             {loading ? (
-              <ActivityIndicator size="large" color="#fff" />
+              <ActivityIndicator size="large" color={Colors.white} />
             ) : (
               packages.map((pkg) => (
                 <TouchableOpacity

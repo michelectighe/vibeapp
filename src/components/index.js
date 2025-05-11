@@ -22,6 +22,7 @@ export { FloatingFeather } from "./FloatingFeather";
 export { FloatingPhrase } from "./FloatingPhrase";
 export { FrequencyCard } from "./FrequencyCard";
 export { FuzzyGlow } from "./FuzzyGlow";
+export { FuzzyGlowChakra } from "./FuzzyGlowChakra";
 export { FuzzyRectangleGlow } from "./FuzzyRectangleGlow";
 export { GradientBackground } from "./GradientBackground";
 export { HomeButton } from "./HomeButton";

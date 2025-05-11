@@ -96,7 +96,7 @@ export const ResultsScreen = ({ navigation }) => {
   // 👇 Prevent UI rendering until all required data is ready
   if (!dataReady || !overallLabel || !overallDescription || !overallImage || !overallColor) {
     return (
-      <GradientBackground colors={["white", "white", "white"]}>
+      <GradientBackground colors={[Colors.white, Colors.white, Colors.white]}>
         <View style={[globalStyles.centered, { flex: 1 }]}>
           <ActivityIndicator size="large" color={Colors.primary} />
         </View>
@@ -105,7 +105,7 @@ export const ResultsScreen = ({ navigation }) => {
   }
 
   return (
-    <GradientBackground colors={["white", overallColor, "white"]}>
+    <GradientBackground colors={[Colors.white, overallColor, Colors.white]}>
       <SectionLayout
         topFlex={2}
         middleFlex={4}
@@ -148,7 +148,11 @@ export const ResultsScreen = ({ navigation }) => {
           </View>
         }
         bottomContent={
-          <>{saving && <ActivityIndicator size="large" color="#fff" style={styles.loading} />}</>
+          <>
+            {saving && (
+              <ActivityIndicator size="large" color={Colors.white} style={styles.loading} />
+            )}
+          </>
         }
       />
     </GradientBackground>

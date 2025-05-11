@@ -12,7 +12,7 @@ const rawStyles = {
     borderRadius: 16,
     padding: 30,
     marginVertical: 12,
-    shadowColor: "#000",
+    shadowColor: Colors.black,
     shadowOpacity: 0.1,
     shadowRadius: 8,
     elevation: 5,

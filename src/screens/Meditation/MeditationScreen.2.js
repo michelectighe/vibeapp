@@ -2,6 +2,7 @@ import { SectionLayout } from "@/components";
 import { useMeditationNavigation } from "@/hooks";
 import React, { useRef, useEffect } from "react";
 import { Animated, View, TouchableOpacity, ImageBackground } from "react-native";
+import { Colors } from "@/constants";
 
 export const MeditationScreen = () => {
   const { goToNextScreen } = useMeditationNavigation();
@@ -108,7 +109,7 @@ export const MeditationScreen = () => {
                       fontSize: 24,
                       width: "90%",
                       textAlign: "center",
-                      color: "#362819",
+                      color: Colors.earthyBrown,
                     }}
                   >
                     Before we begin, let&apos;s find the ideal environment for deep relaxation. We
@@ -126,7 +127,7 @@ export const MeditationScreen = () => {
                       fontSize: 24,
                       width: "90%",
                       textAlign: "center",
-                      color: "white",
+                      color: Colors.white,
                     }}
                   >
                     Once we find the perfect spot, you can begin a guided meditation session
@@ -145,7 +146,7 @@ export const MeditationScreen = () => {
                       fontSize: 24,
                       width: "90%",
                       textAlign: "center",
-                      color: "#362819",
+                      color: Colors.earthyBrown,
                     }}
                   >
                     Take a deep breath....
@@ -163,7 +164,7 @@ export const MeditationScreen = () => {
                       fontSize: 24,
                       width: "90%",
                       textAlign: "center",
-                      color: "#362819",
+                      color: Colors.earthyBrown,
                     }}
                   >
                     Your journey to mindfulness starts now

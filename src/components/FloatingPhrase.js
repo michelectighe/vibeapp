@@ -126,8 +126,8 @@ const styles = StyleSheet.create({
   floatingText: {
     fontSize: 36,
     fontStyle: "italic",
-    color: "#935116",
-    textShadowColor: "#fff2e0",
+    color: Colors.burntOrange,
+    textShadowColor: Colors.peach,
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 3,
     //   fontFamily: Fonts.Script,

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Animated, Easing } from "react-native";
 import Svg, { Circle } from "react-native-svg";
+import { Colors } from "@/constants";
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
@@ -8,7 +9,7 @@ export const CircularTimer = ({
   duration = 60000,
   size = 120,
   strokeWidth = 4,
-  color = "#00aaff",
+  color = Colors.colorTimer,
   onComplete = () => {},
 }) => {
   const progress = useRef(new Animated.Value(0)).current;
@@ -36,7 +37,7 @@ export const CircularTimer = ({
   return (
     <Svg width={size} height={size} style={{ position: "absolute" }}>
       <Circle
-        stroke="#ccc"
+        stroke={Colors.lightGray}
         fill="none"
         cx={size / 2}
         cy={size / 2}

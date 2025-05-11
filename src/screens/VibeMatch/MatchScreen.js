@@ -67,7 +67,7 @@ export const MatchScreen = ({ route }) => {
   }, []);
 
   if (loading || !sharedResult || !myResults || myResults.length === 0) {
-    return <ActivityIndicator size="large" style={{ marginTop: 100 }} color="#fff" />;
+    return <ActivityIndicator size="large" style={{ marginTop: 100 }} color={Colors.white} />;
   }
 
   return (

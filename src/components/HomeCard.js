@@ -1,7 +1,7 @@
 import React from "react";
 import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
 import FastImage from "react-native-fast-image";
-import { Fonts } from "@constants";
+import { Colors, Fonts } from "@constants";
 import { scaledStyle } from "@utils";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@/utils";
 
@@ -16,9 +16,6 @@ export const HomeCard = ({ title, subtitle, onPress, image, textColor }) => {
             resizeMode={FastImage.resizeMode.cover}
           />
           <View style={styles.overlay}>
-            {/* <View style={styles.iconContainer}>
-              <Icon name={icon} size={30} color="#FFF" />
-            </View> */}
             <Text style={[styles.title, { color: textColor }]}>{title}</Text>
             <Text style={[styles.subtitle, { color: textColor }]}>{subtitle}</Text>
           </View>
@@ -26,9 +23,6 @@ export const HomeCard = ({ title, subtitle, onPress, image, textColor }) => {
       )}
       {!image && (
         <View style={styles.overlay}>
-          {/* <View style={styles.iconContainer}>
-            <Icon name={icon} size={30} color="#FFF" />
-          </View> */}
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.subtitle}>{subtitle}</Text>
         </View>
@@ -43,7 +37,7 @@ const rawStyles = {
     borderRadius: 12,
     overflow: "hidden",
     marginBottom: 12,
-    shadowColor: "#000",
+    shadowColor: Colors.black,
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,

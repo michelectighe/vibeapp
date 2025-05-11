@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   itemContainer: {
     marginBottom: 8,
     borderBottomWidth: 0,
-    borderBottomColor: "#ccc",
+    borderBottomColor: Colors.lightGray,
     paddingVertical: 8,
   },
   header: {

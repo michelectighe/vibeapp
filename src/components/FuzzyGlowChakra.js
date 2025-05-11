@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from "react";
 import { Animated } from "react-native";
 import { Svg, Defs, RadialGradient, Stop, Circle } from "react-native-svg";
 
-export const FuzzyGlow = ({ glowSize, glowColor, pulse = true, externalScale }) => {
+export const FuzzyGlowChakra = ({ glowSize, glowColor, pulse = true, externalScale }) => {
   const internalScale = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
@@ -33,9 +33,8 @@ export const FuzzyGlow = ({ glowSize, glowColor, pulse = true, externalScale }) 
     <Animated.View
       style={{
         position: "absolute",
-        left: "50%",
-        right: "50%",
         top: "50%",
+        left: "50%",
         transform: [
           { translateX: -glowSize / 2 },
           { translateY: -glowSize / 2 },

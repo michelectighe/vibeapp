@@ -4,59 +4,81 @@ import { Colors, Fonts } from "@constants";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 
 const rawStyles = {
-  container: {
-    flex: 1,
-    padding: 0,
+  yearLabel: {
+    fontSize: 16,
+    fontWeight: "600",
+    textAlign: "center",
+    marginBottom: 8,
+  },
+  chartItem: {
+    alignItems: "center",
+    width: 60,
+    marginHorizontal: 4,
+    justifyContent: "flex-end", // 👈 this is the fix
+    height: SCREEN_HEIGHT * 0.2, // give it a fixed height to align from bottom
+  },
+  chartItemSelected: {
+    borderWidth: 2,
+    borderColor: "#999",
+  },
+  bar: {
+    width: 30,
+    borderRadius: 6,
+    marginBottom: 4,
+  },
+
+  chartLabel: {
+    fontSize: 12,
+    color: "#666",
+  },
+
+  detailsBox: {  
+    width: SCREEN_WIDTH * 0.9,
+height: SCREEN_HEIGHT *.22,
+    marginHorizontal: 20,
+    padding: 12,
+    borderRadius: 12,
     backgroundColor: "transparent",
+  //  borderWidth: 1,
+  //  borderColor: Colors.lightGray,
+    marginTop: 30,
+    overflow: "hidden",
+   // flexShrink: 1, // prevents overflow but allows flexible sizing
   },
-  innerContainer: {
-    marginTop: 100,
-    padding: 20,
-    paddingLeft: "10%",
-    paddingRight: "10%",
-  },
-  background: {
-    flex: 1,
-    width: "100%",
-    height: "100%",
-  },
-  card: {
-    backgroundColor: "#fff",
-    padding: 16,
-    borderRadius: 16,
-    marginBottom: 12,
-    elevation: 2,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-    alignItems: "center",
-  },
-  date: {
-    fontSize: 14,
-    color: "#888",
-    position: "absolute",
-    bottom: 0,
-  },
-  score: {
-    fontSize: 24,
+  detailTitle: {
+    fontSize: 16,
     fontWeight: "bold",
-    marginTop: 2,
-    marginBottom: 6,
+    marginBottom: 4,
   },
-  details: {
+  detailScore: {
+    fontSize: 18,
+    marginTop: 10,
+    color: Colors.veryDarkGray,
+  },
+  detailText: {
+    marginTop: 8,
+    fontWeight: "bold",
+    color: Colors.primary,
+    fontSize: 16,
+  },
+
+  detailDescription: {
+    marginTop: 4,
     fontSize: 14,
-    marginTop: 2,
-    color: "#555",
+    color: Colors.mediumGray,
   },
-  cardTop: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    width: "100%",
+
+  detailSuggestion: {
+    marginTop: 8,
+    fontSize: 14,
+    fontStyle: "italic",
+    color: Colors.deepPurple, // or whatever your 'inspiration' color is
   },
-  shareIcon: {
-    padding: 6,
+  detailDate: {
+    fontSize: 16,
+    fontWeight: "600",
+    color: Colors.primary,
+    marginBottom: 4,
   },
 };
 

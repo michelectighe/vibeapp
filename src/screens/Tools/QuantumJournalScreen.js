@@ -67,7 +67,7 @@ export const QuantumJournalScreen = () => {
             <KeyboardAvoidingView
               style={{ flex: 1 }}
               behavior={Platform.OS === "ios" ? "padding" : "height"}
-              keyboardVerticalOffset={80} // tweak if needed for your layout
+              keyboardVerticalOffset={0} // tweak if needed for your layout
             >
               <View style={{ width: "90%", overflow: "hidden" }}>
                 {!isTyping && (
@@ -79,7 +79,7 @@ export const QuantumJournalScreen = () => {
                     <TextInput
                       multiline
                       placeholder="Write whatever flows through..."
-                      placeholderTextColor="#888"
+                      placeholderTextColor={Colors.backgroundSpirit}
                       style={styles.textInput}
                       value={entry}
                       onChangeText={setEntry}

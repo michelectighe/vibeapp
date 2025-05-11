@@ -24,7 +24,6 @@ export {
 export { evaluateMotion } from "./evaluateMotion";
 export { getFriendlyError } from "./friendlyErrors";
 export { generateShortId } from "./generateShortId";
-export { getVibeDetails } from "./getVibeDetails";
 export {
   calculateVariance,
   removeOutliers,
@@ -50,3 +49,4 @@ export { isValidScore, formatScoreForDisplay } from "./validScores";
 export { getVibeRecommendations } from "./getRecommendations";
 
 export { getVibeHistory, groupScores } from "./getVibeHistory";
+export { lightenHexColor } from "./lightenHexColor.js";

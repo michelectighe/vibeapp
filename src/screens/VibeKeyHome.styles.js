@@ -6,7 +6,7 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 const rawStyles = {
   titleWrapper: {
     position: "absolute",
-    top: 100,
+    top: 120,
     width: SCREEN_WIDTH,
     alignItems: "center",
     backgroundColor: "transparent",

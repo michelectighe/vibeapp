@@ -1,204 +1,184 @@
-import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, Dimensions, StyleSheet, ScrollView } from "react-native";
-import { BarChart } from "react-native-chart-kit";
-import { SectionLayout } from "@components";
-import { getVibeHistory, groupScores, SCREEN_HEIGHT, SCREEN_WIDTH } from "@/utils";
+import React, { useState, useRef, useEffect } from "react";
+import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import { format } from "date-fns";
+import { vibrationLevels } from "@/data";
+import { SectionLayout, FuzzyGlow } from "@components";
+import { styles } from "./VibeHistory.styles";
+import { getVibeHistory, groupScores } from "@/utils";
+import LinearGradient from "react-native-linear-gradient";
+import { EdgeGlow } from "@/components";
+import { SCREEN_WIDTH } from "@/utils";
+import { chakraData } from "@/constants";
 
-const screenWidth = Dimensions.get("window").width;
+const ITEM_WIDTH = 60;
 
 export const VibeHistoryScreen = () => {
-  const [selectedRange, setSelectedRange] = useState("daily");
-  const [data, setData] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
+  const flatListRef = useRef();
+  const [data, setData] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const scores = await getVibeHistory();
-      const grouped = groupScores(scores, selectedRange);
+    const load = async () => {
+      const raw = await getVibeHistory();
+      const grouped = groupScores(raw, "daily"); // or weekly
+      console.log("raw:", grouped);
       setData(grouped);
-      setSelectedIndex(null);
     };
-    fetchData();
-  }, [selectedRange]);
+    load();
+  }, []);
+
+  const getLevelInfo = (score) => vibrationLevels.find((level) => score >= level.minScore);
+
+  const onViewRef = useRef(({ viewableItems }) => {
+    if (viewableItems.length > 0) {
+      setSelectedIndex(viewableItems[0].index);
+    }
+  });
+
+  const viewConfigRef = useRef({ viewAreaCoveragePercentThreshold: 50 });
+
+  const renderItem = ({ item, index }) => (
+    <TouchableOpacity
+      style={[styles.chartItem, selectedIndex === index && styles.chartItemSelected]}
+      onPress={() => {
+        flatListRef.current.scrollToIndex({ index, animated: true });
+        setSelectedIndex(index);
+      }}
+    >
+      <LinearGradient
+        colors={[item.barColor + "33", item.barColor]} // gradient to transparent
+        start={{ x: 0.5, y: 1 }}
+        end={{ x: 0.5, y: 0 }}
+        style={[
+          styles.bar,
+          {
+            height: item.value * 1.5,
+          },
+        ]}
+      />
+
+      <Text style={styles.chartLabel}>{item.label}</Text>
+    </TouchableOpacity>
+  );
+
+  const selectedItem = React.useMemo(() => {
+    return data?.[selectedIndex] ?? null;
+  }, [data, selectedIndex]);
+
+  const levelInfo = React.useMemo(() => {
+    return selectedItem ? getLevelInfo(selectedItem.value) : null;
+  }, [selectedItem]);
+  const paddedChakras =
+    selectedItem?.chakraScores?.length === 7
+      ? [...selectedItem.chakraScores]
+      : chakraData.map((chakra) => ({
+          ...chakra,
+          score: 0,
+        }));
 
   return (
     <SectionLayout
-      topFlex={1}
-      middleFlex={4}
-      bottomFlex={2}
+      topFlex={0}
+      middleFlex={2}
+      bottomFlex={1}
       topContent={
-        <View style={styles.tabContainer}>
-          {["daily", "weekly", "monthly"].map((range) => (
-            <TouchableOpacity
-              key={range}
-              onPress={() => setSelectedRange(range)}
-              style={[styles.tabButton, selectedRange === range && styles.tabButtonActive]}
-            >
-              <Text style={[styles.tabText, selectedRange === range && styles.tabTextActive]}>
-                {range.toUpperCase()}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </View>
+        data && <Text style={styles.yearLabel}>{format(new Date(selectedItem?.date), "yyyy")}</Text>
       }
       middleContent={
-        <>
-          {data && (
-            <View contentContainerStyle={styles.chartContainer}>
-              <BarChart
-                data={{
-                  labels: data.map((d) => d.label),
-                  datasets: [
-                    {
-                      data: data.map((d) => d.value),
-                      colors: data.map((d) => () => d.barColor),
-                    },
-                  ],
-                }}
-                width={screenWidth - 20}
-                height={SCREEN_HEIGHT * .3}
-                fromZero={true}
-                segments={5}
-                withCustomBarColorFromData={true}
-                chartConfig={{
-                  backgroundColor: "#fff",
-                  backgroundGradientFrom: "#fff",
-                  backgroundGradientTo: "#fff",
-                  decimalPlaces: 0,
-                  color: () => "transparent",
-                  labelColor: () => "transparent",
-                  propsForBackgroundLines: {
-                    stroke: "transparent",
-                  },
-                }}
-                style={styles.barChart}
-                verticalLabelRotation={0}
+        <View style={{ flex: 1 }}>
+          <View style={{ flex: 1, justifyContent: "flex-end" }}>
+            {data && (
+              <FlatList
+                ref={flatListRef}
+                data={data}
+                keyExtractor={(item, index) => index.toString()}
+                renderItem={renderItem}
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                getItemLayout={(data, index) => ({
+                  length: ITEM_WIDTH,
+                  offset: ITEM_WIDTH * index,
+                  index,
+                })}
+                initialScrollIndex={selectedIndex}
+                onViewableItemsChanged={onViewRef.current}
+                viewabilityConfig={viewConfigRef.current}
+                contentContainerStyle={{ paddingHorizontal: 16 }}
               />
-
-              <View style={styles.dayRow}>
-                {data.map((item, index) => (
-                  <TouchableOpacity
-                    key={item.label}
-                    onPress={() => setSelectedIndex(index)}
-                    style={[styles.dayButton, selectedIndex === index && styles.dayButtonSelected]}
-                  >
-                    <Text
-                      style={[
-                        styles.dayButtonText,
-                        selectedIndex === index && styles.dayButtonTextSelected,
-                      ]}
-                    >
-                      {item.label}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
+            )}
+          </View>
+          <View style={{ flex: 1.2, justifyContent: "center" }}>
+            {selectedItem && levelInfo && (
+              <View style={styles.detailsBox}>
+                <EdgeGlow
+                  width={SCREEN_WIDTH * 0.9}
+                  height={"120%"}
+                  borderRadius={12}
+                  glowColor={selectedItem.barColor}
+                />
+                <Text style={styles.detailDate}>
+                  {format(new Date(selectedItem.date), "EEEE, MMMM do")}
+                </Text>
+                <Text style={styles.detailScore}>
+                  Vibration Score: {selectedItem.value.toFixed(0)}
+                </Text>
+                <Text style={styles.detailText}>{levelInfo?.label}</Text>
+                <Text style={styles.detailDescription}>{levelInfo?.historyDescription}</Text>
               </View>
-            </View>
-          )}
-        </>
+            )}
+          </View>
+        </View>
       }
       bottomContent={
-        <>
-          {selectedIndex != null && data ? (
-            <View style={styles.detailsBox}>
-              <Text style={styles.detailTitle}>{data[selectedIndex].label}</Text>
-              <Text style={styles.detailScore}>Vibration Score: {data[selectedIndex].value}</Text>
-              <Text style={{ marginTop: 4, color: "#666" }}>
-                Color: {data[selectedIndex].barColor}
-              </Text>
-            </View>
-          ) : null}
-        </>
+        paddedChakras.length === 7 ? (
+          <View
+            style={{
+              width: SCREEN_WIDTH,
+              flexDirection: "row",
+              flexWrap: "wrap",
+              justifyContent: "space-around",
+              alignItems: "center",
+              paddingHorizontal: 10,
+              paddingVertical: 24,
+            }}
+          >
+            {paddedChakras.map((chakra, index) => (
+              <View
+                key={index}
+                style={{
+                  width: SCREEN_WIDTH / 4 - 12,
+                  alignItems: "center",
+                  marginVertical: 5,
+                }}
+              >
+                {/* Glow Wrapper with fixed height */}
+                <View
+                  style={{
+                    width: "100%",
+                    height: "50%", // consistent vertical space
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  <FuzzyGlow glowSize={Math.max(chakra.score * 0.6, 24)} glowColor={chakra.color} />
+                </View>
+
+                <Text
+                  style={{
+                    marginTop: 0,
+                    fontSize: 12,
+                    color: chakra.color,
+                    textAlign: "center",
+                    fontWeight: "500",
+                  }}
+                >
+                  {chakra.name.split(" ")[0]}
+                </Text>
+              </View>
+            ))}
+          </View>
+        ) : null
       }
     />
   );
 };
-
-const styles = StyleSheet.create({
-  tabContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginTop: 16,
-  },
-  tabButton: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    marginHorizontal: 6,
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    backgroundColor: "#eee",
-  },
-  tabButtonActive: {
-    backgroundColor: "#6495ed",
-    borderColor: "#6495ed",
-  },
-  tabText: {
-    fontSize: 14,
-    color: "#333",
-  },
-  tabTextActive: {
-    color: "#fff",
-    fontWeight: "bold",
-  },
-  chartContainer: {
-    alignItems: "center",
-    width: SCREEN_WIDTH,
-  },
-  barChart: {
-    width: SCREEN_WIDTH,
-    alignItems: "center",
-    paddingRight: 0,
- 
-  },
-  dayRow: {
-    width: SCREEN_WIDTH,
-    backgroundColor: "transparent",
-    flexDirection: "row",
-    justifyContent: "center",
-    marginTop: -40,
-  },
-
-  dayButton: {
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    margin: 2,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    backgroundColor: "#f0f0f0",
-  },
-  dayButtonSelected: {
-    backgroundColor: "#6495ed",
-    borderColor: "#6495ed",
-  },
-  dayButtonText: {
-    color: "#333",
-    fontSize: 14,
-  },
-  dayButtonTextSelected: {
-    color: "#fff",
-    fontWeight: "bold",
-  },
-
-  detailsBox: {
-    width: SCREEN_WIDTH *.9,
-    height: "100%",
-    marginHorizontal: 20,
-    padding: 12,
-    borderRadius: 12,
-    backgroundColor: "#f7f7f7",
-    borderWidth: 1,
-    borderColor: "#ccc",
-    marginTop: 10,
-  },
-  detailTitle: {
-    fontSize: 16,
-    fontWeight: "bold",
-    marginBottom: 4,
-  },
-  detailScore: {
-    fontSize: 14,
-    color: "#333",
-  },
-});

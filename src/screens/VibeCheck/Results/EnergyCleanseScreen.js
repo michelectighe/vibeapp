@@ -43,16 +43,15 @@ export const EnergyCleanseScreen = () => {
   const handleMeditationPress = async (item) => {
     if (isPlayingRef.current) {
       await stopTrack();
-    }
-    else {
-    await playTrack(item.id, item.audio, item.title, "VibeKey", 1, true);
-    isPlayingRef.current = true;
+    } else {
+      await playTrack(item.id, item.audio, item.title, "VibeKey", 1, true);
+      isPlayingRef.current = true;
     }
   };
 
   if (!overallColor) {
     return (
-      <GradientBackground colors={["white", "white", "white"]}>
+      <GradientBackground colors={[Colors.white, Colors.white, Colors.white]}>
         <View style={[globalStyles.centered, { flex: 1 }]}>
           <ActivityIndicator size="large" color={Colors.primary} />
         </View>
@@ -61,7 +60,7 @@ export const EnergyCleanseScreen = () => {
   }
 
   return (
-    <GradientBackground colors={["white", overallColor, "white"]} logo={false}>
+    <GradientBackground colors={[Colors.white, overallColor, Colors.white]} logo={false}>
       <CloseX xColor={Colors.darkText} onPress={() => navigation.goBack()} />
       <SectionLayout
         topFlex={1}

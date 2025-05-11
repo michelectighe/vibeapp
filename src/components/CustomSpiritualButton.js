@@ -32,7 +32,7 @@ export const CustomSpiritualButton = ({
     <Animated.View style={{ opacity: fadeAnim, width: "100%" }}>
       <TouchableOpacity
         onPress={onPress}
-        style={[styles.button, { backgroundColor: color || "#888" }]}
+        style={[styles.button, { backgroundColor: color || Colors.backgroundSpirit }]}
         activeOpacity={0.85}
       >
         <Text style={[styles.label, { color: textColor }]}>{label}</Text>
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 20,
     borderRadius: 16,
-    shadowColor: "#000",
+    shadowColor: Colors.black,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.25,
     shadowRadius: 6,

@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet, useWindowDimensions } from "react-native";
 import { FuzzyGlow } from "./FuzzyGlow";
 import { EdgeGlow } from "./EdgeGlow";
+import { Colors } from "@/constants";
 
 export const ChakraComparisonCard = ({ chakra, yourScore, theirScore }) => {
   const { width } = useWindowDimensions();
@@ -39,7 +40,7 @@ const styles = StyleSheet.create({
   card: {
     height: 180,
     borderRadius: 20,
-    backgroundColor: "#fff",
+    backgroundColor: Colors.white,
     alignSelf: "center",
     justifyContent: "center",
     alignItems: "center",
@@ -83,16 +84,16 @@ const styles = StyleSheet.create({
   chakraName: {
     fontSize: 18,
     fontWeight: "bold",
-    color: "#333",
+    color: Colors.veryDarkGray,
   },
   label: {
     fontSize: 14,
     fontWeight: "bold",
-    color: "#aaa",
+    color: Colors.mediumGray,
     marginBottom: 4,
   },
   value: {
     fontSize: 16,
-    color: "#000",
+    color: Colors.black,
   },
 });

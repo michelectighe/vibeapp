@@ -9,14 +9,14 @@ const rawStyles = {
   },
   title: {
     fontSize: 28,
-    color: "#fff",
+    color: Colors.white,
     fontFamily: Fonts.title,
     marginBottom: 10,
     textAlign: "center",
   },
   summary: {
     fontSize: 18,
-    color: "#f0f0f0",
+    color: Colors.veryLightGray,
     textAlign: "center",
     marginBottom: 15,
   },
@@ -29,13 +29,13 @@ const rawStyles = {
   },
   sectionTitle: {
     fontSize: 22,
-    color: "#ccc",
+    color: Colors.lightGray,
     fontWeight: "bold",
     marginTop: 0,
     marginBottom: 8,
   },
   noData: {
-    color: "#999",
+    color: Colors.mediumGray,
     fontStyle: "italic",
     textAlign: "center",
     marginBottom: 10,

@@ -4,9 +4,10 @@ import { LinearGradient } from "react-native-linear-gradient";
 import { AnimatedLogoSmall } from "./AnimatedLogoSmall";
 import { FloatingFeather } from "./FloatingFeather";
 import { globalStyles } from "@/styles";
+import { Colors } from "@/constants";
 
 export const GradientBackground = ({ children, colors, logo = true }) => {
-  const gradientColors = colors || ["#5E2B97", "#B18BD7", "#5E2B97"];
+  const gradientColors = colors || [Colors.white, Colors.white, Colors.white];
 
   return (
     <View style={globalStyles.container}>

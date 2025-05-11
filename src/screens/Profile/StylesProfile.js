@@ -15,7 +15,7 @@ export const buttonImage = btnImage;
 const rawStyles = {
   backLink: {
     marginTop: 20,
-    color: "white",
+    color: Colors.white,
     fontSize: 16,
   },
   bg: {
@@ -28,13 +28,13 @@ const rawStyles = {
   button: {
     padding: 12,
     borderRadius: 15,
-    backgroundColor: "#6c63ff",
+    backgroundColor: Colors.throatChakra,
     width: "100%",
     marginBottom: 10,
     alignItems: "center",
   },
   buttonText: {
-    color: "white",
+    color: Colors.white,
     fontSize: 18,
     fontWeight: "bold",
     textAlign: "center",
@@ -45,7 +45,7 @@ const rawStyles = {
 
   cancelText: {
     fontSize: 16,
-    color: "white",
+    color: Colors.white,
     textDecorationLine: "underline",
     fontFamily: "AppFont",
   },
@@ -58,14 +58,14 @@ const rawStyles = {
     borderRadius: 20,
     marginBottom: 20,
     elevation: 4, // Android shadow
-    shadowColor: "#000", // iOS shadow
+    shadowColor: Colors.black, // iOS shadow
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
   },
   cardText: {
     fontSize: 18,
-    color: "#333",
+    color: Colors.veryDarkGray,
   },
   container: {
     flex: 1,
@@ -76,7 +76,7 @@ const rawStyles = {
   },
 
   error: {
-    color: "white",
+    color: Colors.white,
     fontSize: 14,
     textAlign: "center",
     marginBottom: 10,
@@ -89,7 +89,7 @@ const rawStyles = {
     fontSize: 16,
     fontFamily: "AppFont",
     marginBottom: 10,
-    color: "#333",
+    color: Colors.veryDarkGray,
   },
   featuresBox: {
     width: "100%",
@@ -99,7 +99,7 @@ const rawStyles = {
     marginBottom: 30,
   },
   forgot: {
-    color: "white",
+    color: Colors.white,
     marginTop: 0,
     fontSize: 14,
     marginBottom: 20,
@@ -115,7 +115,7 @@ const rawStyles = {
     width: "100%",
   },
   heading: {
-    color: "white",
+    color: Colors.white,
     fontSize: 36,
     textAlign: "center",
     marginBottom: 20,
@@ -133,7 +133,7 @@ const rawStyles = {
   },
   input: {
     width: "100%",
-    backgroundColor: "white",
+    backgroundColor: Colors.white,
     padding: 12,
     borderRadius: 15,
     marginBottom: 15,
@@ -142,7 +142,7 @@ const rawStyles = {
   },
   inputGoals: {
     width: "100%",
-    backgroundColor: "white",
+    backgroundColor: Colors.white,
     padding: 12,
     borderRadius: 15,
     marginBottom: 15,
@@ -151,7 +151,7 @@ const rawStyles = {
     height: "25%",
   },
   link: {
-    color: "white",
+    color: Colors.white,
     marginTop: 10,
     fontSize: 16,
   },
@@ -159,7 +159,7 @@ const rawStyles = {
   passwordContainer: {
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: Colors.white,
     borderRadius: 15,
     paddingHorizontal: 12,
     marginBottom: 15,
@@ -168,14 +168,14 @@ const rawStyles = {
   passwordInput: {
     flex: 1,
     paddingVertical: 12,
-    color: "#000",
+    color: Colors.black,
   },
   signInText: {
-    color: "white",
+    color: Colors.white,
     marginBottom: 20,
   },
   subscribeButton: {
-    backgroundColor: "#fff",
+    backgroundColor: Colors.white,
     borderRadius: 15,
     paddingVertical: 15,
     paddingHorizontal: 20,
@@ -183,20 +183,20 @@ const rawStyles = {
     width: "100%",
     alignItems: "center",
     borderWidth: 2,
-    borderColor: "#46c9fe", // Your accent color?
+    borderColor: Colors.thirdEyeChakra, // Your accent color?
   },
   subscribeText: {
     fontSize: 18,
     fontFamily: "AppFont",
-    color: "#46c9fe",
+    color: Colors.throatChakra,
   },
   success: {
-    color: "white",
+    color: Colors.white,
     textAlign: "center",
     marginBottom: 10,
   },
   subtitle: {
-    color: "white",
+    color: Colors.white,
     width: "100%",
     padding: 0,
     fontSize: 18,
@@ -204,7 +204,7 @@ const rawStyles = {
     textAlign: "center",
   },
   title: {
-    color: "white",
+    color: Colors.white,
     fontSize: 28,
     fontWeight: "bold",
     // marginTop: 10,

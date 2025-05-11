@@ -6,6 +6,7 @@ import { vibrationLevels } from "@data";
 import { Fonts } from "@constants";
 import { hexToRgba } from "@utils";
 import { GradientBackground } from "@/components/GradientBackground";
+import { Colors } from "@/constants";
 
 export const ResultSelector = ({ results, onSelect, onShare }) => {
   const formatDate = (timestamp) => {
@@ -29,7 +30,7 @@ export const ResultSelector = ({ results, onSelect, onShare }) => {
     const levelColor = hexToRgba(level.color, 0.7);
     return (
       <View style={styles.outsideGradient}>
-        <GradientBackground colors={["white",levelColor, "white"]} logo={false}>
+        <GradientBackground colors={[Colors.white,levelColor, Colors.white]} logo={false}>
           <TouchableOpacity style={[styles.card]} onPress={() => onSelect(item)}>
             <View style={[styles.card]}>
               <View style={styles.cardTop}>
@@ -37,7 +38,7 @@ export const ResultSelector = ({ results, onSelect, onShare }) => {
                 <Ionicons
                   name="share-outline"
                   size={20}
-                  color="#fff"
+                  color={Colors.white}
                   onPress={() => onShare(item)}
                   style={styles.shareIcon}
                 />
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     marginBottom: 0,
     elevation: 3,
-    shadowColor: "#000",
+    shadowColor: Colors.black,
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 4,
@@ -102,18 +103,18 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 16,
     fontFamily: Fonts.Bold,
-    color: "#fff",
+    color: Colors.white,
   },
   score: {
     fontSize: 36,
     fontFamily: Fonts.Bold,
-    color: "#fff",
+    color: Colors.white,
     alignSelf: "center",
     marginBottom: 4,
   },
   date: {
     fontSize: 14,
-    color: "#f9f9f9",
+    color: Colors.veryDarkGray,
     alignSelf: "center",
   },
   shareIcon: {

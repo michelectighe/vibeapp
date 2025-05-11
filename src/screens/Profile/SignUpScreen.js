@@ -109,14 +109,14 @@ export const SignUpScreen = ({ navigation }) => {
                     <TextInput
                       style={globalStyles.input}
                       placeholder="Name"
-                      placeholderTextColor="#999"
+                      placeholderTextColor={Colors.mediumGray}
                       value={name}
                       onChangeText={setName}
                     />
                     <TextInput
                       style={globalStyles.input}
                       placeholder="Email"
-                      placeholderTextColor="#999"
+                      placeholderTextColor={Colors.mediumGray}
                       autoComplete="email"
                       textContentType="emailAddress"
                       value={email}
@@ -126,7 +126,7 @@ export const SignUpScreen = ({ navigation }) => {
                       <TextInput
                         style={globalStyles.passwordInput}
                         placeholder="Password"
-                        placeholderTextColor="#999"
+                        placeholderTextColor={Colors.mediumGray}
                         autoComplete="password"
                         textContentType="password"
                         secureTextEntry={!passwordVisible}
@@ -138,9 +138,9 @@ export const SignUpScreen = ({ navigation }) => {
                         style={styles.eyeIcon}
                       >
                         {passwordVisible ? (
-                          <MaterialIcons name="visibility-off" size={24} color="#888" />
+                          <MaterialIcons name="visibility-off" size={24} color={Colors.backgroundSpirit} />
                         ) : (
-                          <MaterialIcons name="visibility" size={24} color="#888" />
+                          <MaterialIcons name="visibility" size={24} color={Colors.backgroundSpirit}  />
                         )}
                       </TouchableOpacity>
                     </View>
@@ -156,7 +156,7 @@ export const SignUpScreen = ({ navigation }) => {
                       style={{
                         marginTop: 5,
                         textAlign: "center",
-                        color: "white",
+                        color: Colors.white,
                         fontSize: 18,
                       }}
                     >

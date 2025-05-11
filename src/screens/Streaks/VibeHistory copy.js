@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, TouchableOpacity, Dimensions, StyleSheet, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import { BarChart } from "react-native-chart-kit";
 import { SectionLayout } from "@components";
-import { getVibeHistory, groupScores, SCREEN_WIDTH } from "@/utils";
-
-const screenWidth = Dimensions.get("window").width;
+import { getVibeHistory, groupScores, SCREEN_HEIGHT, SCREEN_WIDTH } from "@/utils";
+import { styles } from "./VibeHistory.styles";
+import { Colors } from "@/constants";
+import { vibrationLevels } from "@/data";
+import { format } from "date-fns";
 
 export const VibeHistoryScreen = () => {
+  const getLevelInfo = (score) => vibrationLevels.find((level) => score >= level.minScore);
+
   const [selectedRange, setSelectedRange] = useState("daily");
   const [data, setData] = useState(null);
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -43,38 +47,42 @@ export const VibeHistoryScreen = () => {
       }
       middleContent={
         <>
+          {data?.length > 0 && (
+            <Text style={styles.yearLabel}>{new Date(data[0].date).getFullYear()}</Text>
+          )}
           {data && (
             <View contentContainerStyle={styles.chartContainer}>
-              <BarChart
-                data={{
-                  labels: data.map((d) => d.label),
-                  datasets: [
-                    {
-                      data: data.map((d) => d.value),
-                      colors: data.map((d) => () => d.barColor),
+              <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                <BarChart
+                  data={{
+                    labels: data.map((d) => d.label),
+                    datasets: [
+                      {
+                        data: data.map((d) => d.value),
+                        colors: data.map((d) => () => d.barColor),
+                      },
+                    ],
+                  }}
+                  width={data.length * 60} // dynamically size width based on data
+                  height={SCREEN_HEIGHT * 0.3}
+                  fromZero={true}
+                  segments={5}
+                  withCustomBarColorFromData={true}
+                  chartConfig={{
+                    backgroundColor: Colors.white,
+                    backgroundGradientFrom: Colors.white,
+                    backgroundGradientTo: Colors.white,
+                    decimalPlaces: 0,
+                    color: () => "transparent",
+                    labelColor: () => "transparent",
+                    propsForBackgroundLines: {
+                      stroke: "transparent",
                     },
-                  ],
-                }}
-                width={screenWidth - 20}
-                height={220}
-                fromZero={true}
-                segments={5}
-                withCustomBarColorFromData={true}
-                chartConfig={{
-                  backgroundColor: "#fff",
-                  backgroundGradientFrom: "#fff",
-                  backgroundGradientTo: "#fff",
-                  decimalPlaces: 0,
-                  color: () => "transparent",
-                  labelColor: () => "transparent",
-                  propsForBackgroundLines: {
-                    stroke: "transparent",
-                  },
-                }}
-                style={styles.barChart}
-                verticalLabelRotation={0}
-              />
-
+                  }}
+                  style={styles.barChart}
+                  verticalLabelRotation={0}
+                />
+              </ScrollView>
               <View style={styles.dayRow}>
                 {data.map((item, index) => (
                   <TouchableOpacity
@@ -101,10 +109,20 @@ export const VibeHistoryScreen = () => {
         <>
           {selectedIndex != null && data ? (
             <View style={styles.detailsBox}>
-              <Text style={styles.detailTitle}>{data[selectedIndex].label}</Text>
-              <Text style={styles.detailScore}>Vibration Score: {data[selectedIndex].value}</Text>
-              <Text style={{ marginTop: 4, color: "#666" }}>
-                Color: {data[selectedIndex].barColor}
+              <Text style={styles.detailDate}>
+                {format(new Date(data[selectedIndex].date), "EEEE, MMMM do")}
+              </Text>
+
+              {/* <Text style={styles.detailTitle}>{data[selectedIndex].label}</Text> */}
+              <Text style={styles.detailScore}>
+                Vibration Score: {data[selectedIndex].value.toFixed(0)}
+              </Text>
+              <Text style={styles.detailText}>
+                {getLevelInfo(data[selectedIndex].value)?.label}
+              </Text>
+              <Text style={styles.detailDescription}>
+                {getLevelInfo(data[selectedIndex].value)?.historyDescription ??
+                  "No summary available."}
               </Text>
             </View>
           ) : null}
@@ -113,89 +131,3 @@ export const VibeHistoryScreen = () => {
     />
   );
 };
-
-const styles = StyleSheet.create({
-  tabContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginTop: 16,
-  },
-  tabButton: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    marginHorizontal: 6,
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    backgroundColor: "#eee",
-  },
-  tabButtonActive: {
-    backgroundColor: "#6495ed",
-    borderColor: "#6495ed",
-  },
-  tabText: {
-    fontSize: 14,
-    color: "#333",
-  },
-  tabTextActive: {
-    color: "#fff",
-    fontWeight: "bold",
-  },
-  chartContainer: {
-    alignItems: "center",
-    width: SCREEN_WIDTH,
-  },
-  barChart: {
-    width: SCREEN_WIDTH,
-    alignItems: "center",
-    paddingRight: 0,
-  },
-  dayRow: {
-    width: SCREEN_WIDTH,
-    backgroundColor: "transparent",
-    flexDirection: "row",
-    justifyContent: "center",
-    marginTop: -40,
-  },
-
-  dayButton: {
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    margin: 2,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: "#ccc",
-    backgroundColor: "#f0f0f0",
-  },
-  dayButtonSelected: {
-    backgroundColor: "#6495ed",
-    borderColor: "#6495ed",
-  },
-  dayButtonText: {
-    color: "#333",
-    fontSize: 14,
-  },
-  dayButtonTextSelected: {
-    color: "#fff",
-    fontWeight: "bold",
-  },
-
-  detailsBox: {
-    marginHorizontal: 20,
-    padding: 12,
-    borderRadius: 12,
-    backgroundColor: "#f7f7f7",
-    borderWidth: 1,
-    borderColor: "#ccc",
-    marginTop: 10,
-  },
-  detailTitle: {
-    fontSize: 16,
-    fontWeight: "bold",
-    marginBottom: 4,
-  },
-  detailScore: {
-    fontSize: 14,
-    color: "#333",
-  },
-});

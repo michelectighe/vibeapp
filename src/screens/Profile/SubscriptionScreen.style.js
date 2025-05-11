@@ -7,10 +7,10 @@ const rawStyles = {
   featuresBox: {
     height: "90%", // or whatever fits nicely on your layout
     width: "90%",
-    backgroundColor: "#fff",
+    backgroundColor: Colors.white,
     borderRadius: 10,
     padding: 10,
-    marginTop:10,
+    marginTop: 10,
     marginBottom: 20,
     alignSelf: "center",
     overflow: "hidden",
@@ -25,7 +25,7 @@ const rawStyles = {
     flex: 1,
   },
   subscribeButton: {
-    backgroundColor: "#fff",
+    backgroundColor: Colors.white,
     borderRadius: 15,
     paddingVertical: 15,
     paddingHorizontal: 20,
@@ -38,17 +38,17 @@ const rawStyles = {
   subscribeText: {
     fontSize: 18,
     fontFamily: "AppFont",
-    color: "white",
+    color: Colors.white,
   },
   success: {
-    color: "white",
+    color: Colors.white,
     textAlign: "center",
     marginBottom: 10,
   },
   cancelButton: {
-justifyContent: "center",
+    justifyContent: "center",
     // bottom: 10,
-  }
+  },
 };
 
 export const styles = StyleSheet.create(scaledStyle(rawStyles));

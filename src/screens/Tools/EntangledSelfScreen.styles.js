@@ -6,7 +6,7 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 const rawStyles = {
   container: {
     flex: 1,
-    backgroundColor: "#F5CBA7",
+    backgroundColor: Colors.burntOrange,
     alignItems: "center",
     justifyContent: "center",
     padding: 24,
@@ -14,12 +14,12 @@ const rawStyles = {
   title: {
     fontSize: 28,
     fontWeight: "700",
-    color: "#4E342E",
+    color: Colors.darkText,
     marginBottom: 10,
   },
   subtitle: {
     fontSize: 16,
-    color: "#6D4C41",
+    color: Colors.meditationText,
     marginBottom: 40,
   },
   visualArea: {
@@ -33,22 +33,22 @@ const rawStyles = {
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: "#fff",
+    backgroundColor: Colors.white,
     opacity: 0.6,
-    shadowColor: "#fff",
+    shadowColor: Colors.white,
     shadowOffset: { width: 0, height: 0 },
     shadowRadius: 15,
     shadowOpacity: 0.8,
   },
   continueButton: {
     marginTop: 60,
-    backgroundColor: "#6D4C41",
+    backgroundColor: Colors.meditationText,
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 24,
   },
   continueText: {
-    color: "#FFF3E0",
+    color: Colors.peach,
     fontSize: 16,
     fontWeight: "600",
   },

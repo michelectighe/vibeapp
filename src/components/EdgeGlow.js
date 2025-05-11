@@ -1,12 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import { View, Animated } from "react-native";
 import { Svg, Defs, RadialGradient, Stop, Rect } from "react-native-svg";
+import { Colors } from "@/constants";
 
 export const EdgeGlow = ({
   width = 250,
   height = 180,
   borderRadius = 20,
-  glowColor = "#FFD700",
+  glowColor = Colors.yellow,
   pulse = true,
 }) => {
   const scale = useRef(new Animated.Value(1)).current;

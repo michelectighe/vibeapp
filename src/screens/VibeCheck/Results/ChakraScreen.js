@@ -12,15 +12,17 @@ import { useAnalysis } from "@context";
 import { FuzzyGlow, EdgeGlow } from "@components";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./ChakraScreen.styles";
+import { Colors } from "@/constants";
+import { SCREEN_WIDTH } from "@/utils";
 
 const chakraMeta = [
-  { id: "root", name: "Root", color: "#e53935" },
-  { id: "sacral", name: "Sacral", color: "#fb8c00" },
-  { id: "solarPlexus", name: "Solar Plexus", color: "#fdd835" },
-  { id: "heart", name: "Heart", color: "#43a047" },
-  { id: "throat", name: "Throat", color: "#1e88e5" },
-  { id: "thirdEye", name: "Third Eye", color: "#8e24aa" },
-  { id: "crown", name: "Crown", color: "#6a1b9a" },
+  { id: "root", name: "Root", color: Colors.rootChakra },
+  { id: "sacral", name: "Sacral", color: Colors.sacralChakra },
+  { id: "solarPlexus", name: "Solar Plexus", color: Colors.solarPlexusChakra },
+  { id: "heart", name: "Heart", color: Colors.heartChakra },
+  { id: "throat", name: "Throat", color: Colors.throatChakra },
+  { id: "thirdEye", name: "Third Eye", color: Colors.thirdEyeChakra },
+  { id: "crown", name: "Crown", color: Colors.crownChakra },
 ];
 
 const ChakraCard = ({ chakra }) => {
@@ -42,7 +44,17 @@ const ChakraCard = ({ chakra }) => {
     <Pressable onPress={handlePress}>
       <View style={[styles.card, { width: width - 32 }]}>
         <EdgeGlow width={width - 32} height={180} borderRadius={20} glowColor={chakra.color} />
-        <FuzzyGlow glowSize={glowSize * 0.9} glowColor={chakra.color} />
+        <View
+          style={{
+            Position: "absolute",
+            left: 0,
+            right: 0,
+            width: SCREEN_WIDTH,
+            alignItems: "center",
+          }}
+        >
+          <FuzzyGlow glowSize={glowSize * 0.9} glowColor={chakra.color} />
+        </View>
         <View style={styles.textOverlay}>
           <Text style={styles.name}>{chakra.name}</Text>
           <Text style={styles.meaning}>{chakra.meaning}</Text>

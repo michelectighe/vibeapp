@@ -1,14 +1,16 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
   Switch,
-  Animated,
-  TouchableWithoutFeedback,
   KeyboardAvoidingView,
   Keyboard,
   Platform,
   TextInput,
+  TouchableWithoutFeedback,
+  ScrollView,
+  Modal,
+  Pressable,
 } from "react-native";
 import { useAuth, useUserProfile } from "@context";
 import {
@@ -17,7 +19,6 @@ import {
   getBiometricOptIn,
   getFriendlyError,
 } from "@utils";
-import { AnimatedVerticalScroll } from "@/components";
 import { validatePassword, getPasswordStrength } from "@utils/validatePassword";
 import { updateDoc, doc } from "firebase/firestore";
 import { db } from "@config/firebaseConfig";
@@ -31,14 +32,14 @@ import {
 import { getMusicPreference } from "@/services";
 import { Colors } from "@constants";
 import { styles } from "./UpdateProfileScreen.style";
-import { globalStyles } from "@styles";
-import { SCREEN_WIDTH } from "@/utils";
+
 import { useAmbientControlForScreen } from "@hooks";
 
 export const UpdateProfileScreen = ({ navigation }) => {
   useAmbientControlForScreen(true);
   const { user, updateProfile, updateEmail, updatePassword, authLoading } = useAuth();
-  const { profile } = useUserProfile();
+  const { profile, updateUserData, fetchUserData } = useUserProfile();
+  const [modalVisible, setModalVisible] = useState(false);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -49,18 +50,20 @@ export const UpdateProfileScreen = ({ navigation }) => {
   const [musicEnabled, setMusicEnabled] = useState(true);
   const [isAppleLogin, setIsAppleLogin] = useState(false);
   const [isDirty, setIsDirty] = useState(false);
-  const confirmationAnim = useRef(new Animated.Value(0)).current;
   const [goals, setGoals] = useState("");
   const [challenges, setChallenges] = useState("");
   const [support, setSupport] = useState("");
 
   useEffect(() => {
-    if (profile) {
-      if (profile.goals) setGoals(profile.goals);
-      if (profile.challenges) setChallenges(profile.challenges);
-      if (profile.support) setSupport(profile.support);
-    }
-  }, [profile]);
+    const loadUserData = async () => {
+      const profileData = await fetchUserData();
+      console.log("profile:", profileData);
+      if (profileData.goals) setGoals(profileData.goals[0]);
+      if (profileData.challenges) setChallenges(profileData.challenges[0]);
+      if (profileData.support) setSupport(profileData.support[0]);
+    };
+    loadUserData();
+  }, [profile]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (!user) return;
@@ -72,23 +75,6 @@ export const UpdateProfileScreen = ({ navigation }) => {
     getBiometricOptIn().then(setFaceIDEnabled);
     getMusicPreference().then(setMusicEnabled);
   }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const triggerConfirmation = () => {
-    console.log("conf trigger");
-    Animated.sequence([
-      Animated.timing(confirmationAnim, {
-        toValue: 1,
-        duration: 500,
-        useNativeDriver: true,
-      }),
-      Animated.delay(1500),
-      Animated.timing(confirmationAnim, {
-        toValue: 0,
-        duration: 500,
-        useNativeDriver: true,
-      }),
-    ]).start();
-  };
 
   const confirmIdentity = async () => {
     try {
@@ -124,205 +110,211 @@ export const UpdateProfileScreen = ({ navigation }) => {
       }
 
       if (email && email !== user.email) {
-        console.log("in email");
         await updateEmail(email);
         updates.email = email;
       }
 
       if (name && name !== user.displayName) {
-        console.log("in name");
         await updateProfile({ displayName: name });
         updates.name = name;
       }
 
       faceIDEnabled ? await saveBiometricOptIn(true) : await clearSavedCredentials();
 
-      // await setUserMusicPref(musicEnabled);
+      updateUserData(user.uid, {
+        goals: [goals],
+        challenges: [challenges],
+        support: [support],
+      });
 
       if (Object.keys(updates).length > 0) {
-        console.log("update doc");
         await updateDoc(ref, updates);
       }
+      console.log("setmodal true");
+      //   triggerConfirmation();
+      setModalVisible(true);
 
-      triggerConfirmation();
-      alert("✅ Profile updated successfully!");
-      navigation.replace("Tabs", { screen: "Home" });
+      //    navigation.replace("Tabs", { screen: "Home" });
     } catch (err) {
       const friendly = getFriendlyError(err.code);
       setPasswordError(friendly || "Failed to update profile.");
     }
   };
 
-  const ScrollableInput = ({ value, onChangeText, placeholder }) => (
-    <View style={styles.inputGoals}>
-      <TextInput
-        value={value}
-        onChangeText={onChangeText}
-        placeholder={placeholder}
-        placeholderTextColor="#aaa"
-        multiline
-        style={{ flex: 1, color: "#fff", textAlignVertical: "top" }}
-        scrollEnabled
-      />
-    </View>
-  );
-
   if (authLoading) {
     return (
-      <Text style={{ color: "#fff", textAlign: "center", marginTop: 50 }}>Authenticating...</Text>
+      <Text style={{ color: Colors.white, textAlign: "center", marginTop: 50 }}>
+        Authenticating...
+      </Text>
     );
   }
 
   return (
     <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
-      <SectionLayout
-        topFlex={2}
-        middleFlex={6}
-        bottomFlex={1}
-        topContent={
-          <View style={globalStyles.titleWrapper}>
-            <Text style={globalStyles.title}>Update Profile</Text>
+      <Modal
+        visible={modalVisible}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalText}>✅ Profile updated successfully!</Text>
+            <Pressable
+              onPress={() => {
+                setModalVisible(false);
+                navigation.replace("Tabs", { screen: "Home" });
+              }}
+              style={styles.modalButton}
+            >
+              <Text style={styles.modalButtonText}>OK</Text>
+            </Pressable>
           </View>
-        }
-        middleContent={
-          <View>
-            <AnimatedVerticalScroll style={{ width: SCREEN_WIDTH * 0.9 }}>
-              <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-                <KeyboardAvoidingView
-                  style={{ flex: 1 }}
-                  behavior={Platform.OS === "ios" ? "padding" : "height"}
-                  keyboardVerticalOffset={80} // tweak if needed for your layout
-                >
-                  <View style={globalStyles.formContainer}>
+        </View>
+      </Modal>
+      <SectionLayout
+        topFlex={1}
+        middleFlex={0}
+        bottomFlex={0}
+        // topContent={null}
+        safe={false}
+        topContent={
+          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <KeyboardAvoidingView
+              behavior={Platform.OS === "ios" ? "padding" : undefined}
+              keyboardVerticalOffset={0}
+              style={{ flex: 1 }}
+            >
+              <View style={styles.titleWrapper}>
+                <Text style={styles.title}>Update Profile</Text>
+              </View>
+              <ScrollView
+                contentContainerStyle={{
+                  paddingTop: 160,
+                  paddingBottom: 100,
+                  paddingHorizontal: 24,
+                }}
+                keyboardShouldPersistTaps="handled"
+              >
+                <ProfileInput
+                  label="Name"
+                  value={name}
+                  onChangeText={(t) => {
+                    setName(t);
+                    setIsDirty(true);
+                  }}
+                />
+                {!isAppleLogin && (
+                  <>
                     <ProfileInput
-                      label="Name"
-                      value={name}
+                      label="Email"
+                      value={email}
                       onChangeText={(t) => {
-                        setName(t);
+                        setEmail(t);
                         setIsDirty(true);
                       }}
+                      keyboardType="email-address"
                     />
-                    {!isAppleLogin && (
-                      <>
-                        <ProfileInput
-                          label="Email"
-                          value={email}
-                          onChangeText={(t) => {
-                            setEmail(t);
-                            setIsDirty(true);
-                          }}
-                          keyboardType="email-address"
-                        />
-                        <ProfileInput
-                          label="New Password"
-                          value={password}
-                          onChangeText={(t) => {
-                            setPassword(t);
-                            setIsDirty(true);
-                          }}
-                          secure
-                        />
-                        <ProfileInput
-                          label="Confirm Password"
-                          value={confirmPassword}
-                          onChangeText={(t) => {
-                            setConfirmPassword(t);
-                            setIsDirty(true);
-                          }}
-                          secure
-                        />
-                        <Text style={{ color: "#ccc", marginVertical: 8 }}>
-                          {password ? getPasswordStrength(password) : ""}
-                        </Text>
-                      </>
-                    )}
-                    <Text style={styles.link}>{passwordError}</Text>
-
-                    <View style={styles.toggles}>
-                      <Switch
-                        value={faceIDEnabled}
-                        onValueChange={(val) => {
-                          setFaceIDEnabled(val);
-                          setIsDirty(true);
-                        }}
-                      />
-                      <Text style={styles.switchText}>Enable Face ID</Text>
-                    </View>
-
-                    <View style={styles.toggles}>
-                      <Switch
-                        value={musicEnabled}
-                        onValueChange={(val) => {
-                          setMusicEnabled(val);
-                          setIsDirty(true);
-                        }}
-                      />
-                      <Text style={styles.switchText}>Enable Music</Text>
-                    </View>
-                  </View>
-                  <View>
-                    <Text style={styles.subtitle}>What is your intention for using VibeKey?</Text>
-                    <ScrollableInput
-                      value={goals}
-                      onChangeText={setGoals}
-                      placeholder="e.g. Raise my vibration, feel more connected..."
+                    <ProfileInput
+                      label="New Password"
+                      value={password}
+                      onChangeText={(t) => {
+                        setPassword(t);
+                        setIsDirty(true);
+                      }}
+                      secure
                     />
-
-                    <Text style={styles.subtitle}>What challenges are you currently facing?</Text>
-                    <ScrollableInput
-                      value={challenges}
-                      onChangeText={setChallenges}
-                      placeholder="e.g. Anxiety, burnout, low energy..."
+                    <ProfileInput
+                      label="Confirm Password"
+                      value={confirmPassword}
+                      onChangeText={(t) => {
+                        setConfirmPassword(t);
+                        setIsDirty(true);
+                      }}
+                      secure
                     />
+                    <Text style={{ color: Colors.lightGray, marginVertical: 8 }}>
+                      {password ? getPasswordStrength(password) : ""}
+                    </Text>
+                  </>
+                )}
+                <Text style={styles.link}>{passwordError}</Text>
 
-                    <Text style={styles.subtitle}>What kind of support or tools would help?</Text>
-                    <ScrollableInput
-                      value={support}
-                      onChangeText={setSupport}
-                      placeholder="e.g. Guided meditations, reminders, insights..."
-                    />
-                  </View>
-                </KeyboardAvoidingView>
-              </TouchableWithoutFeedback>
-            </AnimatedVerticalScroll>
-          </View>
-        }
-        bottomContent={
-          <View>
-            <View style={styles.bottomButtons}>
-              <CustomSpiritualButton
-                label="Update"
-                onPress={handleUpdate}
-                color={Colors.buttonBackground}
-                textColor={Colors.lightText}
-              />
-              <CustomSpiritualButton
-                label="Cancel"
-                onPress={() => navigation.goBack()}
-                color={Colors.buttonBackground}
-                textColor={Colors.lightText}
-              />
-            </View>
-            {/* <Animated.Text
-              style={{
-                opacity: confirmationAnim,
-                transform: [
-                  {
-                    translateY: confirmationAnim.interpolate({
-                      inputRange: [0, 1],
-                      outputRange: [-10, 0],
-                    }),
-                  },
-                ],
-                textAlign: "center",
-                color: "#00ffcc",
-                fontSize: 16,
-                marginTop: 10,
-              }}
-            >
-              ✅ Profile updated successfully!
-            </Animated.Text> */}
-          </View>
+                <View style={styles.toggles}>
+                  <Switch
+                    value={faceIDEnabled}
+                    onValueChange={(val) => {
+                      setFaceIDEnabled(val);
+                      setIsDirty(true);
+                    }}
+                  />
+                  <Text style={styles.switchText}>Enable Face ID</Text>
+                </View>
+
+                <View style={styles.toggles}>
+                  <Switch
+                    value={musicEnabled}
+                    onValueChange={(val) => {
+                      setMusicEnabled(val);
+                      setIsDirty(true);
+                    }}
+                  />
+                  <Text style={styles.switchText}>Enable Music</Text>
+                </View>
+
+                <Text style={styles.subtitle}>What is your intention for using VibeKey?</Text>
+                <TextInput
+                  value={goals}
+                  onChangeText={(t) => {
+                    setGoals(t);
+                    setIsDirty(true);
+                  }}
+                  placeholder="e.g. Raise my vibration, feel more connected..."
+                  multiline
+                  style={[styles.inputGoals, { textAlign: "left", height: 100 }]}
+                />
+
+                <Text style={styles.subtitle}>What challenges are you currently facing?</Text>
+                <TextInput
+                  value={challenges}
+                  onChangeText={(t) => {
+                    setChallenges(t);
+                    setIsDirty(true);
+                  }}
+                  placeholder="e.g. Anxiety, burnout, low energy..."
+                  multiline
+                  style={[styles.inputGoals, { textAlign: "left", height: 100 }]}
+                />
+
+                <Text style={styles.subtitle}>What kind of support or tools would help?</Text>
+                <TextInput
+                  value={support}
+                  onChangeText={(t) => {
+                    setSupport(t);
+                    setIsDirty(true);
+                  }}
+                  placeholder="e.g. Guided meditations, reminders, insights..."
+                  multiline
+                  style={[styles.inputGoals, { textAlign: "left", height: 100 }]}
+                />
+
+                <View style={styles.bottomButtons}>
+                  <CustomSpiritualButton
+                    label="Update"
+                    onPress={handleUpdate}
+                    color={Colors.buttonBackground}
+                    textColor={Colors.lightText}
+                  />
+                  <CustomSpiritualButton
+                    label="Cancel"
+                    onPress={() => navigation.goBack()}
+                    color={Colors.buttonBackground}
+                    textColor={Colors.lightText}
+                  />
+                </View>
+              </ScrollView>
+            </KeyboardAvoidingView>
+          </TouchableWithoutFeedback>
         }
       />
     </GradientBackground>

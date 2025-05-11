@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Animated } from "react-native";
 import { Svg, Circle } from "react-native-svg";
-
+import { Colors } from "@/constants";
 export const SparkleOverlay = ({ width, height }) => {
   const opacity = useRef(new Animated.Value(0.5)).current;
 
@@ -45,7 +45,7 @@ export const SparkleOverlay = ({ width, height }) => {
     >
       <Svg width="100%" height="100%">
         {sparkleData.map((s, i) => (
-          <Circle key={i} cx={s.cx} cy={s.cy} r={s.r} fill="white" opacity={0.8} />
+          <Circle key={i} cx={s.cx} cy={s.cy} r={s.r} fill={Colors.white} opacity={0.8} />
         ))}
       </Svg>
     </Animated.View>

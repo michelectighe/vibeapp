@@ -9,6 +9,7 @@ import {
   UIManager,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
+import { Colors } from "@/constants";
 
 if (Platform.OS === "android") {
   UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -28,7 +29,7 @@ export const ExpandableInfoItem = ({ icon, title, description }) => {
         <Icon name={icon} size={22} style={styles.icon} />
         <Text style={styles.title}>{title}</Text>
         <TouchableOpacity onPress={toggleExpand}>
-          <Icon name="help-circle-outline" size={30} color="#555" />
+          <Icon name="help-circle-outline" size={30} color={Colors.darkGray} />
         </TouchableOpacity>
       </View>
       {expanded && <Text style={styles.description}>{description}</Text>}
@@ -38,11 +39,11 @@ export const ExpandableInfoItem = ({ icon, title, description }) => {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#F0F0F0",
+    backgroundColor: Colors.veryLightGray,
     borderRadius: 12,
     padding: 12,
     marginVertical: 6,
-    shadowColor: "#000",
+    shadowColor: Colors.black,
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
@@ -54,17 +55,17 @@ const styles = StyleSheet.create({
   },
   icon: {
     marginRight: 10,
-    color: "#333",
+    color: Colors.veryDarkGray,
   },
   title: {
     flex: 1,
     fontSize: 16,
     fontWeight: "600",
-    color: "#333",
+    color: Colors.veryDarkGray,
   },
   description: {
     marginTop: 10,
-    color: "#555",
+    color: Colors.darkGray,
     fontSize: 14,
     lineHeight: 20,
   },

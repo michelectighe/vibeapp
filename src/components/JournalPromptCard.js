@@ -2,11 +2,12 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { Colors } from "@/constants";
 
 export const JournalPromptCard = ({ item }) => {
   return (
     <View style={styles.card}>
-      <Ionicons name="create-outline" size={24} color="#9C27B0" style={styles.icon} />
+      <Ionicons name="create-outline" size={24} color={Colors.thirdEyeChakra} style={styles.icon} />
       <Text style={styles.prompt}>{item.prompt}</Text>
     </View>
   );
@@ -14,7 +15,7 @@ export const JournalPromptCard = ({ item }) => {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#fff",
+    backgroundColor: Colors.white,
     padding: 16,
     borderRadius: 12,
     marginVertical: 8,
@@ -27,7 +28,7 @@ const styles = StyleSheet.create({
   },
   prompt: {
     fontSize: 16,
-    color: "#333",
+    color: Colors.veryDarkGray,
     flex: 1,
     flexWrap: "wrap",
   },

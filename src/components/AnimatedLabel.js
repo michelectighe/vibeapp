@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from "react";
-import { Animated} from "react-native";
+import { Animated } from "react-native";
+import { Colors } from "@/constants";
 
 export const AnimatedLabel = ({ label = "" }) => {
   const opacity = useRef(new Animated.Value(0)).current;
@@ -28,7 +29,7 @@ export const AnimatedLabel = ({ label = "" }) => {
         top: "45%",
         width: "100%",
         textAlign: "center",
-        color: "white",
+        color: Colors.white,
         fontSize: 16,
         fontWeight: "bold",
         transform: [{ translateY }],

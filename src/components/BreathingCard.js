@@ -7,7 +7,7 @@ import { Colors } from "@/constants";
 export const BreathingCard = ({ item, onPress }) => {
   return (
     <TouchableOpacity style={styles.card} onPress={() => onPress?.(item)}>
-      <Ionicons name="infinite" size={24} color="#4CAF50" style={styles.icon} />
+      <Ionicons name="infinite" size={24} color={Colors.infinityIcon} style={styles.icon} />
       <Text style={styles.name}>{item.name}</Text>
       <Text style={styles.timing}>
         {item.inhale}-{item.hold1}-{item.exhale}
@@ -19,7 +19,7 @@ export const BreathingCard = ({ item, onPress }) => {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: "#fff",
+    backgroundColor: Colors.white,
     padding: 16,
     borderRadius: 12,
     marginVertical: 8,
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
-    color: "#333",
+    color: Colors.veryDarkGray,
   },
   name: {
     fontSize: 16,

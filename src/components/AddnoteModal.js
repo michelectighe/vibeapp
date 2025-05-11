@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   input: {
-    backgroundColor: "#fff",
+    backgroundColor: Colors.white,
     borderRadius: 8,
     padding: 10,
     height: 80,
@@ -91,20 +91,20 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
   cancel: {
-    backgroundColor: "#aaa",
+    backgroundColor: Colors.mediumGray,
     borderRadius: 8,
     paddingVertical: 10,
     paddingHorizontal: 16,
   },
   save: {
-    backgroundColor: "#aaa",
+    backgroundColor: Colors.mediumGray,
     borderRadius: 8,
     paddingVertical: 10,
     paddingHorizontal: 16,
   },
   buttonText: {
     fontFamily: Fonts.Body,
-    color: "#fff",
+    color: Colors.white,
     fontSize: 16,
   },
 });

@@ -6,6 +6,7 @@ import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./ResultDetailsScreen.styles";
 import { globalStyles } from "@styles";
 import { GradientBackground } from "@/components";
+import { Colors } from "@/constants";
 
 export const ResultDetailScreen = ({ navigation }) => {
   useAmbientControlForScreen(true);
@@ -47,10 +48,14 @@ export const ResultDetailScreen = ({ navigation }) => {
 
   return (
     <GradientBackground
-      colors={overallColor ? [overallColor, "white", overallColor] : ["white", "white", "white"]}
+      colors={
+        overallColor
+          ? [overallColor, Colors.white, overallColor]
+          : [Colors.white, Colors.white, Colors.white]
+      }
     >
       <View style={styles.root}>
-        <CloseX xColor={"white"} onPress={() => navigation.goBack()} />
+        <CloseX xColor={Colors.white} onPress={() => navigation.goBack()} />
 
         <View style={styles.headerContainer}>
           <Text style={[styles.overallLabel, { textShadowColor: overallColor }]}>

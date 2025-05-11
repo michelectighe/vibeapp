@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
 import { db } from "@config/firebaseConfig";
 import { useAuth } from "./AuthContext";
 
@@ -41,8 +41,27 @@ export const UserProfileProvider = ({ children }) => {
     fetchProfile();
   }, [user?.uid]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const updateUserData = async (uid, data) => {
+    const userRef = doc(db, "users", uid);
+    await updateDoc(userRef, data);
+  };
+  const fetchUserData = async () => {
+    const userRef = doc(db, "users", user.uid);
+    const docSnap = await getDoc(userRef);
+
+    if (docSnap.exists()) {
+      const userData = docSnap.data();
+      return userData; // contains goals, challenges, etc.
+    } else {
+      console.log("No such user data!");
+      return null;
+    }
+  };
+
   return (
-    <UserProfileContext.Provider value={{ profile, setProfile, loading }}>
+    <UserProfileContext.Provider
+      value={{ profile, setProfile, loading, updateUserData, fetchUserData }}
+    >
       {children}
     </UserProfileContext.Provider>
   );

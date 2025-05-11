@@ -33,7 +33,9 @@ export const ProfileAvatar = ({ size = 32 }) => {
         borderWidth: 2,
       }}
     >
-      <Text style={{ color: "#fff", fontWeight: "bold" }}>{name.charAt(0).toUpperCase()}</Text>
+      <Text style={{ color: Colors.white, fontWeight: "bold" }}>
+        {name.charAt(0).toUpperCase()}
+      </Text>
     </View>
   );
 };

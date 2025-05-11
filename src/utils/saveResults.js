@@ -18,13 +18,13 @@ export const saveResults = async (result) => {
       console.warn("User not logged in, skipping Firestore save.");
       return;
     }
- //   console.log("user:", user);
+    //   console.log("user:", user);
     const resultsRef = collection(db, "users", user.uid, "results");
     await addDoc(resultsRef, {
       ...result,
       timestamp: serverTimestamp(),
- // timestamp: new Date(Date.now() - 144 * 60 * 60 * 1000), 
-  });
+      // timestamp: new Date(Date.now() + 144 * 60 * 60 * 1000),
+    });
 
     //console.log("Results saved to Firestore and local DB");
   } catch (error) {

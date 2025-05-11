@@ -22,9 +22,7 @@ const rawStyles = {
     color: Colors.lightText,
     fontFamily: Fonts.AppFont,
   },
-middle: {
-
-},
+  middle: {},
   sectionTitle: {
     fontSize: 20,
     fontWeight: "bold",
@@ -42,7 +40,7 @@ middle: {
   },
   closeIcon: {
     fontSize: 24,
-    color: "#333",
+    color: Colors.veryDarkGray,
   },
 };
 

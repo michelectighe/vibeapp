@@ -26,7 +26,7 @@ export const MyTabs = () => {
           position: "absolute",
           marginLeft: 0,
           borderTopWidth: 0,
-          backgroundColor: "white",
+          backgroundColor: Colors.white,
           //    backgroundColor: "transparent", // make it transparent to see the image
         },
         tabBarLabelStyle: {
@@ -85,8 +85,8 @@ export const MyTabs = () => {
             </View>
           );
         },
-        tabBarActiveTintColor: Colors.activeTab, //"#E07A5F",
-        tabBarInactiveTintColor: Colors.inactiveTab, // "gray",
+        tabBarActiveTintColor: Colors.activeTab,
+        tabBarInactiveTintColor: Colors.inactiveTab,
       })}
     >
       <Tab.Screen

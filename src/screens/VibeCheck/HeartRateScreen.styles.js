@@ -5,7 +5,7 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 
 const rawStyles = {
   cameraContainer: {
-    backgroundColor: "white",
+    backgroundColor: Colors.white,
     borderRadius: 16,
     marginHorizontal: 20,
     padding: 10,
@@ -15,7 +15,7 @@ const rawStyles = {
     alignSelf: "stretch", // ✅ Take full horizontal space of parent
     justifyContent: "center",
     alignItems: "center",
-    shadowColor: "#000",
+    shadowColor: Colors.black,
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 3 },
     shadowRadius: 6,

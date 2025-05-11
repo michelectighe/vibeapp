@@ -5,7 +5,7 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 
 const rawStyles = {
   error: {
-    color: "white",
+    color: Colors.white,
     fontSize: 14,
     textAlign: "center",
     marginBottom: 10,

@@ -7,7 +7,20 @@ export const Colors = {
   thirdEyeChakra: "#8A2BE2", // #8A2BE2,
   crownChakra: "#DA70D6", // #DA70D6,
 
+  aura70: "#9400D3",
+  aura50: "#4B0082",
+  aura30: "#00FF00",
+  aura20: "#FFD700",
+  aura10: "#FF7F00",
+  auraNone: "#FF0000",
+
+  goldenRod: "#DAA520",
+  auraGray: "#808080",
   /******************************************* */
+
+  /* Meditation */
+  earthyBrown: "935116",
+  deepEarthyBrown: "#7D4F20",
 
   // 🌿 Tab button colors
   activeTab: "#0B3D2E", // deep evergreen (main highlight)
@@ -73,4 +86,25 @@ export const Colors = {
   blockColor1: "#db0808", // Primary (Crimson)
   blockColor2: "#ffb3b3", // Soft/Pink
   blockColor3: "#910606", // Deep Accent
+
+  veryLightGray: "#f0f0f0",
+  lightGray: "#ccc",
+  mediumGray: "#aaa",
+  veryDarkGray: "#333",
+  white: "#fff",
+  black: "#000",
+  forestGreen: "#3f7e44",
+  red: "#ff6b6b",
+  yellow: "#FFD700",
+  creamyBeige: "#FFF8EE",
+  paleYellow: "#FFFACD",
+  peach: "#FFF3E0", // soft peach text color (already hinted as `peach`, but value was incorrect)
+  burntOrange: "#F5CBA7", // warm creamy orange used as background
+  creamypeach: "#FDEBD0",
+  /* icons */
+  infinityIcon: "#4CAF50",
+  colorTimer: "#00aaff",
+  coolBlue: "#3F51B5",
+
+  backgroundSpirit: "#888",
 };
