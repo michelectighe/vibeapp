@@ -9,7 +9,7 @@ import { AudioRecorder } from "react-native-audio";
 import { Worklets } from "react-native-worklets-core";
 import RNFS from "react-native-fs";
 import { useVoiceRecording } from "@features/voiceAnalysis/VoiceRecording";
-//import { useFaceDetector } from "react-native-vision-camera-face-detector";
+import { useFaceDetector } from "react-native-vision-camera-face-detector";
 import {
   FuzzyRectangleGlow,
   GradientBackground,
@@ -75,16 +75,14 @@ export const EmotionalStateScreen = () => {
   const [emotionLog, setEmotionLog] = useState([]);
   const [cameraReady, setCameraReady] = useState(false);
   const emotionLogRef = useRef(emotionLog);
-  // const faceDetectionOptions = useRef({
-  //   performanceMode: "fast",
-  //   classificationMode: "all",
-  //   contourMode: "none",
-  //   landmarkMode: "none",
-  //   windowWidth: width,
-  //   windowHeight: height,
-  // }).current;
+  const faceDetectionOptions = useRef({
+    performanceMode: "fast",
+    classificationMode: "all",
+    contourMode: "none",
+    landmarkMode: "none",
+  }).current;
 
-  //const { detectFaces } = useFaceDetector(faceDetectionOptions);
+  const { detectFaces } = useFaceDetector(faceDetectionOptions);
   const [currentPhrase, setCurrentPhrase] = useState("Talk like you're negotiating a raise");
   // Initialize camera & Sound
   useFocusEffect(
@@ -289,27 +287,27 @@ export const EmotionalStateScreen = () => {
         return;
       }
       try {
-        // let faces;
-        // try {
-        //   faces = detectFaces(frame);
-        //   if (!faces || faces.length === 0 || !faces[0]?.bounds) return;
-        // } catch (e) {
-        //   //console.log("error in detectFaces:", e);
-        // }
+        let faces;
+        try {
+          faces = detectFaces(frame);
+          if (!faces || faces.length === 0 || !faces[0]?.bounds) return;
+        } catch (e) {
+          //console.log("error in detectFaces:", e);
+        }
 
         const now = Date.now();
         if (global.lastTs && now - global.lastTs < 200) return;
         global.lastTs = now;
         if (!model) return;
 
-        // let cropWidth = faces[0].bounds.width;
-        // let cropHeight = faces[0].bounds.height;
-        // let cropX = faces[0].bounds.x;
-        // let cropY = faces[0].bounds.y;
-        let cropWidth = MODEL_INPUT;
-        let cropHeight = MODEL_INPUT;
-        let cropX = frame.width / 2 - MODEL_INPUT / 2;
-        let cropY = frame.height / 2 + MODEL_INPUT / 2;
+        let cropWidth = faces[0].bounds.width;
+        let cropHeight = faces[0].bounds.height;
+        let cropX = faces[0].bounds.x;
+        let cropY = faces[0].bounds.y;
+        // let cropWidth = MODEL_INPUT;
+        // let cropHeight = MODEL_INPUT;
+        // let cropX = frame.width / 2 - MODEL_INPUT / 2;
+        // let cropY = frame.height / 2 + MODEL_INPUT / 2;
 
         // Ensure crop values are within frame bounds
         if (cropX > frame.width || cropY > frame.height) {
