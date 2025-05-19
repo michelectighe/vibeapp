@@ -33,7 +33,7 @@ export const saveStickyNoteToDB = async (sticky) => {
 
 export const updateStickyNotePosition = async (id, { x, y, rotation, done }) => {
   const db = await SQLite.openDatabaseAsync("vibrationResults.db");
-  console.log("updating id:", id);
+  //console.log("updating id:", id);
   await db.runAsync("UPDATE sticky_notes SET x = ?, y = ?, rotation = ?, done = ? WHERE id = ?", [
     x,
     y,
@@ -45,7 +45,7 @@ export const updateStickyNotePosition = async (id, { x, y, rotation, done }) => 
 
 export const deleteStickyNoteById = async (id) => {
   try {
-    console.log("delete id:", id);
+    //console.log("delete id:", id);
     const db = await SQLite.openDatabaseAsync("vibrationResults.db");
     await db.runAsync("DELETE FROM sticky_notes WHERE id = ?", [id]);
   } catch (error) {

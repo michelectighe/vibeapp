@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { View, Text } from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { GradientBackground, CustomSpiritualButton } from "@components";
@@ -7,7 +7,7 @@ import { cleanupMedia } from "@utils";
 import { Colors } from "@constants";
 import { useAmbientControlForScreen, useVibeCheckNavigation } from "@hooks";
 import { styles } from "./VibeCheckScreen.styles";
-import { SectionLayout } from "@/components";
+import { FadeInSlideText, SectionLayout } from "@/components";
 
 export const VibeCheckScreen = () => {
   useAmbientControlForScreen(false);
@@ -15,6 +15,14 @@ export const VibeCheckScreen = () => {
 
   const navigation = useNavigation();
   const { resetAnalysis } = useAnalysis();
+  useEffect(() => {
+    //console.log("Mounted");
+
+    return () => {
+      //console.log("UNMOUNTED");
+    };
+  }, []);
+
 
   useFocusEffect(
     useCallback(() => {
@@ -40,11 +48,11 @@ export const VibeCheckScreen = () => {
         bottomFlex={1}
         equalHeight={false}
         topContent={
-          <Text style={styles.descriptionText}>
+          <FadeInSlideText style={styles.descriptionText} text="
             Unlock your vibrational frequency by tuning into the harmony of your voice, movement,
             heart rhythm, surroundings and emotions. This sacred insight guides you toward deeper
-            alignment, balance, and energetic elevation.
-          </Text>
+            alignment, balance, and energetic elevation."
+          />
         }
         bottomContent={
           <View style={styles.buttonContainer}>

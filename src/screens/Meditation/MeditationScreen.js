@@ -1,16 +1,39 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useCallback } from "react";
 import { ImageBackground, View, TouchableOpacity, Animated } from "react-native";
-import { useMeditationNavigation } from "@/hooks";
-import { SectionLayout } from "@/components";
+import { useNavigation, useFocusEffect, useIsFocused } from "@react-navigation/native";
+import { useMeditationNavigation, useAmbientControlForScreen } from "@/hooks";
+import { SectionLayout, CloseX } from "@/components";
+import { Colors } from "@/constants";
+import { SCREEN_HEIGHT } from "@/utils";
 
 export const MeditationScreen = () => {
+  useAmbientControlForScreen(false);
   const { goToNextScreen } = useMeditationNavigation();
+  const navigation = useNavigation();
   const fadeText1 = useRef(new Animated.Value(0)).current;
   const fadeText2 = useRef(new Animated.Value(0)).current;
   const slideText1 = useRef(new Animated.Value(-100)).current;
   const slideText2 = useRef(new Animated.Value(0)).current;
   const fadeSlideText2 = useRef(new Animated.Value(0)).current;
   const imageFade = useRef(new Animated.Value(0)).current;
+
+  useFocusEffect(
+    useCallback(() => {
+      try {
+        const parent = navigation.getParent?.();
+        if (parent && parent.setOptions) {
+          parent.setOptions({ tabBarStyle: { display: "none" } });
+        }
+      } catch (error) {
+        console.error("tabBarError MeditationScreenFocus:", error);
+      }
+      return () => {
+        ////console.log("cleanup of nav");
+      };
+    }, [navigation]),
+  );
+
+
 
   slideText2.setValue(50); // Starting slightly lower (or from 0 = middle)
   useEffect(() => {
@@ -77,9 +100,19 @@ export const MeditationScreen = () => {
       topFlex={1}
       middleFlex={0}
       bottomFlex={0}
+      safe={false}
       topContent={
         <>
-          <View style={{ flex: 1, width: "100%", height: "100%" }} className="items-center">
+          <CloseX
+            xColor={Colors.darkText}
+            onPress={() =>
+              navigation.reset({
+                index: 0,
+                routes: [{ name: "Home" }],
+              })
+            }
+          />
+          <View style={{ position: "absolute", top: 0, flex: 1, width: "100%", height: SCREEN_HEIGHT }} className="items-center">
             <TouchableOpacity
               style={{ flex: 1, height: "50%", width: "100%" }}
               activeOpacity={1}
@@ -88,7 +121,7 @@ export const MeditationScreen = () => {
               <ImageBackground
                 style={{ flex: 1, width: "100%", height: "100%" }}
                 source={require("@assets/images/backgroundMeditation.webp")}
-                resizeMode="cover"
+                resizeMode="stretch"
               >
                 <View
                   style={{

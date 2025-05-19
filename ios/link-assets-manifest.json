@@ -30,10 +30,6 @@
       "sha1": "88dc81aaf3c0ead0e40fb1d8295de879ef2e19ed"
     },
     {
-      "path": "assets/fonts/imglyfontpoppins.ttf",
-      "sha1": "45dc28c425c3ee2237440bf9cb926753c5aa3b5c"
-    },
-    {
       "path": "assets/fonts/Inconsolata-VariableFont_wdth,wght.ttf",
       "sha1": "55181a8eafc09ca273f978d6e35d2ed46e47e570"
     },
@@ -86,11 +82,11 @@
       "sha1": "fdd3002e7d814ee47c1c1b8487c72c6bbb3a2d00"
     },
     {
-      "path": "assets/fonts/Quicksand-regular.ttf",
+      "path": "assets/fonts/Quicksand-VariableFont_wght.ttf",
       "sha1": "17fb514f853cfeb7176a384fa29358e9c4b76c39"
     },
     {
-      "path": "assets/fonts/Quicksand-VariableFont_wght.ttf",
+      "path": "assets/fonts/Quicksand-regular.ttf",
       "sha1": "17fb514f853cfeb7176a384fa29358e9c4b76c39"
     },
     {
@@ -112,6 +108,10 @@
     {
       "path": "assets/fonts/RubikGlitch-Regular.ttf",
       "sha1": "62017fd6822d52043255bff0ea7232ebefddc049"
+    },
+    {
+      "path": "assets/fonts/imglyfontpoppins.ttf",
+      "sha1": "45dc28c425c3ee2237440bf9cb926753c5aa3b5c"
     }
   ]
 }

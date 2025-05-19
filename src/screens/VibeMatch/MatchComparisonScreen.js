@@ -1,11 +1,12 @@
 import React from "react";
 import { View, Text, ScrollView} from "react-native";
-import { Fonts, Colors, chakraData } from "@constants";
+import { Fonts, Colors } from "@constants";
 import { compareResults } from "@utils";
 import { GradientBackground, ChakraComparisonCard, ComparisonCard } from "@components";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./MatchComparisonScreen.styles";
 import { globalStyles } from "@styles";
+import { chakraData } from "@/data";
 
 export const MatchComparisonScreen = ({ route }) => {
   useAmbientControlForScreen(true);

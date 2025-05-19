@@ -41,10 +41,10 @@ scanDirectory(nodeModulesPath);
 
 // Output results
 if (found.length > 0) {
-  console.log("\n🚨 Found packages with codegenConfig:\n");
-  found.forEach((entry) => console.log(`🧩 ${entry.name}\n    ↳ ${entry.path}`));
-  console.log("\n❗ You should patch these or remove their codegenConfig to disable codegen.\n");
+  //console.log("\n🚨 Found packages with codegenConfig:\n");
+  found.forEach((entry) => //console.log(`🧩 ${entry.name}\n    ↳ ${entry.path}`));
+  //console.log("\n❗ You should patch these or remove their codegenConfig to disable codegen.\n");
   process.exit(1);
 } else {
-  console.log("✅ No codegenConfig found in any package.\n");
+  //console.log("✅ No codegenConfig found in any package.\n");
 }

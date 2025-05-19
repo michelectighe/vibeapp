@@ -25,7 +25,8 @@ export const Colors = {
   // 🌿 Tab button colors
   activeTab: "#0B3D2E", // deep evergreen (main highlight)
   inactiveTab: "#E6F1EC", // pale sage (soft neutral)
-
+  tabBarGradient1: "#E3F4E3", //(very pale sage)
+  tabBarGradient2: "#1F5F43", // Muted forest-teal (middle)
   // 🔘 Button colors
 
   buttonLightBackground: "#EDE5D0", // soft mint green (for alt buttons)
@@ -39,10 +40,16 @@ export const Colors = {
   gradient1: "#E3F4E3", //(very pale sage)
   gradient2: "#1F5F43", // Muted forest-teal (middle)
 
+  gradient1Match: 'red',
+  gradient2Match: 'orange',
+
+
+  gradient1Tools: 'blue',
+  gradient2Tools: 'black',
   //  gradient2: "#2F7D57", // Muted forest-teal (middle)
 
   // ✨ Text Colors
-  lightText: "#F1FAF2", // off-white with a hint of green
+  lightText: "white", //"#F1FAF2", // off-white with a hint of green
   darkText: "#2F4F4F", // forest bark
   mediumText: "#6ABF8E", // vibrant jade
   meditationText: "#4A5D4D", // earthy moss brown-green

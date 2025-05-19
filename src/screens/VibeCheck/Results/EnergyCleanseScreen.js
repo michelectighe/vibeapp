@@ -30,9 +30,9 @@ export const EnergyCleanseScreen = () => {
   const { meditation, frequency, breathing } = getVibeRecommendations({
     vibrationLevel: vibrationInfo,
   });
-  console.log("meditation:", meditation);
-  console.log("frequency:", frequency);
-  console.log("breathing:", breathing);
+  //console.log("meditation:", meditation);
+  //console.log("frequency:", frequency);
+  //console.log("breathing:", breathing);
   useEffect(() => {
     if (vibrationInfo == null) return;
     setColor(vibrationInfo.color);

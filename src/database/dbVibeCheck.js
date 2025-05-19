@@ -55,7 +55,7 @@ export const getResults = async (callback) => {
         callback(result); // Pass the results properly
       }
     } else {
-      //console.log("⚠️ No results found in DB.");
+      ////console.log("⚠️ No results found in DB.");
     }
   } catch (error) {
     console.error("❌ Error retrieving results:", error);
@@ -74,7 +74,7 @@ export const getlatestResults = async (callback) => {
         callback(result); // Pass the results properly
       }
     } else {
-      //console.log("⚠️ No results found in DB.");
+      ////console.log("⚠️ No results found in DB.");
     }
   } catch (error) {
     console.error("❌ Error retrieving results:", error);
@@ -88,7 +88,7 @@ export const truncateResults = async () => {
     await db.execAsync("DELETE FROM results;"); // ✅ Deletes all rows
     await db.execAsync("VACUUM;"); // ✅ Reclaims space after deletion
 
-    //console.log("✅ Table truncated successfully!");
+    ////console.log("✅ Table truncated successfully!");
   } catch (error) {
     console.error("❌ Error truncating table:", error);
   }
@@ -98,7 +98,7 @@ export const deleteResult = async (id, callback) => {
   try {
     const db = await SQLite.openDatabaseAsync("vibrationResults.db");
     await db.runAsync("DELETE FROM results WHERE id = ?;", [id]);
-    //console.log(`✅ Deleted result with ID: ${id}`);
+    ////console.log(`✅ Deleted result with ID: ${id}`);
 
     // Refresh results if a callback is provided
     if (callback) {

@@ -12,7 +12,7 @@ export const useAmbientControlForScreen = (playMusic = true) => {
           // check global setting for sound on
           const userPref = await getMusicPreference(MUSIC_PREF_KEY);
           const playingStatus = await isPlayingTrack();
-          // console.log("is music playing:", playingStatus);
+          // //console.log("is music playing:", playingStatus);
           // set ambient per screen
           setShouldPlayAmbient(playMusic);
           // make sure global and screen ambient are true before playing
@@ -29,7 +29,7 @@ export const useAmbientControlForScreen = (playMusic = true) => {
       controlMusic();
 
       return () => {
-        //console.log("cleanup music control");
+        ////console.log("cleanup music control");
       };
     }, []), // eslint-disable-line react-hooks/exhaustive-deps
   );

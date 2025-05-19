@@ -35,7 +35,7 @@ export const ShareScreen = ({ navigation }) => {
         },
       });
       // } else if (!isPremium) {
-      //   console.log("not premium - show modal");
+      //   //console.log("not premium - show modal");
       //   setShowSubModal(true);
       //   setLoading(false);
     } else {
@@ -66,7 +66,7 @@ export const ShareScreen = ({ navigation }) => {
 
   return (
     <>
-      <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
+      <GradientBackground colors={[Colors.gradient1Match, Colors.gradient2Match, Colors.gradient1Match]}>
         <SectionLayout
           topFlex={1}
           middleFlex={0}

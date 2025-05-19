@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { initApp } from "@utils";
-import { useAuth, useModel } from "@context";
+import { useAuth, useModel, useSoundModel } from "@context";
 import { View, Animated, Easing } from "react-native";
 import { AnimatedLogo, GradientBackground } from "@components";
 import { Colors } from "@constants";
@@ -8,7 +8,6 @@ import { styles } from "./SplashScreen.styles";
 import { globalStyles } from "@styles";
 
 export const SplashScreen = ({ navigation, route }) => {
-  const { setModel } = useModel();
   const { user, authLoading } = useAuth();
   const rotateAnim = useRef(new Animated.Value(0)).current;
   const fadeAnim = useRef(new Animated.Value(0.1)).current;
@@ -40,7 +39,7 @@ export const SplashScreen = ({ navigation, route }) => {
       try {
         await new Promise((resolve) => setTimeout(resolve, 300));
 
-        await initApp({ setModel });
+        await initApp();
 
         if (authLoading) return;
 

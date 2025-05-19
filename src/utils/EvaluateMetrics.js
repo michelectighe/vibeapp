@@ -1,6 +1,7 @@
 export function evaluateVoiceFrequency(frequencyHz) {
   let score = 0;
   let label = "";
+  const rounded = Math.round(frequencyHz);
   if (frequencyHz < 70) {
     score = 20;
     label = "very low (flat or depressed)";
@@ -20,18 +21,28 @@ export function evaluateVoiceFrequency(frequencyHz) {
     score = 60;
     label = "very high (strained or anxious)";
   }
-  //  console.log("eval voice frequency:", score);
+  //  //console.log("eval voice frequency:", score);
   return {
-    value: frequencyHz,
-    score,
+    value: `${rounded}`,
+    score: Math.round(score),
     label,
   };
 }
 
+const normalizeClarity = (clarityScore) => {
+  const min = 5;
+  const max = 80;
+  const clamped = Math.max(min, Math.min(clarityScore, max));
+  const score = 100 - ((clamped - min) / (max - min)) * 100;
+  return Math.round(score);
+};
 export function evaluateVoiceClarity(clarityScore) {
-  let score = Math.round(clarityScore);
+  //console.log('NORM CLARITY:', clarityScore)
+ const rounded = Math.round(clarityScore);
+  const norm = normalizeClarity(clarityScore);
+  let score = Math.round(norm);
   let label = "";
-  //console.log("eval voice clarity:", clarityScore);
+  ////console.log("eval voice clarity:", clarityScore);
   if (score < 30) {
     label = "unclear (muffled or slurred)";
   } else if (score < 50) {
@@ -45,16 +56,29 @@ export function evaluateVoiceClarity(clarityScore) {
   }
 
   return {
-    value: clarityScore,
-    score,
+    value: Math.round(score),
+    score: Math.round(score),
     label,
   };
 }
 
+
+const normalizeLoudness = (loudnessDb) => {
+  const minDb = -45; // below this = 0 strength
+  const maxDb = -8;  // above this = full strength (100)
+
+  const clampedDb = Math.max(minDb, Math.min(loudnessDb, maxDb));
+
+  const score = ((clampedDb - minDb) / (maxDb - minDb)) * 100;
+
+  return Math.round(score); // gives you 0–100
+};
+
 export function evaluateVoiceStrength(strengthScore) {
-  let score = Math.round(strengthScore);
+ const score = normalizeLoudness(strengthScore);
+ const rounded = Math.round(strengthScore);
   let label = "";
-  //console.log("eval voice strength:", strengthScore);
+  ////console.log("eval voice strength:", strengthScore);
   if (score < 30) {
     label = "very weak (shaky or strained)";
   } else if (score < 50) {
@@ -68,8 +92,8 @@ export function evaluateVoiceStrength(strengthScore) {
   }
 
   return {
-    value: strengthScore,
-    score,
+    value: `${rounded}`,
+    score: Math.round(score),
     label,
   };
 }
@@ -78,7 +102,7 @@ export function evaluateEmotionalState(emotion) {
   let score = 50;
   let label = "";
   let description = "";
-  //console.log("eval emotion:", emotion);
+  ////console.log("eval emotion:", emotion);
   switch (emotion) {
     case "happiness":
       score = 90;
@@ -119,8 +143,8 @@ export function evaluateEmotionalState(emotion) {
   }
 
   return {
-    value: emotion,
-    score,
+    value: score,
+    score: score,
     label,
     description,
   };

@@ -28,7 +28,7 @@ const rawStyles = {
   },
   infoContainer: {
     paddingHorizontal: 24,
-    paddingTop: 12,
+    paddingTop: 50,
   },
   labelTitle: {
     fontSize: 20,
@@ -52,12 +52,10 @@ const rawStyles = {
   },
   finishButtonWrapper: {
     position: "absolute",
-    bottom: 10,
-    marginLeft: "5%",
-    marginRight: "5%",
-    left: 0,
-    right: 0,
+    top: 110, // Just below the camera
+    alignSelf: "center",
     width: "90%",
+    zIndex: 5,
   },
 };
 

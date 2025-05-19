@@ -14,7 +14,7 @@ export const GuidedMeditationScreen = () => {
   const [playingId, setPlayingId] = useState(null);
   const handlePress = async (item) => {
     if (playingId === item.id) {
-      console.log("trying to play meditation");
+      //console.log("trying to play meditation");
       await stopTrack();
       setPlayingId(null);
     } else {
@@ -25,7 +25,7 @@ export const GuidedMeditationScreen = () => {
   };
 
   return (
-    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
+    <GradientBackground colors={[Colors.gradient1Tools, Colors.gradient2Tools, Colors.gradient1Tools]}>
       {/* <GestureDetector gesture={swipeGesture}> */}
       {/* //  <View style={globalStyles.container}> */}
       <View style={styles.titleWrapper}>

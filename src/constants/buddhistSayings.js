@@ -9,4 +9,5 @@ export const buddhistSayings = [
   "To understand everything is to forgive everything.",
   "No one saves us but ourselves. We ourselves must walk the path.",
   "If you light a lamp for someone else, it will also brighten your path.",
+  "Let your emotions flow.  You are safe to feel."
 ];

@@ -59,7 +59,7 @@ export const initializeDatabase = async () => {
       );
         `);
 
-    //console.log("Database initialized successfully");
+    ////console.log("Database initialized successfully");
   } catch (error) {
     console.error("❌ SQL Error Creating Table:", error);
   }
@@ -71,5 +71,5 @@ export const dropTable = async () => {
   }
   await db.execAsync("DROP TABLE IF EXISTS sticky_notes;");
 
-  console.log("🗑️ Table dropped. Restart app to recreate.");
+  //console.log("🗑️ Table dropped. Restart app to recreate.");
 };

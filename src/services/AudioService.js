@@ -3,7 +3,7 @@ import TrackPlayer from "react-native-track-player";
 
 
 export const setupPlayer = async () => {
-  console.log("trying to set up player now");
+  //console.log("trying to set up player now");
   await TrackPlayer.setupPlayer();
   await TrackPlayer.setVolume(0.1);
   await TrackPlayer.setRepeatMode(0); // repeat mode off
@@ -43,7 +43,7 @@ export const isPlayingTrack = async () => {
 export const fadeOutMusic = async (duration = 2000, steps = 10) => {
   const currentState = await TrackPlayer.getPlaybackState();
   if (currentState.state !== "playing") {
-    console.log("⏭️ Music is not playing — skipping fade out");
+    //console.log("⏭️ Music is not playing — skipping fade out");
     return;
   }
   const initialVolume = await TrackPlayer.getVolume();

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
-import { View, Text, FlatList, TouchableOpacity } from "react-native";
+import { View, Text, FlatList, TouchableOpacity, Pressable } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { format } from "date-fns";
 import { vibrationLevels } from "@/data";
 import { SectionLayout, FuzzyGlow } from "@components";
@@ -8,20 +9,21 @@ import { getVibeHistory, groupScores } from "@/utils";
 import LinearGradient from "react-native-linear-gradient";
 import { EdgeGlow } from "@/components";
 import { SCREEN_WIDTH } from "@/utils";
-import { chakraData } from "@/constants";
+import { chakraData } from "@/data";
 
 const ITEM_WIDTH = 60;
 
 export const VibeHistoryScreen = () => {
+  const navigation = useNavigation();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const flatListRef = useRef();
   const [data, setData] = useState(null);
+  const BASE_GLOW_CONTAINER_SIZE = SCREEN_WIDTH / 6;
 
   useEffect(() => {
     const load = async () => {
       const raw = await getVibeHistory();
       const grouped = groupScores(raw, "daily"); // or weekly
-      console.log("raw:", grouped);
       setData(grouped);
     };
     load();
@@ -75,6 +77,17 @@ export const VibeHistoryScreen = () => {
           ...chakra,
           score: 0,
         }));
+
+
+  const handlePress = (event, chakra) => {
+    const { pageX, pageY } = event.nativeEvent;
+    navigation.navigate("ChakraDetailModal", {
+      chakra,
+      originX: pageX,
+      originY: pageY,
+    });
+  };
+
 
   return (
     <SectionLayout
@@ -154,14 +167,20 @@ export const VibeHistoryScreen = () => {
                 {/* Glow Wrapper with fixed height */}
                 <View
                   style={{
-                    width: "100%",
-                    height: "50%", // consistent vertical space
+                    width: BASE_GLOW_CONTAINER_SIZE,
+                    height: BASE_GLOW_CONTAINER_SIZE,
                     justifyContent: "center",
                     alignItems: "center",
                   }}
                 >
-                  <FuzzyGlow glowSize={Math.max(chakra.score * 0.6, 24)} glowColor={chakra.color} />
+                  <Pressable onPress={(event) => handlePress(event, chakra)}>
+                    <FuzzyGlow
+                      glowSize={(chakra.score / 100) * BASE_GLOW_CONTAINER_SIZE} // scale 0–100 to 0–base size
+                      glowColor={chakra.color}
+                    />
+                  </Pressable>
                 </View>
+
 
                 <Text
                   style={{

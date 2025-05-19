@@ -10,9 +10,9 @@ import { LogBox } from "react-native";
 import { enableScreens } from "react-native-screens";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { MyTabs, StreakStack } from "@navigation";
-import { UserProfileProvider, ModelProvider, AuthProvider, AnalysisProvider } from "@context";
+import { UserProfileProvider, ModelProvider, EnvironmentProvider, AuthProvider, AnalysisProvider } from "@context";
 import { MusicManager } from "@utils";
-import { SplashScreen, WelcomeScreen } from "@screens";
+import { SplashScreen, WelcomeScreen, ChakraDetailModal } from "@screens";
 import { initializeRevenueCat } from "@utils";
 
 //setGlobalErrorHandler();
@@ -86,11 +86,11 @@ const AppInner = () => {
   // useEffect(() => {
   //   const getInitialUrl = async () => {
   //     const url = await Linking.getInitialURL();
-  //     //console.log("🔗 Initial URL:", url);
+  //     ////console.log("🔗 Initial URL:", url);
   //   };
 
   //   const sub = Linking.addEventListener("url", (event) => {
-  //     //console.log("📡 Received link while app is open:", event.url);
+  //     ////console.log("📡 Received link while app is open:", event.url);
   //   });
 
   //   getInitialUrl();
@@ -103,6 +103,8 @@ const AppInner = () => {
     <AnalysisProvider>
       <MusicManager />
       <NavigationContainer linking={linking} ref={navigationRef}>
+        <ModelProvider>
+
         <Stack.Navigator
           initialRouteName="Splash"
           screenOptions={() => ({
@@ -116,9 +118,19 @@ const AppInner = () => {
             component={MyTabs}
             options={{ headerShown: false, animation: "fade" }}
           />
+            <Stack.Screen
+              name="ChakraDetailModal"
+              component={ChakraDetailModal}
+              options={{
+                presentation: "transparentModal", // or "modal"
+                headerShown: false,
+              }}
+            />
           <Stack.Screen name="Welcome" component={WelcomeScreen} />
           <Stack.Screen name="Streaks" component={StreakStack} />
         </Stack.Navigator>
+
+        </ModelProvider>
       </NavigationContainer>
     </AnalysisProvider>
   );
@@ -128,13 +140,11 @@ export const App = () => {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
-        <ModelProvider>
           <AuthProvider>
             <UserProfileProvider>
               <AppInner />
             </UserProfileProvider>
-          </AuthProvider>
-        </ModelProvider>
+        </AuthProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );

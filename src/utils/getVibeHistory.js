@@ -3,7 +3,7 @@ import { db } from "@config/firebaseConfig";
 import { format, startOfWeek } from "date-fns";
 import { getAuth } from "firebase/auth";
 import { getVibrationInfo } from "@/utils/vibrationInfo";
-import { chakraData } from "@/constants";
+import { chakraData } from "@/data";
 
 export const groupScores = (scores, range) => {
   const buckets = {};
@@ -76,7 +76,7 @@ export const getVibeHistory = async () => {
         ...chakra,
         score: data.chakraScores?.[chakra.id] ?? 0,
       }));
-      console.log("chakraArray:", chakraArray);
+      //console.log("chakraArray:", chakraArray);
       scores.push({
         timestamp: new Date(data.timestamp.seconds * 1000),
         score: data.overallVibrationScore,

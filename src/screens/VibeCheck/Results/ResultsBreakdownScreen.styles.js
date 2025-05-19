@@ -1,0 +1,74 @@
+import { StyleSheet } from "react-native";
+import { scaledStyle } from "@utils";
+
+const rawStyles = {
+  container: {
+    padding: 20,
+    paddingBottom: 80,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: "600",
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  metricBox: {
+    marginBottom: 24,
+    padding: 16,
+    borderRadius: 12,
+    backgroundColor: "#f3f3f3",
+    shadowColor: "#000",
+    shadowOpacity: 0.1,
+    shadowRadius: 5,
+  },
+  metricLabel: {
+    fontSize: 18,
+    fontWeight: "600",
+  },
+  metricValue: {
+    fontSize: 20,
+    marginTop: 4,
+  },
+  metricStatus: {
+    fontSize: 14,
+    marginTop: 6,
+    fontWeight: "500",
+  },
+  inRange: {
+    color: "green",
+  },
+  outOfRange: {
+    color: "orange",
+  },
+  missing: {
+    color: "gray",
+  },
+  metricExplanation: {
+    marginTop: 8,
+    fontSize: 14,
+    color: "#555",
+  },
+  metricLabelText: {
+    marginTop: 6,
+    fontSize: 14,
+    color: "#666",
+    fontStyle: "italic",
+  },
+  suboptimal: {
+    color: "orange", // warm amber or gold
+  },
+  outOfRange: {
+    color: "#d9534f", // alert red
+  },
+  inRange: {
+    color: "#5cb85c", // green
+  },
+  missing: {
+    color: "#888",
+  },
+  optimal: {
+    color: "blue",
+  }  
+};
+
+export const styles = StyleSheet.create(scaledStyle(rawStyles));

@@ -13,7 +13,7 @@ export const AnimatedButton = ({ buttonType = "", imgSource = "" }) => {
     }).start();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // //console.log(buttonType);
+  // ////console.log(buttonType);
   if (buttonType === "meditate") imgSource = require("@assets/images/buttonMeditate.webp");
   else if (buttonType === "vibeCheck") imgSource = require("@assets/images/buttonVibeCheck.webp");
   else if (buttonType === "vibeMatch") imgSource = require("@assets/images/buttonVibeMatch.webp");

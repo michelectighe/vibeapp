@@ -8,8 +8,8 @@ export const processAudioBuffer = (audioBuffer) => {
   const centroid = spectralCentroid(magnitudes, sampleRate);
   const rollOff = spectralRollOff(magnitudes, sampleRate);
 
-  // //console.log("Spectral Centroid:", centroid, "Hz");
-  // //console.log("Spectral Roll-off:", rollOff, "Hz");
+  // ////console.log("Spectral Centroid:", centroid, "Hz");
+  // ////console.log("Spectral Roll-off:", rollOff, "Hz");
 
   // Given a time-domain buffer of audio samples:
   function computeSpectrum(signal) {

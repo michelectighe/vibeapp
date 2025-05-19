@@ -5,21 +5,24 @@ import { useAnalysis } from "@context";
 
 export const useVoiceRecording = () => {
   const { setVoiceFrequency, setVoiceStrength, setVoiceClarity } = useAnalysis();
-  const analyzeVoiceFromAudioUri = async (audioUri) => {
+  const analyzeVoiceFromAudioUri = async (base64Chunks = []) => {
     try {
-      //console.log("analyzing audio:", audioUri);
-      await analyzeFrequency(audioUri);
+      if (!base64Chunks.length) throw new Error("No audio data provided.");
+      await analyzeFrequency(base64Chunks);
     } catch (err) {
       console.error("Voice analysis from audio failed:", err);
     }
   };
 
-  const analyzeFrequency = async (uri) => {
-    try {
-      const audioData = await RNFS.readFile(uri, "base64");
 
-      let audioByteArray = toByteArray(audioData);
-      //console.log("📄 Decoded base64 length:", audioByteArray.length);
+  const analyzeFrequency = async (base64Chunks) => {
+    try {
+      // Combine all chunks into one base64 string
+      const fullBase64 = base64Chunks.join("");
+
+      // Convert to byte array
+      let audioByteArray = toByteArray(fullBase64);
+
       if (audioByteArray.length < 10000) {
         const repeatFactor = Math.ceil(10000 / audioByteArray.length);
         const repeatedAudioByteArray = new Uint8Array(audioByteArray.length * repeatFactor);
@@ -47,6 +50,8 @@ export const useVoiceRecording = () => {
 
         const rms = Math.sqrt(fftInput.reduce((sum, v) => sum + v * v, 0) / fftInput.length);
         const loudness = 20 * Math.log10(rms * 0.4 + 1e-10);
+        //const loudness = 20 * Math.log10(rms + 1e-10);
+
         loudnessArray.push(loudness);
 
         for (let i = 0; i < fftSize; i++) {
@@ -95,9 +100,9 @@ export const useVoiceRecording = () => {
       const avgLoudness = loudnessArray.reduce((a, b) => a + b, 0) / loudnessArray.length;
       const avgClarity = clarityArray.reduce((a, b) => a + b, 0) / clarityArray.length;
       const avgFrequency = frequencyArray.reduce((a, b) => a + b, 0) / frequencyArray.length;
-      // //console.log("averageLoudness:", avgLoudness.toFixed(2));
-      // //console.log("averageVoiceClarity:", avgClarity.toFixed(2));
-      // //console.log("averageFrequency:", avgFrequency.toFixed());
+      // ////console.log("averageLoudness:", avgLoudness.toFixed(2));
+      // ////console.log("averageVoiceClarity:", avgClarity.toFixed(2));
+      // ////console.log("averageFrequency:", avgFrequency.toFixed());
       setVoiceStrength(avgLoudness.toFixed(2));
       setVoiceClarity(avgClarity.toFixed(2));
       setVoiceFrequency(avgFrequency.toFixed(2));

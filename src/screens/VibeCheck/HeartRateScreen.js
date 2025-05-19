@@ -1,20 +1,22 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { View, Text } from "react-native";
+import { View, Text, Animated } from "react-native";
 import { HeartRateCamera } from "@features/heartRate/HeartRateCamera";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { useAnalysis, useMotion, useEnvironment } from "@context";
-import { GradientBackground, SectionLayout } from "@components";
+import { GradientBackground, SectionLayout, CustomSpiritualButton } from "@components";
 import { debounceLabel } from "@utils";
 import { Colors } from "@constants";
-import { useAmbientControlForScreen } from "@hooks";
+import { useAmbientControlForScreen ,useVibeCheckNavigation} from "@hooks";
 import { EnvironmentProvider, MotionProvider } from "@context";
 import { styles } from "./HeartRateScreen.styles";
 
-function HeartRateScreenInner() {
-  const { setSound, setMagnitude, setMotion } = useAnalysis();
-  const { averageMotion, motionEval, stopMotionTracking } = useMotion();
-  const { environment, averageSound, averageMagnitude, stopEnvironmentTracking } = useEnvironment();
 
+function HeartRateScreenInner() {
+  const { goToNextScreen } = useVibeCheckNavigation();
+  const { setSound, setMagnitude, setMotion, setEnvironment } = useAnalysis();
+  const { averageMotion, motionEval, stopMotionTracking } = useMotion();
+  const { environment, averageSound, averageMagnitude, averageEnvironment, stopEnvironmentTracking } = useEnvironment();
+  const buttonOpacity = useRef(new Animated.Value(1)).current;
   const [stable, setStablized] = useState(false);
   const [spaceLabel, setSpaceLabel] = useState("Neutral");
   const [magLabel, setMagLabel] = useState("");
@@ -34,7 +36,7 @@ function HeartRateScreenInner() {
     useCallback(() => {
       setStablized(false);
       return () => {
-   //     console.log("leaving heartrate");
+        //     //console.log("leaving heartrate");
         stopMotionTracking();
         stopEnvironmentTracking();
       };
@@ -46,18 +48,23 @@ function HeartRateScreenInner() {
       const parent = navigation.getParent?.();
       parent?.setOptions({ tabBarStyle: { display: "none" } });
       return () => {
- //       console.log("leaving secons focus effect");
+        //       //console.log("leaving secons focus effect");
       };
     }, [navigation]),
   );
 
   useEffect(() => {
-    if (stable && averageSound && averageMagnitude && averageMotion) {
+    //console.log('USE EFFECT ENV:', averageEnvironment)
+    //console.log('averageSound:', averageSound);
+    //console.log('averageMotion:', averageMotion);
+    //console.log('averageMag:', averageMagnitude)
+    if (stable && averageMagnitude && averageMotion && averageEnvironment) {
       setSound(averageSound);
       setMagnitude(averageMagnitude);
       setMotion(averageMotion);
+      setEnvironment(averageEnvironment);
     }
-  }, [stable, averageSound, averageMagnitude, averageMotion]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [stable, averageSound, averageMagnitude, averageMotion, averageEnvironment]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleStableReading = () => {
     stopMotionTracking();
@@ -105,9 +112,25 @@ function HeartRateScreenInner() {
         bottomFlex={3}
         topContent={<View />}
         middleContent={
+          <>
+            {!stable && (
           <View style={styles.cameraContainer}>
             <HeartRateCamera onStableReading={handleStableReading} />
           </View>
+            )}
+            {stable && (
+
+              <Animated.View style={[styles.finishButtonWrapper, { opacity: buttonOpacity }]}>
+                <CustomSpiritualButton
+                  label="Finish"
+                  onPress={goToNextScreen}
+                  color={Colors.buttonBackground}
+                  textColor={Colors.lightText}
+                />
+              </Animated.View>
+
+            )}
+          </>
         }
         bottomContent={
           <View style={styles.infoContainer}>

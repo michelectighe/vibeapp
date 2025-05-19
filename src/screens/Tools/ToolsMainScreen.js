@@ -31,7 +31,7 @@ export const ToolsMainScreen = () => {
       {loading ? (
         <Text>Loading...</Text>
       ) : (
-        <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
+        <GradientBackground colors={[Colors.gradient1Tools, Colors.gradient2Tools, Colors.gradient1Tools]}>
           <SectionLayout
             topFlex={1}
             middleFlex={0}

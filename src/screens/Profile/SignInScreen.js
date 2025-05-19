@@ -30,7 +30,7 @@ import { getBiometricOptIn, getSavedCredentials, getFriendlyError, signInWithApp
 
 export const SignInScreen = ({ navigation, route }) => {
   const returnTo = route?.params?.returnTo;
-  console.log("ReturnTo Value:", returnTo);
+  //console.log("ReturnTo Value:", returnTo);
   useAmbientControlForScreen(true);
   const { signIn } = useAuth();
   const [email, setEmail] = useState("");
@@ -41,14 +41,14 @@ export const SignInScreen = ({ navigation, route }) => {
   useEffect(() => {
     const tryFaceID = async () => {
       try {
-        //console.log("🔍 Checking biometric opt-in...");
+        ////console.log("🔍 Checking biometric opt-in...");
         const optedIn = await getBiometricOptIn();
-        //console.log("🔐 Biometric opt-in value:", optedIn);
+        ////console.log("🔐 Biometric opt-in value:", optedIn);
 
         if (optedIn) {
-          //console.log("🔑 Fetching credentials...");
+          ////console.log("🔑 Fetching credentials...");
           const { email: savedEmail, password: savedPassword } = await getSavedCredentials();
-          //console.log("📧 Email:", savedEmail, "🔒 Password:", !!savedPassword);
+          ////console.log("📧 Email:", savedEmail, "🔒 Password:", !!savedPassword);
 
           if (savedEmail && savedPassword) {
             setEmail(savedEmail);
@@ -63,7 +63,7 @@ export const SignInScreen = ({ navigation, route }) => {
           error.message?.includes("Canceled") ||
           error.code === "UserCancel" // platform-specific sometimes
         ) {
-          //console.log("🔕 User canceled Face ID. Skipping biometric login.");
+          ////console.log("🔕 User canceled Face ID. Skipping biometric login.");
           return; // just silently exit
         }
 
@@ -92,8 +92,8 @@ export const SignInScreen = ({ navigation, route }) => {
 
     const finalEmail = email;
     const finalPassword = providedPassword ?? password;
-    //console.log(email)
-    //console.log(finalPassword)
+    ////console.log(email)
+    ////console.log(finalPassword)
     if (!finalEmail || !finalPassword) {
       setError("Email and password are required.");
       return;
@@ -102,15 +102,13 @@ export const SignInScreen = ({ navigation, route }) => {
     resetAndLeave();
   };
   const resetAndLeave = () => {
-    console.log("returnto:", returnTo);
     if (returnTo && typeof returnTo === "object") {
-      console.log("object return:", returnTo);
       navigation.reset({
         index: 0,
         routes: [returnTo],
       });
     } else if (typeof returnTo === "string") {
-      console.log("string return:", returnTo);
+      //console.log("string return:", returnTo);
       navigation.reset({
         index: 0,
         routes: [{ name: returnTo }],

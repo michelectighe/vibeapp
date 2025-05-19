@@ -7,5 +7,5 @@ export const dropTable = async () => {
     db = await SQLite.openDatabaseAsync("vibrationResults.db");
   }
   await db.execAsync("DROP TABLE IF EXISTS results;");
-  //console.log("🗑️ Table dropped. Restart app to recreate.");
+  ////console.log("🗑️ Table dropped. Restart app to recreate.");
 };

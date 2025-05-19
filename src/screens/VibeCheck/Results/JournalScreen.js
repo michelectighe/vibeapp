@@ -54,7 +54,7 @@ export const JournalScreen = () => {
   }, []);
 
   const handleSave = () => {
-    console.log("Saved:", { prompt, entry });
+    //console.log("Saved:", { prompt, entry });
     // setEntry("");
     //  setPrompt("");
     setAnimatedText("");

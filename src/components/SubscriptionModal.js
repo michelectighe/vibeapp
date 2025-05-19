@@ -6,7 +6,7 @@ import { SCREEN_WIDTH } from "@/utils";
 
 export const SubscriptionModal = ({ visible, onClose, onUpgrade }) => {
   useEffect(() => {
-    console.log("🧪 SubscriptionModal visible?", visible);
+    //console.log("🧪 SubscriptionModal visible?", visible);
   }, [visible]);
 
   if (!visible) return null;

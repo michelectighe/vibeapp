@@ -1,34 +1,25 @@
 import { initializeDatabase } from "@database";
 import { auth } from "@config/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
+// visionCameraPlugins.js
+//import { registerPlugin } from 'react-native-worklets-core';
+import { FaceDetector } from 'react-native-vision-camera-face-detector';
 
-import { loadTensorflowModel } from "react-native-fast-tflite";
 
-export const initApp = async ({ setModel }) => {
+export const initApp = async () => {
   try {
-    //console.log("🌀 Initializing app...");
-    // await Font.loadAsync({
-    //   AppFontRegular: require("@assets/fonts/Nunito-Regular.ttf"),
-    //   AppFontBold: require("@assets/fonts/Nunito-Bold.ttf"),
-    //   AppFontItalic: require("@assets/fonts/Nunito-Bold.ttf"),
-    //   AppItalic: require("@assets/fonts/Raleway-Italic-VariableFont_wght.ttf"),
-    //   AppTitleFont: require("@assets/fonts/Quicksand-regular.ttf"),
-    //   TypeWriterText: require("@assets/fonts/GreatVibes-Regular.ttf"),
-    //   JournalText: require("@assets/fonts/HomemadeApple-Regular.ttf"),
-    // });
-    //   console.log("✅ Fonts loaded");
     initializeDatabase();
+    // Register plugin with the Vision Camera plugin system
+    //registerPlugin('detectFaces', FaceDetector);
 
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       if (currentUser) {
-        //console.log("user logged in:", currentUser.email);
+        ////console.log("user logged in:", currentUser.email);
       } else {
-        //console.log("user NOT logged in:");
+        ////console.log("user NOT logged in:");
       }
     });
-    const model = await loadTensorflowModel(require("@assets/models/ferplus_model_pd_best.tflite"));
-    setModel(model);
-    //  console.log("🔍 Model after init:", model);
+
 
     return unsubscribe;
   } catch (err) {

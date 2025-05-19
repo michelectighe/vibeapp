@@ -65,7 +65,7 @@ export const MusicManager = () => {
     });
 
     return () => {
-      console.log("🛑 Cleaning up MusicManager");
+      //console.log("🛑 Cleaning up MusicManager");
       isMounted = false;
       subscription.remove();
       listeners.forEach((l) => l.remove());

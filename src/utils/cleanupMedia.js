@@ -11,7 +11,7 @@ export const cleanupMedia = async (
   isAudioRecording = false,
 ) => {
   try {
-    //console.log("🔇 Cleaning up all media ...");
+    ////console.log("🔇 Cleaning up all media ...");
     const devices = await Camera.getAvailableCameraDevices();
     if (!devices || devices.length === 0) {
       console.warn("No cameras available.");
@@ -44,7 +44,7 @@ export const cleanupMedia = async (
       frameProcessorActiveRef.current = false;
     }
 
-    //console.log("✅ Media cleanup complete.");
+    ////console.log("✅ Media cleanup complete.");
   } catch (error) {
     console.warn("⚠️ Error during media cleanup:", error);
   }

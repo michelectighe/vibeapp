@@ -44,18 +44,18 @@ const rawStyles = {
   overallText: {
     textAlign: "center",
     fontSize: 18,
-    color: Colors.lightGray,
+    color: Colors.lightText,
   },
   textHeader: {
     textAlign: "center",
     fontSize: 18,
     fontWeight: "bold",
-    color: Colors.lightGray,
+    color: Colors.lightText,
   },
   chicletHeader: {
     textAlign: "center",
     fontSize: 18,
-    color: Colors.lightGray,
+    color: Colors.lightText,
     marginBottom: 10,
   },
   chicletWrapper: {
@@ -67,7 +67,7 @@ const rawStyles = {
   finalNote: {
     textAlign: "center",
     fontSize: 18,
-    color: Colors.lightGray,
+    color: Colors.lightText,
   },
 };
 

@@ -53,7 +53,7 @@ export const UserProfileProvider = ({ children }) => {
       const userData = docSnap.data();
       return userData; // contains goals, challenges, etc.
     } else {
-      console.log("No such user data!");
+      //console.log("No such user data!");
       return null;
     }
   };

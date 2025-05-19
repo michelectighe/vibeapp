@@ -1,7 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import { View, Text, Animated, TouchableWithoutFeedback, Dimensions } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
-import { Fonts, Colors, chakraInsights } from "@constants";
+import { Fonts, Colors } from "@constants";
+import { chakraInsights } from "@/data";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./ChakraDetailModal.styles";
 

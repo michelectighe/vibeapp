@@ -57,7 +57,7 @@ export const UpdateProfileScreen = ({ navigation }) => {
   useEffect(() => {
     const loadUserData = async () => {
       const profileData = await fetchUserData();
-      console.log("profile:", profileData);
+      //console.log("profile:", profileData);
       if (profileData.goals) setGoals(profileData.goals[0]);
       if (profileData.challenges) setChallenges(profileData.challenges[0]);
       if (profileData.support) setSupport(profileData.support[0]);
@@ -130,7 +130,7 @@ export const UpdateProfileScreen = ({ navigation }) => {
       if (Object.keys(updates).length > 0) {
         await updateDoc(ref, updates);
       }
-      console.log("setmodal true");
+      //console.log("setmodal true");
       //   triggerConfirmation();
       setModalVisible(true);
 

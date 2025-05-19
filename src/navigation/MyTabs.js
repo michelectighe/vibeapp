@@ -14,6 +14,7 @@ import LinearGradient from "react-native-linear-gradient";
 import { VibeKeyHome } from "@screens";
 import { ProfileAvatar } from "@components";
 import { Colors } from "@constants";
+import { StackActions } from "@react-navigation/native";
 
 const Tab = createBottomTabNavigator();
 
@@ -22,6 +23,7 @@ export const MyTabs = () => {
     <Tab.Navigator
       initialRouteName="Home"
       screenOptions={({ route }) => ({
+        unmountOnBlur: true,
         tabBarStyle: {
           position: "absolute",
           marginLeft: 0,
@@ -36,7 +38,7 @@ export const MyTabs = () => {
         headerShown: false,
         tabBarBackground: () => (
           <LinearGradient
-            colors={[Colors.gradient2, Colors.gradient1]}
+            colors={[Colors.tabBarGradient2, Colors.tabBarGradient1]}
             style={{ flex: 1, opacity: 1 }}
           />
         ),
@@ -93,28 +95,112 @@ export const MyTabs = () => {
         name="Home"
         component={VibeKeyHome}
         options={{
+          unmountOnBlur: true,
           //   tabBarStyle: { display: "none" },
           headerShown: false,
           gestureEnabled: true,
           presentation: "modal",
           cardStyleInterpolator: CardStyleInterpolators.forFadeFromCenter,
         }}
+        listeners={({ navigation, route }) => ({
+          tabPress: (e) => {
+            const isFocused = navigation.isFocused();
+
+            if (isFocused && route?.state?.routes?.length > 1) {
+              // Reset the nested stack when the tab is already focused
+              navigation.reset({
+                index: 0,
+                routes: [{ name: "VibeKeyHome" }],
+              })
+              // navigation.navigate("Home", {
+              //   screen: "VibeKeyHome", // change this to your actual root screen
+              // });
+            }
+          },
+        })}
       />
       <Tab.Screen
         name="VibeCheck"
         component={VibeCheckStack}
         options={{
           tabBarLabel: "Check",
+          unmountOnBlur: true,
         }}
         screenOptions={() => ({
           headerShown: false,
           tabBarStyle: { display: "none" },
         })}
+        listeners={({ navigation, route }) => ({
+          tabPress: (e) => {
+            const isFocused = navigation.isFocused();
+
+            if (isFocused && route?.state?.routes?.length > 1) {
+              // Reset the nested stack when the tab is already focused
+              navigation.reset({
+                index: 0,
+                routes: [{ name: "VibeCheckScreen" }],
+              })
+            }
+          },
+        })}
       />
-      <Tab.Screen name="Scan" component={MeditationStack} />
-      <Tab.Screen name="VibeMatch" component={VibeMatchStack} options={{ tabBarLabel: "Match" }} />
-      <Tab.Screen name="InnerWork" component={ToolsStack} options={{ tabBarLabel: "Journey" }} />
-      <Tab.Screen name="Settings" component={SettingsStack} options={{ tabBarLabel: () => null }} />
+      <Tab.Screen name="Scan" component={MeditationStack}
+        listeners={({ navigation, route }) => ({
+          tabPress: (e) => {
+            const isFocused = navigation.isFocused();
+
+            if (isFocused && route?.state?.routes?.length > 1) {
+              // Reset the nested stack when the tab is already focused
+              navigation.reset({
+                index: 0,
+                routes: [{ name: "Scan" }],
+              })
+            }
+          },
+        })}
+      />
+      <Tab.Screen name="VibeMatch" component={VibeMatchStack} options={{ tabBarLabel: "Match" }}
+        listeners={({ navigation, route }) => ({
+          tabPress: (e) => {
+            const isFocused = navigation.isFocused();
+
+            if (isFocused && route?.state?.routes?.length > 1) {
+              // Reset the nested stack when the tab is already focused
+              navigation.navigate("VibeMatch", {
+                screen: "ShareScreen", // change this to your actual root screen
+              });
+            }
+          },
+        })}
+      />
+      <Tab.Screen name="InnerWork" component={ToolsStack} options={{ tabBarLabel: "Journey" }}
+        listeners={({ navigation, route }) => ({
+          tabPress: (e) => {
+            const isFocused = navigation.isFocused();
+
+            if (isFocused && route?.state?.routes?.length > 1) {
+              // Reset the nested stack when the tab is already focused
+              navigation.navigate("InnerWork", {
+                screen: "ToolsHome", // change this to your actual root screen
+              });
+            }
+          },
+        })}
+      />
+      <Tab.Screen name="Settings" component={SettingsStack} options={{ tabBarLabel: () => null }}
+        listeners={({ navigation, route }) => ({
+          tabPress: (e) => {
+            const isFocused = navigation.isFocused();
+
+            if (isFocused && route?.state?.routes?.length > 1) {
+              // Reset the nested stack when the tab is already focused
+              navigation.navigate("Settings", {
+                screen: "SettingsScreen", // change this to your actual root screen
+              });
+            }
+          },
+        })}
+      />
       <Tab.Screen
         name="StreakStack"
         component={StreakStack}
@@ -123,6 +209,18 @@ export const MyTabs = () => {
           tabBarButton: () => null, // Hides button
           //   tabBarStyle: { display: "none" }, // Only use this if you want to hide the bar entirely
         }}
+        listeners={({ navigation, route }) => ({
+          tabPress: (e) => {
+            const isFocused = navigation.isFocused();
+
+            if (isFocused && route?.state?.routes?.length > 1) {
+              // Reset the nested stack when the tab is already focused
+              navigation.navigate("StreakTab", {
+                screen: "VibeHistoryScreen", // change this to your actual root screen
+              });
+            }
+          },
+        })}
       />
     </Tab.Navigator>
   );

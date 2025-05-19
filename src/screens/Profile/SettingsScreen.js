@@ -14,7 +14,7 @@ export const SettingsScreen = ({ navigation }) => {
 
   const handleSignOut = async () => {
     signOut();
-    //console.log("signed out");
+    ////console.log("signed out");
     setSignOut("Logout Successful");
     // navigation.navigate("SignInScreen");
   };

@@ -7,7 +7,6 @@ import { CustomButton, CloseX, GradientBackground, SectionLayout } from "@compon
 import { Colors } from "@constants";
 import { styles } from "./ResultsScreen.styles";
 import { globalStyles } from "@styles";
-import { isValidScore } from "@/utils";
 //import HapticTest from "@/components/HapticTest";
 
 Text.defaultProps = Text.defaultProps || {};
@@ -70,24 +69,22 @@ export const ResultsScreen = ({ navigation }) => {
   const saveResultsToDB = async () => {
     setSaving(true);
 
-    const sanitize = (label, value) => (isValidScore(label, value) ? value : -1);
-
     const newResult = {
       timestamp: new Date(),
-      voiceFrequencyScore: sanitize("voiceFrequency", voiceFrequencyScore?.score),
-      heartRateScore: sanitize("heartRateScore", heartRateScore),
-      hrvScore: sanitize("hrvScore", hrvScore),
-      motionScore: sanitize("motionScore", motionScore),
-      environmentScore: sanitize("environmentScore", environmentScore),
-      voiceStrengthScore: sanitize("voiceStrength", voiceStrengthScore?.score),
-      voiceClarityScore: sanitize("voiceClarity", voiceClarityScore?.score),
-      emotionScore: sanitize("emotionScore", emotionScore?.score),
-      overallVibrationScore: sanitize("overallVibrationScore", overallVibrationScore), // optional, could skip check if you trust it
+      voiceFrequencyScore: voiceFrequencyScore?.score,
+      heartRateScore: heartRateScore,
+      hrvScore: hrvScore,
+      motionScore: motionScore,
+      environmentScore: environmentScore,
+      voiceStrengthScore: voiceStrengthScore?.score,
+      voiceClarityScore: voiceClarityScore?.score,
+      emotionScore: emotionScore?.score,
+      overallVibrationScore: overallVibrationScore, // optional, could skip check if you trust it
       chakraScores: chakraScores || {},
     };
 
     if (newResult) {
-      console.log("Saving to local DB:", newResult);
+      //console.log("Saving to local DB:", newResult);
       await saveResults(newResult);
     }
     setSaving(false);
@@ -139,7 +136,7 @@ export const ResultsScreen = ({ navigation }) => {
             <View style={[styles.descriptionBox, { backgroundColor: overallColor }]}>
               <Text style={styles.descriptionText}>{overallDescription}</Text>
               <TouchableOpacity
-                onPress={() => navigation.navigate("ResultDetails")}
+                onPress={() => navigation.navigate("ResultsBreakdown")}
                 style={styles.infoButton}
               >
                 <FastImage source={infoImage} style={styles.infoImage} resizeMode="contain" />

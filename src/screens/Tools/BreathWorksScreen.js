@@ -17,7 +17,7 @@ export const BreathWorksScreen = () => {
 
   return (
     <GradientBackground
-      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
+      colors={[Colors.white, Colors.white, Colors.white]}
       logo={false}
     >
       <SectionLayout

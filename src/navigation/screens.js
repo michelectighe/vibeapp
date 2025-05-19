@@ -13,6 +13,8 @@ export const VIBE_MATCH_SCREENS = ["VibeMatchScreen", "ShareScreen", "MatchScree
 export const MEDITATION_SCREENS = [
   "Meditation",
   "MeditationSpace",
-  "GuidedMeditations",
-  "Frequencies",
+  // "MeditationSpotFinder",
+  // "MeditationSpace",
+  // "GuidedMeditations",
+  // "Frequencies",
 ];

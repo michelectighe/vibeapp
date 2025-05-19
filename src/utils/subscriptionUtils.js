@@ -10,7 +10,7 @@ export const setSubscriptionStatus = async (isSubscribed) => {
 
 export const getSubscriptionStatus = async () => {
   try {
-    //console.log('in here');
+    ////console.log('in here');
     const status = await AsyncStorage.getItem("isSubscribed");
     return status === "true"; // Default to false if null
   } catch (error) {

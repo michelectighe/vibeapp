@@ -26,7 +26,7 @@ export const StreakScreen = () => {
       const db = await SQLite.openDatabaseAsync("vibrationResults.db");
       const result = await db.getAllAsync("SELECT * FROM sticky_notes");
       setNotes(result);
-      console.log("notes:", result);
+      //console.log("notes:", result);
     };
     loadNotes();
   }, []);
@@ -58,7 +58,7 @@ export const StreakScreen = () => {
       color: Colors.yellow, // default pale yellow
       done: false,
     };
-    console.log("new note;", newNote);
+    //console.log("new note;", newNote);
     await saveStickyNoteToDB(newNote);
     setNotes((prev) => [...prev, newNote]);
   };
@@ -103,7 +103,7 @@ export const StreakScreen = () => {
           visible={showDeleteModal.visible}
           onCancel={() => setShowDeleteModal({ visible: false, deleteId: null })}
           onConfirm={() => {
-            console.log(showDeleteModal.deleteId);
+            //console.log(showDeleteModal.deleteId);
             if (showDeleteModal.deleteId) {
               handleDelete(showDeleteModal.deleteId);
             }

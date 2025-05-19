@@ -36,7 +36,7 @@ export const MotionProvider = ({ children }) => {
     const evaluation = evaluateMotion({
       avgMagnitude: latestMotion,
     });
-    //    //console.log("motion eval:", evaluation);
+    //    ////console.log("motion eval:", evaluation);
     setMotionEval(evaluation);
 
     if (motionValues.length) {

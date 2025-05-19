@@ -37,8 +37,12 @@ export { SectionLayout } from "./SectionLayout";
 export { SubscriptionModal } from "./SubscriptionModal";
 export { SparkleOverlay } from "./SparkleOverlay";
 export { ThemeWrapper } from "./ThemeWrapper";
-export { TypewriterText } from "./TypewriterText";
+
 export { ProfileInput } from "./ProfileInput";
 export { CircularTimer } from "./CircularTimer";
 export { FlowFooter } from "./FlowFooter";
 export { BreathingCard } from "./BreathingCard";
+
+export { FadeInSlideText } from "./FadeInSlideText";
+export { SmoothLetterFadeInText } from "./SmoothLetterFadeIn";
+export { TypewriterText } from "./TypewriterText";

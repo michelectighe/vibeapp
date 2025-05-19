@@ -1,17 +1,35 @@
-export function evaluateEnvironment({ soundLevelDb, magnetometerValue }) {
+export function evaluateEnvironment({ soundLevelDb, magnetometerValue, percentGood }) {
   // SOUND SCORE
+ // //console.log('percentGood:', percentGood)
   let soundScore = 100 - soundLevelDb;
   let soundLabel = "unknown";
-  // //console.log("eval this sound:", soundScore);
-  // //console.log("eval this mag:", magnetometerValue);
+  // ////console.log("eval this sound:", soundScore);
+  // ////console.log("eval this mag:", magnetometerValue);
 
-  if (soundScore >= 80) {
+  // if (soundScore >= 80) {
+  //   soundLabel = "Whispering stillness";
+  // } else if (soundScore >= 55) {
+  //   soundLabel = "Soft hum of life";
+  // } else if (soundScore >= 45 && percentGood >= 50) {
+  //   soundLabel = "Lively & Energetic surroundings";
+  // } else if (soundScore >= 45 && percentGood <=49.99) {
+  //   soundLabel = "Disturbingly energetic surroundings";
+  // } else if (soundScore < 45 && percentGood >= 50 ) {
+  //   soundLabel = "Loud but peaceful surroundings";
+  // } else
+  //   {
+  //   soundLabel = "Chaotic vibration";
+  // }
+  if (percentGood >= 80) {
     soundLabel = "Whispering stillness";
-  } else if (soundScore >= 55) {
+  } else if (percentGood >= 55) {
     soundLabel = "Soft hum of life";
-  } else if (soundScore >= 45) {
-    soundLabel = "Energetic surroundings";
-  } else {
+  } else if ( percentGood >= 50) {
+    soundLabel = "Lively & Energetic surroundings";
+  } else if (percentGood >= 40) {
+    soundLabel = "Disturbing surroundings";
+  } else
+    {
     soundLabel = "Chaotic vibration";
   }
 
@@ -37,8 +55,12 @@ export function evaluateEnvironment({ soundLevelDb, magnetometerValue }) {
   }
 
   // OVERALL SCORE
-  const overallScore = Math.round((soundScore + magnetometerScore) / 2);
-
+ // //console.log("percentGood:", percentGood)
+ // //console.log("magnetometerScore:", magnetometerScore)
+////console.log('magnetometer', magnetometerScore)
+  const overallScore = (Number(percentGood) + Number(magnetometerScore))/2;
+  const rounded = Math.round(overallScore);
+////console.log('overall', overallScore)
   let overallLabel = "Poor location";
   if (overallScore >= 80) overallLabel = "Excellent location";
   else if (overallScore >= 60) overallLabel = "Good location";
@@ -47,17 +69,17 @@ export function evaluateEnvironment({ soundLevelDb, magnetometerValue }) {
 
   return {
     sound: {
-      value: soundLevelDb,
-      score: soundScore,
+      value: soundScore,
+      score: Math.round(soundScore),
       label: soundLabel,
     },
     magnetometer: {
-      value: magnetometerValue,
-      score: magnetometerScore,
+      value: magnetometerScore,
+      score: Math.round(magnetometerScore),
       label: magnetometerLabel,
     },
     overall: {
-      score: overallScore,
+      value: overallScore,
       label: overallLabel,
     },
   };

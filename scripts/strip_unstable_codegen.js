@@ -20,7 +20,7 @@ const packagesToPatch = [
   // Add others here if needed
 ];
 
-console.log("🔍 Scanning for codegenConfig in node_modules...\n");
+//console.log("🔍 Scanning for codegenConfig in node_modules...\n");
 
 function getAllPackages(dirPath) {
   const packages = [];
@@ -56,11 +56,11 @@ allPackages.forEach((pkgName) => {
       const isPatched = packagesToPatch.includes(pkgName);
 
       if (isPatched) {
-        console.log(`🛠  Stripping codegenConfig from ${pkgName}`);
+        //console.log(`🛠  Stripping codegenConfig from ${pkgName}`);
         delete pkg.codegenConfig;
         fs.writeFileSync(pkgJsonPath, JSON.stringify(pkg, null, 2));
       } else {
-        console.log(`⚠️  Detected codegenConfig in ${pkgName} (not auto-patched)`);
+        //console.log(`⚠️  Detected codegenConfig in ${pkgName} (not auto-patched)`);
       }
     }
   } catch (err) {
@@ -68,4 +68,4 @@ allPackages.forEach((pkgName) => {
   }
 });
 
-console.log("\n✅ Done scanning node_modules.\n");
+//console.log("\n✅ Done scanning node_modules.\n");

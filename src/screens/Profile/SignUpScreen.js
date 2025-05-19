@@ -33,7 +33,7 @@ export const SignUpScreen = ({ navigation }) => {
     navigation.replace("UpdateProfileScreen");
   };
   const handleSignUp = async () => {
-    //console.log("handlesignup");
+    ////console.log("handlesignup");
     setError("");
     try {
       if (password.length < 8) {
@@ -52,7 +52,7 @@ export const SignUpScreen = ({ navigation }) => {
       }
 
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-      //console.log("afterUserCredential");
+      ////console.log("afterUserCredential");
       const user = userCredential.user;
       await updateProfile(userCredential.user, {
         displayName: name,
@@ -65,7 +65,7 @@ export const SignUpScreen = ({ navigation }) => {
         goals: "", // add anything you want to customize later
       });
 
-      //console.log("✅ User signed up:", name);
+      ////console.log("✅ User signed up:", name);
       navigation.replace("UpdateProfileScreen");
 
       //navigation.navigate("SignInScreen");

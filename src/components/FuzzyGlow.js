@@ -1,9 +1,11 @@
 import React, { useEffect, useRef } from "react";
 import { Animated } from "react-native";
 import { Svg, Defs, RadialGradient, Stop, Circle } from "react-native-svg";
+import { SCREEN_WIDTH } from "@/utils";
 
 export const FuzzyGlow = ({ glowSize, glowColor, pulse = true, externalScale }) => {
   const internalScale = useRef(new Animated.Value(1)).current;
+  const BASE_GLOW_CONTAINER_SIZE = SCREEN_WIDTH / 6;
 
   useEffect(() => {
     if (pulse && !externalScale) {
@@ -32,17 +34,11 @@ export const FuzzyGlow = ({ glowSize, glowColor, pulse = true, externalScale }) 
   return (
     <Animated.View
       style={{
-        position: "absolute",
-        left: "50%",
-        right: "50%",
-        top: "50%",
-        transform: [
-          { translateX: -glowSize / 2 },
-          { translateY: -glowSize / 2 },
-          { scale: scaleToUse },
-        ],
-        width: glowSize,
-        height: glowSize,
+        width: BASE_GLOW_CONTAINER_SIZE,
+        height: BASE_GLOW_CONTAINER_SIZE,
+        justifyContent: "center",
+        alignItems: "center",
+        transform: [{ scale: glowSize / BASE_GLOW_CONTAINER_SIZE }],
       }}
     >
       <Svg height="100%" width="100%">

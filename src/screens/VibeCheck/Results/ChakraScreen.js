@@ -33,7 +33,7 @@ const ChakraCard = ({ chakra }) => {
 
   const handlePress = (event) => {
     const { pageX, pageY } = event.nativeEvent;
-    navigation.navigate("ChakraDetail", {
+    navigation.navigate("ChakraDetailModal", {
       chakra,
       originX: pageX,
       originY: pageY,

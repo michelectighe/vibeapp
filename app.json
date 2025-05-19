@@ -15,14 +15,17 @@
       "bundleIdentifier": "com.vibe.vibekey",
       "buildNumber": "1.0.0",
       "infoPlist": {
-        "ITSAppUsesNonExemptEncryption": false,
-        "CFBundleURLTypes": [
-          {
-            "CFBundleURLSchemes": ["vibekey"]
-          }
-        ],
-        "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to access your camera"
-      }
+  "ITSAppUsesNonExemptEncryption": false,
+  "CFBundleURLTypes": [
+    {
+      "CFBundleURLSchemes": [
+        "vibekey"
+      ]
+    }
+  ],
+  "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to access your camera",
+  "NSMicrophoneUsageDescription": "This app uses the microphone to analyze ambient sound."
+}
     },
     "android": {
       "adaptiveIcon": {

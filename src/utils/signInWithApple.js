@@ -34,7 +34,7 @@ export const signInWithApple = async () => {
 
     return { success: true };
   } catch (error) {
-    console.log("🍏 Apple Sign-In error:", error);
+    //console.log("🍏 Apple Sign-In error:", error);
 
     // Detect cancel
     if (error?.message?.includes("AuthorizationError") && error?.message?.includes("1001")) {

@@ -1,6 +1,6 @@
 import React, { useEffect, createContext, useState, useMemo, useContext } from "react";
 import {
-  evaluateEnvironment,
+  // evaluateEnvironment,
   evaluateMotion,
   evaluateVoiceClarity,
   evaluateVoiceFrequency,
@@ -24,13 +24,16 @@ export const AnalysisProvider = ({ children }) => {
     sdnn: 100,
     rmssd: 100,
   });
+  const [rawBPM, setBPM] = useState();
+  const [rawHRV, setHRV] = useState();
   const [heartRateScore, setHeartRateScore] = useState(0);
-  const [hrvScore, setHRV] = useState(0);
+  const [hrvScore, setHRVScore] = useState(0);
   const [motion, setMotion] = useState(0);
   const [motionScore, setMotionScore] = useState();
   const [emotion, setEmotions] = useState(null);
   const [magnitude, setMagnitude] = useState(50);
   const [sound, setSound] = useState(-50);
+  const [environment, setEnvironment] = useState(0);
   const [environmentScore, setEnvironmentScore] = useState();
   const [voiceStrength, setVoiceStrength] = useState(-1);
   const [voiceClarity, setVoiceClarity] = useState(5);
@@ -70,6 +73,7 @@ export const AnalysisProvider = ({ children }) => {
     setEmotions(null);
     setVoiceClarity(null);
     setVoiceStrength(null);
+    setEnvironment(null);
     setChakraScores({
       root: null,
       sacral: null,
@@ -82,30 +86,22 @@ export const AnalysisProvider = ({ children }) => {
   };
 
   const emotionScore = useMemo(() => {
-    if (emotion == null) return null;
+  //c  if (emotion == null) return null;
     return evaluateEmotionalState(emotion);
   }, [emotion]);
 
   const voiceStrengthScore = useMemo(() => {
     if (voiceStrength == null) return null;
-    //console.log("VOICE STRENGTH:", voiceStrength);
-    const norm = normalize(voiceStrength, 0, 300);
-    //console.log("VOICE STRENGTH:", norm);
-    return evaluateVoiceStrength(norm);
+    return evaluateVoiceStrength(voiceStrength);
   }, [voiceStrength]);
 
   const voiceClarityScore = useMemo(() => {
     if (voiceClarity == null) return null;
-    //console.log("VOICE CLARITY:", voiceClarity);
-    const norm = normalize(voiceClarity, 0, 300);
-    //console.log("VOICE CLARITY:", norm);
-    return evaluateVoiceClarity(norm);
+    return evaluateVoiceClarity(voiceClarity);
   }, [voiceClarity]);
 
   const voiceFrequencyScore = useMemo(() => {
     if (voiceFrequency == null) return null;
-    //   console.log("VOICE FREQUENCY:", voiceFrequency);
-    // const norm = normalize(frequency, 75, 250);
     return evaluateVoiceFrequency(voiceFrequency);
   }, [voiceFrequency]);
 
@@ -114,88 +110,53 @@ export const AnalysisProvider = ({ children }) => {
       const motionEval = evaluateMotion({
         avgMagnitude: motion,
       });
-      // //console.log("motion:", motionEval.label);
-      // //console.log("final motionScore:", motionEval.score);
+      // ////console.log("motion:", motionEval.label);
+      // ////console.log("final motionScore:", motionEval.score);
       setMotionScore(motionEval.score);
     }
   }, [motion]);
 
-  useEffect(() => {
-    if (sound !== null && magnitude !== null) {
-      const soundLevelDb = 100 + sound; // convert to decibels
-      const environmentEval = evaluateEnvironment({
-        soundLevelDb: soundLevelDb,
-        magnetometerValue: magnitude,
-      });
-      // //console.log("final environmentScore:", environmentEval.overall.score);
-      setEnvironmentScore(environmentEval.overall.score);
-    }
-  }, [sound, magnitude]);
+  // useEffect(() => {
+  //   if (sound !== null && magnitude !== null) {
+  //     const soundLevelDb = 100 + sound; // convert to decibels
+  //     const environmentEval = evaluateEnvironment({
+  //       soundLevelDb: soundLevelDb,
+  //       magnetometerValue: magnitude,
+  //     });
+  //     // ////console.log("final environmentScore:", environmentEval.overall.score);
+  //     setEnvironmentScore(environmentEval.overall.score);
+  //   }
+  // }, [sound, magnitude]);
 
   useEffect(() => {
-    //  //console.log("HEARTRATE:", heartRate)
+    if (environment !== null) {
+      // ////console.log("final environmentScore:", environmentEval.overall.score);
+      setEnvironmentScore(environment);
+    //console.log("ENVIRONMENT SCORE SET:", environment)
+    }
+  }, [environment]);
+
+  useEffect(() => {
+    //  ////console.log("HEARTRATE:", heartRate)
     if (heartRate.rmssd !== null) {
-      //  //console.log("rmssd:", heartRate.rmssd);
+      const roundRawHRV = Math.round(heartRate.rmssd);
+      setHRV(roundRawHRV);
+      //  ////console.log("rmssd:", heartRate.rmssd);
       const normHRV = 100 - normalize(heartRate.rmssd, 10, 120);
-      // //console.log("final HRV:", normHRV);
-      setHRV(normHRV);
+      // ////console.log("final HRV:", normHRV);
+      const roundedHRV = Math.round(normHRV);
+      setHRVScore(roundedHRV);
     }
     if (heartRate.bpm !== null) {
-      // //console.log("BPM:", heartRate.bpm);
+      // ////console.log("BPM:", heartRate.bpm);
+      const roundRawBPM = Math.round(heartRate.bpm);
+      setBPM(roundRawBPM);
       const normBPM = 100 - normalize(heartRate.bpm, 40, 180); // lower the better
-      // //console.log("final BPM:", normBPM);
-      setHeartRateScore(normBPM);
+      // ////console.log("final BPM:", normBPM);
+      const roundedHRV = Math.round(normBPM);
+      setHeartRateScore(roundedHRV);
     }
   }, [heartRate]);
-
-  // useEffect(() => {
-  //   if (
-  //     voiceFrequencyScore !== null &&
-  //     voiceClarityScore !== null &&
-  //     voiceStrengthScore !== null &&
-  //     environmentScore != null &&
-  //     motionScore !== null &&
-  //     heartRateScore !== null &&
-  //     hrvScore !== null &&
-  //     emotionScore !== null
-  //   ) {
-  //     console.log("frequency:", voiceFrequencyScore);
-  //     console.log("voiceClarity:", voiceClarityScore);
-  //     console.log("voiceStrengthScore:", voiceStrengthScore);
-  //     console.log("environmentScore:", environmentScore);
-  //     console.log("motionScore:", motionScore);
-  //     console.log("heartRateScore:", heartRateScore);
-  //     console.log("hrvScore:", hrvScore);
-  //     console.log("emotionScore:", emotionScore);
-  //     const overallVibrationScore = Math.min(
-  //       Math.max(
-  //         voiceFrequencyScore.score * 0.1 +
-  //           voiceClarityScore.score * 0.1 +
-  //           voiceStrengthScore.score * 0.1 +
-  //           environmentScore * 0.15 +
-  //           motionScore * 0.05 +
-  //           heartRateScore * 0.2 +
-  //           hrvScore * 0.1 +
-  //           emotionScore.score * 0.2,
-  //       ),
-  //       100,
-  //     );
-  //     //console.log("final overall score:", overallVibrationScore);
-  //     setOverallVibeScore(overallVibrationScore);
-
-  //     const info = getVibrationInfo(overallVibrationScore); // Import from your utility
-  //     setVibrationInfo(info);
-  //   }
-  // }, [
-  //   voiceFrequencyScore,
-  //   voiceClarityScore,
-  //   voiceStrengthScore,
-  //   environmentScore,
-  //   motionScore,
-  //   heartRateScore,
-  //   hrvScore,
-  //   emotionScore,
-  // ]);
 
   useEffect(() => {
     const scores = [
@@ -212,14 +173,14 @@ export const AnalysisProvider = ({ children }) => {
     const valid = scores.filter(({ label, score }) => isValidScore(label, score));
     const invalid = scores.filter(({ label, score }) => !isValidScore(label, score));
 
-    console.log("✅ Included in overall vibration score:");
+    //console.log("✅ Included in overall vibration score:");
     valid.forEach(({ label, score, weight }) => {
-      console.log(`- ${label}: score = ${score}, weight = ${weight}`);
+      //console.log(`- ${label}: score = ${score}, weight = ${weight}`);
     });
 
-    console.log("❌ Skipped due to invalid or missing value:");
+    //console.log("❌ Skipped due to invalid or missing value:");
     invalid.forEach(({ label, score }) => {
-      console.log(`- ${label}: score = ${score}`);
+      //console.log(`- ${label}: score = ${score}`);
     });
     const totalWeight = valid.reduce((sum, { weight }) => sum + weight, 0);
 
@@ -227,10 +188,11 @@ export const AnalysisProvider = ({ children }) => {
 
     const weightedSum = valid.reduce((sum, { score, weight }) => sum + score * weight, 0);
     const normalizedScore = Math.min(Math.max(weightedSum / totalWeight, 0), 100);
+    const roundedOverall = Math.round(normalizedScore);
 
-    console.log("dynamic weighted score:", normalizedScore);
-    setOverallVibeScore(normalizedScore);
-    setVibrationInfo(getVibrationInfo(normalizedScore));
+    //console.log("dynamic weighted score:", normalizedScore);
+    setOverallVibeScore(roundedOverall);
+    setVibrationInfo(getVibrationInfo(roundedOverall));
   }, [
     voiceFrequencyScore,
     voiceClarityScore,
@@ -284,7 +246,7 @@ export const AnalysisProvider = ({ children }) => {
       voiceClarityScore &&
       voiceFrequencyScore
     )
-      console.log("updating chakra scores");
+      //console.log("updating chakra scores");
     updateChakraScores();
     setAuraColor(getAuraColor()); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -314,7 +276,10 @@ export const AnalysisProvider = ({ children }) => {
     const safeAvg = (a, b) => {
       const valid = [a, b].filter((v) => typeof v === "number" && !isNaN(v));
       if (valid.length === 0) return 0;
-      return Math.round(valid.reduce((sum, val) => sum + val, 0) / valid.length);
+      const notZero = Math.round(valid.reduce((sum, val) => sum + val, 0) / valid.length);
+      if (notZero >= 0) { return notZero }
+      else
+        return 0;
     };
 
     setChakraScores({
@@ -361,6 +326,7 @@ export const AnalysisProvider = ({ children }) => {
         frequency1,
         frequency2,
         setVoiceFrequency,
+        setEnvironment,
         setFrequency1,
         setFrequency2,
         setVoiceStrength1,
@@ -397,6 +363,8 @@ export const AnalysisProvider = ({ children }) => {
         voiceStrength2,
         overallVibrationScore,
         vibrationInfo,
+        rawHRV,
+        rawBPM,
         resetAnalysis,
       }}
     >

@@ -50,3 +50,6 @@ export { getVibeRecommendations } from "./getRecommendations";
 
 export { getVibeHistory, groupScores } from "./getVibeHistory";
 export { lightenHexColor } from "./lightenHexColor.js";
+
+export { analyzePeacefulness } from "./analyzePeacefulness";
+export { loadSoundClassLabels } from "./loadSoundClassLabels";

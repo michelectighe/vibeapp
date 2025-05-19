@@ -1,5 +1,5 @@
 export const getFriendlyError = (errorCode) => {
-  console.log(errorCode);
+  //console.log(errorCode);
   switch (errorCode) {
     // SIGN UP ERRORS
     case "auth/email-already-in-use":

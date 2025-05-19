@@ -258,7 +258,7 @@ PODS:
     - ExpoModulesCore
   - ExpoSplashScreen (0.29.24):
     - ExpoModulesCore
-  - ExpoSQLite (15.2.9):
+  - ExpoSQLite (15.2.10):
     - ExpoModulesCore
   - EXUpdatesInterface (1.0.0):
     - ExpoModulesCore
@@ -266,6 +266,33 @@ PODS:
   - FBLazyVector (0.76.9)
   - fmt (11.0.2)
   - glog (0.3.5)
+  - GoogleDataTransport (9.4.1):
+    - GoogleUtilities/Environment (~> 7.7)
+    - nanopb (< 2.30911.0, >= 2.30908.0)
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleMLKit/FaceDetection (6.0.0):
+    - GoogleMLKit/MLKitCore
+    - MLKitFaceDetection (~> 5.0.0)
+  - GoogleMLKit/MLKitCore (6.0.0):
+    - MLKitCommon (~> 11.0.0)
+  - GoogleToolboxForMac/Defines (4.2.1)
+  - GoogleToolboxForMac/Logger (4.2.1):
+    - GoogleToolboxForMac/Defines (= 4.2.1)
+  - "GoogleToolboxForMac/NSData+zlib (4.2.1)":
+    - GoogleToolboxForMac/Defines (= 4.2.1)
+  - GoogleUtilities/Environment (7.13.3):
+    - GoogleUtilities/Privacy
+    - PromisesObjC (< 3.0, >= 1.2)
+  - GoogleUtilities/Logger (7.13.3):
+    - GoogleUtilities/Environment
+    - GoogleUtilities/Privacy
+  - GoogleUtilities/Privacy (7.13.3)
+  - GoogleUtilities/UserDefaults (7.13.3):
+    - GoogleUtilities/Logger
+    - GoogleUtilities/Privacy
+  - GoogleUtilitiesComponents (1.1.0):
+    - GoogleUtilities/Logger
+  - GTMSessionFetcher/Core (3.5.0)
   - hermes-engine (0.76.9):
     - hermes-engine/Pre-built (= 0.76.9)
   - hermes-engine/Pre-built (0.76.9)
@@ -281,6 +308,29 @@ PODS:
   - libwebp/sharpyuv (1.5.0)
   - libwebp/webp (1.5.0):
     - libwebp/sharpyuv
+  - MLImage (1.0.0-beta5)
+  - MLKitCommon (11.0.0):
+    - GoogleDataTransport (< 10.0, >= 9.4.1)
+    - GoogleToolboxForMac/Logger (< 5.0, >= 4.2.1)
+    - "GoogleToolboxForMac/NSData+zlib (< 5.0, >= 4.2.1)"
+    - GoogleUtilities/UserDefaults (< 8.0, >= 7.13.0)
+    - GoogleUtilitiesComponents (~> 1.0)
+    - GTMSessionFetcher/Core (< 4.0, >= 3.3.2)
+  - MLKitFaceDetection (5.0.0):
+    - MLKitCommon (~> 11.0)
+    - MLKitVision (~> 7.0)
+  - MLKitVision (7.0.0):
+    - GoogleToolboxForMac/Logger (< 5.0, >= 4.2.1)
+    - "GoogleToolboxForMac/NSData+zlib (< 5.0, >= 4.2.1)"
+    - GTMSessionFetcher/Core (< 4.0, >= 3.3.2)
+    - MLImage (= 1.0.0-beta5)
+    - MLKitCommon (~> 11.0)
+  - nanopb (2.30910.0):
+    - nanopb/decode (= 2.30910.0)
+    - nanopb/encode (= 2.30910.0)
+  - nanopb/decode (2.30910.0)
+  - nanopb/encode (2.30910.0)
+  - PromisesObjC (2.4.0)
   - PurchasesHybridCommon (13.31.0):
     - RevenueCat (= 5.23.0)
   - RCT-Folly (2024.10.14.00):
@@ -1952,6 +2002,8 @@ PODS:
     - React-Core
   - RNAudio (4.3.0):
     - React
+  - RNAudioRecord (0.2.2):
+    - React
   - RNCAsyncStorage (2.1.2):
     - DoubleConversion
     - glog
@@ -2021,7 +2073,7 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNPurchases (8.9.7):
+  - RNPurchases (8.10.0):
     - PurchasesHybridCommon (= 13.31.0)
     - React-Core
   - RNReanimated (3.17.5):
@@ -2190,7 +2242,7 @@ PODS:
     - Yoga
   - RNSoundLevel (1.3.0):
     - React
-  - RNSVG (15.11.2):
+  - RNSVG (15.12.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2210,9 +2262,9 @@ PODS:
     - ReactCodegen
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
-    - RNSVG/common (= 15.11.2)
+    - RNSVG/common (= 15.12.0)
     - Yoga
-  - RNSVG/common (15.11.2):
+  - RNSVG/common (15.12.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2299,6 +2351,10 @@ PODS:
   - VisionCamera/React (4.6.4):
     - React-Core
     - VisionCamera/FrameProcessors
+  - VisionCameraFaceDetector (1.8.3):
+    - GoogleMLKit/FaceDetection
+    - React-Core
+    - VisionCamera
   - Yoga (0.0.0)
 
 DEPENDENCIES:
@@ -2395,6 +2451,7 @@ DEPENDENCIES:
   - ReactCommon/turbomodule/core (from `../node_modules/react-native/ReactCommon`)
   - "RNAppleAuthentication (from `../node_modules/@invertase/react-native-apple-authentication`)"
   - RNAudio (from `../node_modules/react-native-audio`)
+  - RNAudioRecord (from `../node_modules/react-native-audio-record`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-async-storage/async-storage`)"
   - RNFastImage (from `../node_modules/react-native-fast-image`)
   - RNFS (from `../node_modules/react-native-fs`)
@@ -2408,11 +2465,24 @@ DEPENDENCIES:
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - vision-camera-resize-plugin (from `../node_modules/vision-camera-resize-plugin`)
   - VisionCamera (from `../node_modules/react-native-vision-camera`)
+  - VisionCameraFaceDetector (from `../node_modules/react-native-vision-camera-face-detector`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   trunk:
+    - GoogleDataTransport
+    - GoogleMLKit
+    - GoogleToolboxForMac
+    - GoogleUtilities
+    - GoogleUtilitiesComponents
+    - GTMSessionFetcher
     - libwebp
+    - MLImage
+    - MLKitCommon
+    - MLKitFaceDetection
+    - MLKitVision
+    - nanopb
+    - PromisesObjC
     - PurchasesHybridCommon
     - RevenueCat
     - SDWebImage
@@ -2605,6 +2675,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@invertase/react-native-apple-authentication"
   RNAudio:
     :path: "../node_modules/react-native-audio"
+  RNAudioRecord:
+    :path: "../node_modules/react-native-audio-record"
   RNCAsyncStorage:
     :path: "../node_modules/@react-native-async-storage/async-storage"
   RNFastImage:
@@ -2631,6 +2703,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/vision-camera-resize-plugin"
   VisionCamera:
     :path: "../node_modules/react-native-vision-camera"
+  VisionCameraFaceDetector:
+    :path: "../node_modules/react-native-vision-camera-face-detector"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -2656,14 +2730,26 @@ SPEC CHECKSUMS:
   ExpoModulesCore: c25d77625038b1968ea1afefc719862c0d8dd993
   ExpoSensors: 38ae3a55b484410a7976fa3ff78ea80339252e75
   ExpoSplashScreen: 8261985ce9778f904abc7e31bed3538dce67ed4d
-  ExpoSQLite: 06c004fa0c71f62de09f34710534a90958bdeb50
+  ExpoSQLite: 9f6471a32aeddaea2c57594bebb42ca78aa19fe9
   EXUpdatesInterface: 7c977640bdd8b85833c19e3959ba46145c5719db
   fast_float: 06eeec4fe712a76acc9376682e4808b05ce978b6
   FBLazyVector: 7605ea4810e0e10ae4815292433c09bf4324ba45
   fmt: 01b82d4ca6470831d1cc0852a1af644be019e8f6
   glog: 08b301085f15bcbb6ff8632a8ebaf239aae04e6a
+  GoogleDataTransport: 6c09b596d841063d76d4288cc2d2f42cc36e1e2a
+  GoogleMLKit: 97ac7af399057e99182ee8edfa8249e3226a4065
+  GoogleToolboxForMac: d1a2cbf009c453f4d6ded37c105e2f67a32206d8
+  GoogleUtilities: ea963c370a38a8069cc5f7ba4ca849a60b6d7d15
+  GoogleUtilitiesComponents: 679b2c881db3b615a2777504623df6122dd20afe
+  GTMSessionFetcher: 5aea5ba6bd522a239e236100971f10cb71b96ab6
   hermes-engine: 9e868dc7be781364296d6ee2f56d0c1a9ef0bb11
   libwebp: 02b23773aedb6ff1fd38cec7a77b81414c6842a8
+  MLImage: 1824212150da33ef225fbd3dc49f184cf611046c
+  MLKitCommon: afec63980417d29ffbb4790529a1b0a2291699e1
+  MLKitFaceDetection: 7c0e8bf09ddd27105da32d088fca978a99fc30cc
+  MLKitVision: e858c5f125ecc288e4a31127928301eaba9ae0c1
+  nanopb: 438bc412db1928dac798aa6fd75726007be04262
+  PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
   PurchasesHybridCommon: f694edb3e77b863b6dd92b1097d2558182d11f77
   RCT-Folly: ea9d9256ba7f9322ef911169a9f696e5857b9e17
   RCTDeprecation: ebe712bb05077934b16c6bf25228bdec34b64f83
@@ -2729,16 +2815,17 @@ SPEC CHECKSUMS:
   RevenueCat: a4db48f41c10fcdd6fd1ef455875e091b32bf70d
   RNAppleAuthentication: c3dddf5918126c9aae85dc2e2ce9fb87835e9e04
   RNAudio: 01b34b0f029b6a1279f975e15dbc1f11fc42b258
+  RNAudioRecord: b253d15d8141c5ef6bc614fc9d9f06577870bfc3
   RNCAsyncStorage: ab0ad9a78ead8b9f143f0238a5aa535777b12e65
   RNFastImage: 462a183c4b0b6b26fdfd639e1ed6ba37536c3b87
   RNFS: 89de7d7f4c0f6bafa05343c578f61118c8282ed8
   RNGestureHandler: 9c8bf98209e658e1ceb13026f176e4ede1f24491
   RNKeychain: 850638785745df5f70c37251130617a66ec82102
-  RNPurchases: e20d58889e85fa6d248de647176d2cc9968e2628
+  RNPurchases: 08cc01ef638aa0873f45b781877838e0e7cf8945
   RNReanimated: 1940e2891efbdf495b4e2096c7e1394729dbbe64
   RNScreens: 18e02aaafedc00fc2a44bb9566fc0e82274f830e
   RNSoundLevel: a48da8668fbde4f792c0bea948e27ab793bee7e1
-  RNSVG: 3a1cce2e940268a7d3554e3cf2bbd2195871f4fe
+  RNSVG: 43aff28bae846abe9c45625fe8b4816b7ac73ffd
   RNVectorIcons: 3bf5f38dcb1aaf587c4101e9f3fcad5c8f5a88b2
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: 908b83b6adda48effe7667cd2b7f78c897e5111d
@@ -2747,6 +2834,7 @@ SPEC CHECKSUMS:
   TensorFlowLiteC: eac6d689a8d391d1b202dc59e3d9165ba64aaf73
   vision-camera-resize-plugin: 7c1f6eaaee0e61b2ad3f97b0e23b91307ec70926
   VisionCamera: 52b101a7fa0a70ff455163c5a121d8dfe9871ab7
+  VisionCameraFaceDetector: 5551f77a3c89ef134c68ccc3e896938aa3a58840
   Yoga: feb4910aba9742cfedc059e2b2902e22ffe9954a
 
 PODFILE CHECKSUM: f36767cbe262a26e7df65d8fc9bb4279d0282743

@@ -46,10 +46,10 @@ export const getVibeMatchResults = async () => {
     const result = await db.getAllAsync("SELECT * FROM vibeMatchResults ORDER BY timestamp DESC;");
 
     if (result && Array.isArray(result)) {
-      //console.log("✅ Retrieved VibeMatchResults:", result);
+      ////console.log("✅ Retrieved VibeMatchResults:", result);
       return result; // ✅ Now it returns the results
     } else {
-      //console.log("⚠️ No results found in DB.");
+      ////console.log("⚠️ No results found in DB.");
       return []; // Return empty array instead of undefined
     }
   } catch (error) {
@@ -62,7 +62,7 @@ export const deleteVibeMatchResult = async (id, callback) => {
   try {
     const db = await SQLite.openDatabaseAsync("vibrationResults.db");
     await db.runAsync("DELETE FROM vibeMatchResults WHERE id = ?;", [id]);
-    //console.log(`✅ Deleted result with ID: ${id}`);
+    ////console.log(`✅ Deleted result with ID: ${id}`);
 
     // Refresh results if a callback is provided
     if (callback) {

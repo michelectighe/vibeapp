@@ -3,11 +3,10 @@ import { View, Text } from "react-native";
 import { Camera, useCameraDevice, useFrameProcessor /*face*/ } from "react-native-vision-camera";
 import { initMedia, createRefChecker, cleanupMedia } from "@utils";
 import { useResizePlugin } from "vision-camera-resize-plugin";
-import { useAnalysis, useModel } from "@context";
+import { useAnalysis, useModels } from "@context";
 import { useNavigation, useFocusEffect, useIsFocused } from "@react-navigation/native";
-import { AudioRecorder } from "react-native-audio";
+import AudioRecord from "react-native-audio-record";
 import { Worklets } from "react-native-worklets-core";
-import RNFS from "react-native-fs";
 import { useVoiceRecording } from "@features/voiceAnalysis/VoiceRecording";
 import { useFaceDetector } from "react-native-vision-camera-face-detector";
 import {
@@ -49,7 +48,7 @@ export const EmotionalStateScreen = () => {
   const selectedFormat = useMemo(() => {
     try {
       if (!device?.formats?.length) return undefined;
-      //console.log("device found");
+      ////console.log("device found");
       return device.formats
         .filter((f) => f.supportsVideoHdr === false)
         .sort((a, b) => b.videoWidth * b.videoHeight - a.videoWidth * a.videoHeight)[0]; // format with highest video resolution
@@ -61,17 +60,16 @@ export const EmotionalStateScreen = () => {
   const frameProcessorEmotionActiveRef = useRef(false);
   const isRefActive = createRefChecker();
   const cameraEmotionRef = useRef(null);
-  const uriRef = useRef(null);
+  const audioBuffer = useRef([]);
   const stopTimeoutRef = useRef(null);
   const { analyzeVoiceFromAudioUri } = useVoiceRecording();
   const { resize } = useResizePlugin();
   const MODEL_INPUT = 48;
   const isGrayScale = true;
-  const { model } = useModel();
+  const { emotionModel } = useModels();
   const { setEmotions, setVoiceStrength, setVoiceFrequency, setVoiceClarity } = useAnalysis();
   const [emotion, setEmotion] = useState("Analyzing...");
   const [isAudioRecording, setIsAudioRecording] = useState(false);
-  const audioPath = `${RNFS.DocumentDirectoryPath}/test.aac`;
   const [emotionLog, setEmotionLog] = useState([]);
   const [cameraReady, setCameraReady] = useState(false);
   const emotionLogRef = useRef(emotionLog);
@@ -94,21 +92,22 @@ export const EmotionalStateScreen = () => {
           await initMedia(
             frameProcessorEmotionActiveRef,
             {
-              path: audioPath,
               settings: {
-                SampleRate: 16000,
-                AudioEncoding: "aac",
-                AudioQuality: "Low",
+                sampleRate: 16000,
+                channels: 1,
+                bitsPerSample: 16,
+                audioSource: 6,
+                wavFile: "emotion.wav",
               },
             },
             "audio",
           );
           setTimeout(async () => {
             await startRecording();
-            //console.log("🎙️ Audio recording started after delay");
+            ////console.log("🎙️ Audio recording started after delay");
           }, 500);
 
-          //console.log("recording started");
+          ////console.log("recording started");
         } catch (e) {
           console.warn("Setup failed in EmotionalStateScreen:", e);
         }
@@ -117,7 +116,7 @@ export const EmotionalStateScreen = () => {
       setup();
 
       return () => {
-        //console.log("cleanup focusEffect for initmedia");
+        ////console.log("cleanup focusEffect for initmedia");
       };
     }, [device, cameraReady]), // eslint-disable-line react-hooks/exhaustive-deps
   );
@@ -128,7 +127,6 @@ export const EmotionalStateScreen = () => {
         global.lastTs = 99999999999;
         (async () => {
           try {
-            uriRef.current = null;
             cameraEmotionRef.current = null;
             await cleanupMedia({
               useAudio: true,
@@ -157,7 +155,7 @@ export const EmotionalStateScreen = () => {
         console.error("tabBarError EmotioncreenFocus:", error);
       }
       return () => {
-        //console.log("cleanup of nav");
+        ////console.log("cleanup of nav");
       };
     }, [navigation]),
   );
@@ -175,7 +173,7 @@ export const EmotionalStateScreen = () => {
             const mostCommonEmotion = Object.keys(emotionCounts).reduce((a, b) =>
               emotionCounts[a] > emotionCounts[b] ? a : b,
             );
-            //console.log("Setting overall emotional state:", mostCommonEmotion);
+            ////console.log("Setting overall emotional state:", mostCommonEmotion);
             setEmotions(mostCommonEmotion);
           } else {
             setEmotions(null);
@@ -201,8 +199,8 @@ export const EmotionalStateScreen = () => {
 
   useEffect(() => {
     try {
-      if (!model) {
-        //console.log("model isn't loaded");
+      if (!emotionModel) {
+      ////console.log("model isn't loaded");
       }
       // if (!__DEV__) {
       //   crashlytics().log(
@@ -212,7 +210,7 @@ export const EmotionalStateScreen = () => {
       //     new Error("🔥 Test crash from EmotionalStateScreen")
       //   );
       // }
-      return () => model;
+      return () => emotionModel;
     } catch (error) {
       console.error("EmotionalStateScreen UseEffect Error:", error);
     }
@@ -222,12 +220,17 @@ export const EmotionalStateScreen = () => {
     stopRecording();
     goToNextScreen();
   };
-
+  let audioSub = null;
   const startRecording = async () => {
     try {
-      await AudioRecorder.startRecording();
       setIsAudioRecording(true);
+      audioBuffer.current = [];
 
+      audioSub = AudioRecord.on('data', (data) => {
+        audioBuffer.current.push(data);
+      });
+
+      AudioRecord.start();
       stopTimeoutRef.current = setTimeout(() => {
         stopRecording();
       }, 10000);
@@ -243,21 +246,22 @@ export const EmotionalStateScreen = () => {
       clearTimeout(stopTimeoutRef.current); // ✅ clear timeout
       stopTimeoutRef.current = null;
 
-      await AudioRecorder.stopRecording();
+      await AudioRecord.stop();
+      if (audioSub?.remove) {
+        audioSub.remove(); // ✅ properly unsubscribe
+        audioSub = null;
+      }
       setIsAudioRecording(false);
-      const stat = await RNFS.stat(audioPath);
 
-      if (stat.size > 0) {
-        await analyzeVoiceFromAudioUri(audioPath);
+
+      if (audioBuffer.current.length > 0) {
+        await analyzeVoiceFromAudioUri(audioBuffer.current);
       } else {
         setVoiceFrequency(null);
         setVoiceStrength(null);
         setVoiceClarity(null);
       }
-
-      uriRef.current = null;
       cameraEmotionRef.current = null;
-      await RNFS.unlink(audioPath);
     } catch (error) {
       console.error("Stop Recording Error:", error);
     }
@@ -282,8 +286,8 @@ export const EmotionalStateScreen = () => {
       "worklet";
 
       if (!isRefActive(frameProcessorEmotionActiveRef.current)) return;
-      if (!model) {
-        //console.log("⛔️ Frame skipped - model not loaded");
+      if (!emotionModel) {
+      ////console.log("⛔️ Frame skipped - model not loaded");
         return;
       }
       try {
@@ -292,13 +296,13 @@ export const EmotionalStateScreen = () => {
           faces = detectFaces(frame);
           if (!faces || faces.length === 0 || !faces[0]?.bounds) return;
         } catch (e) {
-          //console.log("error in detectFaces:", e);
+          ////console.log("error in detectFaces:", e);
         }
 
         const now = Date.now();
         if (global.lastTs && now - global.lastTs < 200) return;
         global.lastTs = now;
-        if (!model) return;
+        if (!emotionModel) return;
 
         let cropWidth = faces[0].bounds.width;
         let cropHeight = faces[0].bounds.height;
@@ -326,7 +330,7 @@ export const EmotionalStateScreen = () => {
             dataType: "float32",
           });
         } catch (e) {
-          //console.log("error in resize:", e);
+          ////console.log("error in resize:", e);
         }
 
         const floatArray =
@@ -344,19 +348,19 @@ export const EmotionalStateScreen = () => {
             }
           }
         } catch (e) {
-          //console.log("error in grayscale:", e);
+          ////console.log("error in grayscale:", e);
         }
 
-        if (!model || !grayscale) {
-          //console.log("model is unavailable:", model);
+        if (!emotionModel || !grayscale) {
+        ////console.log("model is unavailable:", model);
           return;
         }
         let output;
         try {
-          output = model.runSync([grayscale])[0];
+          output = emotionModel.runSync([grayscale])[0];
           if (!output || output.length === 0) return;
         } catch (e) {
-          //console.log("❌ Model runSync error:", e);
+          ////console.log("❌ Model runSync error:", e);
           return;
         }
 
@@ -372,10 +376,10 @@ export const EmotionalStateScreen = () => {
 
         runOnJSEmotion(maxIdx);
       } catch (e) {
-        //console.log("Error in emotionProcessor", e);
+        ////console.log("Error in emotionProcessor", e);
       }
     },
-    [model],
+    [emotionModel],
   );
 
   return (
@@ -424,7 +428,7 @@ export const EmotionalStateScreen = () => {
                           }}
                           format={selectedFormat}
                           audio={false}
-                          frameProcessor={model && emotionProcessor}
+                          frameProcessor={emotionModel && emotionProcessor}
                           frameProcessorFps={1}
                           fps={15}
                           pixelFormat="yuv"

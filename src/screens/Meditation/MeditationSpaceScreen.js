@@ -12,7 +12,7 @@ import { useAmbientControlForScreen } from "@/hooks";
 export const MeditationSpaceScreen = () => {
   useAmbientControlForScreen(false);
   const navigation = useNavigation();
-  const { environment } = useEnvironment();
+  const { environment, vibeList } = useEnvironment();
   const [combinedCalm, setCombinedCalm] = useState(0);
   const [spaceLabel, setSpaceLabel] = useState("Neutral");
   const [magLabel, setMagLabel] = useState("");
@@ -24,7 +24,7 @@ export const MeditationSpaceScreen = () => {
       const parent = navigation.getParent?.();
       parent?.setOptions({ tabBarStyle: { display: "none" } });
       return () => {
-        console.log("leaving secons focus effect");
+        //console.log("leaving secons focus effect");
       };
     }, [navigation]),
   );
@@ -41,10 +41,10 @@ export const MeditationSpaceScreen = () => {
     if (environment && environment.overall && environment.magnetometer && environment.sound) {
       setSoundLabel(environment.sound.label);
       setMagLabel(environment.magnetometer.label);
-      setCombinedCalm(environment.overall.score);
+      setCombinedCalm(Number(environment.overall.score));
       setSpaceLabel(environment.overall.label);
     }
-  }, [environment]);
+  }, [environment, vibeList]);
 
   // useEffect(() => {
   //   setGlowColor(Colors.white);
@@ -79,8 +79,13 @@ export const MeditationSpaceScreen = () => {
           <Text style={styles.labelText}> {soundLabel}</Text>
           <Text style={styles.labelText}> {magLabel}</Text>
           <Text style={styles.labelText}>Overall: {spaceLabel}</Text>
+          {vibeList.map((item, index) => (
+            <Text key={index} style={styles.vibeItem}>
+              {item.category.toUpperCase()}: {(item.score * 100).toFixed(2)}%
+            </Text>
+          ))}
 
-          {!isNaN(combinedCalm) && <Text style={styles.scoreText}>{combinedCalm.toFixed(0)}</Text>}
+          {!isNaN(combinedCalm) && combinedCalm != null && <Text style={styles.scoreText}>{combinedCalm.toFixed(0)}</Text>}
         </View>
         <View style={styles.bottomRow}>
           <View style={styles.bottomInner}>

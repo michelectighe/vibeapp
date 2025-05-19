@@ -63,7 +63,7 @@
 
 ### 5. VibeCheck Section
 
-- [ ] check emotionalTransitionScreen jitter
+- [x] check emotionalTransitionScreen jitter
 - [x] verify resultdetails matches results
 
 ### 6. VibeMatch Section
@@ -76,7 +76,7 @@
 ### 7. Results Screen Polish
 
 - [x] Chakra visualization cards or bar chart (with color-coded labels)
-- [ ] Expandable sections for each metric with brief insights
+- [x] Expandable sections for each metric with brief insights
 - [x] Add feedback/suggestions based on vibration score
 
 
@@ -106,11 +106,12 @@
 ### 11. App Flow Testing
 
 - [x] Welcome screen content and navigation
-- [ ] Full analysis run-through (all metrics, save result)
+- [x] Full analysis run-through (all metrics, save result)
 - [x] Skip metric flow: test skipped metrics save correctly
 - [x] Match result works end-to-end
 - [x] Test sign-out, login again, and data persists
-- [ ] Confirm all sensors (camera, mic, motion) release properly
+- [x] Confirm all sensors (camera, mic, motion) release properly
+- [x] Add model to decipher background noise (nature vs city etc.)
 
 ### 12. Must do...
 
@@ -121,8 +122,8 @@
 ### 13. Optional (if time permits)
 
 - [ ] Deep linking: `vibekey://compare?id=...`
-- [ ] Glossary or “What’s this?” tooltips for new users
-- [ ] Haptics
+- [x] Glossary or “What’s this?” tooltips for new users
+- [x] Haptics
 
 ### 14. TEST TEST TEST
 
@@ -132,5 +133,5 @@
 - [x] Splash/launch screen
 - [ ] Set up App Store Connect metadata (title, description, keywords)
 - [ ] Archive app with Xcode
-- [ ] Upload to TestFlight
+- [x] Upload to TestFlight
 - [ ] Add testers (manual or public link)

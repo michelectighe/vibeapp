@@ -12,8 +12,8 @@ import {
   ResultsScreen,
   EmotionTransitionScreen,
   ResultDetailScreen,
+  ResultsBreakdownScreen,
   ChakraScreen,
-  ChakraDetailModal,
   EnergyCleanseScreen,
   MetricInfoScreen,
   AudioPerceptionScreen,
@@ -30,6 +30,7 @@ export const VibeCheckStack = () => {
       initialRouteName="VibeCheckScreen"
       screenOptions={() => ({
         headerShown: false,
+        unmountOnBlur: true, 
         // tabBarStyle: { display: "none" },
       })}
     >
@@ -56,10 +57,10 @@ export const VibeCheckStack = () => {
         name="VibeCheckScreen"
         component={VibeCheckScreen}
         options={{
+          unmountOnBlur: true, 
           //   tabBarStyle: { display: "none" },
           headerShown: false,
           gestureEnabled: true,
-          presentation: "modal",
           cardStyleInterpolator: CardStyleInterpolators.forFadeFromCenter,
           transitionSpec: {
             open: {
@@ -83,10 +84,10 @@ export const VibeCheckStack = () => {
         name="EmotionTransitionScreen"
         component={EmotionTransitionScreen}
         options={{
+          unmountOnBlur: true, 
           tabBarStyle: { display: "none" },
           headerShown: false,
           gestureEnabled: true,
-          presentation: "modal",
           cardStyleInterpolator: CardStyleInterpolators.forFadeFromCenter,
           transitionSpec: {
             open: {
@@ -113,7 +114,6 @@ export const VibeCheckStack = () => {
           //   tabBarStyle: { display: "none" },
           headerShown: false,
           gestureEnabled: true,
-          presentation: "modal",
           cardStyleInterpolator: CardStyleInterpolators.forFadeFromCenter,
           transitionSpec: {
             open: {
@@ -147,7 +147,6 @@ export const VibeCheckStack = () => {
           tabBarStyle: { display: "none" },
           headerShown: false,
           gestureEnabled: true,
-          presentation: "modal",
           cardStyleInterpolator: CardStyleInterpolators.forFadeFromCenter,
           transitionSpec: {
             open: {
@@ -175,7 +174,6 @@ export const VibeCheckStack = () => {
           tabBarStyle: { display: "none" },
           headerShown: false,
           gestureEnabled: true,
-          presentation: "modal",
           cardStyleInterpolator: CardStyleInterpolators.forFadeFromCenter,
           transitionSpec: {
             open: {
@@ -202,7 +200,6 @@ export const VibeCheckStack = () => {
           headerShown: false,
           tabBarStyle: { display: "none" },
           gestureEnabled: true,
-          presentation: "modal",
           cardStyleInterpolator: CardStyleInterpolators.forFadeFromCenter,
           transitionSpec: {
             open: {
@@ -222,7 +219,32 @@ export const VibeCheckStack = () => {
           },
         }}
       />
-
+      <Stack.Screen
+        name="ResultsBreakdown"
+        component={ResultsBreakdownScreen}
+        options={{
+          headerShown: false,
+          tabBarStyle: { display: "none" },
+          gestureEnabled: true,
+          cardStyleInterpolator: CardStyleInterpolators.forFadeFromCenter,
+          transitionSpec: {
+            open: {
+              animation: "timing",
+              config: {
+                duration: 1500,
+                easing: Easing.out(Easing.poly(4)),
+              },
+            },
+            close: {
+              animation: "timing",
+              config: {
+                duration: 500,
+                easing: Easing.out(Easing.poly(4)),
+              },
+            },
+          },
+        }}
+      />
       <Stack.Screen
         name="ResultDetails"
         component={ResultDetailScreen}
@@ -303,26 +325,6 @@ export const VibeCheckStack = () => {
             },
           },
         }}
-      />
-
-      {/* <Stack.Screen
-        name="ChakraScreen"
-        component={ChakraScreen}
-        options={{
-          presentation: "modal", // 👈 avoids background screen being pushed
-          animation: "fade_from_bottom", // or use custom interpolator for "slide_from_top"
-        }}
-        // options={{
-        //   presentation: "modal",
-        //   //    cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS, // 👈 this comes from top to bottom
-        //   cardStyleInterpolators: CardStyleInterpolators.forFadeFromCenter,
-        //   headerShown: false,
-        // }}
-      /> */}
-      <Stack.Screen
-        name="ChakraDetail"
-        component={ChakraDetailModal}
-        options={{ headerShown: false, presentation: "transparentModal" }}
       />
       <Stack.Screen
         name="EnergyCleanseScreen"

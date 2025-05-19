@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
-import {} from "react-native";
+import { View } from "react-native";
 import { styles } from "./EmotionalTransitionScreen.styles";
-import { GradientBackground, TypewriterText, SectionLayout } from "@components";
+import { GradientBackground, FadeInSlideText, SectionLayout } from "@components";
 
 import { Fonts, Colors, buddhistSayings } from "@constants";
 import { useAmbientControlForScreen, useVibeCheckNavigation } from "@hooks";
+
+
 
 export const EmotionTransitionScreen = () => {
   const { goToNextScreen } = useVibeCheckNavigation();
@@ -37,7 +39,9 @@ export const EmotionTransitionScreen = () => {
         bottomFlex={0}
         middleContent={
           <>
-            <TypewriterText text={currentSaying} delay={50} style={styles.quoteText} />
+            <FadeInSlideText text={currentSaying} delay={50} style={styles.quoteText} />
+
+
           </>
         }
       />
