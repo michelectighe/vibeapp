@@ -12,7 +12,6 @@ export const ToolsStack = () => {
   const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator
-      initialRouteName=""
       screenOptions={() => ({
         headerShown: false,
       })}

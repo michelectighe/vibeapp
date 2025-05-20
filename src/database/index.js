@@ -1,9 +1,9 @@
 export { saveStickyNoteToDB, updateStickyNotePosition, deleteStickyNoteById } from "./dbStickyNote";
-export { initializeDatabase } from "./dbInit";
+export { initializeDatabase, dropTable } from "./dbInit";
 export {
   saveResult,
   getResults,
-  getlatestResults,
+  getLatestResults,
   truncateResults,
   deleteResult,
 } from "./dbVibeCheck";

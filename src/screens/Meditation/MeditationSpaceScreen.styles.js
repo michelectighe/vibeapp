@@ -29,7 +29,7 @@ const rawStyles = {
   textBase: {
     marginTop: 0,
     textAlign: "center",
-    color: Colors.lightText,
+    color: Colors.textLight,
     fontFamily: Fonts.body,
     fontWeight: "600",
   },

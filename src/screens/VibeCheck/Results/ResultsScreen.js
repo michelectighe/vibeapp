@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { View, TouchableOpacity, Text, ActivityIndicator } from "react-native";
+import { getAuth } from "firebase/auth";
 import FastImage from "react-native-fast-image";
 import { saveResults } from "@utils/saveResults";
-import { useAnalysis } from "@context/AnalysisContext";
+import { useAnalysis } from "@context";
 import { CustomButton, CloseX, GradientBackground, SectionLayout } from "@components";
 import { Colors } from "@constants";
 import { styles } from "./ResultsScreen.styles";
@@ -13,6 +14,8 @@ Text.defaultProps = Text.defaultProps || {};
 Text.defaultProps.allowFontScaling = false;
 
 export const ResultsScreen = ({ navigation }) => {
+  const auth = getAuth();
+  const user = auth.currentUser;
   const [overallLabel, setLabel] = useState(null);
   const [overallDescription, setDescription] = useState(null);
   const [overallImage, setImage] = useState(null);
@@ -71,6 +74,7 @@ export const ResultsScreen = ({ navigation }) => {
 
     const newResult = {
       timestamp: new Date(),
+      userID: user.uid,
       voiceFrequencyScore: voiceFrequencyScore?.score,
       heartRateScore: heartRateScore,
       hrvScore: hrvScore,

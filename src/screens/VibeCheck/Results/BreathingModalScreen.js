@@ -20,7 +20,7 @@ export const BreathingModalScreen = () => {
 
   return (
     <GradientBackground colors={[Colors.white, Colors.white]} logo={false}>
-      <CloseX xColor={Colors.darkText} onPress={() => navigation.goBack()} />
+      <CloseX xColor={Colors.textDark} onPress={() => navigation.goBack()} />
       <SectionLayout
         topFlex={6}
         middleFlex={3}

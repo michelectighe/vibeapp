@@ -14,6 +14,7 @@ export const initializeDatabase = async () => {
     await db.execAsync(`
       CREATE TABLE IF NOT EXISTS results (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
+        userID TEXT,
         timestamp TEXT,
         frequency REAL, 
         heartRate INTEGER,
@@ -69,7 +70,8 @@ export const dropTable = async () => {
   if (!db) {
     db = await SQLite.openDatabaseAsync("vibrationResults.db");
   }
-  await db.execAsync("DROP TABLE IF EXISTS sticky_notes;");
+  //  await db.execAsync("DROP TABLE IF EXISTS sticky_notes;");
+  await db.execAsync("DROP TABLE IF EXISTS results;");
 
   //console.log("🗑️ Table dropped. Restart app to recreate.");
 };

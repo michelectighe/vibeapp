@@ -57,14 +57,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
     marginBottom: 8,
-    color: Colors.darkText,
+    color: Colors.textDark,
     fontFamily: Fonts.body,
   },
   modalSubText: {
     fontSize: 14,
     textAlign: "center",
     marginBottom: 20,
-    color: Colors.darkText,
+    color: Colors.textDark,
     fontFamily: Fonts.body,
   },
   modalButtons: {
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: Colors.darkText,
+    borderColor: Colors.textDark,
     alignItems: "center",
   },
   deleteButton: {
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   cancelText: {
-    color: Colors.darkText,
+    color: Colors.textDark,
     fontFamily: Fonts.body,
   },
   deleteText: {

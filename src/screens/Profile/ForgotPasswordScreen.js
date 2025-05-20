@@ -75,7 +75,7 @@ export const ForgotPasswordScreen = ({ navigation }) => {
                     label="Send Reset Email"
                     onPress={handleReset}
                     color={Colors.buttonBackground}
-                    textColor={Colors.lightText}
+                    textColor={Colors.textLight}
                   />
                   <TouchableOpacity style={globalStyles.link} onPress={() => navigation.goBack()}>
                     <Text style={globalStyles.link}>← Back to Sign In</Text>

@@ -41,35 +41,35 @@ export const SettingsScreen = ({ navigation }) => {
                 label="Create Account"
                 onPress={() => navigation.navigate("SignUpScreen")}
                 color={Colors.buttonBackground}
-                textColor={Colors.lightText}
+                textColor={Colors.textDark}
               />
             )}
             <CustomSpiritualButton
               label="Update Profile"
               onPress={() => navigation.navigate("UpdateProfileScreen")}
               color={Colors.buttonBackground}
-              textColor={Colors.lightText}
+              textColor={Colors.textDark}
             />
             {!user && (
               <CustomSpiritualButton
                 label="Sign In"
                 onPress={handleSignIn}
                 color={Colors.buttonBackground}
-                textColor={Colors.lightText}
+                textColor={Colors.textDark}
               />
             )}
             <CustomSpiritualButton
               label="Subscription"
               onPress={() => navigation.navigate("SubscriptionScreen")}
               color={Colors.buttonBackground}
-              textColor={Colors.lightText}
+              textColor={Colors.buttonText}
             />
             {user && (
               <CustomSpiritualButton
                 label="Sign Out"
                 onPress={handleSignOut}
                 color={Colors.buttonBackground}
-                textColor={Colors.lightText}
+                textColor={Colors.textDark}
               />
             )}
           </View>

@@ -12,7 +12,7 @@ const rawStyles = {
     alignItems: "center",
   },
   title: {
-    color: Colors.lightText,
+    color: Colors.textLight,
     fontSize: 24,
     textAlign: "center",
     fontFamily: Fonts.body,
@@ -38,13 +38,13 @@ const rawStyles = {
     borderRadius: 20,
   },
   freqText: {
-    color: Colors.lightText,
+    color: Colors.textLight,
     fontFamily: Fonts.body,
     fontSize: 24,
     textAlign: "center",
   },
   descriptionText: {
-    color: Colors.lightText,
+    color: Colors.textLight,
     fontFamily: Fonts.body,
     fontSize: 12,
     textAlign: "center",

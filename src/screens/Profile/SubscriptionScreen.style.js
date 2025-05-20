@@ -19,7 +19,7 @@ const rawStyles = {
     fontSize: 16,
     fontFamily: "AppFont",
     marginBottom: 10,
-    color: Colors.darkText,
+    color: Colors.textDark,
   },
   featuresScroll: {
     flex: 1,

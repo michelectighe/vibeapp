@@ -14,7 +14,7 @@ const rawStyles = {
   title: {
     fontSize: 28,
     fontWeight: "700",
-    color: Colors.darkText,
+    color: Colors.textDark,
     marginBottom: 10,
   },
   subtitle: {

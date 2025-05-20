@@ -11,7 +11,7 @@ export const cardsTools = [
       name: "InnerWork", // <- This is the tab name
       params: { screen: "GuidedMeditationScreen" }, // <- This is the nested screen
     },
-    textColor: Colors.lightText,
+    textColor: Colors.textLight,
   },
   {
     id: "daily-frequencies",
@@ -23,7 +23,7 @@ export const cardsTools = [
       name: "InnerWork", // <- This is the tab name
       params: { screen: "FrequenciesScreen" }, // <- This is the nested screen
     },
-    textColor: Colors.lightText,
+    textColor: Colors.textLight,
   },
   {
     id: "journal-prompts",
@@ -35,7 +35,7 @@ export const cardsTools = [
       name: "InnerWork", // <- This is the tab name
       params: { screen: "QuantumJournalScreen" }, // <- This is the nested screen
     },
-    textColor: Colors.darkText,
+    textColor: Colors.textLight,
   },
   {
     id: "breath-work",
@@ -47,7 +47,7 @@ export const cardsTools = [
       name: "InnerWork", // <- This is the tools stack name
       params: { screen: "BreathWorksScreen" }, // <- This is the nested screen
     },
-    textColor: Colors.lightText,
+    textColor: Colors.textLight,
   },
   {
     id: "shadow-work",
@@ -59,6 +59,6 @@ export const cardsTools = [
       name: "InnerWork", // <- This is the tab name
       params: { screen: "QuantumJournalScreen" }, // <- This is the nested screen
     },
-    textColor: Colors.lightText,
+    textColor: Colors.textLight,
   },
 ];

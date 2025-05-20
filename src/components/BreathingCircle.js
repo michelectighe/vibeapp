@@ -125,6 +125,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     fontSize: 48,
     fontWeight: "300",
-    color: Colors.lightText, // or a color that contrasts with the circle
+    color: Colors.textLight, // or a color that contrasts with the circle
   },
 });

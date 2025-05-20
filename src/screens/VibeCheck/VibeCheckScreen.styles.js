@@ -18,14 +18,14 @@ const rawStyles = {
   descriptionText: {
     justifyContent: "center",
     textAlign: "center",
-    color: Colors.lightText,
+    color: Colors.textLight,
     fontFamily: Fonts.body,
     padding: 30,
     fontSize: 18,
   },
   buttonContainer: {
     position: "absolute",
-    bottom: "10%",
+    bottom: "30%",
     width: "90%",
     alignContent: "center",
     alignItems: "center",

@@ -20,7 +20,7 @@ const rawStyles = {
     right: 0,
     textAlign: "center",
     fontSize: 24,
-    color: Colors.lightText,
+    color: Colors.textLight,
     fontFamily: Fonts.body,
   },
     subTitle: {
@@ -31,7 +31,7 @@ const rawStyles = {
     right: 0,
     textAlign: "center",
     fontSize: 18,
-    color: Colors.lightText,
+    color: Colors.textLight,
     fontFamily: Fonts.body,
   },
   selectorContainer: {

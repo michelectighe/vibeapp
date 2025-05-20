@@ -34,6 +34,6 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
-    color: Colors.veryDarkGray,
+    color: Colors.textDark,
   },
 });

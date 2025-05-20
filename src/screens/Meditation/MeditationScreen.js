@@ -104,7 +104,7 @@ export const MeditationScreen = () => {
       topContent={
         <>
           <CloseX
-            xColor={Colors.darkText}
+            xColor={Colors.textDark}
             onPress={() =>
               navigation.reset({
                 index: 0,

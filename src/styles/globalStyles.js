@@ -67,13 +67,13 @@ const rawStyles = {
   title: {
     textAlign: "center",
     fontSize: 30,
-    color: Colors.darkText,
+    color: Colors.textDark,
     fontFamily: Fonts.bodyBold,
   },
   subTitle: {
     textAlign: "center",
     fontSize: 18,
-    color: Colors.darkText,
+    color: Colors.textDark,
     fontFamily: Fonts.bodyBold,
   },
   link: {

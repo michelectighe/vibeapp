@@ -110,7 +110,7 @@ export const JournalScreen = () => {
                       label="Save Entry"
                       onPress={handleSave}
                       color={overallColor}
-                      textColor={Colors.lightText}
+                      textColor={Colors.textLight}
                     />
                   </ScrollView>
                 )}

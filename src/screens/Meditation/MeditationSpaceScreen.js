@@ -69,7 +69,7 @@ export const MeditationSpaceScreen = () => {
 
   return (
     <View style={globalStyles.container}>
-      <CloseX xColor={Colors.darkText} onPress={() => navigation.goBack()} />
+      <CloseX xColor={Colors.textDark} onPress={() => navigation.goBack()} />
       <ImageBackground
         style={styles.backgroundImage}
         source={require("@assets/images/backgroundMeditation.webp")}

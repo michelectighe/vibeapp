@@ -25,14 +25,14 @@ const rawStyles = {
   },
   title: {
     fontSize: 22,
-    color: Colors.darkText,
+    color: Colors.textDark,
     textAlign: "center",
     fontFamily: Fonts.body,
     backgroundColor: "transparent",
   },
   description: {
     fontSize: 16,
-    color: Colors.darkText,
+    color: Colors.textDark,
     textAlign: "center",
     marginBottom: 12,
     fontFamily: Fonts.body,
@@ -44,7 +44,7 @@ const rawStyles = {
     alignItems: "center",
   },
   buttonText: {
-    color: Colors.lightText,
+    color: Colors.textLight,
     fontSize: 18,
     fontWeight: "500",
   },

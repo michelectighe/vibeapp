@@ -164,7 +164,7 @@ export const StickyNote = forwardRef(
         {!disableDrag && (
           <View style={styles.iconContainer}>
             <TouchableOpacity onPress={onDelete}>
-              <Icon name="delete" size={25} color={Colors.darkText} />
+              <Icon name="delete" size={25} color={Colors.textDark} />
             </TouchableOpacity>
           </View>
         )}
@@ -246,6 +246,6 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.journal,
     fontSize: 12,
     textAlign: "center",
-    color: Colors.darkText,
+    color: Colors.textDark,
   },
 });

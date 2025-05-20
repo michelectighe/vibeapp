@@ -11,7 +11,7 @@ const rawStyles = {
   title: {
     fontSize: 24,
     textAlign: "center",
-    color: Colors.darkText,
+    color: Colors.textDark,
   },
 
 };

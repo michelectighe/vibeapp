@@ -125,7 +125,7 @@ function HeartRateScreenInner() {
                   label="Finish"
                   onPress={goToNextScreen}
                   color={Colors.buttonBackground}
-                  textColor={Colors.lightText}
+                  textColor={Colors.textLight}
                 />
               </Animated.View>
 

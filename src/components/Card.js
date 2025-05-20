@@ -1,41 +1,60 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
 import FastImage from "react-native-fast-image";
 import { Colors, Fonts } from "@constants";
 import { scaledStyle } from "@utils";
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@/utils";
+import { SCREEN_HEIGHT } from "@/utils";
 
-export const Card = ({ title, subtitle, onPress, image, textColor }) => {
+export const Card = ({
+  title,
+  subtitle,
+  onPress,
+  image,
+  textColor,
+  isCompact = false,
+  isSquished = false,
+}) => {
   return (
-    <TouchableOpacity onPress={onPress} style={styles.cardWrapper}>
+    <View>
       {image && (
-        <View style={styles.card}>
-        <FastImage
-          style={[StyleSheet.absoluteFill, styles.image]}
-          source={image}
-          resizeMode={FastImage.resizeMode.cover}
-        />
-
-          <View style={styles.overlay}>
-            <Text style={[styles.title, { color: textColor }]}>{title}</Text>
-            <Text style={[styles.subtitle, { color: textColor }]}>{subtitle}</Text>
-          </View>
+        <View style={styles.titleWrapper}>
+          <Text style={[styles.title, { color: textColor, fontSize: isCompact ? 16 : 18 }]}>
+            {title}
+          </Text>
         </View>
       )}
-      {!image && (
-        <View style={styles.overlay}>
-          <Text style={styles.title}>{title}</Text>
-          <Text style={styles.subtitle}>{subtitle}</Text>
+      <TouchableOpacity onPress={onPress} style={styles.cardWrapper}>
+        <View
+          style={[styles.card, { height: isSquished ? SCREEN_HEIGHT * 0.1 : SCREEN_HEIGHT * 0.2 }]}
+        >
+          {image && (
+            <FastImage
+              style={[StyleSheet.absoluteFill, styles.image]}
+              source={image}
+              resizeMode={FastImage.resizeMode.cover}
+            />
+          )}
+          {!image && (
+            <View style={styles.noImage}>
+              <Text style={styles.titleNoImage}>{title}</Text>
+              <Text style={[styles.subTitleNoImage, { fontSize: isCompact ? 14 : 14 }]}>
+                {subtitle}
+              </Text>
+            </View>
+          )}
         </View>
-        
+      </TouchableOpacity>
+      {image && (
+        <Text style={[styles.subtitle, { color: textColor, fontSize: isCompact ? 14 : 14 }]}>
+          {subtitle}
+        </Text>
       )}
-    </TouchableOpacity>
+    </View>
   );
 };
 
 const rawStyles = {
   cardWrapper: {
-  //  width: SCREEN_WIDTH * .9,
     borderRadius: 20,
     overflow: "hidden",
     shadowColor: Colors.black,
@@ -44,11 +63,23 @@ const rawStyles = {
     elevation: 3,
     background: "transparent",
   },
+
   image: {
     borderRadius: 20,
+    backgroundColor: "transparent",
+    opacity: 1,
+  },
+  noImage: {
+    borderRadius: 20,
+    backgroundColor: Colors.surface,
+    flex: 1,
+    width: "100%",
+    height: "100%",
+
+    justifyContent: "center",
+    alignItems: "center",
   },
   card: {
-    height: SCREEN_HEIGHT * 0.2,
     borderRadius: 20,
     overflow: "hidden",
     justifyContent: "center",
@@ -59,27 +90,42 @@ const rawStyles = {
 
   backgroundImage: {
     borderRadius: 20,
-    overflow: "hidden",
   },
   overlay: {
     position: "absolute",
-    bottom: 5,
     left: 1,
     backgroundColor: "transparent",
     padding: 12,
-    borderRadius: 20,
-    overflow: "hidden",
+    width: "100%",
+    // zindex: -1
+  },
+  titleWrapper: {
+    marginTop: 0,
+    height: 30,
+    justifyContent: "end",
+    backgroundColor: "transparent",
   },
   title: {
     fontSize: 20,
-    fontWeight: "600",
+    fontWeight: "500",
     fontFamily: Fonts.body,
+    marginLeft: 10,
+    marginBottom: 0,
+    bottom: 0,
   },
-  subtitle: {
+  titleNoImage: {
     fontSize: 14,
-    marginTop: 4,
     fontWeight: "700",
     fontFamily: Fonts.body,
+    alignItems: "center",
+    textAlign: "center",
+    marginLeft: 10,
+    marginBottom: 5,
+  },
+  subTitleNoImage: {
+    color: Colors.textDark,
+    fontFamily: Fonts.body,
+    textAlign: "center",
   },
 };
 

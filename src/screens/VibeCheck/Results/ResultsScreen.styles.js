@@ -48,7 +48,7 @@ const rawStyles = {
     paddingBottom: 60,
   },
   descriptionText: {
-    color: Colors.lightText,
+    color: Colors.textLight,
     fontSize: SCREEN_HEIGHT * 0.022,
     textAlign: "center",
   },

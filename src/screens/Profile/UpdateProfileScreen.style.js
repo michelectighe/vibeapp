@@ -20,7 +20,7 @@ const rawStyles = {
     right: 0,
     textAlign: "center",
     fontSize: 30,
-    color: Colors.darkText,
+    color: Colors.textDark,
     fontFamily: Fonts.body,
   },
   toggles: {
@@ -30,7 +30,7 @@ const rawStyles = {
     marginLeft: 10,
   },
   switchText: {
-    color: Colors.lightText,
+    color: Colors.textLight,
     marginLeft: 10,
     marginTop: 5,
   },
@@ -46,7 +46,7 @@ const rawStyles = {
     textAlign: "center",
   },
   subtitle: {
-    color: Colors.lightText,
+    color: Colors.textLight,
     fontSize: 18,
     marginBottom: 5,
     textAlign: "center",
@@ -78,7 +78,7 @@ modalContent: {
 
 modalText: {
   fontSize: 16,
-  color: Colors.darkText,
+  color: Colors.textDark,
   marginBottom: 16,
   textAlign: "center",
   fontFamily: Fonts.body || undefined,
@@ -92,7 +92,7 @@ modalButton: {
 },
 
 modalButtonText: {
-  color: Colors.lightText,
+  color: Colors.textLight,
   fontWeight: "bold",
   fontSize: 16,
 },

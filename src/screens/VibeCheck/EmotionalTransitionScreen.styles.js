@@ -7,7 +7,7 @@ const rawStyles = {
   quoteText: {
     fontSize: 48,
     fontFamily: Fonts.script,
-    color: Colors.lightText,
+    color: Colors.textLight,
     marginLeft: 50,
     marginRight: 50,
     textAlign: "center",

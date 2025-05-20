@@ -60,14 +60,14 @@ const rawStyles = {
     textAlign: "center",
     marginTop: 30,
     marginBottom: 20,
-    color: Colors.lightText,
+    color: Colors.textLight,
     fontFamily: Fonts.body,
     letterSpacing: 1,
   },
 
   phraseBox: {
     justifyContent: "center",
-    backgroundColor: Colors.lightText,
+    backgroundColor: Colors.surface,
     width: SCREEN_WIDTH * 0.9,
     height: "65%",
     borderRadius: 12,
@@ -84,7 +84,7 @@ const rawStyles = {
   phraseText: {
     fontSize: 24,
     textAlign: "center",
-    color: Colors.darkText,
+    color: Colors.textDark,
     fontFamily: Fonts.body,
   },
   continueContainer: {

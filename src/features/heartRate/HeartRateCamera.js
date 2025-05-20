@@ -283,7 +283,7 @@ export const HeartRateCamera = ({ onStableReading }) => {
         <CircularTimer
           duration={30000} // mct timer for testing
           size={100}
-          color={Colors.darkText}
+          color={Colors.textDark}
           onComplete={handleTimerExpired}
         />
       </Animated.View>
@@ -293,7 +293,7 @@ export const HeartRateCamera = ({ onStableReading }) => {
             label="Finish"
             onPress={goToNextScreen}
             color={Colors.buttonBackground}
-            textColor={Colors.lightText}
+            textColor={Colors.textLight}
           />
         </Animated.View>
       )} */}
@@ -363,11 +363,11 @@ const rawStyles = {
 
   bpmText: {
     textAlign: "center",
-    color: Colors.darkText,
+    color: Colors.textDark,
     fontSize: 16,
   },
   rmssdText: {
-    color: Colors.darkText,
+    color: Colors.textDark,
     fontFamily: "AppFont",
     textAlign: "center",
     marginBottom: 4,
@@ -375,12 +375,12 @@ const rawStyles = {
   },
   stableText: {
     fontSize: 28,
-    color: Colors.darkText,
+    color: Colors.textDark,
     textAlign: "center",
     marginTop: 4,
   },
   warningText: {
-    color: Colors.darkText,
+    color: Colors.textDark,
     fontSize: 16,
     textAlign: "center",
     paddingHorizontal: 20,

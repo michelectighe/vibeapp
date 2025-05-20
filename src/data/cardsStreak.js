@@ -11,18 +11,18 @@ export const cardsStreak = [
       name: "StreakStack", // <- This is the tools stack name
       params: { screen: "VibeHistory" }, // <- This is the nested screen
     },
-    textColor: Colors.lightText,
+    textColor: Colors.textLight,
   },
   {
     id: "notes",
     title: "Daily Goals",
     subtitle: "Jot down your daily goals",
     // icon: "leaf-outline",
-    image: require("@assets/images/home/meditate.png"),
+    image: require("@assets/images/home/goals.png"),
     screen: {
       name: "Streaks", // <- This is the tab name
       params: { screen: "StreakScreen" }, // <- This is the nested screen
     },
-    textColor: Colors.lightText,
+    textColor: Colors.textLight,
   },
 ];

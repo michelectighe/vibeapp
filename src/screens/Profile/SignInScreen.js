@@ -201,7 +201,7 @@ export const SignInScreen = ({ navigation, route }) => {
                     label="Sign In"
                     onPress={handleSignIn}
                     color={Colors.buttonBackground}
-                    textColor={Colors.lightText}
+                    textColor={Colors.textDark}
                   />
                 </View>
 

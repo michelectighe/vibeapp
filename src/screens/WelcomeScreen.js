@@ -84,7 +84,7 @@ export const WelcomeScreen = () => {
                 })
               }
               color={Colors.buttonBackground}
-              textColor={Colors.lightText}
+              textColor={Colors.buttonText}
             />
             <CustomSpiritualButton
               label="Sign Up"
@@ -97,13 +97,13 @@ export const WelcomeScreen = () => {
                 })
               }
               color={Colors.buttonBackground}
-              textColor={Colors.lightText}
+              textColor={Colors.buttonText}
             />
             <CustomSpiritualButton
               label="Continue as Guest"
               onPress={() => navigation.replace("Tabs", { screen: "Home" })}
               color={Colors.buttonBackground}
-              textColor={Colors.lightText}
+              textColor={Colors.buttonText}
             />
             <Text style={[styles.welcomeTextBottom]}>
               Use VibeKey to Unlock the Energy Behind Your Mood

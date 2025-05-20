@@ -1,9 +1,9 @@
-import React from "react";
+import React , { useState, useEffect } from "react";
 import { View, Text, ScrollView, StyleSheet } from "react-native";
 import { useAnalysis } from "@/context";
 import { useAmbientControlForScreen } from "@/hooks";
 import { vibrationMetricsInfo } from "@/data/vibrationMetricsInfo";
-import { CloseX, EdgeGlow } from "@/components";
+import { CloseX, GradientBackground } from "@/components";
 import { Colors } from "@/constants";
 import { styles } from "./ResultsBreakdownScreen.styles";
 import { globalStyles } from "@/styles";
@@ -11,9 +11,15 @@ import { useNavigation } from "@react-navigation/native";
 import { SCREEN_WIDTH , SCREEN_HEIGHT} from "@/utils";
 
 
+
 export const ResultsBreakdownScreen = () => {
   useAmbientControlForScreen(true);
 const navigation = useNavigation();
+  const { vibrationInfo } = useAnalysis();
+  const [overallColor, setColor] = useState();
+  const [overallColor2, setColor2] = useState();
+  const [overallColor3, setColor3] = useState();
+
   const {
     voiceFrequencyScore,
     voiceClarityScore,
@@ -37,6 +43,17 @@ const navigation = useNavigation();
     emotionScore,
     overallVibrationScore,
   };
+  useEffect(() => {
+    const result = vibrationInfo;
+    if (!result) return;
+    if (result) {
+      setColor(result.color);
+      setColor2(result.color2);
+      setColor3(result.color3);
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+
    const getMetricStatus = (value, [min, max]) => {
     if (value === null || value === undefined || value === 0) {
       return { icon: "⚠️", label: "Data missing", style: styles.missing };
@@ -62,9 +79,15 @@ const navigation = useNavigation();
 
   return (
     <View style={{flex: 1}}>
-              <EdgeGlow width={SCREEN_WIDTH } height={SCREEN_HEIGHT} borderRadius={20} glowColor={Colors.red} />
+    <GradientBackground
+      colors={
+        overallColor
+          ? [overallColor, overallColor2, overallColor3]
+          : [Colors.white, Colors.white, Colors.white]
+      }
+    >
     <CloseX
-    xColor={Colors.darkText}
+    xColor={Colors.textDark}
     onPress={() =>
         navigation.goBack()
     }
@@ -122,6 +145,7 @@ const navigation = useNavigation();
 })}
 
     </ScrollView>
+</GradientBackground>
     </View>
 
   );

@@ -41,12 +41,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     textAlign: "center",
-    color: Colors.darkText,
+    color: Colors.textDark,
   },
   timing: {
     fontSize: 14,
     marginLeft: 5,
     marginTop: 2,
-    color: Colors.darkText,
+    color: Colors.textDark,
   },
 });

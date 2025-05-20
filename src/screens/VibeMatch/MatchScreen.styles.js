@@ -12,7 +12,7 @@ const rawStyles = {
   title: {
     fontSize: 28,
     marginBottom: 0,
-    color: Colors.lightText,
+    color: Colors.textLight,
   },
   scoreBox: {
     alignItems: "center",
@@ -21,22 +21,22 @@ const rawStyles = {
   score: {
     fontSize: 48,
     fontWeight: "bold",
-    color: Colors.lightText,
+    color: Colors.textLight,
   },
   label: {
     fontSize: 16,
-    color: Colors.lightText,
+    color: Colors.textLight,
   },
   vs: {
     fontSize: 32,
-    color: Colors.lightText,
+    color: Colors.textLight,
     marginVertical: 10,
   },
   resultText: {
     marginTop: 20,
     fontSize: 18,
     textAlign: "center",
-    color: Colors.lightText,
+    color: Colors.textLight,
   },
   errorContainer: {
     flex: 1,

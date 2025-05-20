@@ -19,7 +19,7 @@ const rawStyles = {
     right: 0,
     textAlign: "center",
     fontSize: 24,
-    color: Colors.lightText,
+    color: Colors.textLight,
     fontFamily: Fonts.body,
   },
   prompt: {
@@ -27,7 +27,7 @@ const rawStyles = {
     textAlign: "center",
     marginTop: 50,
     marginVertical: 20,
-    color: Colors.lightText,
+    color: Colors.textLight,
     width: "80%",
   },
   inputContainer: {
@@ -40,7 +40,7 @@ const rawStyles = {
     borderRadius: 16,
     padding: 16,
     fontSize: 16,
-    color: Colors.darkText,
+    color: Colors.textDark,
     fontFamily: Fonts.journal,
     minHeight: 200,
     textAlignVertical: "top",
@@ -63,7 +63,7 @@ const rawStyles = {
     justifyContent: "center",
   },
   text: {
-    color: Colors.lightText,
+    color: Colors.textLight,
   },
 };
 

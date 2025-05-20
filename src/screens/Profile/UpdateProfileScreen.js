@@ -303,13 +303,13 @@ export const UpdateProfileScreen = ({ navigation }) => {
                     label="Update"
                     onPress={handleUpdate}
                     color={Colors.buttonBackground}
-                    textColor={Colors.lightText}
+                    textColor={Colors.textDark}
                   />
                   <CustomSpiritualButton
                     label="Cancel"
                     onPress={() => navigation.goBack()}
                     color={Colors.buttonBackground}
-                    textColor={Colors.lightText}
+                    textColor={Colors.textDark}
                   />
                 </View>
               </ScrollView>

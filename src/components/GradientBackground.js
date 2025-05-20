@@ -5,27 +5,42 @@ import { AnimatedLogoSmall } from "./AnimatedLogoSmall";
 import { FloatingFeather } from "./FloatingFeather";
 import { globalStyles } from "@/styles";
 import { Colors } from "@/constants";
+import LottieView from "lottie-react-native";
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@/utils";
 
 export const GradientBackground = ({ children, colors, logo = false }) => {
   const gradientColors = colors || [Colors.white, Colors.white, Colors.white];
 
   return (
-    <View style={globalStyles.container}>
+    
+    <View style={styles.container}>
+        <LottieView
+        source={require('@assets/lottie/wave.json')}
+        autoPlay
+        loop
+        resizeMode="cover"
+            style={styles.backgroundAnimation}
+        />
       <LinearGradient
-      colors={['#355c4d', '#295c50', '#4e4938']}
-     //   colors={colors} // tweak these as needed
+        colors={colors} // tweak these as needed
         start={{ x: 0.2, y: 0 }}
         end={{ x: 0.8, y: 1 }}
         style={{ flex: 1 }}
       >
 
         <View style={styles.content}>{children}</View>
+        
       </LinearGradient>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  container: {
+flex: 1,
+width: SCREEN_WIDTH,
+height: SCREEN_HEIGHT,
+  },
   gradient: {
     flex: 1,
     width: "100%",
@@ -33,5 +48,14 @@ const styles = StyleSheet.create({
   content: {
     flex: 1,
     width: "100%",
+  },
+    backgroundAnimation: {
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    top: 0,
+    left: 0,
+  //  zIndex: -1,
+    opacity: .5,
   },
 });

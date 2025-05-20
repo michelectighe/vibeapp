@@ -34,11 +34,11 @@ const rawStyles = {
     width: "100%",
   },
   textInput: {
-    backgroundColor: Colors.lightText,
+    backgroundColor: Colors.textLight,
     borderRadius: 16,
     padding: 16,
     fontSize: 16,
-    color: Colors.darkText,
+    color: Colors.textDark,
     fontFamily: Fonts.journal,
     minHeight: 200,
     textAlignVertical: "top",

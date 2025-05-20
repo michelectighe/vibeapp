@@ -4,7 +4,7 @@
   label="Send Reset Email"
   onPress={handleReset}
   color={Colors.buttonBackground}
-  textColor={Colors.lightText}
+  textColor={Colors.textLight}
 />
 ********************************************************/
 
@@ -15,8 +15,8 @@ import { Fonts, Colors } from "@constants";
 export const CustomSpiritualButton = ({
   label,
   onPress,
-  color = Colors.buttonBackground,
-  textColor = Colors.lightText,
+  color = Colors.surface,
+  textColor = Colors.textDark,
 }) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
@@ -32,7 +32,7 @@ export const CustomSpiritualButton = ({
     <Animated.View style={{ opacity: fadeAnim, width: "100%" }}>
       <TouchableOpacity
         onPress={onPress}
-        style={[styles.button, { backgroundColor: color || Colors.backgroundSpirit }]}
+        style={[styles.button, { backgroundColor: color || Colors.surface }]}
         activeOpacity={0.85}
       >
         <Text style={[styles.label, { color: textColor }]}>{label}</Text>

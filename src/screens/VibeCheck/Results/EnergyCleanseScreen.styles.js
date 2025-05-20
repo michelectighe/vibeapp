@@ -18,9 +18,9 @@ const rawStyles = {
     left: 0,
     right: 0,
     textAlign: "center",
-    fontSize: 24,
-    color: Colors.lightText,
-    fontFamily: Fonts.body,
+    fontSize: 28,
+    color: Colors.white,
+    fontFamily: Fonts.title,
   },
   subTitle: {
     position: "absolute",
@@ -29,7 +29,7 @@ const rawStyles = {
     right: 0,
     textAlign: "center",
     fontSize: 18,
-    color: Colors.lightText,
+    color: Colors.white,
     fontFamily: Fonts.body,
   },
   middle: {},
@@ -50,8 +50,9 @@ const rawStyles = {
   },
   closeIcon: {
     fontSize: 24,
-    color: Colors.veryDarkGray,
+    color: Colors.white,
   },
+  success: { textAlign: "center", marginTop: 12, color: Colors.white, fontSize: 24, fontFamily: Fonts.title }
 };
 
 export const styles = StyleSheet.create(scaledStyle(rawStyles));

@@ -13,6 +13,10 @@ export const VibeCheckScreen = () => {
   useAmbientControlForScreen(false);
   const { goToNextScreen } = useVibeCheckNavigation();
 
+  const startAnalysis = async () => {
+       await resetAnalysis();
+       goToNextScreen();
+  }
   const navigation = useNavigation();
   const { resetAnalysis } = useAnalysis();
   useEffect(() => {
@@ -28,7 +32,6 @@ export const VibeCheckScreen = () => {
     useCallback(() => {
       const cleanup = async () => {
         try {
-          await resetAnalysis();
           await cleanupMedia(true, true, true, null, true);
         } catch (e) {
           console.warn("cleanup failed in VibeCheckMain screen:", e);
@@ -43,10 +46,11 @@ export const VibeCheckScreen = () => {
   return (
     <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}>
       <SectionLayout
-        topFlex={5}
+        topFlex={2}
         middleFlex={0}
         bottomFlex={1}
         equalHeight={false}
+        safe={true}
         topContent={
           <FadeInSlideText style={styles.descriptionText} text="
             Unlock your vibrational frequency by tuning into the harmony of your voice, movement,
@@ -60,13 +64,13 @@ export const VibeCheckScreen = () => {
               label="How does this work?"
               onPress={openInfo}
               color={Colors.buttonBackground}
-              textColor={Colors.lightText}
+              textColor={Colors.buttonText}
             />
             <CustomSpiritualButton
               label="Let's Begin"
-              onPress={goToNextScreen}
+              onPress={startAnalysis}
               color={Colors.buttonBackground}
-              textColor={Colors.lightText}
+              textColor={Colors.buttonText}
             />
           </View>
         }

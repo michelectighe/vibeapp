@@ -89,7 +89,7 @@ export const QuantumJournalScreen = () => {
                       label="Save Entry"
                       onPress={handleSave}
                       color={Colors.buttonBackground}
-                      textColor={Colors.lightText}
+                      textColor={Colors.textLight}
                     />
                   </ScrollView>
                 )}
@@ -103,7 +103,7 @@ export const QuantumJournalScreen = () => {
           </View>
         }
       />
-      <CloseX xColor={Colors.darkText} onPress={() => navigation.goBack()} />
+      <CloseX xColor={Colors.textDark} onPress={() => navigation.goBack()} />
     </GradientBackground>
   );
 };

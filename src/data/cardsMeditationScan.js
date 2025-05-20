@@ -12,7 +12,7 @@ export const cardsMeditationScan = [
       name: "Scan", // <- This is the tab name
       params: { screen: "MeditationSpaceScreen" }, // <- This is the nested screen
     },
-    textColor: Colors.lightText,
+    textColor: Colors.textLight,
   },
  
 ];

@@ -460,7 +460,7 @@ export const EmotionalStateScreen = () => {
               label={isAudioRecording ? "Continue" : "Start Recording"}
               onPress={isAudioRecording ? manualStop : startRecording}
               color={Colors.buttonBackground}
-              textColor={Colors.lightText}
+              textColor={Colors.buttonText}
             />
             <Text style={styles.statusText}>Facial Emotion: {emotion || "Analyzing..."}</Text>
           </View>

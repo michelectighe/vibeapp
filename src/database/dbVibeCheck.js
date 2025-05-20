@@ -8,6 +8,7 @@ export const saveResult = async (result) => {
     await db.runAsync(
       `INSERT INTO results (
                 timestamp,
+                userID,
                 frequency, 
                 heartRate,
                 rmssd, 
@@ -20,9 +21,10 @@ export const saveResult = async (result) => {
                 voiceStrength,
                 voiceClarity,
                 emotionalState
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
       [
         result.timestamp.toISOString(),
+        result.userID ?? 0,
         result.frequency ?? 0,
         result.saveHeartRate ?? 0,
         result.saveRMSSD ?? "0",
@@ -43,43 +45,38 @@ export const saveResult = async (result) => {
 };
 
 // Function to  all results
-export const getResults = async (callback) => {
+// utils/db.js (or wherever you put it)
+export const getResults = async (userID) => {
   try {
-    const db = await SQLite.openDatabaseAsync("vibrationResults.db"); // Open DB here
+    const db = await SQLite.openDatabaseAsync("vibrationResults.db");
 
-    // Fetch all results
-    const result = await db.getAllAsync("SELECT * FROM results ORDER BY timestamp DESC;");
+    const result = await db.getAllAsync(
+      `SELECT * FROM results WHERE userID = '${userID}' ORDER BY timestamp DESC;`,
+    );
 
-    if (result && Array.isArray(result)) {
-      if (callback) {
-        callback(result); // Pass the results properly
-      }
-    } else {
-      ////console.log("⚠️ No results found in DB.");
-    }
+    return result?.[0] || null;
   } catch (error) {
     console.error("❌ Error retrieving results:", error);
+    return null;
   }
 };
 
-export const getlatestResults = async (callback) => {
+// utils/db.js (or wherever you put it)
+export const getLatestResults = async (userID) => {
   try {
-    const db = await SQLite.openDatabaseAsync("vibrationResults.db"); // Open DB here
+    const db = await SQLite.openDatabaseAsync("vibrationResults.db");
 
-    // Fetch all results
-    const result = await db.getAllAsync("SELECT TOP(1) * FROM results ORDER BY timestamp DESC;");
+    const result = await db.getAllAsync(
+      `SELECT * FROM results WHERE userID = '${userID}' ORDER BY timestamp DESC LIMIT 1;`,
+    );
 
-    if (result && Array.isArray(result)) {
-      if (callback) {
-        callback(result); // Pass the results properly
-      }
-    } else {
-      ////console.log("⚠️ No results found in DB.");
-    }
+    return result?.[0] || null;
   } catch (error) {
     console.error("❌ Error retrieving results:", error);
+    return null;
   }
 };
+
 
 export const truncateResults = async () => {
   try {

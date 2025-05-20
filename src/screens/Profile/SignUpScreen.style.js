@@ -5,7 +5,7 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 
 const rawStyles = {
   link: {
-    color: Colors.lightText,
+    color: Colors.textLight,
     marginBottom: 20,
     fontSize: 18,
     textAlign: "center",

@@ -55,11 +55,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     textAlign: "center",
-    color: Colors.darkText,
+    color: Colors.textDark,
   },
   timing: {
     fontSize: 14,
     marginTop: 4,
-    color: Colors.darkText,
+    color: Colors.textDark,
   },
 });

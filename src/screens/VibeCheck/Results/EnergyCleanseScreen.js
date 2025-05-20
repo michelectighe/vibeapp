@@ -22,6 +22,9 @@ import { playTrack, stopTrack } from "@services";
 
 export const EnergyCleanseScreen = () => {
   useAmbientControlForScreen(false);
+  const auth = getAuth();
+  const [userID, setUserID] = useState();
+
   const { vibrationInfo } = useAnalysis();
   const navigation = useNavigation();
   const [overallColor, setColor] = useState();
@@ -34,6 +37,11 @@ export const EnergyCleanseScreen = () => {
     breathing: false,
   });
 
+  useEffect(() => {
+    if (auth) {
+      setUserID(auth.user?.uid || null);
+    }
+  }, [auth]);
 
   const { meditation, frequency, breathing } = getVibeRecommendations({
     vibrationLevel: vibrationInfo,
@@ -83,26 +91,20 @@ export const EnergyCleanseScreen = () => {
   const saveCleanseToFirebase = async () => {
     try {
       const timestamp = new Date();
-      const userId = "TODO: get current user ID";
 
-      await firestore()
-        .collection("users")
-        .doc(userId)
-        .collection("cleanses")
-        .add({
-          completedAt: timestamp,
-          vibrationInfo,
-          meditationId: meditation.id,
-          frequencyId: frequency.id,
-          breathingId: breathing.id,
-        });
+      await firestore().collection("users").doc(userID).collection("cleanses").add({
+        completedAt: timestamp,
+        vibrationInfo,
+        meditationId: meditation.id,
+        frequencyId: frequency.id,
+        breathingId: breathing.id,
+      });
 
       console.log("✅ Cleanse written to Firebase");
     } catch (e) {
       console.warn("❌ Failed to write cleanse:", e);
     }
   };
-
 
   if (!overallColor) {
     return (
@@ -116,7 +118,7 @@ export const EnergyCleanseScreen = () => {
 
   return (
     <GradientBackground colors={[Colors.white, overallColor, Colors.white]} logo={false}>
-      <CloseX xColor={Colors.darkText} onPress={() => navigation.goBack()} />
+      <CloseX xColor={Colors.textDark} onPress={() => navigation.goBack()} />
       <SectionLayout
         topFlex={1}
         middleFlex={6}
@@ -124,32 +126,33 @@ export const EnergyCleanseScreen = () => {
         safe={false}
         topContent={
           <View style={styles.titleWrapper}>
-            <Text style={[styles.title, { color: overallDarkColor }]}>
-              Energy Cleanse
-            </Text>
-            <Text style={[styles.subTitle, { color: overallDarkColor }]}>Recommendations</Text>
+            <Text style={[styles.title, { color: Colors.white }]}>Energy Cleanse</Text>
+            <Text style={[styles.subTitle, { color: Colors.white }]}>Recommendations</Text>
           </View>
         }
         middleContent={
           <View style={styles.middle}>
-            <Text style={[styles.sectionTitle, { color: overallDarkColor }]}>Meditation</Text>
-            <MeditationCard item={meditation} onPress={() => handlePress(meditation, "meditation")} />
-            <Text style={[styles.sectionTitle, { color: overallDarkColor }]}>Frequency</Text>
+            <Text style={[styles.sectionTitle, { color: Colors.white }]}>Meditation</Text>
+            <MeditationCard
+              item={meditation}
+              onPress={() => handlePress(meditation, "meditation")}
+            />
+            <Text style={[styles.sectionTitle, { color: Colors.white }]}>Frequency</Text>
             <FrequencyCard item={frequency} onPress={() => handlePress(frequency, "frequency")} />
-            <Text style={[styles.sectionTitle, { color: overallDarkColor }]}>Breathing</Text>
-            <BreathingCard item={breathing} onPress={() => handleBreathingPress(breathing, "breathing")} />
+            <Text style={[styles.sectionTitle, { color: Colors.white }]}>Breathing</Text>
+            <BreathingCard
+              item={breathing}
+              onPress={() => handleBreathingPress(breathing, "breathing")}
+            />
           </View>
-
-
         }
-        bottomContent={<>
-          {completed.meditation && completed.frequency && completed.breathing && (
-            <Text style={{ textAlign: "center", marginTop: 12, color: overallDarkColor, fontSize: 16 }}>
-              🌟 Energy Cleanse Complete!
-            </Text>
-          )}
-
-        </>}
+        bottomContent={
+          <>
+            {completed.meditation && completed.frequency && completed.breathing && (
+              <Text style={styles.success}>🌟 Energy Cleanse Complete!</Text>
+            )}
+          </>
+        }
       />
     </GradientBackground>
   );

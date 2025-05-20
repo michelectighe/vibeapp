@@ -1,7 +1,7 @@
 import { TouchableOpacity, Text } from "react-native";
 import { Colors } from "@constants";
 
-export const CloseX = ({ xColor = Colors.lightText, onPress }) => {
+export const CloseX = ({ xColor = Colors.textLight, onPress }) => {
   return (
     <TouchableOpacity
       onPress={onPress}

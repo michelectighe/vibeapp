@@ -1,10 +1,9 @@
-import { initializeDatabase } from "@database";
+import { initializeDatabase, dropTable } from "@database";
 import { auth } from "@config/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 // visionCameraPlugins.js
 //import { registerPlugin } from 'react-native-worklets-core';
-import { FaceDetector } from 'react-native-vision-camera-face-detector';
-
+import { FaceDetector } from "react-native-vision-camera-face-detector";
 
 export const initApp = async () => {
   try {
@@ -19,7 +18,6 @@ export const initApp = async () => {
         ////console.log("user NOT logged in:");
       }
     });
-
 
     return unsubscribe;
   } catch (err) {
