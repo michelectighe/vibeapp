@@ -48,7 +48,7 @@ export const WelcomeScreen = () => {
   if (loading) return <Text>Loading...</Text>;
 
   return (
-    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
+    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}>
       <SectionLayout
         topFlex={2}
         middleFlex={3}

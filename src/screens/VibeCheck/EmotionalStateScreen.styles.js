@@ -61,7 +61,7 @@ const rawStyles = {
     marginTop: 30,
     marginBottom: 20,
     color: Colors.lightText,
-    fontFamily: Fonts.AppFont,
+    fontFamily: Fonts.body,
     letterSpacing: 1,
   },
 
@@ -85,7 +85,7 @@ const rawStyles = {
     fontSize: 24,
     textAlign: "center",
     color: Colors.darkText,
-    fontFamily: Fonts.AppFont,
+    fontFamily: Fonts.body,
   },
   continueContainer: {
     position: "absolute",

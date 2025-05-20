@@ -21,7 +21,7 @@ const rawStyles = {
     textAlign: "center",
     fontSize: 24,
     color: Colors.lightText,
-    fontFamily: Fonts.AppFont,
+    fontFamily: Fonts.body,
   },
     subTitle: {
     position: "absolute",
@@ -32,7 +32,7 @@ const rawStyles = {
     textAlign: "center",
     fontSize: 18,
     color: Colors.lightText,
-    fontFamily: Fonts.AppFont,
+    fontFamily: Fonts.body,
   },
   selectorContainer: {
     width: SCREEN_WIDTH,

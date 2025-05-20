@@ -243,7 +243,7 @@ const styles = StyleSheet.create({
     zIndex: 5,
   },
   text: {
-    fontFamily: Fonts.Script,
+    fontFamily: Fonts.journal,
     fontSize: 12,
     textAlign: "center",
     color: Colors.darkText,

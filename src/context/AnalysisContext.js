@@ -41,13 +41,13 @@ export const AnalysisProvider = ({ children }) => {
   const [auraColor, setAuraColor] = useState(Colors.aura70);
   const [overallVibrationScore, setOverallVibeScore] = useState(0);
   const [chakraScores, setChakraScores] = useState({
-    root: null,
-    sacral: null,
-    solarPlexus: null,
-    heart: null,
-    throat: null,
-    thirdEye: null,
-    crown: null,
+    root: -1,
+    sacral: -1,
+    solarPlexus: -1,
+    heart: -1,
+    throat: -1,
+    thirdEye: -1,
+    crown: -1,
   });
   const [vibrationInfo, setVibrationInfo] = useState(null);
 
@@ -75,13 +75,13 @@ export const AnalysisProvider = ({ children }) => {
     setVoiceStrength(null);
     setEnvironment(null);
     setChakraScores({
-      root: null,
-      sacral: null,
-      solarPlexus: null,
-      heart: null,
-      throat: null,
-      thirdEye: null,
-      crown: null,
+      root: -1,
+      sacral: -1,
+      solarPlexus: -1,
+      heart: -1,
+      throat: -1,
+      thirdEye: -1,
+      crown: -1,
     });
   };
 

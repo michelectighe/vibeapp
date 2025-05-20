@@ -130,7 +130,6 @@ const styles = StyleSheet.create({
     textShadowColor: Colors.peach,
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 3,
-    //   fontFamily: Fonts.Script,
   },
 });
 

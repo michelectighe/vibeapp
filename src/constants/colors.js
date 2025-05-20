@@ -23,10 +23,10 @@ export const Colors = {
   deepEarthyBrown: "#7D4F20",
 
   // 🌿 Tab button colors
-  activeTab: "#0B3D2E", // deep evergreen (main highlight)
-  inactiveTab: "#E6F1EC", // pale sage (soft neutral)
-  tabBarGradient1: "#E3F4E3", //(very pale sage)
-  tabBarGradient2: "#1F5F43", // Muted forest-teal (middle)
+  activeTab: "#E6F1EC", //"#0B3D2E", // deep evergreen (main highlight)
+  inactiveTab: "#EDE5D0", //"#E6F1EC", // pale sage (soft neutral)
+  tabBarGradient1: "#103D28", //"#E3F4E3", //(very pale sage)
+  tabBarGradient2:"#103D28", //"#1F5F43", // Muted forest-teal (middle)
   // 🔘 Button colors
 
   buttonLightBackground: "#EDE5D0", // soft mint green (for alt buttons)
@@ -37,8 +37,12 @@ export const Colors = {
   // 🌀 Background gradient colors
   //gradient1: "#0B3D2E", // top: deep racing green
   //gradient2: "#122D1D", // bottom: blackened pine
-  gradient1: "#E3F4E3", //(very pale sage)
-  gradient2: "#1F5F43", // Muted forest-teal (middle)
+  //gradient1: "#E3F4E3", //(very pale sage)
+  //gradient2: "#1F5F43", // Muted forest-teal (middle)
+
+  gradient1:  '#355c4d', 
+  gradient2:  '#295c50', 
+  gradient3:  '#4e4938',
 
   gradient1Match: 'red',
   gradient2Match: 'orange',
@@ -114,4 +118,6 @@ export const Colors = {
   coolBlue: "#3F51B5",
 
   backgroundSpirit: "#888",
+
+  surface: '#e0d8c8', // #f3f0ea
 };

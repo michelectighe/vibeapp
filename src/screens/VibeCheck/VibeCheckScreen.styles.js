@@ -19,7 +19,7 @@ const rawStyles = {
     justifyContent: "center",
     textAlign: "center",
     color: Colors.lightText,
-    fontFamily: Fonts.AppFont,
+    fontFamily: Fonts.body,
     padding: 30,
     fontSize: 18,
   },

@@ -5,7 +5,7 @@ import { Colors, Fonts } from "@constants";
 
 export const ThemeWrapper = ({ children }) => {
   return (
-    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
+    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}>
       <View style={styles.content}>{children}</View>
     </GradientBackground>
   );

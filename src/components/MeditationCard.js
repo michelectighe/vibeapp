@@ -26,6 +26,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    height: SCREEN_HEIGHT *.1,
   },
   icon: {
     marginRight: 12,

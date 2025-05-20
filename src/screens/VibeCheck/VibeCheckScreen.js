@@ -41,7 +41,7 @@ export const VibeCheckScreen = () => {
   const openInfo = () => navigation.navigate("MetricInfoScreen");
 
   return (
-    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
+    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}>
       <SectionLayout
         topFlex={5}
         middleFlex={0}

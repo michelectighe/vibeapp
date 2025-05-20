@@ -21,7 +21,7 @@ export const MatchComparisonScreen = ({ route }) => {
   };
 
   return (
-    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
+    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}>
       <View style={styles.header}>
         <Text style={styles.title}>Vibe Comparison</Text>
         <Text style={styles.summary}>{getVibeSummary()}</Text>

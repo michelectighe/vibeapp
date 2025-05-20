@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   title: {
-    fontFamily: Fonts.AppTitleFont,
+    fontFamily: Fonts.title,
     fontSize: 20,
     marginBottom: 10,
     textAlign: "center",
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     padding: 10,
     height: 80,
     textAlignVertical: "top",
-    fontFamily: Fonts.Script,
+    fontFamily: Fonts.journal,
   },
   buttonRow: {
     flexDirection: "row",
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   buttonText: {
-    fontFamily: Fonts.Body,
+    fontFamily: Fonts.body,
     color: Colors.white,
     fontSize: 16,
   },

@@ -24,7 +24,7 @@ export const SettingsScreen = ({ navigation }) => {
   };
 
   return (
-    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
+    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}>
       <SectionLayout
         topFlex={1}
         middleFlex={8}

@@ -58,14 +58,14 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     marginBottom: 8,
     color: Colors.darkText,
-    fontFamily: Fonts.Body,
+    fontFamily: Fonts.body,
   },
   modalSubText: {
     fontSize: 14,
     textAlign: "center",
     marginBottom: 20,
     color: Colors.darkText,
-    fontFamily: Fonts.Body,
+    fontFamily: Fonts.body,
   },
   modalButtons: {
     flexDirection: "row",
@@ -91,11 +91,11 @@ const styles = StyleSheet.create({
   },
   cancelText: {
     color: Colors.darkText,
-    fontFamily: Fonts.Body,
+    fontFamily: Fonts.body,
   },
   deleteText: {
     color: Colors.white,
     fontWeight: "bold",
-    fontFamily: Fonts.Body,
+    fontFamily: Fonts.body,
   },
 });

@@ -18,6 +18,7 @@ import {
   MetricInfoScreen,
   AudioPerceptionScreen,
   JournalScreen,
+  BreathingModalScreen,
 } from "@screens";
 
 // ✅ Stack Navigator for Analysis-related screens
@@ -350,6 +351,14 @@ export const VibeCheckStack = () => {
               },
             },
           },
+        }}
+      />
+      <Stack.Screen
+        name="BreathingModalScreen"
+        component={BreathingModalScreen}
+        options={{
+          presentation: "transparentModal", // or "modal"
+          headerShown: false,
         }}
       />
     </Stack.Navigator>

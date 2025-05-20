@@ -30,11 +30,11 @@ const rawStyles = {
     marginTop: 0,
     textAlign: "center",
     color: Colors.lightText,
-    fontFamily: Fonts.AppFont,
+    fontFamily: Fonts.body,
     fontWeight: "600",
   },
   labelText: {
-    fontFamily: Fonts.AppFont,
+    fontFamily: Fonts.body,
     marginBottom: 15,
     fontSize: 24,
     color: Colors.meditationText,

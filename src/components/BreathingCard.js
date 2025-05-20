@@ -3,6 +3,7 @@ import React from "react";
 import { Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "@/constants";
+import { SCREEN_HEIGHT } from "@/utils";
 
 export const BreathingCard = ({ item, onPress }) => {
   return (
@@ -27,6 +28,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    height: SCREEN_HEIGHT * .1,
   },
   icon: {
     marginRight: 12,

@@ -9,7 +9,7 @@ const rawStyles = {
     fontSize: 28,
     color: Colors.darkText,
     //  marginBottom: 20,
-    fontFamily: Fonts.AppFontBold,
+    fontFamily: Fonts.bodyBold,
   },
 
   infoCard: {
@@ -35,7 +35,7 @@ const rawStyles = {
     fontSize: 22,
     color: Colors.darkText,
     marginBottom: 30,
-    fontFamily: Fonts.AppFont,
+    fontFamily: Fonts.body,
     textAlign: "center",
   },
 
@@ -47,7 +47,7 @@ const rawStyles = {
     // bottom: "25%",
     fontSize: 16,
     color: Colors.darkText,
-    fontFamily: Fonts.AppFont,
+    fontFamily: Fonts.body,
     textAlign: "center",
     paddingLeft: 15,
     paddingRight: 15,
@@ -63,7 +63,7 @@ const rawStyles = {
     marginTop: 20,
     fontSize: 14,
     color: Colors.darkText,
-    fontFamily: Fonts.AppFontBold,
+    fontFamily: Fonts.bodyBold,
   },
 };
 

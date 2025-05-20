@@ -29,11 +29,11 @@ export const ProfileAvatar = ({ size = 32 }) => {
         borderRadius: size / 2,
         justifyContent: "center",
         alignItems: "center",
-        borderColor: Colors.buttonBackground,
+        borderColor: Colors.inactiveTab,
         borderWidth: 2,
       }}
     >
-      <Text style={{ color: Colors.white, fontWeight: "bold" }}>
+      <Text style={{ color: Colors.inactiveTab, fontWeight: "bold" }}>
         {name.charAt(0).toUpperCase()}
       </Text>
     </View>

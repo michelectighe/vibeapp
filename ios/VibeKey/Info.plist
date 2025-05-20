@@ -86,34 +86,14 @@
 	<false/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>DancingScript-Bold.ttf</string>
-		<string>DancingScript-Medium.ttf</string>
-		<string>DancingScript-Regular.ttf</string>
-		<string>DancingScript-SemiBold.ttf</string>
-		<string>GrapeNutsRegular.ttf</string>
-		<string>GreatVibes-Regular.ttf</string>
 		<string>HomemadeApple-Regular.ttf</string>
-		<string>imglyfontpoppins.ttf</string>
-		<string>Inconsolata-VariableFont_wdth,wght.ttf</string>
-		<string>LobsterTwo-Regular.ttf</string>
-		<string>Merriweather.ttf</string>
-		<string>Montserrat-ExtraBoldItalic.ttf</string>
-		<string>Montserrat-Italic-VariableFont_wght.ttf</string>
-		<string>Montserrat-VariableFont_wght.ttf</string>
-		<string>Montserrat.ttf</string>
-		<string>Nunito-Bold.ttf</string>
-		<string>Nunito-Italic.ttf</string>
-		<string>Nunito-Regular.ttf</string>
-		<string>Nunito.ttf</string>
-		<string>Orbitron-Regular.ttf</string>
 		<string>Poppins-Regular.ttf</string>
-		<string>Quicksand-regular.ttf</string>
-		<string>Quicksand-VariableFont_wght.ttf</string>
-		<string>Quicksand_bold.ttf</string>
-		<string>Raleway-Italic-VariableFont_wght.ttf</string>
-		<string>Raleway-VariableFont_wght.ttf</string>
-		<string>Roboto-Bold.ttf</string>
-		<string>RubikGlitch-Regular.ttf</string>
+    <string>Poppins-Bold.ttf</string>
+    <string>Poppins-Italic.ttf</string>
+    <string>PlayfairDisplay-Regular.ttf</string>
+    <string>PlayfairDisplay-Bold.ttf</string>
+    <string>PlayfairDisplay-Italic.ttf</string>
+    <string>GreatVibes-Regular.ttf</string>
 	</array>
 </dict>
 </plist>

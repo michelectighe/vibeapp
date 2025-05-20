@@ -1,6 +1,7 @@
 // MyTabs.js
 import React from "react";
 import { View } from "react-native";
+import { BlurView } from "@react-native-community/blur";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { CardStyleInterpolators } from "@react-navigation/stack";
 import { SettingsStack } from "./SettingsStack";
@@ -24,24 +25,21 @@ export const MyTabs = () => {
       initialRouteName="Home"
       screenOptions={({ route }) => ({
         unmountOnBlur: true,
-        tabBarStyle: {
-          position: "absolute",
-          marginLeft: 0,
-          borderTopWidth: 0,
-          backgroundColor: Colors.white,
-          //    backgroundColor: "transparent", // make it transparent to see the image
-        },
-        tabBarLabelStyle: {
-          fontSize: 12,
-          marginTop: 2, // pushes label down
-        },
         headerShown: false,
-        tabBarBackground: () => (
-          <LinearGradient
-            colors={[Colors.tabBarGradient2, Colors.tabBarGradient1]}
-            style={{ flex: 1, opacity: 1 }}
-          />
-        ),
+tabBarBackground: () => (
+  <BlurView
+    style={{ flex: 1 }}
+    blurType="light"
+    blurAmount={15}
+    reducedTransparencyFallbackColor="rgba(40, 60, 50, 0.6)"
+  />
+),
+tabBarStyle: {
+  backgroundColor: "rgba(255,255,255,0.1)", // very subtle fallback
+  position: "absolute", // allows it to float over content
+  borderTopWidth: 0,
+  elevation: 0,
+},
         tabBarIconStyle: {
           marginTop: 2, // pushes icon up
           //   marginBottom: 5,
@@ -173,7 +171,12 @@ export const MyTabs = () => {
           },
         })}
       />
-      <Tab.Screen name="InnerWork" component={ToolsStack} options={{ tabBarLabel: "Journey" }}
+      <Tab.Screen name="InnerWork" component={ToolsStack}         
+      options={{
+          tabBarItemStyle: { display: "none" },
+          tabBarButton: () => null, // Hides button
+          //   tabBarStyle: { display: "none" }, // Only use this if you want to hide the bar entirely
+        }}
         listeners={({ navigation, route }) => ({
           tabPress: (e) => {
             const isFocused = navigation.isFocused();

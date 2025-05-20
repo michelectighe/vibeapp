@@ -102,6 +102,8 @@
 - [x] Add 2–3 free meditation MP3 files
 - [x] Ensure background music doesn’t conflict with analysis
 - [x] Confirm play/stop logic and styling in Meditation screen
+- [ ] Polish Energy Cleanse Screen
+- [ ] Make modal breathing screen for Energy Cleanse
 
 ### 11. App Flow Testing
 

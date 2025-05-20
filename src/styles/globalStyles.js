@@ -68,13 +68,13 @@ const rawStyles = {
     textAlign: "center",
     fontSize: 30,
     color: Colors.darkText,
-    fontFamily: Fonts.AppFontBold,
+    fontFamily: Fonts.bodyBold,
   },
   subTitle: {
     textAlign: "center",
     fontSize: 18,
     color: Colors.darkText,
-    fontFamily: Fonts.AppFontBold,
+    fontFamily: Fonts.bodyBold,
   },
   link: {
     alignSelf: "flex-start",

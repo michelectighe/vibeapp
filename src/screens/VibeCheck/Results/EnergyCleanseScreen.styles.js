@@ -20,7 +20,17 @@ const rawStyles = {
     textAlign: "center",
     fontSize: 24,
     color: Colors.lightText,
-    fontFamily: Fonts.AppFont,
+    fontFamily: Fonts.body,
+  },
+  subTitle: {
+    position: "absolute",
+    top: 50,
+    left: 0,
+    right: 0,
+    textAlign: "center",
+    fontSize: 18,
+    color: Colors.lightText,
+    fontFamily: Fonts.body,
   },
   middle: {},
   sectionTitle: {

@@ -27,7 +27,7 @@ const rawStyles = {
     fontSize: 22,
     color: Colors.darkText,
     textAlign: "center",
-    fontFamily: Fonts.AppFont,
+    fontFamily: Fonts.body,
     backgroundColor: "transparent",
   },
   description: {
@@ -35,7 +35,7 @@ const rawStyles = {
     color: Colors.darkText,
     textAlign: "center",
     marginBottom: 12,
-    fontFamily: Fonts.AppFont,
+    fontFamily: Fonts.body,
   },
   button: {
     backgroundColor: Colors.buttonBackground,

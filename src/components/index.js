@@ -26,7 +26,7 @@ export { FuzzyGlowChakra } from "./FuzzyGlowChakra";
 export { FuzzyRectangleGlow } from "./FuzzyRectangleGlow";
 export { GradientBackground } from "./GradientBackground";
 export { HomeButton } from "./HomeButton";
-export { HomeCard } from "./HomeCard";
+export { Card } from "./Card";
 export { JournalPromptCard } from "./JournalPromptCard";
 export { MeditationCard } from "./MeditationCard";
 export { ModalTrigger } from "./ModalTrigger";
@@ -46,3 +46,6 @@ export { BreathingCard } from "./BreathingCard";
 export { FadeInSlideText } from "./FadeInSlideText";
 export { SmoothLetterFadeInText } from "./SmoothLetterFadeIn";
 export { TypewriterText } from "./TypewriterText";
+
+export { SectionWithCards } from "./SectionWithCards";
+export { HomeHeaderCard } from "./HomeHeaderCard";

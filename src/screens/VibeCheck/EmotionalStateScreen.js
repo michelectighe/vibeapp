@@ -384,7 +384,7 @@ export const EmotionalStateScreen = () => {
 
   return (
     <GradientBackground
-      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
+      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}
       logo={false}
     >
       <SectionLayout

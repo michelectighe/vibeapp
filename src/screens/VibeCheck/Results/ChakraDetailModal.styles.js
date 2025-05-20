@@ -18,13 +18,13 @@ export const styles = scaledStyle(
     },
     title: {
       fontSize: 32,
-      fontFamily: Fonts.AppTitle,
+      fontFamily: Fonts.title,
       color: Colors.white,
       marginBottom: 10,
     },
     description: {
       fontSize: 18,
-      fontFamily: Fonts.AppFont,
+      fontFamily: Fonts.body,
       color: Colors.white,
       marginHorizontal: 20,
       textAlign: "center",

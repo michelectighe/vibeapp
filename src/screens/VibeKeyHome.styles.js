@@ -11,16 +11,26 @@ const rawStyles = {
     alignItems: "center",
     backgroundColor: "transparent",
   },
-  title: {
+
+  scrollView: {
     position: "absolute",
     top: 0,
-    marginBottom: 0,
+    bottom: 0,
     left: 0,
     right: 0,
-    textAlign: "center",
-    fontSize: 24,
-    color: Colors.lightText,
-    fontFamily: Fonts.AppFont,
+    zIndex: 1,
+  },
+    divider: {
+  height: 1,
+  backgroundColor: 'rgba(255, 255, 255, 0.15)', // soft white line, adjust for dark background
+  marginTop: 20,
+  marginHorizontal: 16,
+  borderRadius: 0.5,
+},
+  scrollContent: {
+   // paddingTop: 50, // this matches the height of your title/logo area
+    // paddingHorizontal: 20,
+   // paddingBottom: 250,
   },
 };
 

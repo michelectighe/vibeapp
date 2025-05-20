@@ -26,7 +26,7 @@ export const SectionLayout = ({
   const Wrapper = safe ? SafeAreaView : View;
 
   return (
-    <Wrapper style={[styles.safeArea, safe && { paddingBottom: insets.bottom + 60 }]}>
+    <Wrapper style={[styles.safeArea, safe && { paddingBottom: insets.bottom - 40}]}>
       <View style={[styles.container, style]}>
         <View
           style={[

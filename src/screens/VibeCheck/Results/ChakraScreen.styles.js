@@ -11,7 +11,7 @@ const rawStyles = {
   title: {
     textAlign: "center",
     fontSize: 36,
-    fontFamily: Fonts.Script,
+    fontFamily: Fonts.title,
     marginBottom: 10,
   },
   card: {

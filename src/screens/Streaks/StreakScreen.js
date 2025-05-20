@@ -64,7 +64,7 @@ export const StreakScreen = () => {
   };
 
   return (
-    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
+    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}>
       <View style={styles.container}>
         <View style={styles.topSection}>
           <Text style={styles.streakTitle}>Your Daily Vibe Goals</Text>

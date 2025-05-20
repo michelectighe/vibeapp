@@ -49,7 +49,7 @@ export const SubscriptionScreen = ({ navigation, route }) => {
   };
 
   return (
-    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
+    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}>
       <SectionLayout
         topFlex={2}
         middleFlex={6}

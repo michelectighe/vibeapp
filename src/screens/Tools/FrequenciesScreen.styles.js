@@ -15,7 +15,7 @@ const rawStyles = {
     color: Colors.lightText,
     fontSize: 24,
     textAlign: "center",
-    fontFamily: Fonts.AppFont,
+    fontFamily: Fonts.body,
     fontWeight: "bold",
   },
   frequencyList: {
@@ -39,13 +39,13 @@ const rawStyles = {
   },
   freqText: {
     color: Colors.lightText,
-    fontFamily: Fonts.AppFont,
+    fontFamily: Fonts.body,
     fontSize: 24,
     textAlign: "center",
   },
   descriptionText: {
     color: Colors.lightText,
-    fontFamily: Fonts.AppFont,
+    fontFamily: Fonts.body,
     fontSize: 12,
     textAlign: "center",
   },

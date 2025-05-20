@@ -6,28 +6,17 @@ import {
   FrequenciesScreen,
   GuidedMeditationScreen,
   QuantumJournalScreen,
-  ToolsMainScreen,
 } from "@screens";
 
 export const ToolsStack = () => {
   const Stack = createNativeStackNavigator();
   return (
     <Stack.Navigator
-      initialRouteName="ToolsMainScreen"
+      initialRouteName=""
       screenOptions={() => ({
         headerShown: false,
       })}
     >
-      <Stack.Screen
-        name="ToolsMainScreen"
-        component={ToolsMainScreen}
-        options={{
-          headerShown: false,
-          tabBarVisible: true,
-          tabBarStyle: { display: "flex" },
-          title: "",
-        }}
-      />
       <Stack.Screen
         name="BreathWorksScreen"
         component={BreathWorksScreen}

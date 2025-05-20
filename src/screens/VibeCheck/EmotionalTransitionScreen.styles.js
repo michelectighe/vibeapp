@@ -6,7 +6,7 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 const rawStyles = {
   quoteText: {
     fontSize: 48,
-    fontFamily: Fonts.Script,
+    fontFamily: Fonts.script,
     color: Colors.lightText,
     marginLeft: 50,
     marginRight: 50,

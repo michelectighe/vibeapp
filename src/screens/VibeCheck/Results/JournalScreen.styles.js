@@ -19,7 +19,7 @@ const rawStyles = {
     right: 0,
     textAlign: "center",
     fontSize: 24,
-    fontFamily: Fonts.AppFont,
+    fontFamily: Fonts.body,
   },
   prompt: {
     fontSize: 20,
@@ -39,7 +39,7 @@ const rawStyles = {
     padding: 16,
     fontSize: 16,
     color: Colors.darkText,
-    fontFamily: Fonts.Script,
+    fontFamily: Fonts.journal,
     minHeight: 200,
     textAlignVertical: "top",
     marginBottom: 20,

@@ -13,7 +13,7 @@ export const MetricInfoScreen = () => {
 
   return (
     <GradientBackground
-      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}
+      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}
       logo={false}
     >
       <SafeAreaView style={styles.safeArea}>

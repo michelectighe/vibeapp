@@ -34,7 +34,7 @@ export const FrequenciesScreen = () => {
   };
 
   return (
-    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
+    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}>
       <View style={globalStyles.container}>
         <View style={globalStyles.titleWrapper}>
           <Text style={globalStyles.title}>Healing Journey</Text>

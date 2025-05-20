@@ -21,7 +21,7 @@ const rawStyles = {
     textAlign: "center",
     fontSize: 30,
     color: Colors.darkText,
-    fontFamily: Fonts.AppFont,
+    fontFamily: Fonts.body,
   },
   toggles: {
     flexDirection: "row",
@@ -81,7 +81,7 @@ modalText: {
   color: Colors.darkText,
   marginBottom: 16,
   textAlign: "center",
-  fontFamily: Fonts.AppFont || undefined,
+  fontFamily: Fonts.body || undefined,
 },
 
 modalButton: {

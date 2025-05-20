@@ -6,19 +6,18 @@ import { FloatingFeather } from "./FloatingFeather";
 import { globalStyles } from "@/styles";
 import { Colors } from "@/constants";
 
-export const GradientBackground = ({ children, colors, logo = true }) => {
+export const GradientBackground = ({ children, colors, logo = false }) => {
   const gradientColors = colors || [Colors.white, Colors.white, Colors.white];
 
   return (
     <View style={globalStyles.container}>
-      <LinearGradient colors={gradientColors} style={styles.gradient}>
-        <FloatingFeather startX={0} delay={0} />
-        <FloatingFeather startX={0.1} delay={1000} />
-        <FloatingFeather startX={0.6} delay={2000} />
-        <FloatingFeather startX={0.1} delay={3000} />
-        <FloatingFeather startX={0.4} delay={4000} />
-        <FloatingFeather startX={0.8} delay={5000} />
-        {logo && <AnimatedLogoSmall />}
+      <LinearGradient
+      colors={['#355c4d', '#295c50', '#4e4938']}
+     //   colors={colors} // tweak these as needed
+        start={{ x: 0.2, y: 0 }}
+        end={{ x: 0.8, y: 1 }}
+        style={{ flex: 1 }}
+      >
 
         <View style={styles.content}>{children}</View>
       </LinearGradient>
