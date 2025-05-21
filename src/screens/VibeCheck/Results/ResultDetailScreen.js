@@ -21,6 +21,7 @@ export const ResultDetailScreen = ({ navigation }) => {
   const [overallColor, setColor] = useState();
   const [overallColor2, setColor2] = useState();
   const [overallColor3, setColor3] = useState();
+  const [overallColor4, setColor4] = useState();
   const [label2, setLabel2] = useState();
   const [label3, setLabel3] = useState();
   const [label4, setLabel4] = useState();
@@ -43,6 +44,7 @@ export const ResultDetailScreen = ({ navigation }) => {
       setColor(result.color);
       setColor2(result.color2);
       setColor3(result.color3);
+      setColor4(result.color4);
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -50,15 +52,17 @@ export const ResultDetailScreen = ({ navigation }) => {
     <GradientBackground
       colors={
         overallColor
-          ? [overallColor, Colors.white, overallColor]
+          ? [overallColor, overallColor2, overallColor3]
           : [Colors.white, Colors.white, Colors.white]
       }
     >
       <View style={styles.root}>
-        <CloseX xColor={Colors.white} onPress={() => navigation.goBack()} />
+        <CloseX xColor={overallColor4} onPress={() => navigation.goBack()} />
 
         <View style={styles.headerContainer}>
-          <Text style={[styles.overallLabel, { textShadowColor: overallColor }]}>
+          <Text
+            style={[styles.overallLabel, { color: overallColor4, textShadowColor: overallColor3 }]}
+          >
             {overallLabel}
           </Text>
         </View>
@@ -69,55 +73,57 @@ export const ResultDetailScreen = ({ navigation }) => {
           showsVerticalScrollIndicator={false}
         >
           <View style={[styles.textContainer, { backgroundColor: overallColor }]}>
-            <Text style={styles.overallText}>{overallText1}</Text>
+            <Text style={[styles.overallText, { color: overallColor4 }]}>{overallText1}</Text>
           </View>
 
           <View style={[styles.textContainer, { backgroundColor: overallColor }]}>
-            <Text style={styles.chicletHeader}>Curated Spiritual Collection</Text>
+            <Text style={[styles.chicletHeader, { color: overallColor4 }]}>
+              Curated Spiritual Collection
+            </Text>
             <View style={styles.chicletWrapper}>
               <CustomSpiritualButton
                 label="Energy Cleanse"
                 onPress={() => navigation.navigate("EnergyCleanseScreen")}
                 color={overallColor2}
-                textColor={overallColor}
+                textColor={overallColor4}
               />
               <CustomSpiritualButton
                 label="Journal"
                 onPress={() => navigation.navigate("JournalScreen")}
                 color={overallColor2}
-                textColor={overallColor}
+                textColor={overallColor4}
               />
               <CustomSpiritualButton
                 label="Chakra Balance"
                 onPress={() => navigation.navigate("ChakraScreen")}
                 color={overallColor2}
-                textColor={overallColor}
+                textColor={overallColor4}
               />
             </View>
           </View>
 
           <View style={[styles.textContainer, { backgroundColor: overallColor }]}>
-            <Text style={styles.textHeader}>{label2}</Text>
-            <Text style={styles.overallText}>{overallText2}</Text>
+            <Text style={[styles.textHeader, { color: overallColor4 }]}>{label2}</Text>
+            <Text style={[styles.overallText, { color: overallColor4 }]}>{overallText2}</Text>
           </View>
 
           <View style={[styles.textContainer, { backgroundColor: overallColor }]}>
-            <Text style={styles.textHeader}>{label3}</Text>
-            <Text style={styles.overallText}>{overallText3}</Text>
+            <Text style={[styles.textHeader, { color: overallColor4 }]}>{label3}</Text>
+            <Text style={[styles.overallText, { color: overallColor4 }]}>{overallText3}</Text>
           </View>
 
           <View style={[styles.textContainer, { backgroundColor: overallColor }]}>
-            <Text style={styles.textHeader}>{label4}</Text>
-            <Text style={styles.overallText}>{overallText4}</Text>
+            <Text style={[styles.textHeader, { color: overallColor4 }]}>{label4}</Text>
+            <Text style={[styles.overallText, { color: overallColor4 }]}>{overallText4}</Text>
           </View>
 
           <View style={[styles.textContainer, { backgroundColor: overallColor }]}>
-            <Text style={styles.textHeader}>{label5}</Text>
-            <Text style={styles.overallText}>{overallText5}</Text>
+            <Text style={[styles.textHeader, { color: overallColor4 }]}>{label5}</Text>
+            <Text style={[styles.overallText, { color: overallColor4 }]}>{overallText5}</Text>
           </View>
 
           <View style={[styles.textContainer, { backgroundColor: overallColor }]}>
-            <Text style={styles.finalNote}>
+            <Text style={[styles.finalNote, { color: overallColor4 }]}>
               By recognizing these factors and implementing spiritual practices, you can gradually
               raise your vibrational frequency and realign with your highest potential.
             </Text>

@@ -51,3 +51,5 @@ export { SectionWithCards } from "./SectionWithCards";
 export { HomeHeaderCard } from "./HomeHeaderCard";
 
 export { TabBarIcon } from "./TabBarIcon";
+
+export { ChakraCard } from "./ChakraCard";

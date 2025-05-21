@@ -26,15 +26,21 @@ export const JournalScreen = () => {
   const [prompt, setPrompt] = useState("");
   const [entry, setEntry] = useState("");
   const [isTyping, setIsTyping] = useState(true);
+  const [saved, setSaved] = useState(false);
   const [animatedText, setAnimatedText] = useState("");
   const [overallColor, setColor] = useState();
-  const [overallDarkColor, setColor3] = useState();
+  const [overallColor2, setColor2] = useState();
+  const [overallColor3, setColor3] = useState();
+  const [overallColor4, setColor4] = useState();
+
   const { vibrationInfo } = useAnalysis();
 
   useEffect(() => {
     if (vibrationInfo == null) return;
     setColor(vibrationInfo.color);
+    setColor2(vibrationInfo.color2);
     setColor3(vibrationInfo.color3);
+    setColor4(vibrationInfo.color4);
   }, [vibrationInfo]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
@@ -47,6 +53,7 @@ export const JournalScreen = () => {
       if (i === newPrompt.length) {
         clearInterval(interval);
         setIsTyping(false);
+        setSaved(false);
         setPrompt(newPrompt);
       }
     }, 60);
@@ -59,6 +66,7 @@ export const JournalScreen = () => {
     //  setPrompt("");
     setAnimatedText("");
     setIsTyping(true);
+    setSaved(true);
   };
 
   // 👇 Prevent UI rendering until all required data is ready
@@ -72,59 +80,62 @@ export const JournalScreen = () => {
     );
   }
   return (
-    <GradientBackground colors={[Colors.white, overallColor, Colors.white]}>
-      <SectionLayout
-        topFlex={6}
-        middleFlex={12}
-        bottomFlex={1}
-        topContent={
-          <View style={styles.titleWrapper}>
-            <Text style={[styles.title, { color: overallDarkColor }]}>Daily Journal</Text>{" "}
-            <Text style={[styles.prompt, { color: overallDarkColor }]}>{animatedText}</Text>
-          </View>
-        }
-        middleContent={
-          <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-            <KeyboardAvoidingView
-              style={{ flex: 1 }}
-              behavior={Platform.OS === "ios" ? "padding" : "height"}
-              keyboardVerticalOffset={80} // tweak if needed for your layout
-            >
+    <GradientBackground colors={[overallColor, overallColor2, overallColor3]}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : undefined}
+          keyboardVerticalOffset={0}
+          style={{ flex: 1 }}
+        >
+          <SectionLayout
+            topFlex={3}
+            middleFlex={13}
+            bottomFlex={0}
+            topContent={
+              <View style={styles.titleWrapper}>
+                <Text style={[styles.title, { color: overallColor4 }]}>Daily Journal</Text>{" "}
+                <Text style={[styles.prompt, { color: overallColor4 }]}>{animatedText}</Text>
+              </View>
+            }
+            middleContent={
               <View style={{ width: "90%", overflow: "hidden" }}>
-                {!isTyping && (
-                  <ScrollView
-                    style={{ marginTop: 20, minWidth: "90%" }}
-                    contentContainerStyle={{ paddingBottom: 40 }}
-                    showsVerticalScrollIndicator={false}
-                  >
-                    <TextInput
-                      multiline
-                      placeholder="Write whatever flows through..."
-                      placeholderTextColor={Colors.mediumGray}
-                      style={styles.textInput}
-                      value={entry}
-                      onChangeText={setEntry}
-                    />
+                <ScrollView
+                  style={{ marginTop: 20, minWidth: "90%" }}
+                  contentContainerStyle={{ paddingBottom: 40 }}
+                  showsVerticalScrollIndicator={false}
+                >
+                  <TextInput
+                    multiline
+                    placeholder="Write whatever flows through..."
+                    placeholderTextColor={Colors.mediumGray}
+                    style={styles.textInput}
+                    value={entry}
+                    onChangeText={setEntry}
+                  />
 
-                    <CustomSpiritualButton
-                      label="Save Entry"
-                      onPress={handleSave}
-                      color={overallColor}
-                      textColor={Colors.textLight}
-                    />
-                  </ScrollView>
+                  <CustomSpiritualButton
+                    label="Save Entry"
+                    onPress={handleSave}
+                    color={overallColor2}
+                    textColor={overallColor4}
+                  />
+                  <View style={styles.bottomText}>
+                    <Text style={[styles.bottomNote, { color: overallColor4 }]}>
+                      Your words shape your reality
+                    </Text>
+                  </View>
+                </ScrollView>
+                {saved && (
+                  <Text style={[styles.savedMessage, { color: overallColor4 }]}>
+                    Journal Entry Saved
+                  </Text>
                 )}
               </View>
-            </KeyboardAvoidingView>
-          </TouchableWithoutFeedback>
-        }
-        bottomContent={
-          <View style={styles.bottomText}>
-            <Text style={{ color: overallDarkColor }}>Your words shape your reality</Text>
-          </View>
-        }
-      />
-      <CloseX xColor={overallColor} onPress={() => navigation.goBack()} />
+            }
+          />
+        </KeyboardAvoidingView>
+      </TouchableWithoutFeedback>
+      <CloseX xColor={overallColor4} onPress={() => navigation.goBack()} />
     </GradientBackground>
   );
 };

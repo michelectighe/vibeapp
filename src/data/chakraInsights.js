@@ -51,7 +51,7 @@ export const chakraInsights = {
         "Celebrate your emotional richness by continuing expressive arts and honoring your desires. Connect with others through joy and shared pleasure, and remain open to life’s sensual and spontaneous moments.",
     },
   ],
-  solar: [
+  solarPlexus: [
     {
       min: 0,
       max: 40,

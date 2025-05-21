@@ -12,7 +12,7 @@ export const ChakraComparisonCard = ({ chakra, yourScore, theirScore }) => {
 
   return (
     <View style={[styles.card, { width: width - 32 }]}>
-      <EdgeGlow width={width - 32} height={180} borderRadius={20} glowColor={chakra.color} />
+
       <View style={styles.leftGlow}>
         <FuzzyGlow glowSize={yourGlowSize} glowColor={chakra.color} />
       </View>

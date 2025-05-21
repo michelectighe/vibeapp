@@ -71,10 +71,10 @@ export const VibeKeyHome = () => {
                 subtitle: `Score: ${latest.overallVibrationScore} on ${new Date(
                   latest.timestamp,
                 ).toLocaleDateString()}`,
+                resultID: latest.resultID,
               }
             : c,
         );
-        console.log("updated cards:", updated);
 
         setSections([
           {

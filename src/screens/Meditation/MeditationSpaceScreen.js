@@ -19,15 +19,15 @@ export const MeditationSpaceScreen = () => {
   const [soundLabel, setSoundLabel] = useState("");
   const imageFade = useRef(new Animated.Value(0)).current;
 
-  useFocusEffect(
-    useCallback(() => {
-      const parent = navigation.getParent?.();
-      parent?.setOptions({ tabBarStyle: { display: "none" } });
-      return () => {
-        //console.log("leaving secons focus effect");
-      };
-    }, [navigation]),
-  );
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     const parent = navigation.getParent?.();
+  //     parent?.setOptions({ tabBarStyle: { display: "none" } });
+  //     return () => {
+  //       //console.log("leaving secons focus effect");
+  //     };
+  //   }, [navigation]),
+  // );
 
   useEffect(() => {
     Animated.timing(imageFade, {
@@ -85,7 +85,9 @@ export const MeditationSpaceScreen = () => {
             </Text>
           ))}
 
-          {!isNaN(combinedCalm) && combinedCalm != null && <Text style={styles.scoreText}>{combinedCalm.toFixed(0)}</Text>}
+          {!isNaN(combinedCalm) && combinedCalm != null && (
+            <Text style={styles.scoreText}>{combinedCalm.toFixed(0)}</Text>
+          )}
         </View>
         <View style={styles.bottomRow}>
           <View style={styles.bottomInner}>

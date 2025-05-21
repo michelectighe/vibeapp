@@ -19,9 +19,9 @@ const rawStyles = {
     left: 0,
     right: 0,
     textAlign: "center",
-    fontSize: 24,
+    fontSize: 28,
     color: Colors.textLight,
-    fontFamily: Fonts.body,
+    fontFamily: Fonts.bold,
   },
     subTitle: {
     position: "absolute",

@@ -28,8 +28,9 @@ export const EnergyCleanseScreen = () => {
   const { vibrationInfo } = useAnalysis();
   const navigation = useNavigation();
   const [overallColor, setColor] = useState();
-  const [overallLightColor, setColor2] = useState();
-  const [overallDarkColor, setColor3] = useState();
+  const [overallColor2, setColor2] = useState();
+  const [overallColor3, setColor3] = useState();
+  const [overallColor4, setColor4] = useState();
   const isPlayingRef = useRef();
   const [completed, setCompleted] = useState({
     meditation: false,
@@ -54,20 +55,17 @@ export const EnergyCleanseScreen = () => {
     setColor(vibrationInfo.color);
     setColor2(vibrationInfo.color2);
     setColor3(vibrationInfo.color3);
+    setColor4(vibrationInfo.color4);
   }, [vibrationInfo]); // eslint-disable-line react-hooks/exhaustive-deps
+
   useEffect(() => {
-    if (
-      completed.meditation &&
-      completed.frequency &&
-      completed.breathing
-    ) {
+    if (completed.meditation && completed.frequency && completed.breathing) {
       saveCleanseToFirebase();
     }
   }, [completed]);
 
-
   const handlePress = async (item, type) => {
-    console.log('f item:', item)
+    console.log("f item:", item);
     if (isPlayingRef.current) {
       await stopTrack();
       isPlayingRef.current = false;
@@ -78,7 +76,7 @@ export const EnergyCleanseScreen = () => {
     }
   };
   const handleBreathingPress = (pattern, type) => {
-    console.log('breathingPress:', pattern)
+    console.log("breathingPress:", pattern);
     if (isPlayingRef.current) {
       stopTrack();
       isPlayingRef.current = false;
@@ -86,7 +84,6 @@ export const EnergyCleanseScreen = () => {
     setCompleted((prev) => ({ ...prev, [type]: true }));
     navigation.navigate("BreathingModalScreen", { pattern });
   };
-
 
   const saveCleanseToFirebase = async () => {
     try {
@@ -117,8 +114,8 @@ export const EnergyCleanseScreen = () => {
   }
 
   return (
-    <GradientBackground colors={[Colors.white, overallColor, Colors.white]} logo={false}>
-      <CloseX xColor={Colors.textDark} onPress={() => navigation.goBack()} />
+    <GradientBackground colors={[overallColor, overallColor2, overallColor3]} logo={false}>
+      <CloseX xColor={overallColor4} onPress={() => navigation.goBack()} />
       <SectionLayout
         topFlex={1}
         middleFlex={6}
@@ -126,20 +123,20 @@ export const EnergyCleanseScreen = () => {
         safe={false}
         topContent={
           <View style={styles.titleWrapper}>
-            <Text style={[styles.title, { color: Colors.white }]}>Energy Cleanse</Text>
-            <Text style={[styles.subTitle, { color: Colors.white }]}>Recommendations</Text>
+            <Text style={[styles.title, { color: overallColor4 }]}>Energy Cleanse</Text>
+            <Text style={[styles.subTitle, { color: overallColor4 }]}>Recommendations</Text>
           </View>
         }
         middleContent={
           <View style={styles.middle}>
-            <Text style={[styles.sectionTitle, { color: Colors.white }]}>Meditation</Text>
+            <Text style={[styles.sectionTitle, { color: overallColor4 }]}>Meditation</Text>
             <MeditationCard
               item={meditation}
               onPress={() => handlePress(meditation, "meditation")}
             />
-            <Text style={[styles.sectionTitle, { color: Colors.white }]}>Frequency</Text>
+            <Text style={[styles.sectionTitle, { color: overallColor4 }]}>Frequency</Text>
             <FrequencyCard item={frequency} onPress={() => handlePress(frequency, "frequency")} />
-            <Text style={[styles.sectionTitle, { color: Colors.white }]}>Breathing</Text>
+            <Text style={[styles.sectionTitle, { color: overallColor4 }]}>Breathing</Text>
             <BreathingCard
               item={breathing}
               onPress={() => handleBreathingPress(breathing, "breathing")}
@@ -149,7 +146,9 @@ export const EnergyCleanseScreen = () => {
         bottomContent={
           <>
             {completed.meditation && completed.frequency && completed.breathing && (
-              <Text style={styles.success}>🌟 Energy Cleanse Complete!</Text>
+              <Text style={[styles.success, { color: overallColor4 }]}>
+                🌟 Energy Cleanse Complete!
+              </Text>
             )}
           </>
         }

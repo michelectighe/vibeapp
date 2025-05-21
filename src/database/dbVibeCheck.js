@@ -4,41 +4,39 @@ import * as SQLite from "expo-sqlite";
 export const saveResult = async (result) => {
   try {
     const db = await SQLite.openDatabaseAsync("vibrationResults.db");
-
+    console.log("saving result:", result);
     await db.runAsync(
       `INSERT INTO results (
-                timestamp,
+                resultID,
                 userID,
-                frequency, 
-                heartRate,
-                rmssd, 
-                sdnn,
-                motion, 
+                timestamp,
+                voiceFrequencyScore, 
+                heartRateScore,
+                motionScore, 
                 overallVibrationScore, 
                 chakraScores,
-                sound,
-                magnitude,
-                voiceStrength,
-                voiceClarity,
-                emotionalState
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
+                environmentScore,
+                voiceStrengthScore,
+                voiceClarityScore,
+                emotionalScore
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
       [
-        result.timestamp.toISOString(),
-        result.userID ?? 0,
-        result.frequency ?? 0,
-        result.saveHeartRate ?? 0,
-        result.saveRMSSD ?? "0",
-        result.saveSDNN ?? "0",
-        result.motion ?? 0,
+        result.resultID,
+        result.userID,
+        result.timestamp,
+        JSON.stringify(result.voiceFrequencyScore),
+        JSON.stringify(result.heartRateScore),
+        result.motionScore ?? 0,
         result.overallVibrationScore ?? 0,
         JSON.stringify(result.chakraScores), // ✅ Store as JSON string
-        result.sound ?? 0,
-        result.magnitude ?? 0,
-        result.voiceStrength ?? "0",
-        result.voiceClarity ?? "0",
-        result.emotionalState ?? 0,
+        result.environmentScore,
+        JSON.stringify(result.voiceStrengthScore),
+        JSON.stringify(result.voiceClarityScore),
+        JSON.stringify(result.emotionScore),
       ],
     );
+    const allResults = await db.getAllAsync(`SELECT * FROM results`);
+    console.log("✅ All saved results:", JSON.stringify(allResults, null, 2));
   } catch (error) {
     console.error("🔥 SQL Error Saving Result:", error);
   }
@@ -61,15 +59,14 @@ export const getResults = async (userID) => {
   }
 };
 
-// utils/db.js (or wherever you put it)
-export const getLatestResults = async (userID) => {
+export const getResultByID = async (userID, resultID) => {
   try {
     const db = await SQLite.openDatabaseAsync("vibrationResults.db");
 
     const result = await db.getAllAsync(
-      `SELECT * FROM results WHERE userID = '${userID}' ORDER BY timestamp DESC LIMIT 1;`,
+      `SELECT * FROM results WHERE userID = ?  AND resultID = ? ORDER BY timestamp DESC LIMIT 1;`,
+      [userID, resultID],
     );
-
     return result?.[0] || null;
   } catch (error) {
     console.error("❌ Error retrieving results:", error);
@@ -77,6 +74,20 @@ export const getLatestResults = async (userID) => {
   }
 };
 
+// utils/db.js (or wherever you put it)
+export const getLatestResults = async (userID) => {
+  try {
+    const db = await SQLite.openDatabaseAsync("vibrationResults.db");
+    const result = await db.getAllAsync(
+      `SELECT * FROM results WHERE userID = ? ORDER BY timestamp DESC LIMIT 1;`,
+      [userID],
+    );
+    return result?.[0] || null;
+  } catch (error) {
+    console.error("❌ Error retrieving results:", error);
+    return null;
+  }
+};
 
 export const truncateResults = async () => {
   try {
@@ -94,7 +105,7 @@ export const truncateResults = async () => {
 export const deleteResult = async (id, callback) => {
   try {
     const db = await SQLite.openDatabaseAsync("vibrationResults.db");
-    await db.runAsync("DELETE FROM results WHERE id = ?;", [id]);
+    await db.runAsync("DELETE FROM results WHERE resultID = ?;", [id]);
     ////console.log(`✅ Deleted result with ID: ${id}`);
 
     // Refresh results if a callback is provided

@@ -17,21 +17,21 @@ export const MeditationScreen = () => {
   const fadeSlideText2 = useRef(new Animated.Value(0)).current;
   const imageFade = useRef(new Animated.Value(0)).current;
 
-  useFocusEffect(
-    useCallback(() => {
-      try {
-        const parent = navigation.getParent?.();
-        if (parent && parent.setOptions) {
-          parent.setOptions({ tabBarStyle: { display: "none" } });
-        }
-      } catch (error) {
-        console.error("tabBarError MeditationScreenFocus:", error);
-      }
-      return () => {
-        ////console.log("cleanup of nav");
-      };
-    }, [navigation]),
-  );
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     try {
+  //       const parent = navigation.getParent?.();
+  //       if (parent && parent.setOptions) {
+  //         parent.setOptions({ tabBarStyle: { display: "none" } });
+  //       }
+  //     } catch (error) {
+  //       console.error("tabBarError MeditationScreenFocus:", error);
+  //     }
+  //     return () => {
+  //       ////console.log("cleanup of nav");
+  //     };
+  //   }, [navigation]),
+  // );
 
 
 

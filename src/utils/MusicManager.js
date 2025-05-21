@@ -1,4 +1,4 @@
-import TrackPlayer, { Event } from "react-native-track-player";
+import TrackPlayer, { Event, RepeatMode } from "react-native-track-player";
 import { useEffect, useRef } from "react";
 import { AppState } from "react-native";
 import { setupPlayer, playTrack, stopTrack, getMusicPreference } from "@services";
@@ -24,6 +24,7 @@ export const MusicManager = () => {
       try {
         await setupPlayer();
 
+        await TrackPlayer.setRepeatMode(RepeatMode.Track);
         const musicPref = await getMusicPreference();
         setUserMusicPref(musicPref);
 

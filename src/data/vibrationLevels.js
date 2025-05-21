@@ -26,6 +26,7 @@ export const vibrationLevels = [
     text5: "Over exertion or spiritual burnout from excessive energy work.",
     color2: Colors.divineColor2,
     color3: Colors.divineColor3,
+    color4: Colors.divineColor4,
     recommendations: {
       meditations: ["1", "3"], // IDs from `meditationList`
       frequencies: [396, 528], // Hz values from `frequencies`
@@ -57,6 +58,7 @@ export const vibrationLevels = [
     text5: "Sacred Chanting – Recite mantras like 'Om Mani Padme Hum' to elevate vibration.",
     color2: Colors.transcendentColor2,
     color3: Colors.transcendentColor3,
+    color4: Colors.transcendentColor4,
     recommendations: {
       meditations: ["1", "3"], // IDs from `meditationList`
       frequencies: [396, 528], // Hz values from `frequencies`
@@ -88,6 +90,7 @@ export const vibrationLevels = [
 
     color2: Colors.elevatedColor2,
     color3: Colors.elevatedColor3,
+    color4: Colors.elevatedColor4,
     recommendations: {
       meditations: ["1", "3"], // IDs from `meditationList`
       frequencies: [396, 528], // Hz values from `frequencies`
@@ -118,6 +121,7 @@ export const vibrationLevels = [
     text5: "Gratitude Journaling – Writing daily reflections to shift toward positivity.",
     color2: Colors.balancedColor2,
     color3: Colors.balancedColor3,
+    color4: Colors.balancedColor4,
     recommendations: {
       meditations: ["1", "3"], // IDs from `meditationList`
       frequencies: [396, 528], // Hz values from `frequencies`
@@ -148,6 +152,7 @@ export const vibrationLevels = [
       "Cleansing rituals – Using incense, sound bowls, or water therapy to clear stagnant energy.",
     color2: Colors.neutralColor2,
     color3: Colors.neutralColor3,
+    color4: Colors.neutralColor4,
     recommendations: {
       meditations: ["1", "3"], // IDs from `meditationList`
       frequencies: [396, 528], // Hz values from `frequencies`
@@ -178,6 +183,7 @@ export const vibrationLevels = [
     text5: "Shadow work – Journaling or therapy to confront and heal emotional wounds.",
     color2: Colors.lowColor2,
     color3: Colors.lowColor3,
+    color4: Colors.lowColor4,
     recommendations: {
       meditations: ["1", "3"], // IDs from `meditationList`
       frequencies: [396, 528], // Hz values from `frequencies`
@@ -207,6 +213,7 @@ export const vibrationLevels = [
     text5: "Energy cord cutting – Visualizing the release of toxic energetic ties.",
     color2: Colors.blockColor2,
     color3: Colors.blockColor3,
+    color4: Colors.blockColor4,
     recommendations: {
       meditations: ["1", "3"], // IDs from `meditationList`
       frequencies: [396, 528], // Hz values from `frequencies`

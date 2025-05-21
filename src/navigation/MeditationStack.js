@@ -8,9 +8,9 @@ export const MeditationStack = () => {
   return (
     <Stack.Navigator
       initialRouteName="Meditation"
-    screenOptions={() => ({
+      screenOptions={() => ({
         headerShown: false,
-         tabBarStyle: { display: "none" },
+        //  tabBarStyle: { display: "none" },
       })}
     >
       <Stack.Screen
@@ -18,7 +18,7 @@ export const MeditationStack = () => {
         component={MeditationScreen}
         options={{
           tabBarVisible: true,
-          tabBarStyle: { display: "none" },
+          // tabBarStyle: { display: "none" },
         }}
       />
       <Stack.Screen

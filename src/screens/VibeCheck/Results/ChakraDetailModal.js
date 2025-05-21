@@ -96,14 +96,18 @@ export const ChakraDetailModal = () => {
             },
           ]}
         >
-          <Text style={styles.title}>{chakra.name}</Text>
-          <Text style={styles.description}>{chakra.meaning}</Text>
-          <Text style={styles.score}>Score: {chakra.score}</Text>
+          <Text style={[styles.title, { color: chakra.textColor }]}>{chakra.name} Chakra</Text>
+          <Text style={[styles.description, { color: chakra.textColor }]}>{chakra.meaning}</Text>
+          <Text style={[styles.score, { color: chakra.textColor }]}>Score: {chakra.score}</Text>
 
           {insight && (
             <View style={styles.insightContainer}>
-              <Text style={styles.insightTitle}>{insight.summary}</Text>
-              <Text style={styles.insightAdvice}>{insight.advice}</Text>
+              <Text style={[styles.insightTitle, { color: chakra.textColor }]}>
+                {insight.summary}
+              </Text>
+              <Text style={[styles.insightAdvice, { color: chakra.textColor }]}>
+                {insight.advice}
+              </Text>
             </View>
           )}
         </Animated.View>

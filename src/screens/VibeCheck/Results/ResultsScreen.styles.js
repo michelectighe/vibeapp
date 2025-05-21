@@ -59,9 +59,8 @@ const rawStyles = {
     marginTop: 30,
     zIndex: 10,
   },
-  infoImage: {
-    width: 24,
-    height: 24,
+  infoIcon: {
+    fontSize: 36,
   },
   loading: {
     marginTop: 20,

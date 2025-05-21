@@ -9,27 +9,24 @@ import LottieView from "lottie-react-native";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@/utils";
 
 export const GradientBackground = ({ children, colors, logo = false }) => {
-  const gradientColors = colors || [Colors.white, Colors.white, Colors.white];
+ // const gradientColors = colors || [Colors.white, Colors.white, Colors.white];
 
   return (
-    
     <View style={styles.container}>
-        <LottieView
-        source={require('@assets/lottie/wave.json')}
+      <LottieView
+        source={require("@assets/lottie/wave.json")}
         autoPlay
         loop
         resizeMode="cover"
-            style={styles.backgroundAnimation}
-        />
+        style={styles.backgroundAnimation}
+      />
       <LinearGradient
         colors={colors} // tweak these as needed
-        start={{ x: 0.2, y: 0 }}
-        end={{ x: 0.8, y: 1 }}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 1, y: 1 }}
         style={{ flex: 1 }}
       >
-
         <View style={styles.content}>{children}</View>
-        
       </LinearGradient>
     </View>
   );

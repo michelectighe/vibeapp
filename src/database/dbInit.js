@@ -13,21 +13,18 @@ export const initializeDatabase = async () => {
 
     await db.execAsync(`
       CREATE TABLE IF NOT EXISTS results (
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        resultID TEXT PRIMARY KEY,
         userID TEXT,
         timestamp TEXT,
-        frequency REAL, 
-        heartRate INTEGER,
-        rmssd REAL,
-        sdnn REAL,
-        motion REAL, 
-        overallVibrationScore INTEGER, 
+        voiceFrequencyScore TEXT, 
+        heartRateScore TEXT,
+        motionScore REAL, 
+        overallVibrationScore REAL, 
         chakraScores TEXT,
-        sound REAL,
-        magnitude REAL,
-        voiceStrength REAL,
-        voiceClarity REAL,
-        emotionalState INTEGER
+        environmentScore TEXT,
+        voiceStrengthScore TEXT,
+        voiceClarityScore TEXT,
+        emotionalScore TEXT
       );
     `);
 

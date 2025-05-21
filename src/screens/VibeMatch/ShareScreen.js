@@ -10,6 +10,8 @@ import { useAmbientControlForScreen } from "@hooks";
 import { SubscriptionModal } from "@components";
 import { globalStyles } from "@styles";
 import { styles } from "./ShareScreen.styles";
+import { deleteFirestoreRecord } from "@/database";
+import { deleteResult } from "@/database";
 
 export const ShareScreen = ({ navigation }) => {
   useAmbientControlForScreen(true);
@@ -60,13 +62,36 @@ export const ShareScreen = ({ navigation }) => {
     }
   };
 
+  const onTrash = async (item) => {
+    try {
+      console.log("userid:", user.uid);
+      console.log("trying to delete item:", item.id);
+
+      await deleteFirestoreRecord("results", item.id, user.uid);
+    //  await deleteFirestoreRecord("matches", item.id, user.uid);
+      deleteResult(item.id, (updatedResults) => {
+        setResults(updatedResults); // or however you're storing them in state
+      });
+      fetchResults();
+    } catch (err) {
+      console.error("Deletion error:", err);
+    }
+  };
+
   if (loading) {
     return <ActivityIndicator size="large" style={{ marginTop: SCREEN_HEIGHT * 0.2 }} />;
   }
 
   return (
     <>
-      <GradientBackground colors={[Colors.gradient1Match, Colors.gradient2Match, Colors.gradient1Match]}>
+      <GradientBackground
+        colors={[
+          Colors.gradient1Match,
+          Colors.gradient2Match,
+          Colors.gradient3Match,
+          Colors.gradient1Match,
+        ]}
+      >
         <SectionLayout
           topFlex={1}
           middleFlex={0}
@@ -83,6 +108,7 @@ export const ShareScreen = ({ navigation }) => {
                   results={results}
                   onSelect={(item) => console.log("Selected:", item)}
                   onShare={onShare}
+                  onTrash={onTrash}
                 />
               </View>
             </>

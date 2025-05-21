@@ -11,7 +11,6 @@ const rawStyles = {
     alignItems: "center",
     backgroundColor: "transparent",
   },
-
   scrollView: {
     position: "absolute",
     top: 0,
@@ -20,17 +19,12 @@ const rawStyles = {
     right: 0,
     zIndex: 1,
   },
-    divider: {
-  height: 1,
-  backgroundColor: 'rgba(255, 255, 255, 0.15)', // soft white line, adjust for dark background
-  marginTop: 20,
-  marginHorizontal: 16,
-  borderRadius: 0.5,
-},
-  scrollContent: {
-   // paddingTop: 50, // this matches the height of your title/logo area
-    // paddingHorizontal: 20,
-   // paddingBottom: 250,
+  divider: {
+    height: 1,
+    backgroundColor: "rgba(255, 255, 255, 0.15)", // soft white line, adjust for dark background
+    marginTop: 20,
+    marginHorizontal: 16,
+    borderRadius: 0.5,
   },
 };
 

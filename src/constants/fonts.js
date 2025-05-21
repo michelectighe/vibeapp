@@ -1,5 +1,6 @@
 export const Fonts = {
-  title: "PlayfairDisplay-Bold",
+  //title: "PlayfairDisplay-Bold",
+  title: "Poppins Bold",
   body: "Poppins Regular",
   bold: "Poppins Bold",
   italic: "PlayfairDisplay-Italic",

@@ -84,7 +84,19 @@ export const AnalysisProvider = ({ children }) => {
       crown: -1,
     });
   };
+  const setResult = (result) => {
+    if (!result) return;
+        setVoiceFrequency(result.voiceFrequencyScore);
+        setHeartRate(result.heartRate);
+        setMotion(result.motion);
+        setEmotions(result.emotionScore);
+        setVoiceClarity(result.voiceClarityScore);
+        setVoiceStrength(result.VoiceStrengthScore);
+        setEnvironmentScore(result.environmentScore);
+        setChakraScores(result.chakraScores);
+    
 
+  };
   const emotionScore = useMemo(() => {
   //c  if (emotion == null) return null;
     return evaluateEmotionalState(emotion);

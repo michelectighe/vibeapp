@@ -6,7 +6,7 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 const rawStyles = {
   titleWrapper: {
     position: "absolute",
-    top: 70,
+    top: 75,
     width: SCREEN_WIDTH,
     alignItems: "center",
     backgroundColor: "transparent",
@@ -18,14 +18,15 @@ const rawStyles = {
     left: 0,
     right: 0,
     textAlign: "center",
-    fontSize: 24,
-    fontFamily: Fonts.body,
+    fontSize: 28,
+    color: Colors.white,
+    fontFamily: Fonts.title,
   },
   prompt: {
     fontSize: 20,
     textAlign: "center",
     marginTop: 50,
-    marginVertical: 20,
+    // marginVertical: 20,
     width: "80%",
   },
   inputContainer: {
@@ -37,12 +38,14 @@ const rawStyles = {
     backgroundColor: Colors.textLight,
     borderRadius: 16,
     padding: 16,
+    // margin: 16,
     fontSize: 16,
     color: Colors.textDark,
     fontFamily: Fonts.journal,
-    minHeight: 200,
+    minHeight: SCREEN_HEIGHT * 0.4,
     textAlignVertical: "top",
     marginBottom: 20,
+    overflow: "hidden",
   },
   // saveButton: {
   //   padding: 14,
@@ -51,11 +54,19 @@ const rawStyles = {
   //   alignItems: "center",
   // },
   bottomText: {
-    position: "absolute",
-    bottom: 0,
+    marginTop: 10,
     justifyContent: "center",
   },
-
+  bottomNote: {
+    fontFamily: Fonts.body,
+    fontSize: 16,
+    textAlign: "center",
+  },
+  savedMessage: {
+    fontFamily: Fonts.body,
+    fontSize: 18,
+    textAlign: "center",
+  },
 };
 
 export const styles = StyleSheet.create(scaledStyle(rawStyles));

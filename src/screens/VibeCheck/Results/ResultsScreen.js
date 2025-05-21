@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { View, TouchableOpacity, Text, ActivityIndicator } from "react-native";
+import uuid from "react-native-uuid";
 import { getAuth } from "firebase/auth";
 import FastImage from "react-native-fast-image";
 import { saveResults } from "@utils/saveResults";
@@ -8,23 +9,44 @@ import { CustomButton, CloseX, GradientBackground, SectionLayout } from "@compon
 import { Colors } from "@constants";
 import { styles } from "./ResultsScreen.styles";
 import { globalStyles } from "@styles";
+import { useRoute } from "@react-navigation/native";
 //import HapticTest from "@/components/HapticTest";
 
 Text.defaultProps = Text.defaultProps || {};
 Text.defaultProps.allowFontScaling = false;
 
 export const ResultsScreen = ({ navigation }) => {
+  const route = useRoute();
+  const { resultID } = route.params || {};
   const auth = getAuth();
   const user = auth.currentUser;
   const [overallLabel, setLabel] = useState(null);
   const [overallDescription, setDescription] = useState(null);
   const [overallImage, setImage] = useState(null);
   const [overallColor, setColor] = useState(null);
+  const [overallColor2, setColor2] = useState(null);
+  const [overallColor3, setColor3] = useState(null);
+  const [overallColor4, setColor4] = useState(null);
   const [saving, setSaving] = useState(false);
   const [dataReady, setDataReady] = useState(false);
 
   const hasSaved = useRef(false);
   const infoImage = require("@assets/images/info.webp");
+
+  useEffect(() => {
+    const loadResult = async () => {
+      console.log("resultID:", resultID);
+      if (resultID && user.uid) {
+        const existing = await getResultById(user.uid, resultID);
+        if (existing) {
+          resetAnalysis();
+          setResult(existing);
+        }
+      }
+    };
+
+    loadResult();
+  }, [user.uid, resultID]);
 
   const {
     voiceFrequencyScore,
@@ -32,12 +54,13 @@ export const ResultsScreen = ({ navigation }) => {
     voiceStrengthScore,
     environmentScore,
     motionScore,
-    heartRateScore,
-    hrvScore,
     emotionScore,
     overallVibrationScore,
     chakraScores,
     vibrationInfo,
+    heartRate,
+    setResult,
+    resetAnalysis,
   } = useAnalysis();
 
   useEffect(() => {
@@ -56,9 +79,15 @@ export const ResultsScreen = ({ navigation }) => {
         setLabel(result.label);
         setDescription(result.description);
         setColor(result.color);
+        setColor2(result.color2);
+        setColor3(result.color3);
+        setColor4(result.color4);
         setImage(result.image);
         hasSaved.current = true;
         setDataReady(true);
+        console.log("color1:", result.color);
+        console.log("color2:", result.color2);
+        console.log("color3:", result.color3);
       } catch (e) {
         console.warn("fetchData error:", e);
       }
@@ -71,24 +100,25 @@ export const ResultsScreen = ({ navigation }) => {
 
   const saveResultsToDB = async () => {
     setSaving(true);
-
+    const newResultId = uuid.v4();
+    const newTimeStamp = new Date().toISOString();
     const newResult = {
-      timestamp: new Date(),
+      resultID: newResultId,
+      timestamp: newTimeStamp,
       userID: user.uid,
-      voiceFrequencyScore: voiceFrequencyScore?.score,
-      heartRateScore: heartRateScore,
-      hrvScore: hrvScore,
+      voiceFrequencyScore: voiceFrequencyScore,
+      heartRateScore: heartRate,
       motionScore: motionScore,
       environmentScore: environmentScore,
-      voiceStrengthScore: voiceStrengthScore?.score,
-      voiceClarityScore: voiceClarityScore?.score,
-      emotionScore: emotionScore?.score,
+      voiceStrengthScore: voiceStrengthScore,
+      voiceClarityScore: voiceClarityScore,
+      emotionScore: emotionScore,
       overallVibrationScore: overallVibrationScore, // optional, could skip check if you trust it
       chakraScores: chakraScores || {},
     };
 
-    if (newResult) {
-      //console.log("Saving to local DB:", newResult);
+    if (newResult.resultID && newResult.timestamp) {
+      console.log("Saving to local DB:", newResult);
       await saveResults(newResult);
     }
     setSaving(false);
@@ -106,16 +136,16 @@ export const ResultsScreen = ({ navigation }) => {
   }
 
   return (
-    <GradientBackground colors={[Colors.white, overallColor, Colors.white]}>
+    <GradientBackground colors={[overallColor, overallColor2, overallColor3]}>
       <SectionLayout
         topFlex={2}
-        middleFlex={4}
+        middleFlex={5}
         bottomFlex={1}
         safe={false}
         topContent={
           <>
             <CloseX
-              xColor={overallColor}
+              xColor={overallColor4}
               onPress={() =>
                 navigation.reset({
                   index: 0,
@@ -124,10 +154,14 @@ export const ResultsScreen = ({ navigation }) => {
               }
             />
             <View style={styles.titleWrapper}>
-              <Text style={[styles.score, { color: overallColor }]}>
+              <Text style={[styles.score, { color: overallColor4 }]}>
                 {overallVibrationScore.toFixed(0)}%
               </Text>
-              <Text style={[styles.label, { textShadowColor: overallColor }]}>{overallLabel}</Text>
+              <Text
+                style={[styles.label, { color: overallColor4, textShadowColor: overallColor4 }]}
+              >
+                {overallLabel}
+              </Text>
             </View>
           </>
         }
@@ -138,12 +172,14 @@ export const ResultsScreen = ({ navigation }) => {
               onPress={() => navigation.navigate("ResultDetails")}
             />
             <View style={[styles.descriptionBox, { backgroundColor: overallColor }]}>
-              <Text style={styles.descriptionText}>{overallDescription}</Text>
+              <Text style={[styles.descriptionText, { color: overallColor4 }]}>
+                {overallDescription}
+              </Text>
               <TouchableOpacity
                 onPress={() => navigation.navigate("ResultsBreakdown")}
                 style={styles.infoButton}
               >
-                <FastImage source={infoImage} style={styles.infoImage} resizeMode="contain" />
+                <Text style={[styles.infoIcon, { color: overallColor4 }]}>ⓘ</Text>
               </TouchableOpacity>
             </View>
           </View>

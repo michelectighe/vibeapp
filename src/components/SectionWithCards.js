@@ -39,7 +39,12 @@ export const SectionWithCards = ({ title, cards, isCompact = false, isScrollable
                   textColor={card.textColor || Colors.white}
                   onPress={() => {
                     if (card.screen) {
-                      navigation.navigate(card.screen.name, card.screen.params);
+                      const screenParams = {
+                        ...card.screen.params,
+                        ...(card.resultID ? { resultID: card.resultID } : {}),
+                      };
+
+                      navigation.navigate(card.screen.name, screenParams);
                     } else if (card.onPress) {
                       card.onPress();
                     }
@@ -54,8 +59,6 @@ export const SectionWithCards = ({ title, cards, isCompact = false, isScrollable
       ) : (
         <View style={{ paddingHorizontal: SIDE_PADDING }}>
           {cards.map((card, index) => {
-            console.log("card:", card.title);
-            console.log("is bgColor:", card.bgColor);
             return (
               <View
                 key={card.id || index}

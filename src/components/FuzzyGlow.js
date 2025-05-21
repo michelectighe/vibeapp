@@ -38,7 +38,11 @@ export const FuzzyGlow = ({ glowSize, glowColor, pulse = true, externalScale }) 
         height: BASE_GLOW_CONTAINER_SIZE,
         justifyContent: "center",
         alignItems: "center",
-        transform: [{ scale: glowSize / BASE_GLOW_CONTAINER_SIZE }],
+        transform: [
+          {
+            scale: Animated.multiply(scaleToUse, glowSize / BASE_GLOW_CONTAINER_SIZE),
+          },
+        ],
       }}
     >
       <Svg height="100%" width="100%">

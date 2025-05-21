@@ -3,12 +3,12 @@ import React from "react";
 import { View, Text, FlatList, StyleSheet, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { vibrationLevels } from "@data";
-import { Fonts } from "@constants";
+import { Fonts, Colors } from "@constants";
 import { hexToRgba } from "@utils";
-import { GradientBackground } from "@/components/GradientBackground";
-import { Colors } from "@/constants";
+import { scaledStyle } from "@utils";
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 
-export const ResultSelector = ({ results, onSelect, onShare }) => {
+export const ResultSelector = ({ results, onSelect, onShare, onTrash }) => {
   const formatDate = (timestamp) => {
     if (!timestamp?.toDate) return "";
     return timestamp.toDate().toLocaleDateString("en-US", {
@@ -27,27 +27,34 @@ export const ResultSelector = ({ results, onSelect, onShare }) => {
 
   const renderItem = ({ item }) => {
     const level = getVibrationLevel(item.overallVibrationScore);
-    const levelColor = hexToRgba(level.color, 0.7);
+    const levelColor = hexToRgba(level.color3, 0.7);
     return (
       <View style={styles.outsideGradient}>
-        <GradientBackground colors={[Colors.white,levelColor, Colors.white]} logo={false}>
-          <TouchableOpacity style={[styles.card]} onPress={() => onSelect(item)}>
-            <View style={[styles.card]}>
-              <View style={styles.cardTop}>
-                <Text style={styles.label}>{level.label}</Text>
-                <Ionicons
-                  name="share-outline"
-                  size={20}
-                  color={Colors.white}
-                  onPress={() => onShare(item)}
-                  style={styles.shareIcon}
-                />
-              </View>
-              <Text style={styles.score}>{item.overallVibrationScore.toFixed(0)}</Text>
-              <Text style={styles.date}>{formatDate(item.timestamp)}</Text>
-            </View>
-          </TouchableOpacity>
-        </GradientBackground>
+        <TouchableOpacity style={[styles.card]} onPress={() => onSelect(item)}>
+          {/* <View style={[styles.card]}> */}
+          <View style={styles.cardTop}>
+            <Text style={[styles.label, { color: level.color3 }]}>{level.label}</Text>
+            <Ionicons
+              name="share-outline"
+              size={20}
+              color={level.color3}
+              onPress={() => onShare(item)}
+              style={styles.icon}
+            />
+          </View>
+          <Text style={[styles.score, { color: level.color3 }]}>
+            {item.overallVibrationScore.toFixed(0)}
+          </Text>
+          <Ionicons
+            name="trash-outline"
+            size={20}
+            color={level.color3}
+            onPress={() => onTrash(item)}
+            style={styles.icon}
+          />
+          <Text style={[styles.date, { color: level.color3 }]}>{formatDate(item.timestamp)}</Text>
+          {/* </View> */}
+        </TouchableOpacity>
       </View>
     );
   };
@@ -62,17 +69,7 @@ export const ResultSelector = ({ results, onSelect, onShare }) => {
     />
   );
 };
-
-// scrollView: {
-//   position: "absolute",
-//   top: 0,
-//   bottom: 0,
-//   left: 0,
-//   right: 0,
-//   zIndex: 1,
-// },
-
-const styles = StyleSheet.create({
+const rawStyles = {
   scrollContent: {
     paddingTop: 150, // this matches the height of your title/logo area
     paddingHorizontal: 20,
@@ -82,6 +79,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     marginTop: 20,
     overflow: "hidden",
+    backgroundColor: Colors.surface,
   },
   card: {
     padding: 16,
@@ -101,9 +99,8 @@ const styles = StyleSheet.create({
     marginBottom: 0,
   },
   label: {
-    fontSize: 16,
-    fontFamily: Fonts.Bold,
-    color: Colors.white,
+    fontSize: 20,
+    fontFamily: Fonts.body,
   },
   score: {
     fontSize: 36,
@@ -117,7 +114,8 @@ const styles = StyleSheet.create({
     color: Colors.veryDarkGray,
     alignSelf: "center",
   },
-  shareIcon: {
+  icon: {
     padding: 6,
   },
-});
+};
+export const styles = StyleSheet.create(scaledStyle(rawStyles));

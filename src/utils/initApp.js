@@ -1,4 +1,4 @@
-import { initializeDatabase, dropTable } from "@database";
+import { initializeDatabase, dropTable, truncateResults } from "@database";
 import { auth } from "@config/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 // visionCameraPlugins.js
@@ -8,6 +8,8 @@ import { FaceDetector } from "react-native-vision-camera-face-detector";
 export const initApp = async () => {
   try {
     initializeDatabase();
+    //dropTable();
+    // truncateResults();
     // Register plugin with the Vision Camera plugin system
     //registerPlugin('detectFaces', FaceDetector);
 
