@@ -49,3 +49,5 @@ export { TypewriterText } from "./TypewriterText";
 
 export { SectionWithCards } from "./SectionWithCards";
 export { HomeHeaderCard } from "./HomeHeaderCard";
+
+export { TabBarIcon } from "./TabBarIcon";

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
+import React, { useState, useEffect, useRef } from "react";
+import { TouchableOpacity, Animated, View, Text, StyleSheet } from "react-native";
 import FastImage from "react-native-fast-image";
 import { Colors, Fonts } from "@constants";
 import { scaledStyle } from "@utils";
@@ -13,7 +13,32 @@ export const Card = ({
   textColor,
   isCompact = false,
   isSquished = false,
+  bgColor = Colors.surface,
+  pulse = false,
 }) => {
+  const pulseAnim = useRef(new Animated.Value(1)).current;
+
+  useEffect(() => {
+    if (pulse) {
+      Animated.loop(
+        Animated.sequence([
+          Animated.timing(pulseAnim, {
+            toValue: 1.02,
+            duration: 1000,
+            useNativeDriver: true,
+          }),
+          Animated.timing(pulseAnim, {
+            toValue: 1,
+            duration: 1000,
+            useNativeDriver: true,
+          }),
+        ]),
+      ).start();
+    }
+  }, [pulse]);
+
+  const AnimatedWrapper = pulse ? Animated.View : View;
+
   return (
     <View>
       {image && (
@@ -23,29 +48,39 @@ export const Card = ({
           </Text>
         </View>
       )}
-      <TouchableOpacity onPress={onPress} style={styles.cardWrapper}>
-        <View
-          style={[styles.card, { height: isSquished ? SCREEN_HEIGHT * 0.1 : SCREEN_HEIGHT * 0.2 }]}
-        >
-          {image && (
-            <FastImage
-              style={[StyleSheet.absoluteFill, styles.image]}
-              source={image}
-              resizeMode={FastImage.resizeMode.cover}
-            />
-          )}
-          {!image && (
-            <View style={styles.noImage}>
-              <Text style={styles.titleNoImage}>{title}</Text>
-              <Text style={[styles.subTitleNoImage, { fontSize: isCompact ? 14 : 14 }]}>
-                {subtitle}
-              </Text>
-            </View>
-          )}
-        </View>
-      </TouchableOpacity>
+      <Animated.View style={pulse ? { transform: [{ scale: pulseAnim }] } : null}>
+        <TouchableOpacity onPress={onPress} style={styles.cardWrapper}>
+          <View
+            style={[
+              styles.card,
+              { height: isSquished ? SCREEN_HEIGHT * 0.1 : SCREEN_HEIGHT * 0.2 },
+            ]}
+          >
+            {image && (
+              <FastImage
+                style={[StyleSheet.absoluteFill, styles.image]}
+                source={image}
+                resizeMode={FastImage.resizeMode.cover}
+              />
+            )}
+            {!image && (
+              <View style={[styles.noImage, { backgroundColor: bgColor }]}>
+                <Text style={[styles.titleNoImage, { color: textColor }]}>{title}</Text>
+                <Text
+                  style={[
+                    styles.subTitleNoImage,
+                    { color: textColor, fontSize: isCompact ? 14 : 14 },
+                  ]}
+                >
+                  {subtitle}
+                </Text>
+              </View>
+            )}
+          </View>
+        </TouchableOpacity>
+      </Animated.View>
       {image && (
-        <Text style={[styles.subtitle, { color: textColor, fontSize: isCompact ? 14 : 14 }]}>
+        <Text style={[styles.subTitle, { color: textColor, fontSize: isCompact ? 14 : 14 }]}>
           {subtitle}
         </Text>
       )}
@@ -71,7 +106,7 @@ const rawStyles = {
   },
   noImage: {
     borderRadius: 20,
-    backgroundColor: Colors.surface,
+    opacity: 0.8,
     flex: 1,
     width: "100%",
     height: "100%",
@@ -113,18 +148,23 @@ const rawStyles = {
     marginBottom: 0,
     bottom: 0,
   },
+  subTitle: {
+    textAlign: "center",
+    fontWeight: "500",
+    fontFamily: Fonts.body,
+    marginTop: 5,
+  },
   titleNoImage: {
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: "700",
     fontFamily: Fonts.body,
     alignItems: "center",
     textAlign: "center",
-    marginLeft: 10,
     marginBottom: 5,
   },
   subTitleNoImage: {
-    color: Colors.textDark,
     fontFamily: Fonts.body,
+    fontWeight: "500",
     textAlign: "center",
   },
 };

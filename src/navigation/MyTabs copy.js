@@ -1,6 +1,6 @@
 // MyTabs.js
-import React, { useRef, useEffect } from "react";
-import { View, StyleSheet, Animated } from "react-native";
+import React from "react";
+import { View } from "react-native";
 import { BlurView } from "@react-native-community/blur";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { CardStyleInterpolators } from "@react-navigation/stack";
@@ -13,58 +13,33 @@ import { ToolsStack } from "./ToolsStack";
 import { Ionicons } from "@expo/vector-icons";
 import LinearGradient from "react-native-linear-gradient";
 import { VibeKeyHome } from "@screens";
-import { ProfileAvatar, TabBarIcon } from "@components";
+import { ProfileAvatar } from "@components";
 import { Colors } from "@constants";
 import { StackActions } from "@react-navigation/native";
 
 const Tab = createBottomTabNavigator();
 
 export const MyTabs = () => {
-  const scaleAnim = useRef(new Animated.Value(1)).current;
-
-
   return (
     <Tab.Navigator
       initialRouteName="Home"
       screenOptions={({ route }) => ({
         unmountOnBlur: true,
         headerShown: false,
-        tabBarBackground: () => (
-          <View
-            style={{
-              flex: 1,
-              overflow: "hidden",
-              borderTopLeftRadius: 24,
-              borderTopRightRadius: 24,
-            }}
-          >
-            <BlurView
-              style={{ flex: 1 }}
-              blurType="light"
-              blurAmount={30}
-              reducedTransparencyFallbackColor="rgba(40, 60, 50, 0.6)"
-            />
-            <LinearGradient
-              colors={["rgba(255,255,255,0.05)", "rgba(255,255,255,0.15)"]}
-              style={{ ...StyleSheet.absoluteFillObject }}
-            />
-          </View>
-        ),
-        tabBarStyle: {
-          position: "absolute",
-          left: 16,
-          right: 16,
-          bottom: 0,
-          height: 70,
-          borderRadius: 24,
-          borderTopWidth: 0,
-          backgroundColor: "transparent",
-          elevation: 10, // Android shadow
-          shadowColor: "#000",
-          shadowOpacity: 0.1,
-          shadowRadius: 8,
-        },
-
+tabBarBackground: () => (
+  <BlurView
+    style={{ flex: 1 }}
+    blurType="light"
+    blurAmount={15}
+    reducedTransparencyFallbackColor="rgba(40, 60, 50, 0.6)"
+  />
+),
+tabBarStyle: {
+  backgroundColor: "rgba(255,255,255,0.1)", // very subtle fallback
+  position: "absolute", // allows it to float over content
+  borderTopWidth: 0,
+  elevation: 0,
+},
         tabBarIconStyle: {
           marginTop: 2, // pushes icon up
           //   marginBottom: 5,
@@ -106,9 +81,7 @@ export const MyTabs = () => {
                 //   marginTop: 10,
               }}
             >
-
-                <TabBarIcon name={iconName} size={size} color={color} focused={focused} />
-   
+              <Ionicons name={iconName} size={size} color={color} />
             </View>
           );
         },
@@ -136,7 +109,7 @@ export const MyTabs = () => {
               navigation.reset({
                 index: 0,
                 routes: [{ name: "VibeKeyHome" }],
-              });
+              })
               // navigation.navigate("Home", {
               //   screen: "VibeKeyHome", // change this to your actual root screen
               // });
@@ -164,14 +137,12 @@ export const MyTabs = () => {
               navigation.reset({
                 index: 0,
                 routes: [{ name: "VibeCheckScreen" }],
-              });
+              })
             }
           },
         })}
       />
-      <Tab.Screen
-        name="Scan"
-        component={MeditationStack}
+      <Tab.Screen name="Scan" component={MeditationStack}
         listeners={({ navigation, route }) => ({
           tabPress: (e) => {
             const isFocused = navigation.isFocused();
@@ -181,15 +152,12 @@ export const MyTabs = () => {
               navigation.reset({
                 index: 0,
                 routes: [{ name: "Scan" }],
-              });
+              })
             }
           },
         })}
       />
-      <Tab.Screen
-        name="VibeMatch"
-        component={VibeMatchStack}
-        options={{ tabBarLabel: "Match" }}
+      <Tab.Screen name="VibeMatch" component={VibeMatchStack} options={{ tabBarLabel: "Match" }}
         listeners={({ navigation, route }) => ({
           tabPress: (e) => {
             const isFocused = navigation.isFocused();
@@ -203,10 +171,8 @@ export const MyTabs = () => {
           },
         })}
       />
-      <Tab.Screen
-        name="InnerWork"
-        component={ToolsStack}
-        options={{
+      <Tab.Screen name="InnerWork" component={ToolsStack}         
+      options={{
           tabBarItemStyle: { display: "none" },
           tabBarButton: () => null, // Hides button
           //   tabBarStyle: { display: "none" }, // Only use this if you want to hide the bar entirely
@@ -224,10 +190,7 @@ export const MyTabs = () => {
           },
         })}
       />
-      <Tab.Screen
-        name="Settings"
-        component={SettingsStack}
-        options={{ tabBarLabel: () => null }}
+      <Tab.Screen name="Settings" component={SettingsStack} options={{ tabBarLabel: () => null }}
         listeners={({ navigation, route }) => ({
           tabPress: (e) => {
             const isFocused = navigation.isFocused();

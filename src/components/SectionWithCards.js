@@ -55,7 +55,7 @@ export const SectionWithCards = ({ title, cards, isCompact = false, isScrollable
         <View style={{ paddingHorizontal: SIDE_PADDING }}>
           {cards.map((card, index) => {
             console.log("card:", card.title);
-            console.log("is squished:", card.isSquished);
+            console.log("is bgColor:", card.bgColor);
             return (
               <View
                 key={card.id || index}
@@ -68,7 +68,7 @@ export const SectionWithCards = ({ title, cards, isCompact = false, isScrollable
                   title={card.title}
                   subtitle={card.subtitle}
                   image={card.image}
-                  textColor={card.textColor || Colors.white}
+                  textColor={card.textColor || Colors.textLight}
                   onPress={() => {
                     if (card.screen) {
                       navigation.navigate(card.screen.name, card.screen.params);
@@ -78,6 +78,8 @@ export const SectionWithCards = ({ title, cards, isCompact = false, isScrollable
                   }}
                   isCompact={isCompact}
                   isSquished={card.isSquished}
+                  bgColor={card.bgColor || Colors.surface}
+                  pulse={card.pulse}
                 />
               </View>
             );
