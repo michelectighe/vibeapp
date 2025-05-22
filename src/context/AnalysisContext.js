@@ -86,19 +86,31 @@ export const AnalysisProvider = ({ children }) => {
   };
   const setResult = (result) => {
     if (!result) return;
-        setVoiceFrequency(result.voiceFrequencyScore);
-        setHeartRate(result.heartRate);
-        setMotion(result.motion);
-        setEmotions(result.emotionScore);
-        setVoiceClarity(result.voiceClarityScore);
-        setVoiceStrength(result.VoiceStrengthScore);
-        setEnvironmentScore(result.environmentScore);
-        setChakraScores(result.chakraScores);
-    
-
+    try {
+      const cleanResult = {
+        ...result,
+        emotionalScore: JSON.parse(result.emotionalScore),
+        heartRateScore: JSON.parse(result.heartRateScore),
+        voiceClarityScore: JSON.parse(result.voiceClarityScore),
+        voiceFrequencyScore: JSON.parse(result.voiceFrequencyScore),
+        voiceStrengthScore: JSON.parse(result.voiceStrengthScore),
+        motionScore: JSON.parse(result.motionScore),
+        environmentScore: JSON.parse(result.environmentScore),
+      };
+      setEmotions(cleanResult.emotionalScore.value);
+      setHeartRate(cleanResult.heartRateScore);
+      setVoiceClarity(cleanResult.voiceClarityScore.raw); // need to use the score for this one because value is not raw
+      setVoiceFrequency(cleanResult.voiceFrequencyScore.value);
+      setVoiceStrength(cleanResult.voiceStrengthScore.value);
+      setMotion(cleanResult.motionScore.score);
+      setEnvironmentScore(cleanResult.environmentScore); // this contains only one value
+      setChakraScores(cleanResult.chakraScores);
+    } catch (error) {
+      console.error("error setting old data:", error);
+    }
   };
   const emotionScore = useMemo(() => {
-  //c  if (emotion == null) return null;
+    //c  if (emotion == null) return null;
     return evaluateEmotionalState(emotion);
   }, [emotion]);
 
@@ -113,6 +125,7 @@ export const AnalysisProvider = ({ children }) => {
   }, [voiceClarity]);
 
   const voiceFrequencyScore = useMemo(() => {
+    console.log("got new voiceFrequency:", voiceFrequency);
     if (voiceFrequency == null) return null;
     return evaluateVoiceFrequency(voiceFrequency);
   }, [voiceFrequency]);
@@ -144,7 +157,7 @@ export const AnalysisProvider = ({ children }) => {
     if (environment !== null) {
       // ////console.log("final environmentScore:", environmentEval.overall.score);
       setEnvironmentScore(environment);
-    //console.log("ENVIRONMENT SCORE SET:", environment)
+      //console.log("ENVIRONMENT SCORE SET:", environment)
     }
   }, [environment]);
 
@@ -176,7 +189,7 @@ export const AnalysisProvider = ({ children }) => {
       { label: "voiceClarityScore", score: voiceClarityScore?.score, weight: 0.1 },
       { label: "voiceStrengthScore", score: voiceStrengthScore?.score, weight: 0.1 },
       { label: "environmentScore", score: environmentScore, weight: 0.15 },
-      { label: "motionScore", score: motionScore, weight: 0.05 },
+      { label: "motionScore", score: motionScore?.score, weight: 0.05 },
       { label: "heartRateScore", score: heartRateScore, weight: 0.2 },
       { label: "hrvScore", score: hrvScore, weight: 0.1 },
       { label: "emotionScore", score: emotionScore?.score, weight: 0.2 },
@@ -259,7 +272,7 @@ export const AnalysisProvider = ({ children }) => {
       voiceFrequencyScore
     )
       //console.log("updating chakra scores");
-    updateChakraScores();
+      updateChakraScores();
     setAuraColor(getAuraColor()); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     overallVibrationScore,
@@ -289,9 +302,9 @@ export const AnalysisProvider = ({ children }) => {
       const valid = [a, b].filter((v) => typeof v === "number" && !isNaN(v));
       if (valid.length === 0) return 0;
       const notZero = Math.round(valid.reduce((sum, val) => sum + val, 0) / valid.length);
-      if (notZero >= 0) { return notZero }
-      else
-        return 0;
+      if (notZero >= 0) {
+        return notZero;
+      } else return 0;
     };
 
     setChakraScores({
@@ -378,6 +391,7 @@ export const AnalysisProvider = ({ children }) => {
         rawHRV,
         rawBPM,
         resetAnalysis,
+        setResult,
       }}
     >
       {children}

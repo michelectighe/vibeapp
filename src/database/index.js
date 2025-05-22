@@ -6,6 +6,7 @@ export {
   getLatestResults,
   truncateResults,
   deleteResult,
+  getResultByID,
 } from "./dbVibeCheck";
 export { saveVibeMatch, getVibeMatchResults, deleteVibeMatchResult } from "./dbVibeMatch";
 

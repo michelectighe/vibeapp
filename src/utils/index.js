@@ -14,14 +14,16 @@ export { cleanupMedia } from "./cleanupMedia";
 export { compareResults } from "./compareResults";
 export { debounceLabel } from "./debounceLabel";
 export { SCREEN_WIDTH, SCREEN_HEIGHT } from "./dimensions";
-export { evaluateEnvironment } from "./evaluateEnvironment";
+
 export {
   evaluateVoiceFrequency,
   evaluateVoiceClarity,
   evaluateVoiceStrength,
   evaluateEmotionalState,
+  evaluateMotion,
+  evaluateEnvironment,
 } from "./evaluateMetrics";
-export { evaluateMotion } from "./evaluateMotion";
+
 export { getFriendlyError } from "./friendlyErrors";
 export { generateShortId } from "./generateShortId";
 export {

@@ -18,7 +18,7 @@ export const initializeDatabase = async () => {
         timestamp TEXT,
         voiceFrequencyScore TEXT, 
         heartRateScore TEXT,
-        motionScore REAL, 
+        motionScore TEXT, 
         overallVibrationScore REAL, 
         chakraScores TEXT,
         environmentScore TEXT,

@@ -26,17 +26,17 @@ export const saveResult = async (result) => {
         result.timestamp,
         JSON.stringify(result.voiceFrequencyScore),
         JSON.stringify(result.heartRateScore),
-        result.motionScore ?? 0,
+        JSON.stringify(result.motionScore),
         result.overallVibrationScore ?? 0,
         JSON.stringify(result.chakraScores), // ✅ Store as JSON string
-        result.environmentScore,
+        JSON.stringify(result.environmentScore),
         JSON.stringify(result.voiceStrengthScore),
         JSON.stringify(result.voiceClarityScore),
         JSON.stringify(result.emotionScore),
       ],
     );
-    const allResults = await db.getAllAsync(`SELECT * FROM results`);
-    console.log("✅ All saved results:", JSON.stringify(allResults, null, 2));
+    //   const allResults = await db.getAllAsync(`SELECT * FROM results`);
+    //   console.log("✅ All saved results:", JSON.stringify(allResults, null, 2));
   } catch (error) {
     console.error("🔥 SQL Error Saving Result:", error);
   }

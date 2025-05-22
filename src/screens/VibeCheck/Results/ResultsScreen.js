@@ -10,6 +10,7 @@ import { Colors } from "@constants";
 import { styles } from "./ResultsScreen.styles";
 import { globalStyles } from "@styles";
 import { useRoute, useFocusEffect } from "@react-navigation/native";
+import { getResultByID } from "@database";
 //import HapticTest from "@/components/HapticTest";
 
 Text.defaultProps = Text.defaultProps || {};
@@ -29,37 +30,10 @@ export const ResultsScreen = ({ navigation }) => {
   const [overallColor4, setColor4] = useState(null);
   const [saving, setSaving] = useState(false);
   const [dataReady, setDataReady] = useState(false);
+  const [oldResults, setOldResults] = useState(false);
 
-  const hasSaved = useRef(false);
+  const oldResultsRef = useRef(false);
   const infoImage = require("@assets/images/info.webp");
-
-
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     return () => {
-  //       navigation.reset({
-  //         index: 0,
-  //         routes: [{ name: "Tabs", screen: "Home" }],
-  //       });
-  //     };
-  //   }, []),
-  // );
-
-  useEffect(() => {
-    console.log("resultID:", resultID);
-    const loadResult = async () => {
-      console.log("resultID:", resultID);
-      if (resultID && user.uid) {
-        const existing = await getResultById(user.uid, resultID);
-        if (existing) {
-          resetAnalysis();
-          setResult(existing);
-        }
-      }
-    };
-
-    loadResult();
-  }, [user.uid, resultID]);
 
   const {
     voiceFrequencyScore,
@@ -77,7 +51,26 @@ export const ResultsScreen = ({ navigation }) => {
   } = useAnalysis();
 
   useEffect(() => {
-    if (overallVibrationScore == null || chakraScores == null || hasSaved.current) return;
+    try {
+      //if the user is logged in and a result ID was passed in, get the data and set it
+      if (user.uid && resultID && resultID !== null && !oldResultsRef.current) {
+        oldResultsRef.current = true;
+        const loadResult = async () => {
+          const existing = await getResultByID(user.uid, resultID);
+             console.log("EXISTING:");
+          if (existing) {
+            await resetAnalysis();
+            await setResult(existing);
+          }
+        };
+        loadResult();
+      }
+    } catch (error) {
+      console.error("Error loading old results:", error);
+    }
+    // if the data is valid, continue
+    if (overallVibrationScore === null || chakraScores === null || overallVibrationScore === 0)
+      return;
 
     let isMounted = true;
 
@@ -86,9 +79,6 @@ export const ResultsScreen = ({ navigation }) => {
         const result = vibrationInfo;
         if (!result) return;
 
-        //    await saveResultsToDB();
-        if (!isMounted) return;
-
         setLabel(result.label);
         setDescription(result.description);
         setColor(result.color);
@@ -96,8 +86,13 @@ export const ResultsScreen = ({ navigation }) => {
         setColor3(result.color3);
         setColor4(result.color4);
         setImage(result.image);
-        hasSaved.current = true;
         setDataReady(true);
+        //save to db if the data is new
+        if (!oldResultsRef.current) {
+          await saveResultsToDB();
+          console.log("try to save because NOT old score?????");
+          oldResultsRef.current = true; // set to make sure it doesn't try to save again
+        }
       } catch (e) {
         console.warn("fetchData error:", e);
       }
@@ -106,7 +101,7 @@ export const ResultsScreen = ({ navigation }) => {
     return () => {
       isMounted = false;
     };
-  }, [overallVibrationScore, chakraScores]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [overallVibrationScore, vibrationInfo, chakraScores, user.uid, resultID]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const saveResultsToDB = async () => {
     setSaving(true);
