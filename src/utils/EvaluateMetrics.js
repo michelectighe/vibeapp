@@ -267,7 +267,7 @@ export function evaluateEnvironment({ soundLevelDb, magnetometerValue, percentGo
       label: soundLabel,
     },
     magnetometer: {
-      value: magnetometerScore,
+      value: magnetometerValue,
       score: Math.round(magnetometerScore),
       label: magnetometerLabel,
     },

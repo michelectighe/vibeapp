@@ -4,14 +4,7 @@ import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/fire
 import { getAuth } from "firebase/auth";
 import { useNavigation } from "@react-navigation/native";
 import { useAnalysis } from "@context";
-import {
-  GradientBackground,
-  MeditationCard,
-  FrequencyCard,
-  BreathingCard,
-  SectionLayout,
-  CloseX,
-} from "@components";
+import { GradientBackground, CardTools, SectionLayout, CloseX } from "@components";
 
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./EnergyCleanseScreen.styles";
@@ -76,7 +69,7 @@ export const EnergyCleanseScreen = () => {
     }
   };
   const handleBreathingPress = (pattern, type) => {
-    console.log("breathingPress:", pattern);
+//console.log("breathingPress:", pattern);
     if (isPlayingRef.current) {
       stopTrack();
       isPlayingRef.current = false;
@@ -118,28 +111,40 @@ export const EnergyCleanseScreen = () => {
       <CloseX xColor={overallColor4} onPress={() => navigation.goBack()} />
       <SectionLayout
         topFlex={1}
-        middleFlex={6}
+        middleFlex={3}
         bottomFlex={1}
-        safe={false}
+        safe={true}
         topContent={
-          <View style={styles.titleWrapper}>
-            <Text style={[styles.title, { color: overallColor4 }]}>Energy Cleanse</Text>
-            <Text style={[styles.subTitle, { color: overallColor4 }]}>Recommendations</Text>
+          <View style={styles.headerContainer}>
+            <Text
+              style={[
+                styles.overallLabel,
+                { color: overallColor4, textShadowColor: overallColor3 },
+              ]}
+            >
+              Energy Cleanse
+            </Text>
           </View>
         }
         middleContent={
           <View style={styles.middle}>
             <Text style={[styles.sectionTitle, { color: overallColor4 }]}>Meditation</Text>
-            <MeditationCard
+            <CardTools
               item={meditation}
               onPress={() => handlePress(meditation, "meditation")}
+              bgColor={overallColor}
             />
             <Text style={[styles.sectionTitle, { color: overallColor4 }]}>Frequency</Text>
-            <FrequencyCard item={frequency} onPress={() => handlePress(frequency, "frequency")} />
+            <CardTools
+              item={frequency}
+              onPress={() => handlePress(frequency, "frequency")}
+              bgColor={overallColor}
+            />
             <Text style={[styles.sectionTitle, { color: overallColor4 }]}>Breathing</Text>
-            <BreathingCard
+            <CardTools
               item={breathing}
               onPress={() => handleBreathingPress(breathing, "breathing")}
+              bgColor={overallColor}
             />
           </View>
         }

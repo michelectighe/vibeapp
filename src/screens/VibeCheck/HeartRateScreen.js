@@ -15,12 +15,22 @@ function HeartRateScreenInner() {
   const { goToNextScreen } = useVibeCheckNavigation();
   const { setSound, setMagnitude, setMotion, setEnvironment } = useAnalysis();
   const { averageMotion, motionEval, stopMotionTracking } = useMotion();
-  const { environment, averageSound, averageMagnitude, averageEnvironment, stopEnvironmentTracking } = useEnvironment();
+  const {
+    environment,
+    vibeList,
+    averageSound,
+    averageMagnitude,
+    averageEnvironment,
+    stopEnvironmentTracking,
+  } = useEnvironment();
   const buttonOpacity = useRef(new Animated.Value(1)).current;
   const [stable, setStablized] = useState(false);
   const [spaceLabel, setSpaceLabel] = useState("Neutral");
   const [magLabel, setMagLabel] = useState("");
+  const [magValue, setMagValue] = useState();
   const [soundLabel, setSoundLabel] = useState("");
+  const [soundValue, setSoundValue] = useState();
+  const [vibeListCat, setVibeListCat] = useState("");
   const [motionLabel, setMotionLabel] = useState("");
 
   const navigation = useNavigation();
@@ -36,7 +46,6 @@ function HeartRateScreenInner() {
     useCallback(() => {
       setStablized(false);
       return () => {
-        //     //console.log("leaving heartrate");
         stopMotionTracking();
         stopEnvironmentTracking();
       };
@@ -47,17 +56,11 @@ function HeartRateScreenInner() {
     useCallback(() => {
       const parent = navigation.getParent?.();
       parent?.setOptions({ tabBarStyle: { display: "none" } });
-      return () => {
-        //       //console.log("leaving secons focus effect");
-      };
+      return () => {};
     }, [navigation]),
   );
 
   useEffect(() => {
-    //console.log('USE EFFECT ENV:', averageEnvironment)
-    //console.log('averageSound:', averageSound);
-    //console.log('averageMotion:', averageMotion);
-    //console.log('averageMag:', averageMagnitude)
     if (stable && averageMagnitude && averageMotion && averageEnvironment) {
       setSound(averageSound);
       setMagnitude(averageMagnitude);
@@ -100,6 +103,10 @@ function HeartRateScreenInner() {
         timeoutRef: debounceMagTimeout,
         setter: setMagLabel,
       });
+
+      setVibeListCat(vibeList);
+      setSoundValue(environment.sound.value);
+      setMagValue(environment.magnetometer.value);
       setSpaceLabel(environment.overall.label);
     }
   }, [environment]);
@@ -107,19 +114,17 @@ function HeartRateScreenInner() {
   return (
     <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}>
       <SectionLayout
-        topFlex={1}
-        middleFlex={4}
-        bottomFlex={3}
-        topContent={<View />}
-        middleContent={
+        topFlex={2.5}
+        middleFlex={1}
+        bottomFlex={4}
+        topContent={
           <>
             {!stable && (
-          <View style={styles.cameraContainer}>
-            <HeartRateCamera onStableReading={handleStableReading} />
-          </View>
+              <View style={styles.cameraContainer}>
+                <HeartRateCamera onStableReading={handleStableReading} />
+              </View>
             )}
             {stable && (
-
               <Animated.View style={[styles.finishButtonWrapper, { opacity: buttonOpacity }]}>
                 <CustomSpiritualButton
                   label="Finish"
@@ -128,22 +133,43 @@ function HeartRateScreenInner() {
                   textColor={Colors.textDark}
                 />
               </Animated.View>
-
             )}
           </>
         }
         bottomContent={
+          vibeListCat && environment && (
           <View style={styles.infoContainer}>
             <Text style={styles.labelTitle}>What else is being measured?</Text>
-            <Text style={styles.label}>Backgroung Sound</Text>
-            <Text style={styles.labelResult}>{soundLabel}</Text>
-            <Text style={styles.label}>Surrounding Magnetic Field</Text>
-            <Text style={styles.labelResult}>{magLabel}</Text>
-            <Text style={styles.label}>Your Motion</Text>
-            <Text style={styles.labelResult}>{motionLabel}</Text>
-            <Text style={styles.label}>Overall location Vibration</Text>
-            <Text style={styles.labelResult}>{spaceLabel}</Text>
+
+            <View style={styles.columns}>
+              <View style={styles.column}>
+                <Text style={styles.label}>Background Sound</Text>
+                <Text style={styles.labelResult}>{soundLabel}</Text>
+                {[...vibeListCat]
+                  .sort((a, b) => b.score - a.score)
+                  .slice(0, 3)
+                  .map((item, index) => (
+                    <Text key={index} style={styles.labelResult}>
+                      {item.category}
+                    </Text>
+                  ))}
+                {/* <Text style={styles.labelResult}>{vibeList}</Text> */}
+              </View>
+              <View style={styles.column}>
+                <Text style={styles.label}>Magnetic Field</Text>
+                <Text style={styles.labelResult}>{magLabel}</Text>
+                <Text style={styles.labelResult}>{magValue.toFixed(1)} µT</Text>
+         
+              </View>
+            </View>
+
+            <Text style={[styles.label, { textAlign: "center" }]}>Your Motion</Text>
+            <Text style={[styles.labelResult, { textAlign: "center" }]}>{motionLabel}</Text>
+
+            <Text style={[styles.label, { textAlign: "center" }]}>Location Vibe</Text>
+            <Text style={[styles.labelResult, { textAlign: "center" }]}>{spaceLabel}</Text>
           </View>
+          )
         }
       />
     </GradientBackground>
@@ -160,3 +186,4 @@ export const HeartRateScreen = () => {
     </EnvironmentProvider>
   );
 };
+

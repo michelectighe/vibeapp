@@ -21,7 +21,7 @@ const rawStyles = {
     color: Colors.textLight,
     fontFamily: Fonts.body,
     padding: 30,
-    fontSize: 18,
+    fontSize: 24,
   },
   buttonContainer: {
     position: "absolute",

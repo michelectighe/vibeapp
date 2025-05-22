@@ -9,7 +9,8 @@ import {
   UIManager,
 } from "react-native";
 import Icon from "react-native-vector-icons/Ionicons";
-import { Colors } from "@/constants";
+import { scaledStyle } from "@utils";
+import { Colors, Fonts } from "@/constants";
 
 if (Platform.OS === "android") {
   UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -37,9 +38,9 @@ export const ExpandableInfoItem = ({ icon, title, description }) => {
   );
 };
 
-const styles = StyleSheet.create({
+const rawStyles = {
   card: {
-    backgroundColor: Colors.veryLightGray,
+    backgroundColor: Colors.surface,
     borderRadius: 12,
     padding: 12,
     marginVertical: 6,
@@ -62,11 +63,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "600",
     color: Colors.veryDarkGray,
+    fontFamily: Fonts.body,
   },
   description: {
     marginTop: 10,
     color: Colors.darkGray,
     fontSize: 14,
     lineHeight: 20,
+    fontFamily: Fonts.body,
   },
-});
+};
+
+export const styles = StyleSheet.create(scaledStyle(rawStyles));

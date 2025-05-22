@@ -5,9 +5,12 @@ import { Ionicons } from "@expo/vector-icons";
 import { SCREEN_HEIGHT } from "@/utils";
 import { Colors } from "@/constants";
 
-export const MeditationCard = ({ item, onPress }) => {
+export const CardTools = ({ item, onPress, bgColor }) => {
   return (
-    <TouchableOpacity style={styles.card} onPress={() => onPress?.(item)}>
+    <TouchableOpacity
+      style={[styles.card, { backgroundColor: bgColor }]}
+      onPress={() => onPress?.(item)}
+    >
       <Ionicons name="leaf-outline" size={24} color={Colors.forestGreen} style={styles.icon} />
       <View>
         <Text style={styles.title}>{item.title}</Text>
@@ -18,7 +21,7 @@ export const MeditationCard = ({ item, onPress }) => {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: Colors.white,
+
     padding: 16,
     borderRadius: 12,
     marginVertical: 8,

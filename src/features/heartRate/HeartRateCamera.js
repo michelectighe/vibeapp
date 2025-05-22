@@ -322,15 +322,19 @@ export const HeartRateCamera = ({ onStableReading }) => {
 
 const rawStyles = {
   container: {
+    flex: 1,
     width: "100%",
     height: "100%", // Lock vertical space
     position: "relative",
     backgroundColor: "transparent",
+    alignItems: "center",
+    alignSelf: "center",
+    justifyContent: "center",
   },
 
   cameraWrapper: {
     position: "absolute",
-    top: 50,
+    top: 10,
     alignSelf: "center",
     width: 100,
     height: 100,
@@ -349,7 +353,7 @@ const rawStyles = {
 
   textCenterBlock: {
     position: "absolute",
-    top: 160, // Just below the camera
+    top: 120, // Just below the camera
     alignSelf: "center",
     alignItems: "center",
   },

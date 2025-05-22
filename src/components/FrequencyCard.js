@@ -5,9 +5,9 @@ import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "@/constants";
 import { SCREEN_HEIGHT } from "@/utils";
 
-export const FrequencyCard = ({ item, onPress }) => {
+export const FrequencyCard = ({ item, onPress, bgColor }) => {
   return (
-    <TouchableOpacity style={styles.card} onPress={() => onPress?.(item)}>
+    <TouchableOpacity style ={[styles.card, {backgroundColor: bgColor}]} onPress={() => onPress?.(item)}>
       <Ionicons name="musical-notes-outline" size={24} color={Colors.veryDarkGray} style={styles.icon} />
       <Text style={styles.title}>{item.hz}hz - </Text>
       <Text style={styles.title}>{item.description}</Text>
@@ -17,7 +17,7 @@ export const FrequencyCard = ({ item, onPress }) => {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: Colors.white,
+
     padding: 16,
     borderRadius: 12,
     marginVertical: 8,

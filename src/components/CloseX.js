@@ -1,5 +1,7 @@
-import { TouchableOpacity, Text } from "react-native";
+import { TouchableOpacity, StyleSheet, Text } from "react-native";
 import { Colors, Fonts } from "@constants";
+import { Ionicons } from "@expo/vector-icons";
+import { scaledStyle } from "@/utils";
 
 export const CloseX = ({ xColor = Colors.textLight, onPress }) => {
   return (
@@ -7,15 +9,21 @@ export const CloseX = ({ xColor = Colors.textLight, onPress }) => {
       onPress={onPress}
       style={{
         position: "absolute",
-        top: 60,
-        right: 30,
+        top: 70,
+        right: 25,
         zIndex: 100,
         padding: 0,
-        fontSize: 36,
+        fontSize: 48,
         fontFamily: Fonts.bold,
       }}
     >
-      <Text style={{ fontSize: 24, color: xColor }}>✕</Text>
+           <Ionicons name="close-circle-outline" size={36} color={xColor} style={styles.icon} />
+
     </TouchableOpacity>
   );
 };
+
+const rawStyles = {
+
+};
+export const styles = StyleSheet.create(scaledStyle(rawStyles));

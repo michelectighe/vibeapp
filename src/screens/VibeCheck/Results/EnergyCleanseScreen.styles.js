@@ -4,23 +4,17 @@ import { scaledStyle } from "@utils";
 import { SCREEN_WIDTH } from "@/utils";
 
 const rawStyles = {
-  titleWrapper: {
+  headerContainer: {
     position: "absolute",
-    top: 100,
-    width: SCREEN_WIDTH,
-    alignItems: "center",
-    backgroundColor: "transparent",
+    top: "10%",
+    marginTop: "10%",
   },
-  title: {
-    position: "absolute",
-    top: 0,
-    marginBottom: 0,
-    left: 0,
-    right: 0,
+  overallLabel: {
     textAlign: "center",
-    fontSize: 28,
     color: Colors.white,
-    fontFamily: Fonts.title,
+    textShadowRadius: 1,
+    textShadowOffset: { width: 1, height: 1 },
+    fontSize: 36,
   },
   subTitle: {
     position: "absolute",
@@ -35,11 +29,12 @@ const rawStyles = {
   middle: {},
   sectionTitle: {
     fontSize: 20,
-    fontWeight: "bold",
+  //  fontWeight: "bold",
     marginVertical: 8,
     textAlign: "center",
     marginBottom: 0,
     marginTop: 10,
+    fontFamily: Fonts.body,
   },
   closeButton: {
     position: "absolute",
@@ -52,7 +47,14 @@ const rawStyles = {
     fontSize: 24,
     color: Colors.white,
   },
-  success: { textAlign: "center", marginTop: 12, color: Colors.white, fontSize: 24, fontFamily: Fonts.title }
+  success: {
+    position: "absolute",
+    bottom: 70,
+    textAlign: "center",
+    marginTop: 15,
+    fontSize: 18,
+    fontFamily: Fonts.body,
+  },
 };
 
 export const styles = StyleSheet.create(scaledStyle(rawStyles));

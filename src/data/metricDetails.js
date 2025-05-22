@@ -29,10 +29,10 @@ export const metricDetails = [
     description:
       "Your face tells a story your words may not. Using facial recognition and micro-expression analysis, this feature detects subtle emotional signals—stress, joy, calm, or sadness—even before you're fully aware of them. It's like a mirror to your emotional truth, helping you recognize what you’re holding inside and giving tools to shift your emotional vibration intentionally.",
   },
-  {
-    name: "moon-outline",
-    label: "Sleep Quality",
-    description:
-      "Rest is a key pillar of vibrational well-being. This metric evaluates both quantity and quality of sleep. It looks at cycles of light and deep sleep, interruptions, and how refreshed you feel upon waking. Poor sleep can lower your frequency, while deep, uninterrupted sleep supports restoration and alignment. The analysis empowers you to identify patterns and make changes to improve rest.",
-  },
+  // {
+  //   name: "moon-outline",
+  //   label: "Sleep Quality",
+  //   description:
+  //     "Rest is a key pillar of vibrational well-being. This metric evaluates both quantity and quality of sleep. It looks at cycles of light and deep sleep, interruptions, and how refreshed you feel upon waking. Poor sleep can lower your frequency, while deep, uninterrupted sleep supports restoration and alignment. The analysis empowers you to identify patterns and make changes to improve rest.",
+  // },
 ];

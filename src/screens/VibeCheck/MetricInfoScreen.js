@@ -16,8 +16,8 @@ export const MetricInfoScreen = () => {
       colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}
       logo={false}
     >
-      <SafeAreaView style={styles.safeArea}>
-        <CloseX xColor={Colors.textDark} onPress={() => navigation.goBack()} />
+      {/* <SafeAreaView style={styles.safeArea}> */}
+        <CloseX xColor={Colors.textLight} onPress={() => navigation.goBack()} />
 
         <ScrollView
           style={styles.scrollView}
@@ -33,7 +33,7 @@ export const MetricInfoScreen = () => {
             />
           ))}
         </ScrollView>
-      </SafeAreaView>
+      {/* </SafeAreaView> */}
     </GradientBackground>
   );
 };

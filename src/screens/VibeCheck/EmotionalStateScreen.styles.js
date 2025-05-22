@@ -11,8 +11,8 @@ const rawStyles = {
     backgroundColor: "transparent",
   },
   cameraContainer: {
-    width: "60%",
-    aspectRatio: 3 / 4,
+    width: "80%",
+    aspectRatio: 4 / 4,
     borderRadius: 30,
     overflow: "hidden",
     backgroundColor: "transparent",

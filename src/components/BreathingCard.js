@@ -5,9 +5,9 @@ import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "@/constants";
 import { SCREEN_HEIGHT } from "@/utils";
 
-export const BreathingCard = ({ item, onPress }) => {
+export const BreathingCard = ({ item, onPress , bgColor}) => {
   return (
-    <TouchableOpacity style={styles.card} onPress={() => onPress?.(item)}>
+    <TouchableOpacity style={[styles.card, {backgroundColor: bgColor}]} onPress={() => onPress?.(item)}>
       <Ionicons name="infinite" size={24} color={Colors.infinityIcon} style={styles.icon} />
       <Text style={styles.name}>{item.name}</Text>
       <Text style={styles.timing}>

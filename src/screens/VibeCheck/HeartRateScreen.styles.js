@@ -5,14 +5,14 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 
 const rawStyles = {
   cameraContainer: {
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.surface,
     borderRadius: 16,
-    marginHorizontal: 20,
+    //  marginHorizontal: 20,
     padding: 10,
     flex: 1,
-    width: "90%", // ✅ Force full width
-    maxWidth: "90%", // ✅ Ensure it doesn’t shrink
-    alignSelf: "stretch", // ✅ Take full horizontal space of parent
+    width: SCREEN_WIDTH * 0.7, // ✅ Force full width
+    maxWidth: "70%", // ✅ Ensure it doesn’t shrink
+    alignSelf: "center", // ✅ Take full horizontal space of parent
     justifyContent: "center",
     alignItems: "center",
     shadowColor: Colors.black,
@@ -27,34 +27,56 @@ const rawStyles = {
     width: "100%",
   },
   infoContainer: {
-    paddingHorizontal: 24,
-    paddingTop: 50,
+    marginTop: 20,
+    paddingHorizontal: 20,
+    paddingVertical: 16,
+    backgroundColor: Colors.surface,
+    borderRadius: 16,
+    width: SCREEN_WIDTH * 0.9,
   },
   labelTitle: {
-    fontSize: 20,
-    fontFamily: Fonts.medium,
-    marginBottom: 10,
-    color: Colors.textLight,
+    fontSize: 18,
+    fontWeight: "600",
+    color: Colors.textDark,
+    marginBottom: 16,
+    textAlign: "center",
+    FontFamily: Fonts.body,
+  },
+  columns: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    height: "50%",
+    gap: 16,
+  },
+  column: {
+    flex: 1,
+    alignItems: "flex-start",
   },
   label: {
-    fontSize: 16,
-    fontFamily: Fonts.regular,
-    color: Colors.textLight,
-    marginBottom: 4,
-    textAlign: "center",
+    fontSize: 14,
+    color: Colors.textDark,
+    FontFamily: Fonts.body,
+    width: "100%",
+    marginBottom: 9,
+    borderBottomWidth: 1,
+    borderBottomColor: "grey",
   },
   labelResult: {
-    fontSize: 16,
-    fontFamily: Fonts.regular,
+    fontSize: 24,
+    fontWeight: "600",
     color: Colors.textDark,
-    marginBottom: 4,
-    textAlign: "center",
+    marginBottom: 16,
+    fontFamily: Fonts.script,
+  },
+  singleRow: {
+    width: SCREEN_WIDTH * 0.9,
+    marginTop: 8,
   },
   finishButtonWrapper: {
     position: "absolute",
     top: 110, // Just below the camera
     alignSelf: "center",
-    width: "90%",
+    width: "70%",
     zIndex: 5,
   },
 };
