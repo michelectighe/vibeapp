@@ -39,12 +39,7 @@ export const SectionWithCards = ({ title, cards, isCompact = false, isScrollable
                   textColor={card.textColor || Colors.white}
                   onPress={() => {
                     if (card.screen) {
-                      const screenParams = {
-                        ...card.screen.params,
-                        ...(card.resultID ? { resultID: card.resultID } : {}),
-                      };
-
-                      navigation.navigate(card.screen.name, screenParams);
+                      navigation.navigate(card.screen.name, card.screen.params);
                     } else if (card.onPress) {
                       card.onPress();
                     }
@@ -73,8 +68,15 @@ export const SectionWithCards = ({ title, cards, isCompact = false, isScrollable
                   image={card.image}
                   textColor={card.textColor || Colors.textLight}
                   onPress={() => {
-                    if (card.screen) {
-                      navigation.navigate(card.screen.name, card.screen.params);
+                    if (card.id === "recent-results") {
+                      // ✅ Explicitly route to nested Results screen
+                      navigation.navigate("VibeCheck", {
+                        screen: "Results",
+                        params: { resultID: card.resultID },
+                      });
+                    } else if (card.screen) {
+                      // ✅ Everything else — use provided screen + params
+                      navigation.navigate(card.screen.name, card.screen.params || {});
                     } else if (card.onPress) {
                       card.onPress();
                     }

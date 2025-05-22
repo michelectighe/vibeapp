@@ -49,9 +49,9 @@ export const VibeKeyHome = () => {
 
       // Fetch latest result
       //e2QRlxDQ97SfKxkucxKzT6Ph4t62
-      console.log("userID:", userID);
+    //  console.log("userID:", userID);
       const latest = await getLatestResults(userID);
-      console.log("latest results:", latest);
+    //  console.log("latest results:", latest);
       if (!latest) {
         const filtered = cards.filter((c) => c.id !== "recent-results");
         setSections([

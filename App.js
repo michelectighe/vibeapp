@@ -3,14 +3,22 @@ import "./src/styles/CustomText"; // must be imported before any screens load
 import React, { useRef, useEffect } from "react";
 //import { setJSExceptionHandler } from "react-native-exception-handler";
 // import crashlytics from "@react-native-firebase/crashlytics";
-import { NavigationContainer } from "@react-navigation/native";
+import { NavigationContainer, useNavigationContainerRef } from "@react-navigation/native";
+import { navigationRef } from "@services";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
 import { LogBox } from "react-native";
 import { enableScreens } from "react-native-screens";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { MyTabs, StreakStack } from "@navigation";
-import { UserProfileProvider, ModelProvider, EnvironmentProvider, AuthProvider, AnalysisProvider } from "@context";
+import {
+  UserProfileProvider,
+  ModelProvider,
+  EnvironmentProvider,
+  AuthProvider,
+  AnalysisProvider,
+} from "@context";
 import { MusicManager } from "@utils";
 import { SplashScreen, WelcomeScreen, ChakraDetailModal } from "@screens";
 import { initializeRevenueCat } from "@utils";
@@ -98,26 +106,24 @@ const AppInner = () => {
 
   //   return () => sub.remove();
   // }, []);
-  const navigationRef = useRef(); // Create a reference for navigation
   return (
     <AnalysisProvider>
       <MusicManager />
       <NavigationContainer linking={linking} ref={navigationRef}>
         <ModelProvider>
-
-        <Stack.Navigator
-          initialRouteName="Splash"
-          screenOptions={() => ({
-            headerShown: false,
-            animation: "fade",
-          })}
-        >
-          <Stack.Screen name="Splash" component={SplashScreen} />
-          <Stack.Screen
-            name="Tabs"
-            component={MyTabs}
-            options={{ headerShown: false, animation: "fade" }}
-          />
+          <Stack.Navigator
+            initialRouteName="Splash"
+            screenOptions={() => ({
+              headerShown: false,
+              animation: "fade",
+            })}
+          >
+            <Stack.Screen name="Splash" component={SplashScreen} />
+            <Stack.Screen
+              name="Tabs"
+              component={MyTabs}
+              options={{ headerShown: false, animation: "fade" }}
+            />
             <Stack.Screen
               name="ChakraDetailModal"
               component={ChakraDetailModal}
@@ -126,10 +132,9 @@ const AppInner = () => {
                 headerShown: false,
               }}
             />
-          <Stack.Screen name="Welcome" component={WelcomeScreen} />
-          <Stack.Screen name="Streaks" component={StreakStack} />
-        </Stack.Navigator>
-
+            <Stack.Screen name="Welcome" component={WelcomeScreen} />
+            <Stack.Screen name="Streaks" component={StreakStack} />
+          </Stack.Navigator>
         </ModelProvider>
       </NavigationContainer>
     </AnalysisProvider>
@@ -140,10 +145,10 @@ export const App = () => {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
-          <AuthProvider>
-            <UserProfileProvider>
-              <AppInner />
-            </UserProfileProvider>
+        <AuthProvider>
+          <UserProfileProvider>
+            <AppInner />
+          </UserProfileProvider>
         </AuthProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>

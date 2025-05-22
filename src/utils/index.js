@@ -53,3 +53,8 @@ export { lightenHexColor } from "./lightenHexColor.js";
 
 export { analyzePeacefulness } from "./analyzePeacefulness";
 export { loadSoundClassLabels } from "./loadSoundClassLabels";
+
+
+// clean up
+
+export { resetStack } from "./resetStack";

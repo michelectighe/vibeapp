@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState , useCallback} from "react";
 import { View, TouchableOpacity, Text, ActivityIndicator } from "react-native";
 import uuid from "react-native-uuid";
 import { getAuth } from "firebase/auth";
@@ -9,7 +9,7 @@ import { CustomButton, CloseX, GradientBackground, SectionLayout } from "@compon
 import { Colors } from "@constants";
 import { styles } from "./ResultsScreen.styles";
 import { globalStyles } from "@styles";
-import { useRoute } from "@react-navigation/native";
+import { useRoute, useFocusEffect } from "@react-navigation/native";
 //import HapticTest from "@/components/HapticTest";
 
 Text.defaultProps = Text.defaultProps || {};
@@ -33,7 +33,20 @@ export const ResultsScreen = ({ navigation }) => {
   const hasSaved = useRef(false);
   const infoImage = require("@assets/images/info.webp");
 
+
+  // useFocusEffect(
+  //   useCallback(() => {
+  //     return () => {
+  //       navigation.reset({
+  //         index: 0,
+  //         routes: [{ name: "Tabs", screen: "Home" }],
+  //       });
+  //     };
+  //   }, []),
+  // );
+
   useEffect(() => {
+    console.log("resultID:", resultID);
     const loadResult = async () => {
       console.log("resultID:", resultID);
       if (resultID && user.uid) {
@@ -73,7 +86,7 @@ export const ResultsScreen = ({ navigation }) => {
         const result = vibrationInfo;
         if (!result) return;
 
-        await saveResultsToDB();
+        //    await saveResultsToDB();
         if (!isMounted) return;
 
         setLabel(result.label);
@@ -85,9 +98,6 @@ export const ResultsScreen = ({ navigation }) => {
         setImage(result.image);
         hasSaved.current = true;
         setDataReady(true);
-        console.log("color1:", result.color);
-        console.log("color2:", result.color2);
-        console.log("color3:", result.color3);
       } catch (e) {
         console.warn("fetchData error:", e);
       }

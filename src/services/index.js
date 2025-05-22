@@ -10,3 +10,4 @@ export {
 } from "./AudioService";
 export { createMatchLink } from "./MatchLinkService";
 export { saveMusicPreference, getMusicPreference } from "./SettingsService";
+export { navigationRef } from "./navigationService";

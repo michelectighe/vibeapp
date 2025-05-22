@@ -129,9 +129,9 @@ export const VibeHistoryScreen = () => {
                   borderRadius={12}
                   glowColor={selectedItem.barColor}
                 />
-                <Text style={styles.detailDate}>
+                {/* <Text style={styles.detailDate}>
                   {format(new Date(selectedItem.date), "EEEE, MMMM do")}
-                </Text>
+                </Text> */}
                 <Text style={styles.detailScore}>
                   Vibration Score: {selectedItem.value.toFixed(0)}
                 </Text>

@@ -7,7 +7,7 @@ import { chakraData } from "@/data";
 
 export const groupScores = (scores, range) => {
   const buckets = {};
-
+return;
   scores.forEach(( entry ) => {
     let key;
     if (range === "daily") {
@@ -56,6 +56,7 @@ export const groupScores = (scores, range) => {
 };
 
 export const getVibeHistory = async () => {
+  return;
   const auth = getAuth();
   const user = auth.currentUser;
   if (!user) {
