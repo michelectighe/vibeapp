@@ -68,13 +68,30 @@ export const ShareScreen = ({ navigation }) => {
       console.log("trying to delete item:", item.id);
 
       await deleteFirestoreRecord("results", item.id, user.uid);
-    //  await deleteFirestoreRecord("matches", item.id, user.uid);
+      //  await deleteFirestoreRecord("matches", item.id, user.uid);
       deleteResult(item.id, (updatedResults) => {
         setResults(updatedResults); // or however you're storing them in state
       });
       fetchResults();
     } catch (err) {
       console.error("Deletion error:", err);
+    }
+  };
+
+  const showResults = async (item) => {
+    try {
+      navigation.navigate("Tabs", {
+        screen: "VibeCheck",
+        params: {
+          screen: "Results",
+          params: {
+            resultID: item.resultID,
+            returnTo: "VibeMatch",
+          },
+        },
+      });
+    } catch (err) {
+      console.error("Get Results error:", err);
     }
   };
 
@@ -106,7 +123,7 @@ export const ShareScreen = ({ navigation }) => {
               <View style={styles.selectorContainer}>
                 <ResultSelector
                   results={results}
-                  onSelect={(item) => console.log("Selected:", item)}
+                  onSelect={(item) => showResults(item)}
                   onShare={onShare}
                   onTrash={onTrash}
                 />

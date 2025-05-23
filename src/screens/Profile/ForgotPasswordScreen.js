@@ -66,6 +66,8 @@ export const ForgotPasswordScreen = ({ navigation }) => {
                     onChangeText={setEmail}
                     autoCapitalize="none"
                     keyboardType="email-address"
+                    returnKeyType="done"
+                    onSubmitEditing={Keyboard.dismiss}
                   />
 
                   {error ? <Text style={styles.error}>{error}</Text> : null}
@@ -74,8 +76,8 @@ export const ForgotPasswordScreen = ({ navigation }) => {
                   <CustomSpiritualButton
                     label="Send Reset Email"
                     onPress={handleReset}
-                    color={Colors.buttonBackground}
-                    textColor={Colors.textLight}
+                    color={Colors.surface}
+                    textColor={Colors.textDark}
                   />
                   <TouchableOpacity style={globalStyles.link} onPress={() => navigation.goBack()}>
                     <Text style={globalStyles.link}>← Back to Sign In</Text>

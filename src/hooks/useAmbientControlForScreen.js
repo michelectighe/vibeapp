@@ -12,13 +12,16 @@ export const useAmbientControlForScreen = (playMusic = true) => {
           // check global setting for sound on
           const userPref = await getMusicPreference(MUSIC_PREF_KEY);
           const playingStatus = await isPlayingTrack();
-          // //console.log("is music playing:", playingStatus);
+           console.log("is music playing:", playingStatus);
           // set ambient per screen
           setShouldPlayAmbient(playMusic);
           // make sure global and screen ambient are true before playing
           if (!playMusic || !userPref) {
+            console.log("fading out");
             fadeOutMusic();
-          } else if (playMusic && userPref && playingStatus.state !== "playing") {
+          } else if (playMusic && userPref && playingStatus.state.state !== "playing") {
+            console.log("playingStatus.state: ", playingStatus);
+            console.log("tellingmusictoplay");
             playTrack();
           }
         } catch (e) {

@@ -130,4 +130,132 @@ export const Colors = {
   buttonBackground: "rgba(224, 216, 200, 1)",
   surface: "rgba(224, 216, 200, 1)",
   overlay: "rgba(224, 216, 200, 0.2)",
+
+  surface: "#E0D8C8", // rgba(224, 216, 200, 1)
+  overlay: "rgba(224, 216, 200, 0.2)", // keep as-is for transparency
+
+  rootChakra: "#FF3E3E",
+  sacralChakra: "#FF8C00",
+  solarPlexusChakra: "#FFD700",
+  heartChakra: "#00FF7F",
+  throatChakra: "#1E90FF",
+  thirdEyeChakra: "#8A2BE2",
+  crownChakra: "#DA70D6",
+
+  rootChakraText: "#FFEBEF", // rgba(255, 235, 235, 0.95)
+  sacralChakraText: "#FFF5DC", // rgba(255, 245, 220, 0.95)
+  solarPlexusChakraText: "#503200", // rgba(80, 50, 0, 0.9)
+  heartChakraText: "#FFFFFF", // rgba(255, 255, 255, 0.95)
+  throatChakraText: "#EBF5FF", // rgba(235, 245, 255, 0.95)
+  thirdEyeChakraText: "#F0E1FF", // rgba(240, 225, 255, 0.95)
+  crownChakraText: "#FFF0FA", // rgba(255, 240, 250, 0.95)
+
+  aura70: "#9400D3",
+  aura50: "#4B0082",
+  aura30: "#00FF00",
+  aura20: "#FFD700",
+  aura10: "#FF7F00",
+  auraNone: "#FF0000",
+
+  goldenRod: "#DAA520",
+  auraGray: "#808080",
+
+  earthyBrown: "#935116",
+  deepEarthyBrown: "#7D4F20",
+
+  activeTab: "#E6F1EC",
+  inactiveTab: "#EDE5D0",
+  tabBarGradient1: "#103D28",
+  tabBarGradient2: "#103D28",
+
+  buttonLightBackground: "#EDE5D0",
+  buttonBackground: "#103D28",
+  buttonText: "#2F4F4F",
+  cardBackground: "#EDE5D0",
+
+  gradient1: "#355C4D", // originally rgba(53, 92, 77, 0.7)
+  gradient2: "#295C50", // rgba(41, 92, 80, 0.7)
+  gradient3: "#4E4938", // rgba(78, 73, 56, 0.7)
+
+  gradient1Match: "#95725A", // rgba(149, 114, 90, 0.8)
+  gradient2Match: "#B7846A", // rgba(183, 132, 106, 0.8)
+  gradient3Match: "#77A07D", // rgba(119, 160, 125, 0.8)
+  gradient4Match: "#C9A769", // rgba(201, 167, 105, 0.8)
+
+  gradient1Tools: "#FF8C00",
+  gradient2Tools: "#FF8C00", // originally 0.46 alpha
+  gradient3Tools: "#FFEA00", // originally 0.94 alpha
+
+  textLight: "#E0D8C8",
+  textDark: "#2F4F4F",
+  mediumText: "#6ABF8E",
+  meditationText: "#4A5D4D",
+
+  matchSimilarCard: "#B2F2BB",
+  matchDifferentCard: "#F7DC6F",
+
+  stickyNotes: "#E7E43D",
+
+  inhale: "#4FBF9F",
+  exhale: "#2F7967",
+  hold: "#C3F0DD",
+
+  background: "transparent",
+
+  divineColor1: "#5A35CD", // rgba(90, 53, 205, 0.7)
+  divineColor2: "#C8BFFF", // rgba(200, 191, 255, 0.7)
+  divineColor3: "#3B238A", // rgba(59, 35, 138, 0.7)
+  divineColor4: "#B496FF", // rgba(180, 150, 255, 0.95)
+
+  transcendentColor1: "#004AAD", // rgba(0, 74, 173, 0.7)
+  transcendentColor2: "#A3C6FF", // rgba(163, 198, 255, 0.7)
+  transcendentColor3: "#002B6B", // rgba(0, 43, 107, 0.7)
+  transcendentColor4: "#BEDCFF", // rgba(190, 220, 255, 0.95)
+
+  elevatedColor1: "#46C9FE", // rgba(70, 201, 254, 0.7)
+  elevatedColor2: "#D6F4FF", // rgba(214, 244, 255, 0.7)
+  elevatedColor3: "#2C8FB3", // rgba(44, 143, 179, 0.7)
+  elevatedColor4: "#1815E3", // rgba(24, 21, 227, 0.95)
+
+  balancedColor1: "#29B554", // rgba(41, 181, 84, 0.7)
+  balancedColor2: "#C1F0D0", // rgba(193, 240, 208, 0.7)
+  balancedColor3: "#1E6E3A", // rgba(30, 110, 58, 0.7)
+  balancedColor4: "#B4BFEB", // rgba(180, 191, 235, 0.95)
+
+  neutralColor1: "#FFC107",
+  neutralColor2: "#FFEBAA", // rgba(255, 235, 170, 0.9)
+  neutralColor3: "#996600",
+  neutralColor4: "#8C641E", // rgba(140, 100, 30, 0.9)
+
+  lowColor1: "#FF7A00", // rgba(255, 122, 0, 0.7)
+  lowColor2: "#FFD2A6", // rgba(255, 210, 166, 0.7)
+  lowColor3: "#CC5D00", // rgba(204, 93, 0, 0.7)
+  lowColor4: "#FFCAA0", // rgba(255, 205, 160, 0.95)
+
+  blockColor1: "#DB0808", // rgba(219, 8, 8, 0.7)
+  blockColor2: "#FFB3B3", // rgba(255, 179, 179, 0.7)
+  blockColor3: "#910606", // rgba(145, 6, 6, 0.7)
+  blockColor4: "#FFB4B4", // rgba(255, 180, 180, 0.95)
+
+  veryLightGray: "#F0F0F0",
+  lightGray: "#CCCCCC",
+  mediumGray: "#AAAAAA",
+  veryDarkGray: "#333333",
+  white: "#E0D8C8",
+  black: "#000000",
+  forestGreen: "#3F7E44",
+  red: "#FF6B6B",
+  yellow: "#FFD700",
+  creamyBeige: "#FFF8EE",
+  paleYellow: "#FFFACD",
+  peach: "#FFF3E0",
+  burntOrange: "#F5CBA7",
+  creamypeach: "#FDEBD0",
+
+  infinityIcon: "#4CAF50",
+  colorTimer: "#00AAFF",
+  coolBlue: "#3F51B5",
+
+  backgroundSpirit: "#E0D8C8",
+  buttonBackground: "#E0D8C8",
 };

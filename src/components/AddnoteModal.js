@@ -40,6 +40,8 @@ export const AddNoteModal = ({ visible, onClose, onSave }) => {
                 style={styles.input}
                 placeholder="Enter your goal"
                 value={text}
+                returnKeyType="done"
+                onSubmitEditing={Keyboard.dismiss}
                 onChangeText={setText}
                 multiline
               />

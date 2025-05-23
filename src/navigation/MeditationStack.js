@@ -7,7 +7,7 @@ export const MeditationStack = () => {
   const Stack = createStackNavigator();
   return (
     <Stack.Navigator
-      initialRouteName="Meditation"
+      initialRouteName="MeditationSpace"
       screenOptions={() => ({
         headerShown: false,
         //  tabBarStyle: { display: "none" },

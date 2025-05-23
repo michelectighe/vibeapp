@@ -10,6 +10,9 @@ import LinearGradient from "react-native-linear-gradient";
 import { EdgeGlow } from "@/components";
 import { SCREEN_WIDTH } from "@/utils";
 import { chakraData } from "@/data";
+import { GradientBackground } from "@/components";
+import { Colors } from "@/constants";
+import { CloseX } from "@/components";
 
 const ITEM_WIDTH = 60;
 
@@ -78,7 +81,6 @@ export const VibeHistoryScreen = () => {
           score: 0,
         }));
 
-
   const handlePress = (event, chakra) => {
     const { pageX, pageY } = event.nativeEvent;
     navigation.navigate("ChakraDetailModal", {
@@ -88,116 +90,119 @@ export const VibeHistoryScreen = () => {
     });
   };
 
-
   return (
-    <SectionLayout
-      topFlex={0}
-      middleFlex={2}
-      bottomFlex={1}
-      topContent={
-        data && <Text style={styles.yearLabel}>{format(new Date(selectedItem?.date), "yyyy")}</Text>
-      }
-      middleContent={
-        <View style={{ flex: 1 }}>
-          <View style={{ flex: 1, justifyContent: "flex-end" }}>
-            {data && (
-              <FlatList
-                ref={flatListRef}
-                data={data}
-                keyExtractor={(item, index) => index.toString()}
-                renderItem={renderItem}
-                horizontal
-                showsHorizontalScrollIndicator={false}
-                getItemLayout={(data, index) => ({
-                  length: ITEM_WIDTH,
-                  offset: ITEM_WIDTH * index,
-                  index,
-                })}
-                initialScrollIndex={selectedIndex}
-                onViewableItemsChanged={onViewRef.current}
-                viewabilityConfig={viewConfigRef.current}
-                contentContainerStyle={{ paddingHorizontal: 16 }}
-              />
-            )}
-          </View>
-          <View style={{ flex: 1.2, justifyContent: "center" }}>
-            {selectedItem && levelInfo && (
-              <View style={styles.detailsBox}>
-                <EdgeGlow
-                  width={SCREEN_WIDTH * 0.9}
-                  height={"120%"}
-                  borderRadius={12}
-                  glowColor={selectedItem.barColor}
+    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}>
+      <CloseX xColor={Colors.textDark} onPress={() => navigation.goBack()} />
+      <SectionLayout
+        topFlex={0}
+        middleFlex={2}
+        bottomFlex={1}
+        topContent={
+          data && (
+            <Text style={styles.yearLabel}>{format(new Date(selectedItem?.date), "yyyy")}</Text>
+          )
+        }
+        middleContent={
+          <View style={{ flex: 1 }}>
+            <View style={{ flex: 1, justifyContent: "flex-end" }}>
+              {data && (
+                <FlatList
+                  ref={flatListRef}
+                  data={data}
+                  keyExtractor={(item, index) => index.toString()}
+                  renderItem={renderItem}
+                  horizontal
+                  showsHorizontalScrollIndicator={false}
+                  getItemLayout={(data, index) => ({
+                    length: ITEM_WIDTH,
+                    offset: ITEM_WIDTH * index,
+                    index,
+                  })}
+                  initialScrollIndex={selectedIndex}
+                  onViewableItemsChanged={onViewRef.current}
+                  viewabilityConfig={viewConfigRef.current}
+                  contentContainerStyle={{ paddingHorizontal: 16 }}
                 />
-                {/* <Text style={styles.detailDate}>
+              )}
+            </View>
+            <View style={{ flex: 1.2, justifyContent: "center" }}>
+              {selectedItem && levelInfo && (
+                <View style={styles.detailsBox}>
+                  <EdgeGlow
+                    width={SCREEN_WIDTH * 0.9}
+                    height={"120%"}
+                    borderRadius={12}
+                    glowColor={selectedItem.barColor}
+                  />
+                  {/* <Text style={styles.detailDate}>
                   {format(new Date(selectedItem.date), "EEEE, MMMM do")}
                 </Text> */}
-                <Text style={styles.detailScore}>
-                  Vibration Score: {selectedItem.value.toFixed(0)}
-                </Text>
-                <Text style={styles.detailText}>{levelInfo?.label}</Text>
-                <Text style={styles.detailDescription}>{levelInfo?.historyDescription}</Text>
-              </View>
-            )}
-          </View>
-        </View>
-      }
-      bottomContent={
-        paddedChakras.length === 7 ? (
-          <View
-            style={{
-              width: SCREEN_WIDTH,
-              flexDirection: "row",
-              flexWrap: "wrap",
-              justifyContent: "space-around",
-              alignItems: "center",
-              paddingHorizontal: 10,
-              paddingVertical: 24,
-            }}
-          >
-            {paddedChakras.map((chakra, index) => (
-              <View
-                key={index}
-                style={{
-                  width: SCREEN_WIDTH / 4 - 12,
-                  alignItems: "center",
-                  marginVertical: 5,
-                }}
-              >
-                {/* Glow Wrapper with fixed height */}
-                <View
-                  style={{
-                    width: BASE_GLOW_CONTAINER_SIZE,
-                    height: BASE_GLOW_CONTAINER_SIZE,
-                    justifyContent: "center",
-                    alignItems: "center",
-                  }}
-                >
-                  <Pressable onPress={(event) => handlePress(event, chakra)}>
-                    <FuzzyGlow
-                      glowSize={(chakra.score / 100) * BASE_GLOW_CONTAINER_SIZE} // scale 0–100 to 0–base size
-                      glowColor={chakra.color}
-                    />
-                  </Pressable>
+                  <Text style={styles.detailScore}>
+                    Vibration Score: {selectedItem.value.toFixed(0)}
+                  </Text>
+                  <Text style={styles.detailText}>{levelInfo?.label}</Text>
+                  <Text style={styles.detailDescription}>{levelInfo?.historyDescription}</Text>
                 </View>
-
-
-                <Text
+              )}
+            </View>
+          </View>
+        }
+        bottomContent={
+          paddedChakras.length === 7 ? (
+            <View
+              style={{
+                width: SCREEN_WIDTH,
+                flexDirection: "row",
+                flexWrap: "wrap",
+                justifyContent: "space-around",
+                alignItems: "center",
+                paddingHorizontal: 10,
+                paddingVertical: 24,
+              }}
+            >
+              {paddedChakras.map((chakra, index) => (
+                <View
+                  key={index}
                   style={{
-                    marginTop: 0,
-                    fontSize: 12,
-                    color: chakra.color,
-                    textAlign: "center",
-                    fontWeight: "500",
+                    width: SCREEN_WIDTH / 4 - 12,
+                    alignItems: "center",
+                    marginVertical: 5,
                   }}
                 >
-                  {chakra.name.split(" ")[0]}
-                </Text>
-              </View>
-            ))}
-          </View>
-        ) : null
-      }
-    />
+                  {/* Glow Wrapper with fixed height */}
+                  <View
+                    style={{
+                      width: BASE_GLOW_CONTAINER_SIZE,
+                      height: BASE_GLOW_CONTAINER_SIZE,
+                      justifyContent: "center",
+                      alignItems: "center",
+                    }}
+                  >
+                    <Pressable onPress={(event) => handlePress(event, chakra)}>
+                      <FuzzyGlow
+                        glowSize={(chakra.score / 100) * BASE_GLOW_CONTAINER_SIZE} // scale 0–100 to 0–base size
+                        glowColor={chakra.color}
+                      />
+                    </Pressable>
+                  </View>
+
+                  <Text
+                    style={{
+                      marginTop: 0,
+                      fontSize: 12,
+                      color: chakra.color,
+                      textAlign: "center",
+                      fontWeight: "500",
+                    }}
+                  >
+                    {chakra.name.split(" ")[0]}
+                  </Text>
+                </View>
+              ))}
+            </View>
+          ) : null
+        }
+      />
+    </GradientBackground>
   );
 };

@@ -1,16 +1,24 @@
 import { StyleSheet } from "react-native";
 import { scaledStyle } from "@utils";
 
+
 const rawStyles = {
   container: {
     padding: 20,
     paddingBottom: 80,
   },
-  title: {
-    fontSize: 24,
-    fontWeight: "600",
-    marginBottom: 20,
-    textAlign: "center",
+  scrollView: {
+    position: "absolute",
+    top: 0,
+ //   bottom: 80,
+    left: 0,
+    right: 0,
+    zIndex: 1,
+  },
+  scrollContent: {
+    paddingTop: 170, // this matches the height of your title/logo area
+    paddingHorizontal: 20,
+    paddingBottom: 160,
   },
   metricBox: {
     marginBottom: 24,
@@ -68,7 +76,7 @@ const rawStyles = {
   },
   optimal: {
     color: "blue",
-  }  
+  },
 };
 
 export const styles = StyleSheet.create(scaledStyle(rawStyles));

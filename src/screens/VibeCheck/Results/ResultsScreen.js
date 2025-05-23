@@ -11,6 +11,7 @@ import { styles } from "./ResultsScreen.styles";
 import { globalStyles } from "@styles";
 import { useRoute, useFocusEffect } from "@react-navigation/native";
 import { getResultByID } from "@database";
+import { hexToRgba } from "@/utils";
 //import HapticTest from "@/components/HapticTest";
 
 Text.defaultProps = Text.defaultProps || {};
@@ -18,7 +19,7 @@ Text.defaultProps.allowFontScaling = false;
 
 export const ResultsScreen = ({ navigation }) => {
   const route = useRoute();
-  const { resultID } = route.params || {};
+  const { resultID, returnTo } = route.params || {};
   const auth = getAuth();
   const user = auth.currentUser;
   const [overallLabel, setLabel] = useState(null);
@@ -28,6 +29,7 @@ export const ResultsScreen = ({ navigation }) => {
   const [overallColor2, setColor2] = useState(null);
   const [overallColor3, setColor3] = useState(null);
   const [overallColor4, setColor4] = useState(null);
+  const [viewColor, setViewColor] = useState(null);
   const [saving, setSaving] = useState(false);
   const [dataReady, setDataReady] = useState(false);
   const [oldResults, setOldResults] = useState(false);
@@ -57,7 +59,7 @@ export const ResultsScreen = ({ navigation }) => {
         oldResultsRef.current = true;
         const loadResult = async () => {
           const existing = await getResultByID(user.uid, resultID);
-             console.log("EXISTING:");
+          console.log("EXISTING:", existing);
           if (existing) {
             await resetAnalysis();
             await setResult(existing);
@@ -85,6 +87,7 @@ export const ResultsScreen = ({ navigation }) => {
         setColor2(result.color2);
         setColor3(result.color3);
         setColor4(result.color4);
+        setViewColor(hexToRgba(result.color4));
         setImage(result.image);
         setDataReady(true);
         //save to db if the data is new
@@ -129,6 +132,27 @@ export const ResultsScreen = ({ navigation }) => {
     setSaving(false);
   };
 
+  const resetAndLeave = () => {
+    console.log('returnTo value:', returnTo)
+    if (returnTo && typeof returnTo === "object") {
+      navigation.reset({
+        index: 0,
+        routes: [returnTo],
+      });
+    } else if (typeof returnTo === "string") {
+      //console.log("string return:", returnTo);
+      navigation.reset({
+        index: 0,
+        routes: [{ name: returnTo }],
+      });
+    } else {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: "Tabs", screen: "Home" }],
+      });
+    }
+  };
+
   // 👇 Prevent UI rendering until all required data is ready
   if (!dataReady || !overallLabel || !overallDescription || !overallImage || !overallColor) {
     return (
@@ -141,7 +165,9 @@ export const ResultsScreen = ({ navigation }) => {
   }
 
   return (
-    <GradientBackground colors={[overallColor, overallColor2, overallColor3]}>
+    <GradientBackground
+      colors={[overallColor4, overallColor, overallColor2, overallColor3, overallColor4]}
+    >
       <SectionLayout
         topFlex={2}
         middleFlex={5}
@@ -151,12 +177,9 @@ export const ResultsScreen = ({ navigation }) => {
           <>
             <CloseX
               xColor={overallColor4}
-              onPress={() =>
-                navigation.reset({
-                  index: 0,
-                  routes: [{ name: "Home" }],
-                })
-              }
+              onPress={() => {
+                resetAndLeave();
+              }}
             />
             <View style={styles.titleWrapper}>
               <Text style={[styles.score, { color: overallColor4 }]}>
@@ -176,15 +199,15 @@ export const ResultsScreen = ({ navigation }) => {
               imgSource={overallImage}
               onPress={() => navigation.navigate("ResultDetails")}
             />
-            <View style={[styles.descriptionBox, { backgroundColor: overallColor }]}>
-              <Text style={[styles.descriptionText, { color: overallColor4 }]}>
+            <View style={[styles.descriptionBox, { backgroundColor: viewColor }]}>
+              <Text style={[styles.descriptionText, { color: overallColor2 }]}>
                 {overallDescription}
               </Text>
               <TouchableOpacity
                 onPress={() => navigation.navigate("ResultsBreakdown")}
                 style={styles.infoButton}
               >
-                <Text style={[styles.infoIcon, { color: overallColor4 }]}>ⓘ</Text>
+                <Text style={[styles.infoIcon, { color: overallColor2 }]}>ⓘ</Text>
               </TouchableOpacity>
             </View>
           </View>

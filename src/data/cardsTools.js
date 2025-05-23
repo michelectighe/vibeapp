@@ -5,7 +5,7 @@ export const cardsTools = [
     id: "daily-meditation",
     title: "Daily Meditation",
     subtitle: "Take a few minutes to ground yourself",
-    // icon: "leaf-outline",
+    icon: "leaf-outline",
     image: require("@assets/images/home/meditate.png"),
     screen: {
       name: "InnerWork", // <- This is the tab name
@@ -17,7 +17,7 @@ export const cardsTools = [
     id: "daily-frequencies",
     title: "Healing Sounds",
     subtitle: "Let the sounds heal you",
-    //  icon: "leaf-outline",
+    icon: "musical-notes-outline",
     image: require("@assets/images/home/sounds.png"),
     screen: {
       name: "InnerWork", // <- This is the tab name
@@ -29,7 +29,7 @@ export const cardsTools = [
     id: "journal-prompts",
     title: "Journal Prompts",
     subtitle: "Release with your pen",
-    //  icon: "cloud-outline",
+    icon: "create-outline",
     image: require("@assets/images/home/journal.png"),
     screen: {
       name: "InnerWork", // <- This is the tab name
@@ -41,7 +41,7 @@ export const cardsTools = [
     id: "breath-work",
     title: "Breath Work",
     subtitle: "Breathe your nervous system into a peaceful state",
-    //  icon: "cloud-outline",
+   icon: "cloud-outline",
     image: require("@assets/images/home/breath.png"),
     screen: {
       name: "InnerWork", // <- This is the tools stack name

@@ -14,7 +14,8 @@ const rawStyles = {
     color: Colors.white,
     textShadowRadius: 1,
     textShadowOffset: { width: 1, height: 1 },
-    fontSize: 36,
+    fontSize: 28,
+    marginBottom: 50,
   },
   subTitle: {
     position: "absolute",

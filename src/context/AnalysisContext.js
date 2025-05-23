@@ -271,7 +271,7 @@ export const AnalysisProvider = ({ children }) => {
       voiceClarityScore &&
       voiceFrequencyScore
     )
-      //console.log("updating chakra scores");
+      console.log("updating chakra scores");
       updateChakraScores();
     setAuraColor(getAuraColor()); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [

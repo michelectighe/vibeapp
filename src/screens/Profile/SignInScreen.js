@@ -166,6 +166,8 @@ export const SignInScreen = ({ navigation, route }) => {
                     onChangeText={setEmail}
                     autoCapitalize="none"
                     keyboardType="email-address"
+                    returnKeyType="done"
+                    onSubmitEditing={Keyboard.dismiss}
                   />
                   <View style={globalStyles.passwordContainer}>
                     <TextInput
@@ -177,15 +179,25 @@ export const SignInScreen = ({ navigation, route }) => {
                       autoCapitalize="none"
                       value={password}
                       onChangeText={setPassword}
+                      returnKeyType="done"
+                      onSubmitEditing={Keyboard.dismiss}
                     />
                     <TouchableOpacity
                       onPress={() => setPasswordVisible(!passwordVisible)}
                       style={styles.eyeIcon}
                     >
                       {passwordVisible ? (
-                        <MaterialIcons name="visibility" size={24} color={Colors.backgroundSpirit}  />
+                        <MaterialIcons
+                          name="visibility"
+                          size={24}
+                          color={Colors.backgroundSpirit}
+                        />
                       ) : (
-                        <MaterialIcons name="visibility-off" size={24} color={Colors.backgroundSpirit}  />
+                        <MaterialIcons
+                          name="visibility-off"
+                          size={24}
+                          color={Colors.backgroundSpirit}
+                        />
                       )}
                     </TouchableOpacity>
                   </View>

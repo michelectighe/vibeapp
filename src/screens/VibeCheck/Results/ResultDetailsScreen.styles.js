@@ -39,7 +39,7 @@ const rawStyles = {
     margin: 20,
     marginTop: 0,
     borderRadius: 20,
-    padding: 10,
+    padding: 20,
   },
   overallText: {
     textAlign: "center",

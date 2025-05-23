@@ -32,7 +32,7 @@ const rawStyles = {
     zIndex: 1,
   },
   scrollContent: {
-    paddingTop: 170, // this matches the height of your title/logo area
+    paddingTop: 20, // this matches the height of your title/logo area
     paddingHorizontal: 20,
     paddingBottom: 160,
   },

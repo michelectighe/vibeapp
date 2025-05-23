@@ -112,6 +112,8 @@ export const SignUpScreen = ({ navigation }) => {
                       placeholderTextColor={Colors.mediumGray}
                       value={name}
                       onChangeText={setName}
+                      returnKeyType="done"
+                      onSubmitEditing={Keyboard.dismiss}
                     />
                     <TextInput
                       style={globalStyles.input}
@@ -121,6 +123,8 @@ export const SignUpScreen = ({ navigation }) => {
                       textContentType="emailAddress"
                       value={email}
                       onChangeText={setEmail}
+                      returnKeyType="done"
+                      onSubmitEditing={Keyboard.dismiss}
                     />
                     <View style={globalStyles.passwordContainer}>
                       <TextInput
@@ -132,15 +136,25 @@ export const SignUpScreen = ({ navigation }) => {
                         secureTextEntry={!passwordVisible}
                         value={password}
                         onChangeText={setPassword}
+                        returnKeyType="done"
+                        onSubmitEditing={Keyboard.dismiss}
                       />
                       <TouchableOpacity
                         onPress={() => setPasswordVisible(!passwordVisible)}
                         style={styles.eyeIcon}
                       >
                         {passwordVisible ? (
-                          <MaterialIcons name="visibility-off" size={24} color={Colors.backgroundSpirit} />
+                          <MaterialIcons
+                            name="visibility-off"
+                            size={24}
+                            color={Colors.backgroundSpirit}
+                          />
                         ) : (
-                          <MaterialIcons name="visibility" size={24} color={Colors.backgroundSpirit}  />
+                          <MaterialIcons
+                            name="visibility"
+                            size={24}
+                            color={Colors.backgroundSpirit}
+                          />
                         )}
                       </TouchableOpacity>
                     </View>

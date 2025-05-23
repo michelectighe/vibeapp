@@ -1,8 +1,8 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useCallback, useEffect, useRef } from "react";
 import { Text, View, ActivityIndicator } from "react-native";
 import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { useAnalysis } from "@context";
 import { GradientBackground, CardTools, SectionLayout, CloseX } from "@components";
 
@@ -11,13 +11,11 @@ import { styles } from "./EnergyCleanseScreen.styles";
 import { Colors } from "@/constants";
 import { globalStyles } from "@/styles";
 import { getVibeRecommendations } from "@utils";
-import { playTrack, stopTrack } from "@services";
+import { playTrack, stopTrack, isPlayingTrack } from "@services";
 
 export const EnergyCleanseScreen = () => {
-  useAmbientControlForScreen(false);
   const auth = getAuth();
   const [userID, setUserID] = useState();
-
   const { vibrationInfo } = useAnalysis();
   const navigation = useNavigation();
   const [overallColor, setColor] = useState();
@@ -25,11 +23,46 @@ export const EnergyCleanseScreen = () => {
   const [overallColor3, setColor3] = useState();
   const [overallColor4, setColor4] = useState();
   const isPlayingRef = useRef();
+  const [playingState, setPlayingState] = useState({
+    meditation,
+    frequency,
+  });
   const [completed, setCompleted] = useState({
     meditation: false,
     frequency: false,
     breathing: false,
   });
+
+  useFocusEffect(
+    useCallback(() => {
+      const checkAudioStatus = async () => {
+        try {
+          const status = await isPlayingTrack(true); // get title needs to be true
+          const { title } = status;
+          console.log("playing:", status);
+          if (title?.toLowerCase().includes("meditation")) {
+            setPlayingState({ meditation: true, frequency: false });
+          } else if (title?.toLowerCase().includes("frequency")) {
+            setPlayingState({ meditation: false, frequency: true });
+          } else {
+            setPlayingState({ meditation: false, frequency: false });
+          }
+        } catch (e) {
+          console.warn("Error checking audio status:", e);
+          setPlayingState({ meditation: false, frequency: false });
+        }
+      };
+
+      checkAudioStatus();
+
+      return () => {
+        console.log("leaving");
+      };
+    }, []),
+  );
+
+  const isAudioPlaying = playingState.meditation || playingState.frequency;
+  useAmbientControlForScreen(!isAudioPlaying); // only play ambient if no audio is playing
 
   useEffect(() => {
     if (auth) {
@@ -40,9 +73,6 @@ export const EnergyCleanseScreen = () => {
   const { meditation, frequency, breathing } = getVibeRecommendations({
     vibrationLevel: vibrationInfo,
   });
-  //console.log("meditation:", meditation);
-  //console.log("frequency:", frequency);
-  //console.log("breathing:", breathing);
   useEffect(() => {
     if (vibrationInfo == null) return;
     setColor(vibrationInfo.color);
@@ -58,22 +88,33 @@ export const EnergyCleanseScreen = () => {
   }, [completed]);
 
   const handlePress = async (item, type) => {
-    console.log("f item:", item);
-    if (isPlayingRef.current) {
+    if (playingState[type]) {
+      // 🔇 Stop current playing track
       await stopTrack();
-      isPlayingRef.current = false;
+      setPlayingState((prev) => ({ ...prev, [type]: false }));
       setCompleted((prev) => ({ ...prev, [type]: true }));
     } else {
-      await playTrack(item.id, item.audio, item.title, "VibeKey", 1, true);
-      isPlayingRef.current = true;
+      // 🔄 Stop all previous tracks first
+      await stopTrack();
+
+      // 🔊 Start the new track
+      await playTrack(item.id, item.audio, item.audioTitle, "VibeKey", 1, (fadeIn = true));
+
+      // ✅ Mark only this one as playing
+      setPlayingState({
+        meditation: false,
+        frequency: false,
+        [type]: true,
+      });
     }
   };
+
   const handleBreathingPress = (pattern, type) => {
-//console.log("breathingPress:", pattern);
-    if (isPlayingRef.current) {
-      stopTrack();
-      isPlayingRef.current = false;
-    }
+    //console.log("breathingPress:", pattern);
+    // if (isPlayingRef.current) {
+    //   stopTrack();
+    //   isPlayingRef.current = false;
+    // }
     setCompleted((prev) => ({ ...prev, [type]: true }));
     navigation.navigate("BreathingModalScreen", { pattern });
   };
@@ -107,7 +148,10 @@ export const EnergyCleanseScreen = () => {
   }
 
   return (
-    <GradientBackground colors={[overallColor, overallColor2, overallColor3]} logo={false}>
+    <GradientBackground
+      colors={[overallColor4, overallColor2, overallColor3, overallColor4]}
+      logo={false}
+    >
       <CloseX xColor={overallColor4} onPress={() => navigation.goBack()} />
       <SectionLayout
         topFlex={1}
@@ -122,7 +166,7 @@ export const EnergyCleanseScreen = () => {
                 { color: overallColor4, textShadowColor: overallColor3 },
               ]}
             >
-              Energy Cleanse
+              Recommended Cleanses
             </Text>
           </View>
         }
@@ -132,19 +176,24 @@ export const EnergyCleanseScreen = () => {
             <CardTools
               item={meditation}
               onPress={() => handlePress(meditation, "meditation")}
-              bgColor={overallColor}
+              bgColor={overallColor4}
+              textColor={overallColor2}
+              isPlaying={playingState.meditation}
             />
             <Text style={[styles.sectionTitle, { color: overallColor4 }]}>Frequency</Text>
             <CardTools
               item={frequency}
               onPress={() => handlePress(frequency, "frequency")}
-              bgColor={overallColor}
+              bgColor={overallColor4}
+              textColor={overallColor2}
+              isPlaying={playingState.frequency}
             />
             <Text style={[styles.sectionTitle, { color: overallColor4 }]}>Breathing</Text>
             <CardTools
               item={breathing}
               onPress={() => handleBreathingPress(breathing, "breathing")}
-              bgColor={overallColor}
+              bgColor={overallColor4}
+              textColor={overallColor2}
             />
           </View>
         }

@@ -9,10 +9,11 @@ import { styles } from "./BreathingModalScreen.styles";
 
 export const BreathingModalScreen = () => {
   useAmbientControlForScreen(true);
+  const { vibrationInfo } = useAnalysis();
+  console.log("vibrationInfo:", vibrationInfo);
   const route = useRoute();
   const { pattern } = route.params;
   const navigation = useNavigation();
-  const vibrationInfo = useAnalysis();
   const [overallColor, setColor] = useState();
   const [overallColor2, setColor2] = useState();
   const [overallColor3, setColor3] = useState();
@@ -20,10 +21,11 @@ export const BreathingModalScreen = () => {
 
   useEffect(() => {
     const result = vibrationInfo;
+    console.log("result");
     if (result == null) return;
 
     console.log("result:", result);
-    setColor(result.auraColor);
+    setColor(result.color);
     setColor2(result.color2);
     setColor3(result.color3);
     setColor4(result.color4);
@@ -32,6 +34,7 @@ export const BreathingModalScreen = () => {
   if (!overallColor) {
     return (
       <GradientBackground colors={[Colors.white, Colors.white, Colors.white]}>
+        <CloseX xColor={Colors.textDark} onPress={() => navigation.goBack()} />
         <View style={[{ flex: 1 }]}>
           <ActivityIndicator size="large" color={Colors.primary} />
         </View>
@@ -40,25 +43,28 @@ export const BreathingModalScreen = () => {
   }
 
   return (
-    <GradientBackground colors={[overallColor, overallColor2, overallColor3]} logo={false}>
-      <CloseX xColor={Colors.textDark} onPress={() => navigation.goBack()} />
+    <GradientBackground colors={[overallColor, overallColor2, overallColor3, overallColor4]} modal={true}>
+      <CloseX xColor={overallColor4} onPress={() => navigation.goBack()} />
       <SectionLayout
         topFlex={6}
-        middleFlex={3}
+        middleFlex={1}
         bottomFlex={1}
         topContent={
           <View style={styles.middle}>
-            <BreathingCircle pattern={pattern} key={pattern.id} />
+            <BreathingCircle
+              pattern={pattern}
+              //    key={pattern.id}
+              fuzzyColor={overallColor4}
+              textColor={overallColor2}
+            />
           </View>
         }
         middleContent={<></>} // no selector
         bottomContent={
-          <View style={{ alignItems: "center" }}>
-            <Text style={styles.title}>{pattern.name}</Text>
-            <Text style={styles.description}>{pattern.description}</Text>
-            <Text style={styles.timing}>
-              {pattern.inhale}-{pattern.hold1}-{pattern.exhale}
-              {pattern.hold2 ? `-${pattern.hold2}` : ""}
+          <View style={[styles.bottomText, { alignItems: "center" }]}>
+            <Text style={[styles.title, { color: overallColor4 }]}>{pattern.name}</Text>
+            <Text style={[styles.description, { color: overallColor4 }]}>
+              {pattern.description}
             </Text>
           </View>
         }

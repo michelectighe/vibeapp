@@ -5,6 +5,8 @@ import FastImage from "react-native-fast-image";
 import { GradientBackground, AddNoteModal } from "@components";
 import { StickyNote } from "@components/StickyNote";
 import { DeleteConfirmationModal } from "@components/DeleteConfirmationModal";
+import { CloseX } from "@/components";
+import { useNavigation } from "@react-navigation/native";
 
 import { saveStickyNoteToDB, deleteStickyNoteById } from "@database";
 import { styles } from "./StreakScreen.styles";
@@ -12,6 +14,7 @@ import { Colors } from "@constants";
 import uuid from "react-native-uuid";
 
 export const StreakScreen = () => {
+  const navigation = useNavigation();
   const [notes, setNotes] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const noteRefs = useRef({});
@@ -65,6 +68,7 @@ export const StreakScreen = () => {
 
   return (
     <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}>
+      <CloseX xColor={Colors.textDark} onPress={() => navigation.goBack()} />
       <View style={styles.container}>
         <View style={styles.topSection}>
           <Text style={styles.streakTitle}>Your Daily Vibe Goals</Text>

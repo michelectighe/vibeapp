@@ -7,7 +7,7 @@ import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./ChakraScreen.styles";
 import { Colors } from "@/constants";
 import { SCREEN_WIDTH } from "@/utils";
-import { GradientBackground, SectionLayout } from "@/components";
+import { GradientBackground, SectionLayout, ChakraSpineLine } from "@/components";
 
 const chakraMeta = [
   { id: "root", name: "Root", color: Colors.rootChakra, textColor: Colors.rootChakraText },
@@ -67,7 +67,7 @@ export const ChakraScreen = () => {
   return (
     <GradientBackground colors={["#d2cfff", "#b3bfff", "#6a7cff"]} logo={false}>
       {/* <GradientBackground colors={["#d2c8ff", "#a2b6ff", "#405480"]} logo={false}> */}
-      <CloseX xColor={overallColor4} onPress={() => navigation.goBack()} />
+      <CloseX xColor={topChakra.color} onPress={() => navigation.goBack()} />
 
       <SectionLayout
         topFlex={1}
@@ -76,16 +76,17 @@ export const ChakraScreen = () => {
         safe={false}
         topContent={
           <>
+             <ChakraSpineLine /> 
             <ScrollView
               style={styles.scrollView}
               contentContainerStyle={styles.scrollContent}
               showsVerticalScrollIndicator={false}
             >
-              {topChakra && (
+              {/* {topChakra && (
                 <View style={styles.titleWrapper}>
                   <Text style={[styles.title, { color: topChakra.color }]}>Chakra Balance</Text>
                 </View>
-              )}
+              )} */}
               {personalizedChakraData.map((chakra) => (
                 <ChakraCard
                   key={chakra.id}

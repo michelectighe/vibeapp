@@ -1,6 +1,6 @@
 // components/ProfileInput.js
 import React from "react";
-import { StyleSheet, TextInput, Text, View } from "react-native";
+import { StyleSheet, TextInput, Keyboard, Text, View } from "react-native";
 import { scaledStyle } from "@/utils";
 import { Colors } from "@/constants";
 
@@ -24,8 +24,12 @@ export const ProfileInput = ({
       autoComplete={autoComplete}
       keyboardType={keyboardType}
       autoCapitalize="none"
+      returnKeyType="done"
+      onSubmitEditing={Keyboard.dismiss}
     />
-    {!!error && <Text style={{ color: Colors.lightGray, marginLeft: 15, marginBottom: 8 }}>{error}</Text>}
+    {!!error && (
+      <Text style={{ color: Colors.lightGray, marginLeft: 15, marginBottom: 8 }}>{error}</Text>
+    )}
   </View>
 );
 

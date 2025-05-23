@@ -49,7 +49,7 @@ export const ChakraCard = ({ chakra, onPress }) => {
           <FuzzyGlow glowSize={glowSize * 0.9} glowColor={chakra.color} />
         </View>
         <View style={styles.textOverlay}>
-          <Text style={[styles.name, { color: Colors.textLight}]}>{chakra.name} - {chakra.score}</Text>
+          <Text style={[styles.name, { color: chakra.color}]}>{chakra.name} - {chakra.score}</Text>
 
         </View>
         {/* <Text style={styles.meaning}>{chakra.meaning}</Text> */}
