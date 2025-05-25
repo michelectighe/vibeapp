@@ -3,86 +3,69 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { comparisonText, Colors, Fonts } from "@constants";
 
-const getScoreRange = (score) => {
-  if (score < 25) return "low";
-  if (score < 75) return "medium";
-  return "high";
-};
-
-const getLabel = (key) => {
-  const labels = {
-    emotionScore: "Emotional State",
-    heartRateScore: "Heart Rate",
-    hrvScore: "Heart Rate Variability",
-    motionScore: "Motion / Stillness",
-    voiceFrequencyScore: "Voice Frequency",
-    voiceClarityScore: "Voice Clarity",
-    voiceStrengthScore: "Voice Strength",
-    environmentScore: "Environment",
+export const ComparisonCard = ({ keyName, myVal, theirVal, category, label, description }) => {
+  const categoryLabels = {
+    aligned: "Perfect Match",
+    slightlyDifferent: "Slightly Different",
+    moderatelyDifferent: "Moderate Gap",
+    completelyUnaligned: "Major Contrast",
   };
-  return labels[key] || key;
-};
 
-export const ComparisonCard = ({ keyName, myVal, theirVal }) => {
-  const myRange = getScoreRange(myVal);
-  const theirRange = getScoreRange(theirVal);
-  const label = getLabel(keyName);
-
-  if (myRange === theirRange) {
-    const text = comparisonText[keyName]?.[myRange] || `Both scored in the ${myRange} range.`;
-    return (
-      <View style={styles.similarCard}>
-        <Text style={styles.cardLabel}>{label}</Text>
-        <Text style={styles.cardBody}>Both: {text}</Text>
-      </View>
-    );
-  }
-
-  const userText = comparisonText[keyName]?.[myRange] || `You scored ${myVal.toFixed(0)}`;
-  const themText = comparisonText[keyName]?.[theirRange] || `They scored ${theirVal.toFixed(0)}`;
-
+  const colorMap = {
+    aligned: Colors.green,
+    slightlyDifferent: Colors.yellow,
+    moderatelyDifferent: Colors.orange,
+    completelyUnaligned: Colors.red,
+  };
+//  console.log("myVal:", myVal);
+ // console.log("categoryLabels[category", categoryLabels[category]);
   return (
-    <View style={styles.splitCard}>
-      <View style={styles.halfCard}>
-        <Text style={styles.cardLabel}>You</Text>
-        <Text style={styles.cardBody}>{userText}</Text>
-      </View>
-      <View style={styles.halfCard}>
-        <Text style={styles.cardLabel}>Them</Text>
-        <Text style={styles.cardBody}>{themText}</Text>
-      </View>
+    <View style={[styles.card, { borderLeftColor: colorMap[category], borderLeftWidth: 4 }]}>
+<Text style={styles.metric}>{label}</Text>
+<Text style={styles.label}>{categoryLabels[category]}</Text>
+<Text style={styles.description}>{description}</Text>
+<Text style={styles.values}>You: {myVal} | Them: {theirVal}</Text>
+
+      
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  similarCard: {
-    backgroundColor: Colors.matchSimilarCard,
-    borderRadius: 12,
+  card: {
+    backgroundColor: Colors.surface,
     padding: 16,
-    marginBottom: 14,
-  },
-  splitCard: {
-    flexDirection: "row",
-    marginBottom: 14,
-    backgroundColor: Colors.veryDarkGray,
     borderRadius: 12,
-    overflow: "hidden",
+    marginVertical: 8,
+    marginHorizontal: 12,
+    shadowColor: Colors.black,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
-  halfCard: {
-    flex: 1,
-    padding: 12,
-    borderRightWidth: 1,
-    borderRightColor: Colors.veryDarkGray,
-  },
-  cardLabel: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: Colors.mediumGray,
+  metric: {
+    fontSize: 18,
+    fontFamily: Fonts.Bold,
+    color: Colors.textPrimary,
     marginBottom: 4,
   },
-  cardBody: {
+  label: {
+    fontSize: 14,
+    fontFamily: Fonts.body,
+    color: Colors.mediumGray,
+    marginBottom: 8,
+  },
+  values: {
     fontSize: 16,
-    color: Colors.white,
+    fontFamily: Fonts.body,
+    color: Colors.textSecondary,
+  },
+  description: {
+    fontSize: 14,
+    fontFamily: Fonts.body,
+    color: Colors.textSecondary,
+    marginTop: 4,
+    marginBottom: 8,
   },
 });

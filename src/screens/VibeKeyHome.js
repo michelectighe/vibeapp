@@ -11,24 +11,54 @@ import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./VibeKeyHome.styles";
 import { globalStyles } from "@styles";
 import { SectionLayout, SectionWithCards } from "@/components";
+import { getTodayGoodNews } from "@/utils";
 import {
   cardsTools,
   cardsVibeCheck,
   cardsVibeMatch,
   cardsMeditationScan,
   cardsStreak,
+  cardsGoodNews,
 } from "@/data";
 
 export const VibeKeyHome = () => {
   const auth = getAuth();
   const user = auth.currentUser;
   useAmbientControlForScreen(true);
+  // console.log("me:", user.uid);
+
   const positionY = useRef(new Animated.Value(-100)).current;
   const navigation = useNavigation();
   const { profile, loading } = useUserProfile();
   const [sections, setSections] = useState([]);
+  const [goodNewsCardData, setGoodNewsCard] = useState(null); // not defaulted to cardsGoodNews[0]
+  const [goodNewsLoaded, setGoodNewsLoaded] = useState(false);
 
   useEffect(() => {
+    (async () => {
+      const story = await getTodayGoodNews();
+
+      if (story) {
+        setGoodNewsCard({
+          ...cardsGoodNews[0],
+          subtitle: story.title,
+          image: { uri: story.imageUrl },
+          screen: {
+            ...cardsGoodNews[0].screen,
+            params: {
+              storyId: story.id,
+            },
+          },
+        });
+      } else {
+        setGoodNewsCard(cardsGoodNews[0]); // fallback to default structure
+      }
+      setGoodNewsLoaded(true); // ← only after card is ready
+    })();
+  }, []);
+
+  useEffect(() => {
+    if (!goodNewsLoaded) return;
     const buildSections = async () => {
       const cards = [...cardsVibeCheck];
       const userID = user?.uid;
@@ -49,9 +79,9 @@ export const VibeKeyHome = () => {
 
       // Fetch latest result
       //e2QRlxDQ97SfKxkucxKzT6Ph4t62
-    //  console.log("userID:", userID);
+      //  console.log("userID:", userID);
       const latest = await getLatestResults(userID);
-    //  console.log("latest results:", latest);
+      //  console.log("latest results:", latest);
       if (!latest) {
         const filtered = cards.filter((c) => c.id !== "recent-results");
         setSections([
@@ -113,10 +143,17 @@ export const VibeKeyHome = () => {
         isCompact: false,
         isScrollable: false,
       },
+      {
+        title: "Good News",
+        cards: [goodNewsCardData],
+        isCompact: false,
+        isScrollable: false,
+        isNews: true,
+      },
     ];
 
     buildSections();
-  }, [user]);
+  }, [user, goodNewsLoaded]);
 
   useFocusEffect(
     useCallback(() => {
@@ -156,6 +193,7 @@ export const VibeKeyHome = () => {
                         cards={section.cards}
                         isCompact={section.isCompact}
                         isScrollable={section.isScrollable}
+                        isNews={section.isNews}
                       />
                     </Animatable.View>
                   ))}

@@ -11,6 +11,7 @@ import {
   ScrollView,
   Modal,
   Pressable,
+  Button,
 } from "react-native";
 import { useAuth, useUserProfile } from "@context";
 import {
@@ -29,7 +30,7 @@ import {
   CustomSpiritualButton,
   ProfileInput,
 } from "@components";
-import { getMusicPreference } from "@/services";
+import { getMusicPreference, saveMusicPreference } from "@/services";
 import { Colors } from "@constants";
 import { styles } from "./UpdateProfileScreen.style";
 
@@ -120,7 +121,7 @@ export const UpdateProfileScreen = ({ navigation }) => {
       }
 
       faceIDEnabled ? await saveBiometricOptIn(true) : await clearSavedCredentials();
-
+      saveMusicPreference(musicEnabled);
       updateUserData(user.uid, {
         goals: [goals],
         challenges: [challenges],
@@ -195,6 +196,7 @@ export const UpdateProfileScreen = ({ navigation }) => {
                   paddingHorizontal: 24,
                 }}
                 keyboardShouldPersistTaps="handled"
+                showsVerticalScrollIndicator={false}
               >
                 <ProfileInput
                   label="Name"
@@ -311,6 +313,7 @@ export const UpdateProfileScreen = ({ navigation }) => {
                     color={Colors.buttonBackground}
                     textColor={Colors.textDark}
                   />
+
                 </View>
               </ScrollView>
             </KeyboardAvoidingView>

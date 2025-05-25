@@ -5,7 +5,7 @@ import { vibrationLevels } from "@data";
 import { Fonts, Colors } from "@constants";
 import { hexToRgba, scaledStyle } from "@utils";
 import { loadResults } from "@utils";
-export const ResultSelector = ({ results, onSelect, onShare, onTrash }) => {
+export const ResultsList = ({ results, onSelect }) => {
   const formatDate = (timestamp) => {
     if (!timestamp?.toDate) return "";
     return timestamp.toDate().toLocaleDateString("en-US", {
@@ -37,8 +37,8 @@ export const ResultSelector = ({ results, onSelect, onShare, onTrash }) => {
                   name="share-outline"
                   size={20}
                   color={level.color3}
-                  onPress={() => onShare(item)}
-                  style={styles.iconShare}
+                  onPress={() => onSelect(item)}
+                  style={styles.iconCompare}
                 />
               </View>
               <TouchableOpacity style={styles.scoreButton} onPress={() => onSelect(item)}>
@@ -46,13 +46,6 @@ export const ResultSelector = ({ results, onSelect, onShare, onTrash }) => {
                   {item.overallVibrationScore.toFixed(0)}
                 </Text>
               </TouchableOpacity>
-              <Ionicons
-                name="trash-outline"
-                size={20}
-                color={level.color3}
-                onPress={() => onTrash(item)}
-                style={styles.iconTrash}
-              />
               <Text style={[styles.date, { color: level.color3 }]}>
                 {formatDate(item.timestamp)}
               </Text>
@@ -107,16 +100,10 @@ const rawStyles = {
     color: Colors.veryDarkGray,
     alignSelf: "center",
   },
-  iconShare: {
+  iconCompare: {
     position: "absolute",
     top: 5,
     right: 5,
-  },
-  iconTrash: {
-    position: "absolute",
-    top: 5,
-    left: 5,
-    padding: 14,
   },
 };
 

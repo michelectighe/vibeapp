@@ -11,7 +11,9 @@ const rawStyles = {
   },
   title: {
     fontSize: 28,
-    marginBottom: 0,
+    marginTop: 100,
+    textAlign: "center",
+    width: SCREEN_WIDTH *.9,
     color: Colors.textLight,
   },
   scoreBox: {

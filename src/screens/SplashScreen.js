@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
-import { initApp } from "@utils";
+//import { initApp } from "@utils";
 import { useAuth, useModel, useSoundModel } from "@context";
 import { View, Animated, Easing } from "react-native";
 import { AnimatedLogo, GradientBackground } from "@components";
 import { Colors } from "@constants";
 import { styles } from "./SplashScreen.styles";
 import { globalStyles } from "@styles";
+import { initApp } from "@/utils";
 
 export const SplashScreen = ({ navigation, route }) => {
   const { user, authLoading } = useAuth();
@@ -13,6 +14,12 @@ export const SplashScreen = ({ navigation, route }) => {
   const fadeAnim = useRef(new Animated.Value(0.1)).current;
   const [matchId, setMatchId] = useState(null);
 
+  useEffect(() => {
+    const start = async () => {
+      await initApp();
+    };
+    start();
+  });
   useEffect(() => {
     setMatchId(route.params?.id || null);
   }, [route]);
@@ -39,7 +46,7 @@ export const SplashScreen = ({ navigation, route }) => {
       try {
         await new Promise((resolve) => setTimeout(resolve, 300));
 
-        await initApp();
+        //  await initApp();
 
         if (authLoading) return;
 

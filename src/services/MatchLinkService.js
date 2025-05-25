@@ -8,8 +8,9 @@ import { generateShortId } from "@utils/generateShortId";
  * @param {string} userId - The UID of the user sharing
  * @returns {Promise<string>} - Deep link with a unique matchId
  */
-export const createMatchLink = async (resultId, userId) => {
+export const createMatchLink = async (resultId, userId, displayName, shareAnonymously = false) => {
   try {
+    const nameToStore = shareAnonymously ? null : displayName;
     let matchId;
     let exists = true;
 
@@ -20,13 +21,26 @@ export const createMatchLink = async (resultId, userId) => {
       exists = snapshot.exists();
     }
 
-    const matchRef = doc(db, "matchLinks", matchId);
-    await setDoc(matchRef, {
+    // Declare these values so you can use them
+    const sharedByResultId = resultId;
+    const sharedByUserId = userId;
+
+    // 1. Friendly ID version (used in links)
+    await setDoc(doc(db, "matchLinks", matchId), {
       matchId,
-      sharedByResultId: resultId,
-      sharedByUserId: userId,
+      sharedByUserId,
+      sharedByResultId,
+      sharedByUserName: nameToStore,
       timestamp: new Date(),
-      viewers: [],
+    });
+
+    // 2. ResultId-based version (used for Firestore rules)
+    await setDoc(doc(db, "matchLinks", sharedByResultId), {
+      matchId,
+      sharedByUserId,
+      sharedByResultId,
+      sharedByUserName: nameToStore,
+      timestamp: new Date(),
     });
 
     return `vibekey://match?id=${matchId}`;

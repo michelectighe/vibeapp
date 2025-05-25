@@ -8,3 +8,4 @@ export * from "@screens/Tools";
 export { VibeKeyHome } from "./VibeKeyHome";
 export { SplashScreen } from "./SplashScreen";
 export { WelcomeScreen } from "./WelcomeScreen";
+export { GoodNewsScreen } from "./GoodNews";

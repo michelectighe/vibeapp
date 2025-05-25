@@ -8,7 +8,7 @@ import { FaceDetector } from "react-native-vision-camera-face-detector";
 export const initApp = async () => {
   try {
     initializeDatabase();
-    //dropTable();
+   // dropTable();
     // truncateResults();
     // Register plugin with the Vision Camera plugin system
     //registerPlugin('detectFaces', FaceDetector);

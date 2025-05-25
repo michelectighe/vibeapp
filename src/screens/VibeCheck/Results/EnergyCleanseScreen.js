@@ -12,6 +12,7 @@ import { Colors } from "@/constants";
 import { globalStyles } from "@/styles";
 import { getVibeRecommendations } from "@utils";
 import { playTrack, stopTrack, isPlayingTrack } from "@services";
+import { hexToRgba } from "@/utils";
 
 export const EnergyCleanseScreen = () => {
   const auth = getAuth();
@@ -22,6 +23,7 @@ export const EnergyCleanseScreen = () => {
   const [overallColor2, setColor2] = useState();
   const [overallColor3, setColor3] = useState();
   const [overallColor4, setColor4] = useState();
+  const [cardColor, setCardColor] = useState();
   const isPlayingRef = useRef();
   const [playingState, setPlayingState] = useState({
     meditation,
@@ -79,6 +81,7 @@ export const EnergyCleanseScreen = () => {
     setColor2(vibrationInfo.color2);
     setColor3(vibrationInfo.color3);
     setColor4(vibrationInfo.color4);
+    setCardColor(vibrationInfo.color2);
   }, [vibrationInfo]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
@@ -123,7 +126,7 @@ export const EnergyCleanseScreen = () => {
     try {
       const timestamp = new Date();
 
-      await firestore().collection("users").doc(userID).collection("cleanses").add({
+      await getFirestore().collection("users").doc(userID).collection("cleanses").add({
         completedAt: timestamp,
         vibrationInfo,
         meditationId: meditation.id,
@@ -149,8 +152,11 @@ export const EnergyCleanseScreen = () => {
 
   return (
     <GradientBackground
-      colors={[overallColor4, overallColor2, overallColor3, overallColor4]}
-      logo={false}
+      colors={
+        overallColor
+          ? [overallColor4, overallColor, overallColor2, overallColor3, overallColor4]
+          : [Colors.white, Colors.white, Colors.white]
+      }
     >
       <CloseX xColor={overallColor4} onPress={() => navigation.goBack()} />
       <SectionLayout
@@ -172,28 +178,28 @@ export const EnergyCleanseScreen = () => {
         }
         middleContent={
           <View style={styles.middle}>
-            <Text style={[styles.sectionTitle, { color: overallColor4 }]}>Meditation</Text>
+            <Text style={[styles.sectionTitle, { color: overallColor3 }]}>Meditation</Text>
             <CardTools
               item={meditation}
               onPress={() => handlePress(meditation, "meditation")}
-              bgColor={overallColor4}
-              textColor={overallColor2}
+              bgColor={cardColor}
+              textColor={overallColor3}
               isPlaying={playingState.meditation}
             />
-            <Text style={[styles.sectionTitle, { color: overallColor4 }]}>Frequency</Text>
+            <Text style={[styles.sectionTitle, { color: overallColor3 }]}>Frequency</Text>
             <CardTools
               item={frequency}
               onPress={() => handlePress(frequency, "frequency")}
-              bgColor={overallColor4}
-              textColor={overallColor2}
+              bgColor={cardColor}
+              textColor={overallColor3}
               isPlaying={playingState.frequency}
             />
-            <Text style={[styles.sectionTitle, { color: overallColor4 }]}>Breathing</Text>
+            <Text style={[styles.sectionTitle, { color: overallColor3 }]}>Breathing</Text>
             <CardTools
               item={breathing}
               onPress={() => handleBreathingPress(breathing, "breathing")}
-              bgColor={overallColor4}
-              textColor={overallColor2}
+              bgColor={cardColor}
+              textColor={overallColor3}
             />
           </View>
         }

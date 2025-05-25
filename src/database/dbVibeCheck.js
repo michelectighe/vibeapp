@@ -4,7 +4,7 @@ import * as SQLite from "expo-sqlite";
 export const saveResult = async (result) => {
   try {
     const db = await SQLite.openDatabaseAsync("vibrationResults.db");
-    console.log("saving result:", result);
+ //   console.log("saving result:", result);
     await db.runAsync(
       `INSERT INTO results (
                 resultID,
@@ -116,3 +116,5 @@ export const deleteResult = async (id, callback) => {
     console.error("❌ Error deleting result:", error);
   }
 };
+
+

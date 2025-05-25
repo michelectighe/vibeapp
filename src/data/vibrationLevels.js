@@ -6,7 +6,7 @@ export const vibrationLevels = [
   {
     id: "level1",
     label: "Divine Alignment",
-    minScore: 91,
+    minScore: 85,
     color: Colors.divineColor1,
     description:
       "A state of profound spiritual connection and harmony with the universe. Intuition is fully awakened, bringing peace, clarity, and the ability to manifest effortlessly",
@@ -38,7 +38,7 @@ export const vibrationLevels = [
   {
     id: "level2",
     label: "Transcendent Frequency",
-    minScore: 81,
+    minScore: 75,
     color: Colors.transcendentColor1,
     description:
       "Elevated energy, profound clarity, and an expanded sense of self. Intuition and manifestation are strong, with a deep sense of peace and purpose",
@@ -70,7 +70,7 @@ export const vibrationLevels = [
   {
     id: "level3",
     label: "Elevated Frequency",
-    minScore: 71,
+    minScore: 65,
     color: Colors.elevatedColor1,
     description:
       "Consistent positivity and emotional balance. Personal energy remains strong, and challenges are managed with resilience, though occasional dips occur.",
@@ -102,7 +102,7 @@ export const vibrationLevels = [
   {
     id: "level4",
     label: "Balanced State",
-    minScore: 61,
+    minScore: 60,
     color: Colors.balancedColor1,
     description:
       "Steady energy with manageable fluctuations. Emotional and mental states can shift, but there is a consistent effort toward growth and maintaining stability",
@@ -133,7 +133,7 @@ export const vibrationLevels = [
   {
     id: "level5",
     label: "Neutral State",
-    minScore: 51,
+    minScore: 55,
     color: Colors.neutralColor1,
     description:
       "Moderate energy levels with fluctuations in mood, focus, and motivation. Some resistance or stress may lower vibration, requiring conscious effort to maintain balance",
@@ -164,7 +164,7 @@ export const vibrationLevels = [
   {
     id: "level6",
     label: "Low Resonance",
-    minScore: 41,
+    minScore: 50,
     color: Colors.lowColor1,
     description:
       "Persistent feelings of fatigue, negativity, or disconnection. External stressors and unresolved issues are present, requiring deep work for realignment",

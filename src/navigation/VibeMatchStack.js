@@ -1,5 +1,11 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { VibeMatchScreen, ShareScreen, MatchScreen, MatchComparisonScreen } from "@screens";
+import {
+  VibeMatchScreen,
+  ShareScreen,
+  MatchScreen,
+  MatchComparisonScreen,
+  SharedMatchIntroScreen,
+} from "@screens";
 
 export const VibeMatchStack = () => {
   const Stack = createNativeStackNavigator();
@@ -20,6 +26,13 @@ export const VibeMatchStack = () => {
       <Stack.Screen
         name="ShareScreen"
         component={ShareScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="SharedMatchIntro"
+        component={SharedMatchIntroScreen}
         options={{
           headerShown: false,
         }}

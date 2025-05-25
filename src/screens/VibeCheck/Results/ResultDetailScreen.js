@@ -47,7 +47,7 @@ export const ResultDetailScreen = ({ navigation }) => {
       setColor2(result.color2);
       setColor3(result.color3);
       setColor4(result.color4);
-      setViewColor(hexToRgba(result.color4));
+      setViewColor(hexToRgba(result.color3));
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -88,19 +88,19 @@ export const ResultDetailScreen = ({ navigation }) => {
                 label="Energy Cleanse"
                 onPress={() => navigation.navigate("EnergyCleanseScreen")}
                 color={overallColor2}
-                textColor={overallColor4}
+                textColor={overallColor3}
               />
               <CustomSpiritualButton
                 label="Journal"
                 onPress={() => navigation.navigate("JournalScreen")}
                 color={overallColor2}
-                textColor={overallColor4}
+                textColor={overallColor3}
               />
               <CustomSpiritualButton
                 label="Chakra Balance"
                 onPress={() => navigation.navigate("ChakraScreen")}
                 color={overallColor2}
-                textColor={overallColor4}
+                textColor={overallColor3}
               />
             </View>
           </View>

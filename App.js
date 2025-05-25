@@ -7,6 +7,7 @@ import { NavigationContainer, useNavigationContainerRef } from "@react-navigatio
 import { navigationRef } from "@services";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { initApp } from "@utils";
 
 import { LogBox } from "react-native";
 import { enableScreens } from "react-native-screens";
@@ -20,7 +21,8 @@ import {
   AnalysisProvider,
 } from "@context";
 import { MusicManager } from "@utils";
-import { SplashScreen, WelcomeScreen, ChakraDetailModal } from "@screens";
+import { SplashScreen, WelcomeScreen, ChakraDetailModal, GoodNewsScreen } from "@screens";
+import { DevOnly } from "./devOnlyScreen";
 import { initializeRevenueCat } from "@utils";
 
 //setGlobalErrorHandler();
@@ -70,6 +72,27 @@ const linking = {
     },
   },
 };
+// const linking = {
+//   prefixes: ["vibekey://"],
+//   config: {
+//     screens: {
+//       Tabs: {
+//         screens: {
+//           VibeMatch: {
+//             screens: {
+//               SharedMatchIntro: {
+//                 path: "match",
+//                 parse: {
+//                   id: (id) => `${id}`,
+//                 },
+//               },
+//             },
+//           },
+//         },
+//       },
+//     },
+//   },
+// };
 
 // const linking = {
 //   prefixes: ["vibekey://"],
@@ -88,7 +111,11 @@ const linking = {
 const Stack = createNativeStackNavigator();
 const AppInner = () => {
   useEffect(() => {
-    initializeRevenueCat();
+    const initRevCat = async () => {
+      await initializeRevenueCat();
+      await initApp();
+    };
+    initRevCat();
   }, []);
 
   // useEffect(() => {
@@ -134,6 +161,8 @@ const AppInner = () => {
             />
             <Stack.Screen name="Welcome" component={WelcomeScreen} />
             <Stack.Screen name="Streaks" component={StreakStack} />
+            <Stack.Screen name="GoodNews" component={GoodNewsScreen} />
+            <Stack.Screen name="DevOnly" component={DevOnly} />
           </Stack.Navigator>
         </ModelProvider>
       </NavigationContainer>

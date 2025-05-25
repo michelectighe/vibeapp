@@ -87,7 +87,7 @@ export const ResultsScreen = ({ navigation }) => {
         setColor2(result.color2);
         setColor3(result.color3);
         setColor4(result.color4);
-        setViewColor(hexToRgba(result.color4));
+        setViewColor(hexToRgba(result.color));
         setImage(result.image);
         setDataReady(true);
         //save to db if the data is new
@@ -126,7 +126,7 @@ export const ResultsScreen = ({ navigation }) => {
     };
 
     if (newResult.resultID && newResult.timestamp) {
-      console.log("Saving to local DB:", newResult);
+    //  console.log("Saving to local DB:", newResult);
       await saveResults(newResult);
     }
     setSaving(false);

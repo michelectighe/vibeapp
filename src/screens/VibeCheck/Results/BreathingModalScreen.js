@@ -43,7 +43,7 @@ export const BreathingModalScreen = () => {
   }
 
   return (
-    <GradientBackground colors={[overallColor, overallColor2, overallColor3, overallColor4]} modal={true}>
+    <GradientBackground colors={[overallColor, overallColor2, overallColor4, overallColor3, overallColor3]} modal={true}>
       <CloseX xColor={overallColor4} onPress={() => navigation.goBack()} />
       <SectionLayout
         topFlex={6}
@@ -54,7 +54,7 @@ export const BreathingModalScreen = () => {
             <BreathingCircle
               pattern={pattern}
               //    key={pattern.id}
-              fuzzyColor={overallColor4}
+              fuzzyColor={overallColor3}
               textColor={overallColor2}
             />
           </View>
@@ -62,8 +62,8 @@ export const BreathingModalScreen = () => {
         middleContent={<></>} // no selector
         bottomContent={
           <View style={[styles.bottomText, { alignItems: "center" }]}>
-            <Text style={[styles.title, { color: overallColor4 }]}>{pattern.name}</Text>
-            <Text style={[styles.description, { color: overallColor4 }]}>
+            <Text style={[styles.title, { color: overallColor2 }]}>{pattern.name}</Text>
+            <Text style={[styles.description, { color: overallColor2 }]}>
               {pattern.description}
             </Text>
           </View>

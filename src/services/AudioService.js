@@ -21,7 +21,7 @@ export const playTrack = async (
   await TrackPlayer.add({ id, url, title, artist });
   await TrackPlayer.setRepeatMode(loop ? RepeatMode.Track : RepeatMode.Off);
   if (fadeIn) {
-    console.log("fading in");
+ //   console.log("fading in");
     await TrackPlayer.setVolume(0); // start silent
     await TrackPlayer.play();
     await fadeInMusic(vol); // fade to target volume

@@ -33,6 +33,7 @@ export { ModalTrigger } from "./ModalTrigger";
 export { ProfileAvatar } from "./ProfileAvatar";
 export { ProgressDots } from "./ProgressDots";
 export { ResultSelector } from "./ResultSelector";
+export { ResultsList } from "./ResultsList";
 export { SectionLayout } from "./SectionLayout";
 export { SubscriptionModal } from "./SubscriptionModal";
 export { SparkleOverlay } from "./SparkleOverlay";

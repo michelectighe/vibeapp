@@ -15,9 +15,12 @@ export const Card = ({
   isSquished = false,
   bgColor = Colors.surface,
   pulse = false,
+  isNews = false,
 }) => {
   const pulseAnim = useRef(new Animated.Value(1)).current;
-
+  const [imageError, setImageError] = useState(false);
+  //console.log("title:", title);
+  //console.log("isNews:", isNews);
   useEffect(() => {
     if (pulse) {
       Animated.loop(
@@ -41,7 +44,7 @@ export const Card = ({
 
   return (
     <View>
-      {image && (
+      {image && !isNews && (
         <View style={styles.titleWrapper}>
           <Text style={[styles.title, { color: textColor, fontSize: isCompact ? 16 : 18 }]}>
             {title}
@@ -56,14 +59,37 @@ export const Card = ({
               { height: isSquished ? SCREEN_HEIGHT * 0.1 : SCREEN_HEIGHT * 0.2 },
             ]}
           >
-            {image && (
+            {image && !isNews && (
               <FastImage
                 style={[StyleSheet.absoluteFill, styles.image]}
                 source={image}
                 resizeMode={FastImage.resizeMode.cover}
               />
             )}
-            {!image && (
+            {isNews && (
+              <View style={[styles.newsCard, { backgroundColor: bgColor }]}>
+                <View style={styles.newsTextBlock}>
+                  <Text style={[styles.titleNoImage, { color: textColor }]} numberOfLines={2}>
+                    {title}
+                  </Text>
+                  <Text style={[styles.subTitleNoImage, { color: textColor }]} numberOfLines={2}>
+                    {subtitle}
+                  </Text>
+                </View>
+
+                {image && !imageError && (
+                  <FastImage
+                    key={image}
+                    source={image}
+                    style={styles.newsImageRight}
+                    resizeMode={FastImage.resizeMode.cover}
+                    onError={() => setImageError(true)} // ✅ handle failure
+                  />
+                )}
+              </View>
+            )}
+
+            {!image && !isNews && (
               <View style={[styles.noImage, { backgroundColor: bgColor }]}>
                 <Text style={[styles.titleNoImage, { color: textColor }]}>{title}</Text>
                 <Text
@@ -79,7 +105,7 @@ export const Card = ({
           </View>
         </TouchableOpacity>
       </Animated.View>
-      {image && (
+      {image && !isNews && (
         <Text style={[styles.subTitle, { color: textColor, fontSize: isCompact ? 14 : 14 }]}>
           {subtitle}
         </Text>
@@ -104,6 +130,7 @@ const rawStyles = {
     backgroundColor: "transparent",
     opacity: 1,
   },
+
   noImage: {
     borderRadius: 20,
     opacity: 0.8,
@@ -166,6 +193,26 @@ const rawStyles = {
     fontFamily: Fonts.body,
     fontWeight: "500",
     textAlign: "center",
+  },
+  newsCard: {
+    flexDirection: "row",
+    borderRadius: 20,
+    padding: 12,
+    alignItems: "center",
+    justifyContent: "space-between",
+    height: "100%",
+  },
+
+  newsTextBlock: {
+    flex: 1,
+    paddingRight: 10,
+    justifyContent: "center",
+  },
+
+  newsImageRight: {
+    width: "35%",
+    height: "90%",
+    borderRadius: 12,
   },
 };
 

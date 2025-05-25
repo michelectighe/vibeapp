@@ -8,9 +8,14 @@ import { SCREEN_WIDTH } from "@/utils";
 const CARD_WIDTH = SCREEN_WIDTH * 0.9;
 const SIDE_PADDING = (SCREEN_WIDTH - CARD_WIDTH) / 2;
 
-export const SectionWithCards = ({ title, cards, isCompact = false, isScrollable = true }) => {
+export const SectionWithCards = ({
+  title,
+  cards,
+  isCompact = false,
+  isScrollable = true,
+  isNews = false,
+}) => {
   const navigation = useNavigation();
-
   return (
     <View style={styles.sectionContainer}>
       {isScrollable ? (
@@ -46,6 +51,7 @@ export const SectionWithCards = ({ title, cards, isCompact = false, isScrollable
                   }}
                   isCompact={isCompact}
                   isSquished={card.isSquished}
+                  isNews={isNews}
                 />
               </View>
             );
@@ -85,6 +91,7 @@ export const SectionWithCards = ({ title, cards, isCompact = false, isScrollable
                   isSquished={card.isSquished}
                   bgColor={card.bgColor || Colors.surface}
                   pulse={card.pulse}
+                  isNews={isNews}
                 />
               </View>
             );

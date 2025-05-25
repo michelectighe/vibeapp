@@ -72,6 +72,14 @@ export const SettingsScreen = ({ navigation }) => {
                 textColor={Colors.textDark}
               />
             )}
+            {__DEV__ && (
+              <CustomSpiritualButton
+                label="Dev Tools"
+                onPress={() => navigation.navigate("DevOnly")}
+                color={Colors.buttonBackground}
+                textColor={Colors.textDark}
+              />
+            )}
           </View>
         }
         bottomContent={<Text>{signOutMessage}</Text>}

@@ -10,6 +10,8 @@ import { GradientBackground, SectionLayout } from "@components";
 import { Colors } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
 import { subscriptionFeatures } from "@data";
+import { CustomSpiritualButton } from "@/components";
+import { SCREEN_WIDTH } from "@/utils";
 
 export const SubscriptionScreen = ({ navigation, route }) => {
   useAmbientControlForScreen(true);
@@ -51,13 +53,13 @@ export const SubscriptionScreen = ({ navigation, route }) => {
   return (
     <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}>
       <SectionLayout
-        topFlex={2}
+        topFlex={1}
         middleFlex={6}
         bottomFlex={1}
         topContent={
           <>
-            <View style={globalStyles.titleWrapper}>
-              <Text style={globalStyles.title}>Go Premium</Text>
+            <View style={styles.titleWrapper}>
+              <Text style={styles.title}>Go Premium</Text>
             </View>
           </>
         }
@@ -92,13 +94,15 @@ export const SubscriptionScreen = ({ navigation, route }) => {
             )}
           </>
         }
-        bottomContent = {
-          <TouchableOpacity
-          onPress={() => navigation.navigate("Home")}
-          style={styles.cancelButton}
-        >
-          <Text style={styles.cancelText}>Cancel</Text>
-        </TouchableOpacity>
+        bottomContent={
+          <View style={{ width: SCREEN_WIDTH * 0.9 }}>
+            <CustomSpiritualButton
+              label="Sign Up"
+              onPress={() => navigation.navigate("Home")}
+              color={Colors.buttonBackground}
+              textColor={Colors.buttonText}
+            />
+          </View>
         }
       />
     </GradientBackground>

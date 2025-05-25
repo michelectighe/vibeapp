@@ -116,28 +116,28 @@ export const AnalysisProvider = ({ children }) => {
 
   const voiceStrengthScore = useMemo(() => {
     if (voiceStrength == null) return null;
-    return evaluateVoiceStrength(voiceStrength);
+    return evaluateVoiceStrength(Math.round(voiceStrength));
   }, [voiceStrength]);
 
   const voiceClarityScore = useMemo(() => {
     if (voiceClarity == null) return null;
-    return evaluateVoiceClarity(voiceClarity);
+    return evaluateVoiceClarity(Math.round(voiceClarity));
   }, [voiceClarity]);
 
   const voiceFrequencyScore = useMemo(() => {
-    console.log("got new voiceFrequency:", voiceFrequency);
+    //  console.log("got new voiceFrequency:", voiceFrequency);
     if (voiceFrequency == null) return null;
-    return evaluateVoiceFrequency(voiceFrequency);
+    return evaluateVoiceFrequency(Math.round(voiceFrequency));
   }, [voiceFrequency]);
 
   useEffect(() => {
     if (motion !== null) {
       const motionEval = evaluateMotion({
-        avgMagnitude: motion,
+        avgMagnitude: Math.round(motion),
       });
       // ////console.log("motion:", motionEval.label);
       // ////console.log("final motionScore:", motionEval.score);
-      setMotionScore(motionEval.score);
+      setMotionScore(Math.round(motionEval.score));
     }
   }, [motion]);
 
@@ -178,8 +178,8 @@ export const AnalysisProvider = ({ children }) => {
       setBPM(roundRawBPM);
       const normBPM = 100 - normalize(heartRate.bpm, 40, 180); // lower the better
       // ////console.log("final BPM:", normBPM);
-      const roundedHRV = Math.round(normBPM);
-      setHeartRateScore(roundedHRV);
+      const roundedBPM = Math.round(normBPM);
+      setHeartRateScore(roundedBPM);
     }
   }, [heartRate]);
 
@@ -271,7 +271,7 @@ export const AnalysisProvider = ({ children }) => {
       voiceClarityScore &&
       voiceFrequencyScore
     )
-      console.log("updating chakra scores");
+    //  console.log("updating chakra scores");
       updateChakraScores();
     setAuraColor(getAuraColor()); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [

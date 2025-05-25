@@ -121,7 +121,7 @@ export const JournalScreen = () => {
                 onChangeText={setEntry}
                 placeholder="Write whatever flows through..."
                 placeholderTextColor={Colors.mediumGray}
-                style={{ backgroundColor: overallColor2, borderRadius: 12 }}
+                style={{ backgroundColor: overallColor4, borderRadius: 12 }}
                 textAlignVertical="top"
                 textAlign="left"
                 multiline={true}
@@ -143,13 +143,13 @@ export const JournalScreen = () => {
                   label="Save Entry"
                   onPress={handleSave}
                   color={overallColor2}
-                  textColor={overallColor4}
+                  textColor={overallColor3}
                 />
                 <CustomSpiritualButton
                   label="New Prompt"
                   onPress={handleNewPrompt}
                   color={overallColor2}
-                  textColor={overallColor4}
+                  textColor={overallColor3}
                 />
               </View>
               <Text style={[styles.bottomNote, { color: overallColor4 }]}>

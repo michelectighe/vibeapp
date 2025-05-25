@@ -27,22 +27,51 @@ export const initializeDatabase = async () => {
         emotionalScore TEXT
       );
     `);
+    await db.execAsync(`
+      CREATE TABLE IF NOT EXISTS MatchResultsReceived (
+        matchID TEXT PRIMARY KEY,
+        ResultID TEXT,
+        userID TEXT,
+        timestamp TEXT,
+        voiceFrequencyScore TEXT, 
+        heartRateScore TEXT,
+        motionScore TEXT, 
+        overallVibrationScore REAL, 
+        chakraScores TEXT,
+        environmentScore TEXT,
+        voiceStrengthScore TEXT,
+        voiceClarityScore TEXT,
+        emotionalScore TEXT
+      );
+    `);
 
     await db.execAsync(`
-        CREATE TABLE IF NOT EXISTS vibeMatchResults (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          timestamp TEXT,
-          name1 TEXT,
-          name2 TEXT,
-          frequency1 REAL,
-          frequency2 REAL,
-          strength1 REAL,
-          strength2 REAL,
-          clarity1 REAL,
-          clarity2 REAL,
-          compatibility REAL       
-     );
-      `);
+  CREATE TABLE IF NOT EXISTS matchesReceived (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    MatchID TEXT,
+    myUserID TEXT,
+    theirUserID TEXT,
+    myResultID TEXT,
+    theirResultID TEXT,
+    theirName TEXT,
+    timeStamp TEXT,
+    UNIQUE (MatchID, myResultID, theirResultID)
+  );
+`);
+
+    await db.execAsync(`
+  CREATE TABLE IF NOT EXISTS matchesSent (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    MatchID TEXT,
+    myUserID TEXT,
+    theirUserID TEXT,
+    myResultID TEXT,
+    theirResultID TEXT,
+    theirName TEXT,
+    timeStamp TEXT,
+    UNIQUE (MatchID, myResultID, theirResultID)
+  );
+`);
 
     await db.execAsync(`
       CREATE TABLE IF NOT EXISTS sticky_notes (
@@ -68,7 +97,7 @@ export const dropTable = async () => {
     db = await SQLite.openDatabaseAsync("vibrationResults.db");
   }
   //  await db.execAsync("DROP TABLE IF EXISTS sticky_notes;");
-  await db.execAsync("DROP TABLE IF EXISTS results;");
-
+  //await db.execAsync("DROP TABLE IF EXISTS matchesSent;");
+  //await db.execAsync("DROP TABLE IF EXISTS matchesReceived;");
   //console.log("🗑️ Table dropped. Restart app to recreate.");
 };

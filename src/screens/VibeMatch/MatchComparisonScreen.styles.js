@@ -4,21 +4,33 @@ import { scaledStyle } from "@utils";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 
 const rawStyles = {
-  header: {
-    marginTop: -20,
+  titleWrapper: {
+    position: "absolute",
+    top: 100,
+    width: SCREEN_WIDTH,
+    alignItems: "center",
+    backgroundColor: "transparent",
+    zIndex: 2,
   },
   title: {
+    textAlign: "center",
     fontSize: 28,
     color: Colors.white,
-    fontFamily: Fonts.title,
-    marginBottom: 10,
-    textAlign: "center",
+    fontFamily: Fonts.body,
+  },
+  scrollContent: {
+    backgroundColor: "transparent",
+    paddingTop: 250,
+    paddingHorizontal: 0,
+    paddingBottom: 160,
+    width: SCREEN_WIDTH * 0.9,
   },
   summary: {
-    fontSize: 18,
-    color: Colors.veryLightGray,
+    marginBottom: 20,
     textAlign: "center",
-    marginBottom: 15,
+    fontSize: 18,
+    color: Colors.textLight,
+    fontFamily: Fonts.body,
   },
   scroll: {
     paddingHorizontal: 16,

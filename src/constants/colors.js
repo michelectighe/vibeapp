@@ -207,25 +207,25 @@ export const Colors = {
   divineColor3: "#3B238A", // rgba(59, 35, 138, 0.7)
   divineColor4: "#B496FF", // rgba(180, 150, 255, 0.95)
 
-  transcendentColor1: "#004AAD", // rgba(0, 74, 173, 0.7)
-  transcendentColor2: "#A3C6FF", // rgba(163, 198, 255, 0.7)
-  transcendentColor3: "#002B6B", // rgba(0, 43, 107, 0.7)
-  transcendentColor4: "#BEDCFF", // rgba(190, 220, 255, 0.95)
+  transcendentColor1: "#004AAD", // deep blue
+  transcendentColor2: "#A3C6FF", // soft light blue
+  transcendentColor3: "#002B6B", // navy
+  transcendentColor4: "#E6F0FF", // ✅ new lighter tone (pastel sky blue)
 
-  elevatedColor1: "#46C9FE", // rgba(70, 201, 254, 0.7)
-  elevatedColor2: "#D6F4FF", // rgba(214, 244, 255, 0.7)
-  elevatedColor3: "#2C8FB3", // rgba(44, 143, 179, 0.7)
-  elevatedColor4: "#1815E3", // rgba(24, 21, 227, 0.95)
+  elevatedColor1: "#46C9FE", // bright aqua
+  elevatedColor2: "#D6F4FF", // very light cyan
+  elevatedColor3: "#2C8FB3", // deep teal-blue
+  elevatedColor4: "#E3F6FF", // ✅ new lighter tone (icey, luminous)
 
-  balancedColor1: "#29B554", // rgba(41, 181, 84, 0.7)
-  balancedColor2: "#C1F0D0", // rgba(193, 240, 208, 0.7)
-  balancedColor3: "#1E6E3A", // rgba(30, 110, 58, 0.7)
-  balancedColor4: "#B4BFEB", // rgba(180, 191, 235, 0.95)
+  balancedColor1: "#29B554", // vibrant green
+  balancedColor2: "#C1F0D0", // light mint
+  balancedColor3: "#1E6E3A", // forest green
+  balancedColor4: "#DFF7E7", // ✅ soft leafy glow (lightest green pastel)
 
-  neutralColor1: "#FFC107",
-  neutralColor2: "#FFEBAA", // rgba(255, 235, 170, 0.9)
-  neutralColor3: "#996600",
-  neutralColor4: "#8C641E", // rgba(140, 100, 30, 0.9)
+  neutralColor1: "#FFC107", // bright amber
+  neutralColor2: "#FFEBAA", // warm pastel yellow
+  neutralColor3: "#996600", // deep golden brown
+  neutralColor4: "#FFF2CC", // ✅ new soft cream-gold
 
   lowColor1: "#FF7A00", // rgba(255, 122, 0, 0.7)
   lowColor2: "#FFD2A6", // rgba(255, 210, 166, 0.7)

@@ -1679,6 +1679,8 @@ PODS:
     - ReactCommon/turbomodule/core
     - TensorFlowLiteC (= 2.17.0)
     - Yoga
+  - react-native-netinfo (11.4.1):
+    - React-Core
   - react-native-safe-area-context (5.4.0):
     - DoubleConversion
     - glog
@@ -2465,6 +2467,7 @@ DEPENDENCIES:
   - react-native-biometrics (from `../node_modules/react-native-biometrics`)
   - "react-native-blur (from `../node_modules/@react-native-community/blur`)"
   - react-native-fast-tflite (from `../node_modules/react-native-fast-tflite`)
+  - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
   - react-native-track-player (from `../node_modules/react-native-track-player`)
   - react-native-worklets-core (from `../node_modules/react-native-worklets-core`)
@@ -2662,6 +2665,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/blur"
   react-native-fast-tflite:
     :path: "../node_modules/react-native-fast-tflite"
+  react-native-netinfo:
+    :path: "../node_modules/@react-native-community/netinfo"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
   react-native-track-player:
@@ -2836,6 +2841,7 @@ SPEC CHECKSUMS:
   react-native-biometrics: 43ed5b828646a7862dbc7945556446be00798e7d
   react-native-blur: 535f5810fceb751b25db90c925ffa42ed007def7
   react-native-fast-tflite: 37794f1369b8237bd64c0a1abd64f42172beb2d8
+  react-native-netinfo: cec9c4e86083cb5b6aba0e0711f563e2fbbff187
   react-native-safe-area-context: c68127652d8b9a26a28ac9597167a3ad90bcd713
   react-native-track-player: 6dc2e2633265704b8ab6d8124b80239d4ed1f911
   react-native-worklets-core: 62316db2003ff0aed69dd88181606632cd01c3f3

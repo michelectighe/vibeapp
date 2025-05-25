@@ -8,6 +8,11 @@ export {
   deleteResult,
   getResultByID,
 } from "./dbVibeCheck";
-export { saveVibeMatch, getVibeMatchResults, deleteVibeMatchResult } from "./dbVibeMatch";
+export {
+  saveVibeMatchReceived,
+  getVibeMatchResults,
+  getLocalMatchRef,
+  deleteVibeMatchResult,
+} from "./dbVibeMatch";
 
 export { deleteFirestoreRecord } from "./fireStore";

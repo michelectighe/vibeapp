@@ -1,8 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { View, ActivityIndicator, Share, Text, ScrollView } from "react-native";
+import {
+  View,
+  ActivityIndicator,
+  Share,
+  TextInput,
+  Keyboard,
+  Switch,
+  Text,
+  ScrollView,
+} from "react-native";
 import { getAuth } from "firebase/auth";
-import { useAuth } from "@context";
-import { loadResults, SCREEN_HEIGHT } from "@utils";
+import { useAuth, useUserProfile } from "@context";
+import { loadResults } from "@utils";
 import { GradientBackground, ResultSelector, SectionLayout } from "@components";
 import { createMatchLink } from "@services";
 import { Colors } from "@constants";
@@ -12,15 +21,20 @@ import { globalStyles } from "@styles";
 import { styles } from "./ShareScreen.styles";
 import { deleteFirestoreRecord } from "@/database";
 import { deleteResult } from "@/database";
+import { SCREEN_HEIGHT } from "@/utils";
 
 export const ShareScreen = ({ navigation }) => {
   useAmbientControlForScreen(true);
+  const { profile } = useUserProfile();
   const [results, setResults] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showSubModal, setShowSubModal] = useState(false);
   const auth = getAuth();
   const { user, authLoading, isPremium } = useAuth(); // 🔑 assuming `isPremium` is part of auth context
+  const [isAnonymous, setIsAnonymous] = useState(false);
+  const [shareName, setShareName] = useState(null);
 
+  
   useEffect(() => {
     if (authLoading) return;
     if (!user) {
@@ -41,6 +55,7 @@ export const ShareScreen = ({ navigation }) => {
       //   setShowSubModal(true);
       //   setLoading(false);
     } else {
+      setShareName(user.displayName);
       fetchResults();
     }
   }, [authLoading, user, isPremium]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -53,7 +68,8 @@ export const ShareScreen = ({ navigation }) => {
 
   const onShare = async (item) => {
     try {
-      const link = await createMatchLink(item.id, auth.currentUser.uid);
+      const name = profile.displayName;
+      const link = await createMatchLink(item.id, auth.currentUser.uid, name, isAnonymous);
       await Share.share({
         message: `Compare your vibe with mine! Tap this link to begin: ${link}`,
       });
@@ -120,14 +136,46 @@ export const ShareScreen = ({ navigation }) => {
                 <Text style={styles.title}>Vibe Match</Text>
                 <Text style={styles.subTitle}>Let&apos;s see if your vibes are in sync.</Text>
               </View>
-              <View style={styles.selectorContainer}>
+              <ScrollView
+                contentContainerStyle={styles.scrollContent}
+                showsVerticalScrollIndicator={false}
+              >
+                {/* <View style={styles.options}>
+                  <View style={[styles.anonymous]}>
+                    <Text style={[styles.anonymousText]}>anonymous</Text>
+                    <Switch
+                      style={styles.switch}
+                      value={isAnonymous}
+                      onValueChange={(val) => {
+                        setIsAnonymous(val);
+                      }}
+                      thumbColor={isAnonymous ? Colors.accent : "#ccc"}
+                      trackColor={{ false: "#aaa", true: Colors.accentLight }}
+                    />
+                  </View>
+                  {!isAnonymous && (
+                    <View style={[styles.shareAs, {}]}>
+                      <Text style={{ color: Colors.textLight }}>Share as: </Text>
+                      <TextInput
+                        style={styles.input}
+                        placeholder="Enter your name"
+                        placeholderTextColor={Colors.mediumGray}
+                        value={shareName}
+                        onChangeText={setShareName}
+                        autoCapitalize="none"
+                        returnKeyType="done"
+                        onSubmitEditing={Keyboard.dismiss}
+                      />
+                    </View>
+                  )}
+                </View> */}
                 <ResultSelector
                   results={results}
                   onSelect={(item) => showResults(item)}
                   onShare={onShare}
                   onTrash={onTrash}
                 />
-              </View>
+              </ScrollView>
             </>
           }
         />

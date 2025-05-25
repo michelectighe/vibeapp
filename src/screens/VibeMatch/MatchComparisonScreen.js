@@ -1,80 +1,153 @@
-import React from "react";
-import { View, Text, ScrollView} from "react-native";
-import { Fonts, Colors } from "@constants";
-import { compareResults } from "@utils";
+import React, { useEffect, useState } from "react";
+import { View, Text, ScrollView } from "react-native";
+import { Colors } from "@constants";
+import { generateComparisonSummary } from "@utils/generateComparisonSummary";
 import { GradientBackground, ChakraComparisonCard, ComparisonCard } from "@components";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./MatchComparisonScreen.styles";
-import { globalStyles } from "@styles";
 import { chakraData } from "@/data";
+import { SectionLayout } from "@/components";
+import { saveVibeMatchReceived } from "@/database";
 
 export const MatchComparisonScreen = ({ route }) => {
   useAmbientControlForScreen(true);
-  const { myResult, sharedResult } = route.params;
-  const { similarities, differences } = compareResults(myResult, sharedResult);
+  const { myResult, sharedResult, shareName, matchId } = route.params;
 
-  const getVibeSummary = () => {
-    const delta = Math.abs(myResult.overallVibrationScore - sharedResult.overallVibrationScore);
-    if (delta < 15) return "You are incredibly in sync.";
-    if (delta < 30) return "You're pretty aligned.";
-    return "You're on different wavelengths today.";
-  };
+
+  const [summary, setSummary] = useState(null);
+
+  useEffect(() => {
+    const saveMatch = async () => {
+      console.log('matchid:', matchId)
+        console.log("myResut:", myResult);
+        console.log("sharedResult:", sharedResult);
+        console.log('sharename:', shareName);
+      await saveVibeMatchReceived(myResult, sharedResult, matchId, shareName);
+    };
+    saveMatch();
+    const result = generateComparisonSummary(myResult, sharedResult);
+    setSummary(result);
+  }, [myResult, sharedResult, matchId, shareName]);
+
+  if (!summary) return null;
+
+  const groupByCategory = (category) =>
+    summary.comparisons.filter((item) => item.category === category);
+  console.log(groupByCategory);
 
   return (
     <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}>
-      <View style={styles.header}>
-        <Text style={styles.title}>Vibe Comparison</Text>
-        <Text style={styles.summary}>{getVibeSummary()}</Text>
-      </View>
+      <SectionLayout
+        topFlex={1}
+        middleFlex={0}
+        bottomFlex={0}
+        safe={false}
+        topContent={
+          <>
+            <View style={styles.titleWrapper}>
+              <Text style={styles.title}>You and {shareName}</Text>
+              <Text style={styles.summary}>{summary.overallSummary}</Text>
+            </View>
 
-      <ScrollView
-        style={globalStyles.scrollView}
-        contentContainerStyle={globalStyles.scrollContent}
-        showsVerticalScrollIndicator={false}
-      >
-        <Text style={styles.sectionTitle}>Similarities</Text>
-        {similarities.length === 0 ? (
-          <Text style={styles.noData}>No strong similarities found.</Text>
-        ) : (
-          similarities.map((item) => (
-            <ComparisonCard
-              key={item.key}
-              keyName={item.key}
-              myVal={item.myVal}
-              theirVal={item.theirVal}
-            />
-          ))
-        )}
+            <ScrollView
+              contentContainerStyle={styles.scrollContent}
+              showsVerticalScrollIndicator={false}
+            >
+              {/* ✨ COMPLETELY ALIGNED */}
+              <Text style={styles.sectionTitle}>Completely Aligned</Text>
+              {groupByCategory("aligned").length === 0 ? (
+                <Text style={styles.noData}>No perfect matches.</Text>
+              ) : (
+                groupByCategory("aligned").map((item) => (
+                  <ComparisonCard
+                    key={item.key}
+                    keyName={item.key}
+                    myVal={item.myVal}
+                    theirVal={item.theirVal}
+                    type={item.type}
+                    category={item.category}
+                    label={item.label}
+                    description={item.description}
+                  />
+                ))
+              )}
 
-        <Text style={styles.sectionTitle}>Differences</Text>
-        {differences.length === 0 ? (
-          <Text style={styles.noData}>No significant differences.</Text>
-        ) : (
-          differences.map((item) => (
-            <ComparisonCard
-              key={item.key}
-              keyName={item.key}
-              myVal={item.myVal}
-              theirVal={item.theirVal}
-            />
-          ))
-        )}
+              {/* ✨ SLIGHT DIFFERENCES */}
+              <Text style={styles.sectionTitle}>Slight Differences</Text>
+              {groupByCategory("slightlyDifferent").length === 0 ? (
+                <Text style={styles.noData}>Nothing mildly different.</Text>
+              ) : (
+                groupByCategory("slightlyDifferent").map((item) => (
+                  <ComparisonCard
+                    key={item.key}
+                    keyName={item.key}
+                    myVal={item.myVal}
+                    theirVal={item.theirVal}
+                    type={item.type}
+                    category={item.category}
+                    label={item.label}
+                    description={item.description}
+                  />
+                ))
+              )}
 
-        <Text style={styles.sectionTitle}>Chakra Comparison</Text>
-        {chakraData.map((chakra) => {
-          const yourScore = myResult.chakraScores?.[chakra.id];
-          const theirScore = sharedResult.chakraScores?.[chakra.id];
+              {/* ✨ MODERATE DIFFERENCES */}
+              <Text style={styles.sectionTitle}>Moderate Differences</Text>
+              {groupByCategory("moderatelyDifferent").length === 0 ? (
+                <Text style={styles.noData}>No notable contrasts here.</Text>
+              ) : (
+                groupByCategory("moderatelyDifferent").map((item) => (
+                  <ComparisonCard
+                    key={item.key}
+                    keyName={item.key}
+                    myVal={item.myVal}
+                    theirVal={item.theirVal}
+                    type={item.type}
+                    category={item.category}
+                    label={item.label}
+                    description={item.description}
+                  />
+                ))
+              )}
 
-          return (
-            <ChakraComparisonCard
-              key={chakra.id}
-              chakra={chakra}
-              yourScore={yourScore}
-              theirScore={theirScore}
-            />
-          );
-        })}
-      </ScrollView>
+              {/* ✨ COMPLETELY UNALIGNED */}
+              <Text style={styles.sectionTitle}>Completely Unaligned</Text>
+              {groupByCategory("completelyUnaligned").length === 0 ? (
+                <Text style={styles.noData}>You're vibing on the same plane.</Text>
+              ) : (
+                groupByCategory("completelyUnaligned").map((item) => (
+                  <ComparisonCard
+                    key={item.key}
+                    keyName={item.key}
+                    myVal={item.myVal}
+                    theirVal={item.theirVal}
+                    type={item.type}
+                    category={item.category}
+                    label={item.label}
+                    description={item.description}
+                  />
+                ))
+              )}
+
+              {/* 🌈 CHAKRA COMPARISON */}
+              <Text style={styles.sectionTitle}>Chakra Comparison</Text>
+              {chakraData.map((chakra) => {
+                const yourScore = myResult.chakraScores?.[chakra.id];
+                const theirScore = sharedResult.chakraScores?.[chakra.id];
+
+                return (
+                  <ChakraComparisonCard
+                    key={chakra.id}
+                    chakra={chakra}
+                    yourScore={yourScore}
+                    theirScore={theirScore}
+                  />
+                );
+              })}
+            </ScrollView>
+          </>
+        }
+      />
     </GradientBackground>
   );
 };

@@ -11,6 +11,18 @@ const rawStyles = {
     backgroundColor: Colors.background,
     position: "relative",
   },
+  title: {
+    textAlign: "center",
+    fontSize: 36,
+    color: Colors.textLight,
+    fontFamily: Fonts.subTitle,
+  },
+  subTitle: {
+    textAlign: "center",
+    fontSize: 18,
+    color: Colors.textLight,
+    fontFamily: Fonts.body,
+  },
   formContainer: {
     width: SCREEN_WIDTH * 0.9,
     alignItems: "stretch",
@@ -63,18 +75,6 @@ const rawStyles = {
     // backgroundColor: "red",
     alignSelf: "center", // or a gradient if needed
     justifyContent: "center",
-  },
-  title: {
-    textAlign: "center",
-    fontSize: 30,
-    color: Colors.textDark,
-    fontFamily: Fonts.bodyBold,
-  },
-  subTitle: {
-    textAlign: "center",
-    fontSize: 18,
-    color: Colors.textDark,
-    fontFamily: Fonts.bodyBold,
   },
   link: {
     alignSelf: "flex-start",

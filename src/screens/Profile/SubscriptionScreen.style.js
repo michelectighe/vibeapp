@@ -4,6 +4,24 @@ import { Colors, Fonts } from "@constants";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 
 const rawStyles = {
+  titleWrapper: {
+    position: "absolute",
+  //  top: 100,
+    width: SCREEN_WIDTH,
+    alignItems: "center",
+    backgroundColor: "transparent",
+  },
+  title: {
+    position: "absolute",
+    top: 0,
+    marginBottom: 0,
+    left: 0,
+    right: 0,
+    textAlign: "center",
+    fontSize: 30,
+    color: Colors.textLight,
+    fontFamily: Fonts.body,
+  },
   featuresBox: {
     height: "90%", // or whatever fits nicely on your layout
     width: "90%",

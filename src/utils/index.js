@@ -60,3 +60,6 @@ export { loadSoundClassLabels } from "./loadSoundClassLabels";
 // clean up
 
 export { resetStack } from "./resetStack";
+export { checkConnection } from "./checkConnection";
+
+export { getTodayGoodNews, uploadDataToFireStore } from "./manageGoodNews";

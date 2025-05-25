@@ -86,19 +86,7 @@ export const WelcomeScreen = () => {
               color={Colors.buttonBackground}
               textColor={Colors.buttonText}
             />
-            <CustomSpiritualButton
-              label="Sign Up"
-              onPress={() =>
-                navigation.navigate("Tabs", {
-                  screen: "Settings",
-                  params: {
-                    screen: "SignUpScreen",
-                  },
-                })
-              }
-              color={Colors.buttonBackground}
-              textColor={Colors.buttonText}
-            />
+ 
             <CustomSpiritualButton
               label="Continue as Guest"
               onPress={() => navigation.replace("Tabs", { screen: "Home" })}

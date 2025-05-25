@@ -20,7 +20,7 @@ const rawStyles = {
     right: 0,
     textAlign: "center",
     fontSize: 30,
-    color: Colors.textDark,
+    color: Colors.textLight,
     fontFamily: Fonts.body,
   },
   toggles: {
@@ -92,7 +92,7 @@ modalButton: {
 },
 
 modalButtonText: {
-  color: Colors.textLight,
+  color: Colors.textDark,
   fontWeight: "bold",
   fontSize: 16,
 },
