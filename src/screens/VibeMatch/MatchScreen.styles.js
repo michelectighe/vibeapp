@@ -13,8 +13,16 @@ const rawStyles = {
     fontSize: 28,
     marginTop: 100,
     textAlign: "center",
-    width: SCREEN_WIDTH *.9,
+    width: SCREEN_WIDTH * 0.9,
     color: Colors.textLight,
+  },
+  scrollView: {
+    width: SCREEN_WIDTH,
+  },
+  scrollContent: {
+    paddingTop: 75, // this matches the height of your title/logo area
+    paddingHorizontal: 20,
+    paddingBottom: 160,
   },
   scoreBox: {
     alignItems: "center",

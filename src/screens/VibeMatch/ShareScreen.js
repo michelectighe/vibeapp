@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   View,
   ActivityIndicator,
@@ -11,30 +11,28 @@ import {
 } from "react-native";
 import { getAuth } from "firebase/auth";
 import { useAuth, useUserProfile } from "@context";
-import { loadResults } from "@utils";
 import { GradientBackground, ResultSelector, SectionLayout } from "@components";
 import { createMatchLink } from "@services";
 import { Colors } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
 import { SubscriptionModal } from "@components";
-import { globalStyles } from "@styles";
 import { styles } from "./ShareScreen.styles";
 import { deleteFirestoreRecord } from "@/database";
 import { deleteResult } from "@/database";
 import { SCREEN_HEIGHT } from "@/utils";
+import { MyResultsContext } from "@/context/MyResultsContext";
 
 export const ShareScreen = ({ navigation }) => {
   useAmbientControlForScreen(true);
+  const { myResults, loading } = useContext(MyResultsContext);
   const { profile } = useUserProfile();
   const [results, setResults] = useState([]);
-  const [loading, setLoading] = useState(true);
   const [showSubModal, setShowSubModal] = useState(false);
   const auth = getAuth();
   const { user, authLoading, isPremium } = useAuth(); // 🔑 assuming `isPremium` is part of auth context
   const [isAnonymous, setIsAnonymous] = useState(false);
-  const [shareName, setShareName] = useState(null);
+  const [shareName, setShareName] = useState("Someone");
 
-  
   useEffect(() => {
     if (authLoading) return;
     if (!user) {
@@ -56,15 +54,11 @@ export const ShareScreen = ({ navigation }) => {
       //   setLoading(false);
     } else {
       setShareName(user.displayName);
-      fetchResults();
+      if (myResults) {
+        setResults(myResults);
+      }
     }
-  }, [authLoading, user, isPremium]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const fetchResults = async () => {
-    const data = await loadResults();
-    setResults(data);
-    setLoading(false);
-  };
+  }, [authLoading, user, isPremium, myResults]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onShare = async (item) => {
     try {
@@ -84,11 +78,10 @@ export const ShareScreen = ({ navigation }) => {
       console.log("trying to delete item:", item.id);
 
       await deleteFirestoreRecord("results", item.id, user.uid);
-      //  await deleteFirestoreRecord("matches", item.id, user.uid);
-      deleteResult(item.id, (updatedResults) => {
+      //delete locally too
+      deleteResult(user.uid, item.id, (updatedResults) => {
         setResults(updatedResults); // or however you're storing them in state
       });
-      fetchResults();
     } catch (err) {
       console.error("Deletion error:", err);
     }
@@ -101,7 +94,7 @@ export const ShareScreen = ({ navigation }) => {
         params: {
           screen: "Results",
           params: {
-            resultID: item.resultID,
+            resultId: item.resultId,
             returnTo: "VibeMatch",
           },
         },

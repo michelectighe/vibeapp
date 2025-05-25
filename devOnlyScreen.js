@@ -13,8 +13,9 @@ import { doc, setDoc, getDocs, collection, deleteDoc } from "firebase/firestore"
 import { db } from "@config/firebaseConfig";
 import { uploadDataToFireStore } from "@/utils";
 import { useNavigation } from "@react-navigation/native";
-import { CloseX } from "@components";
-import {Colors} from "@constants";
+import { CloseX, CustomSpiritualButton } from "@components";
+import { Colors } from "@constants";
+import { truncateCollection, truncateLocalTable } from "@database";
 
 export const DevOnly = () => {
   const navigation = useNavigation();
@@ -86,7 +87,23 @@ export const DevOnly = () => {
     });
     setIsEditMode(true);
   };
+  const truncateTable = async (table) => {
+    // delete from firestore
+    try {
+      await truncateCollection(table);
+      Alert.alert("Success", `${table} "truncated from Firestore"`);
 
+      if (table === "match") {
+        await truncateLocalTable("MatchResultsReceived");
+        await truncateLocalTable("matchesReceived");
+        await truncateLocalTable("matchesSent");
+      } else {
+        await truncateLocalTable(table);
+      }
+    } catch (e) {
+      console.error("error truncating tables", e);
+    }
+  };
   const deleteStory = async (id) => {
     Alert.alert("Delete Story", `Are you sure you want to delete story "${id}"?`, [
       { text: "Cancel", style: "cancel" },
@@ -211,6 +228,26 @@ export const DevOnly = () => {
             ))}
         </>
       )}
+      <View>
+        <CustomSpiritualButton
+          label="Truncate Results Table"
+          onPress={() => truncateTable("results")}
+          color={Colors.buttonBackground}
+          textColor={Colors.buttonText}
+        />
+        <CustomSpiritualButton
+          label="Truncate Match Tables"
+          onPress={() => truncateTable("match")}
+          color={Colors.buttonBackground}
+          textColor={Colors.buttonText}
+        />
+        <CustomSpiritualButton
+          label="Truncate Sticky Notes Table"
+          onPress={() => truncateTable("sticky_notes")}
+          color={Colors.buttonBackground}
+          textColor={Colors.buttonText}
+        />
+      </View>
     </ScrollView>
   );
 };

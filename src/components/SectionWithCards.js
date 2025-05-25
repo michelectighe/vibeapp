@@ -78,7 +78,7 @@ export const SectionWithCards = ({
                       // ✅ Explicitly route to nested Results screen
                       navigation.navigate("VibeCheck", {
                         screen: "Results",
-                        params: { resultID: card.resultID },
+                        params: { resultId: card.resultId },
                       });
                     } else if (card.screen) {
                       // ✅ Everything else — use provided screen + params

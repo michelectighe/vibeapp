@@ -1,6 +1,6 @@
 import "react-native-reanimated";
 import "./src/styles/CustomText"; // must be imported before any screens load
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 //import { setJSExceptionHandler } from "react-native-exception-handler";
 // import crashlytics from "@react-native-firebase/crashlytics";
 import { NavigationContainer, useNavigationContainerRef } from "@react-navigation/native";
@@ -9,7 +9,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { initApp } from "@utils";
 
-import { LogBox } from "react-native";
+import { LogBox, Text } from "react-native";
 import { enableScreens } from "react-native-screens";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { MyTabs, StreakStack } from "@navigation";
@@ -19,6 +19,7 @@ import {
   EnvironmentProvider,
   AuthProvider,
   AnalysisProvider,
+  MyResultsProvider,
 } from "@context";
 import { MusicManager } from "@utils";
 import { SplashScreen, WelcomeScreen, ChakraDetailModal, GoodNewsScreen } from "@screens";
@@ -72,85 +73,43 @@ const linking = {
     },
   },
 };
-// const linking = {
-//   prefixes: ["vibekey://"],
-//   config: {
-//     screens: {
-//       Tabs: {
-//         screens: {
-//           VibeMatch: {
-//             screens: {
-//               SharedMatchIntro: {
-//                 path: "match",
-//                 parse: {
-//                   id: (id) => `${id}`,
-//                 },
-//               },
-//             },
-//           },
-//         },
-//       },
-//     },
-//   },
-// };
-
-// const linking = {
-//   prefixes: ["vibekey://"],
-//   config: {
-//     screens: {
-//       Splash: {
-//         path: "match", // optional param for match ID
-//         parse: {
-//           id: (id) => `${id}`,
-//         },
-//       },
-//     },
-//   },
-// };
 
 const Stack = createNativeStackNavigator();
 const AppInner = () => {
+  const [ready, setReady] = useState(false);
   useEffect(() => {
-    const initRevCat = async () => {
-      await initializeRevenueCat();
-      await initApp();
+    const init = async () => {
+      try {
+        await initializeRevenueCat();
+        await initApp(); // ✅ waits for auth to resolve now
+        setReady(true);
+      } catch (err) {
+        console.error("Failed to init app:", err);
+      }
     };
-    initRevCat();
+
+    init();
   }, []);
 
-  // useEffect(() => {
-  //   const getInitialUrl = async () => {
-  //     const url = await Linking.getInitialURL();
-  //     ////console.log("🔗 Initial URL:", url);
-  //   };
-
-  //   const sub = Linking.addEventListener("url", (event) => {
-  //     ////console.log("📡 Received link while app is open:", event.url);
-  //   });
-
-  //   getInitialUrl();
-  //   Linking.openURL("vibekey://match?id=T30X4J");
-
-  //   return () => sub.remove();
-  // }, []);
+  if (!ready) return <SplashScreen />;
   return (
     <AnalysisProvider>
       <MusicManager />
       <NavigationContainer linking={linking} ref={navigationRef}>
         <ModelProvider>
           <Stack.Navigator
-            initialRouteName="Splash"
+            initialRouteName="Tabs" // maybe change later to welcome screen
             screenOptions={() => ({
               headerShown: false,
               animation: "fade",
             })}
           >
-            <Stack.Screen name="Splash" component={SplashScreen} />
             <Stack.Screen
               name="Tabs"
               component={MyTabs}
               options={{ headerShown: false, animation: "fade" }}
             />
+
             <Stack.Screen
               name="ChakraDetailModal"
               component={ChakraDetailModal}
@@ -176,7 +135,9 @@ export const App = () => {
       <SafeAreaProvider>
         <AuthProvider>
           <UserProfileProvider>
-            <AppInner />
+            <MyResultsProvider>
+              <AppInner />
+            </MyResultsProvider>
           </UserProfileProvider>
         </AuthProvider>
       </SafeAreaProvider>

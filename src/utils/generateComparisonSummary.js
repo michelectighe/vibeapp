@@ -43,20 +43,20 @@ export const generateComparisonSummary = (myResult, sharedResult) => {
         category = "completelyUnaligned";
         type = "difference";
       }
-      console.log('key:', key)
-const label = metricComparisonDescriptions[key]?.label || key;
-console.log('label:', label);
-const description = metricComparisonDescriptions[key]?.descriptions[category] || "";
-comparisons.push({
-  key,
-  myVal,
-  theirVal,
-  difference: diff,
-  type,
-  category,
-  label,
-  description,
-});
+      //  console.log('key:', key)
+      const label = metricComparisonDescriptions[key]?.label || key;
+      //console.log('label:', label);
+      const description = metricComparisonDescriptions[key]?.descriptions[category] || "";
+      comparisons.push({
+        key,
+        myVal,
+        theirVal,
+        difference: diff,
+        type,
+        category,
+        label,
+        description,
+      });
     }
   });
 

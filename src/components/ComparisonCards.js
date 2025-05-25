@@ -2,6 +2,7 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { comparisonText, Colors, Fonts } from "@constants";
+import { SCREEN_WIDTH } from "@/utils";
 
 export const ComparisonCard = ({ keyName, myVal, theirVal, category, label, description }) => {
   const categoryLabels = {
@@ -12,21 +13,21 @@ export const ComparisonCard = ({ keyName, myVal, theirVal, category, label, desc
   };
 
   const colorMap = {
-    aligned: Colors.green,
+    aligned: Colors.divineColor1,
     slightlyDifferent: Colors.yellow,
     moderatelyDifferent: Colors.orange,
     completelyUnaligned: Colors.red,
   };
-//  console.log("myVal:", myVal);
- // console.log("categoryLabels[category", categoryLabels[category]);
+  //  console.log("myVal:", myVal);
+  // console.log("categoryLabels[category", categoryLabels[category]);
   return (
     <View style={[styles.card, { borderLeftColor: colorMap[category], borderLeftWidth: 4 }]}>
-<Text style={styles.metric}>{label}</Text>
-<Text style={styles.label}>{categoryLabels[category]}</Text>
-<Text style={styles.description}>{description}</Text>
-<Text style={styles.values}>You: {myVal} | Them: {theirVal}</Text>
-
-      
+      <Text style={styles.metric}>{label}</Text>
+      <Text style={styles.label}>{categoryLabels[category]}</Text>
+      <Text style={styles.description}>{description}</Text>
+      <Text style={styles.values}>
+        You: {myVal} | Them: {theirVal}
+      </Text>
     </View>
   );
 };
@@ -34,6 +35,8 @@ export const ComparisonCard = ({ keyName, myVal, theirVal, category, label, desc
 const styles = StyleSheet.create({
   card: {
     backgroundColor: Colors.surface,
+    width: SCREEN_WIDTH * 0.9,
+    alignSelf: "center",
     padding: 16,
     borderRadius: 12,
     marginVertical: 8,
@@ -53,7 +56,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     fontFamily: Fonts.body,
-    color: Colors.mediumGray,
+    color: Colors.textDark,
     marginBottom: 8,
   },
   values: {

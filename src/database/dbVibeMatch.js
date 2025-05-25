@@ -1,14 +1,30 @@
 import * as SQLite from "expo-sqlite";
 
+export const getMatchResultByID = async (matchId, userId, resultId) => {
+  try {
+    console.log("getting match result: ", matchId);
+    console.log("for userid:", userId);
+    console.log("for resultid:", resultId);
+    const db = await SQLite.openDatabaseAsync("vibrationResults.db");
 
+    const result = await db.getAllAsync(
+      `SELECT * FROM matchResultsReceived WHERE matchId = ? AND userId = ?  AND resultId = ? ORDER BY timestamp DESC LIMIT 1;`,
+      [matchId, userId, resultId],
+    );
+    return result?.[0] || null;
+  } catch (error) {
+    console.error("❌ Error retrieving results:", error);
+    return null;
+  }
+};
 export const saveVibeMatchReceived = async (myResult, sharedResult, matchId, sharedName) => {
   try {
     const db = await SQLite.openDatabaseAsync("vibrationResults.db");
     await db.runAsync(
-      ` INSERT OR IGNORE INTO matchResultsReceived ( (
-                matchID,
-                resultID,
-                userID,
+      ` INSERT OR IGNORE INTO matchResultsReceived ( 
+                matchId,
+                resultId,
+                userId,
                 timestamp,
                 voiceFrequencyScore, 
                 heartRateScore,
@@ -22,8 +38,8 @@ export const saveVibeMatchReceived = async (myResult, sharedResult, matchId, sha
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
       [
         matchId,
-        sharedResult.resultID,
-        sharedResult.userID,
+        sharedResult.resultId,
+        sharedResult.userId,
         sharedResult.timestamp,
         JSON.stringify(sharedResult.voiceFrequencyScore),
         JSON.stringify(sharedResult.heartRateScore),
@@ -42,11 +58,11 @@ export const saveVibeMatchReceived = async (myResult, sharedResult, matchId, sha
     MatchID, myUserID, theirUserID, myResultID, theirResultID, theirName
   ) VALUES (?, ?, ?, ?, ?, ?)`,
       [
-        matchID,
-        myResult.userID,
-        sharedResult.userID,
-        myResult.resultID,
-        sharedResult.resultID,
+        matchId,
+        myResult.userId,
+        sharedResult.userId,
+        myResult.resultId,
+        sharedResult.resultId,
         sharedName,
       ],
     );
@@ -63,18 +79,18 @@ export const deleteVibeMatchResult = async (id, callback) => {
 
     // Refresh results if a callback is provided
     if (callback) {
-      getVibeMatchResults(callback);
+      //   getVibeMatchResults(callback);
     }
   } catch (error) {
     console.error("❌ Error deleting result:", error);
   }
 };
 
-export const getLocalMatchRef = async (matchId) => {
+export const getLocalMatchMeta = async (matchId) => {
   const db = await SQLite.openDatabaseAsync("vibrationResults.db");
   try {
     const match = await db.getAllAsync(
-      `SELECT * FROM matchesReceived WHERE matchID = ? ORDER BY timestamp DESC LIMIT 1;`,
+      `SELECT * FROM matchesReceived WHERE matchId = ? ORDER BY timestamp DESC LIMIT 1;`,
       [matchId],
     );
     return match?.[0] || null;

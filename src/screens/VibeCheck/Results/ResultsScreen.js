@@ -19,7 +19,7 @@ Text.defaultProps.allowFontScaling = false;
 
 export const ResultsScreen = ({ navigation }) => {
   const route = useRoute();
-  const { resultID, returnTo } = route.params || {};
+  const { resultId, returnTo } = route.params || {};
   const auth = getAuth();
   const user = auth.currentUser;
   const [overallLabel, setLabel] = useState(null);
@@ -55,10 +55,10 @@ export const ResultsScreen = ({ navigation }) => {
   useEffect(() => {
     try {
       //if the user is logged in and a result ID was passed in, get the data and set it
-      if (user.uid && resultID && resultID !== null && !oldResultsRef.current) {
+      if (user.uid && resultId && resultId !== null && !oldResultsRef.current) {
         oldResultsRef.current = true;
         const loadResult = async () => {
-          const existing = await getResultByID(user.uid, resultID);
+          const existing = await getResultByID(user.uid, resultId);
           console.log("EXISTING:", existing);
           if (existing) {
             await resetAnalysis();
@@ -104,16 +104,16 @@ export const ResultsScreen = ({ navigation }) => {
     return () => {
       isMounted = false;
     };
-  }, [overallVibrationScore, vibrationInfo, chakraScores, user.uid, resultID]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [overallVibrationScore, vibrationInfo, chakraScores, user.uid, resultId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const saveResultsToDB = async () => {
     setSaving(true);
     const newResultId = uuid.v4();
     const newTimeStamp = new Date().toISOString();
     const newResult = {
-      resultID: newResultId,
+      resultId: newResultId,
       timestamp: newTimeStamp,
-      userID: user.uid,
+      userId: user.uid,
       voiceFrequencyScore: voiceFrequencyScore,
       heartRateScore: heartRate,
       motionScore: motionScore,
@@ -125,8 +125,8 @@ export const ResultsScreen = ({ navigation }) => {
       chakraScores: chakraScores || {},
     };
 
-    if (newResult.resultID && newResult.timestamp) {
-    //  console.log("Saving to local DB:", newResult);
+    if (newResult.resultId && newResult.timestamp) {
+      //  console.log("Saving to local DB:", newResult);
       await saveResults(newResult);
     }
     setSaving(false);

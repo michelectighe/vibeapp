@@ -8,7 +8,7 @@ import { collection, getDocs } from "firebase/firestore";
 export const getTodayGoodNews = async () => {
   const today = new Date().toISOString().split("T")[0];
   const docRef = doc(db, "goodNews", today);
-  console.log('what is doc ref:', docRef)
+  //console.log('what is doc ref:', docRef)
   const docSnap = await getDoc(docRef);
 
   if (docSnap.exists()) {

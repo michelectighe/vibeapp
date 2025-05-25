@@ -61,9 +61,9 @@ export const VibeKeyHome = () => {
     if (!goodNewsLoaded) return;
     const buildSections = async () => {
       const cards = [...cardsVibeCheck];
-      const userID = user?.uid;
+      const userId = user?.uid;
       // Remove the recent results card if not logged in
-      if (!userID) {
+      if (!userId) {
         const filtered = cards.filter((c) => c.id !== "recent-results");
         setSections([
           {
@@ -79,8 +79,8 @@ export const VibeKeyHome = () => {
 
       // Fetch latest result
       //e2QRlxDQ97SfKxkucxKzT6Ph4t62
-      //  console.log("userID:", userID);
-      const latest = await getLatestResults(userID);
+      //  console.log("userId:", userId);
+      const latest = await getLatestResults(userId);
       //  console.log("latest results:", latest);
       if (!latest) {
         const filtered = cards.filter((c) => c.id !== "recent-results");
@@ -101,7 +101,7 @@ export const VibeKeyHome = () => {
                 subtitle: `Score: ${latest.overallVibrationScore} on ${new Date(
                   latest.timestamp,
                 ).toLocaleDateString()}`,
-                resultID: latest.resultID,
+                resultId: latest.resultId,
               }
             : c,
         );

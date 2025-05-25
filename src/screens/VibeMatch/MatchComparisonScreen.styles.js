@@ -5,25 +5,26 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 
 const rawStyles = {
   titleWrapper: {
-    position: "absolute",
-    top: 100,
+  //  position: "absolute",
+  //  top: 100,
     width: SCREEN_WIDTH,
     alignItems: "center",
     backgroundColor: "transparent",
-    zIndex: 2,
+ //   zIndex: 2,
   },
   title: {
     textAlign: "center",
     fontSize: 28,
-    color: Colors.white,
+    color: Colors.textLight,
     fontFamily: Fonts.body,
   },
+  scrollView: {
+    width: SCREEN_WIDTH,
+  },
   scrollContent: {
-    backgroundColor: "transparent",
-    paddingTop: 250,
-    paddingHorizontal: 0,
-    paddingBottom: 160,
-    width: SCREEN_WIDTH * 0.9,
+    paddingTop: 175, // this matches the height of your title/logo area
+    paddingHorizontal: 20,
+    paddingBottom: 10,
   },
   summary: {
     marginBottom: 20,
@@ -32,16 +33,11 @@ const rawStyles = {
     color: Colors.textLight,
     fontFamily: Fonts.body,
   },
-  scroll: {
-    paddingHorizontal: 16,
-    marginTop: 10,
-  },
-  scrollContent: {
-    paddingBottom: 160,
-  },
+
   sectionTitle: {
     fontSize: 22,
-    color: Colors.lightGray,
+    color: Colors.textLight,
+    fontFamily: Fonts.body,
     fontWeight: "bold",
     marginTop: 0,
     marginBottom: 8,

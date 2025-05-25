@@ -1,22 +1,40 @@
-import { doc, deleteDoc } from "firebase/firestore";
-import { db } from "@config/firebaseConfig"; // ✅ Your Firestore instance
+import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import { db } from "@/config/firebaseConfig";
 
 export const deleteFirestoreRecord = async (collectionName, resultId, userId) => {
   try {
-    await deleteDoc(doc(db, "users", userId, collectionName, resultId));
-
-    console.log(`✅ Deleted Firestore document ${resultId} from ${collectionName}`);
+    const exists = await collectionExists(collectionName);
+    if (!exists) {
+      console.log(collectionName, " collection doesn't exist");
+    } else {
+      await deleteDoc(doc(db, "users", userId, collectionName, resultId));
+      console.log(`✅ Deleted Firestore document ${resultId} from ${collectionName}`);
+    }
   } catch (error) {
     console.error("❌ Error deleting Firestore document:", error);
   }
 };
 
+export const collectionExists = async (collectionName) => {
+  const colRef = collection(db, collectionName);
+  const snapshot = await getDocs(colRef);
 
+  return !snapshot.empty;
+};
+
+export const truncateCollection = async (collectionName) => {
+  const colRef = collection(db, collectionName);
+  const snapshot = await getDocs(colRef);
+  const deletions = snapshot.docs.map((docSnap) => deleteDoc(doc(db, collectionName, docSnap.id)));
+
+  await Promise.all(deletions);
+  console.log(`✅ All documents in ${collectionName} have been deleted.`);
+};
 
 // rules_version = '2';
 // service cloud.firestore {
 //   match /databases/{database}/documents {
-    
+
 //     match /users/{userId}/results/{resultId} {
 //       allow read: if request.auth != null &&
 //                     (request.auth.uid == userId || isMatchLinkValid(userId, resultId));

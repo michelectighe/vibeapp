@@ -13,8 +13,8 @@ export const initializeDatabase = async () => {
 
     await db.execAsync(`
       CREATE TABLE IF NOT EXISTS results (
-        resultID TEXT PRIMARY KEY,
-        userID TEXT,
+        resultId TEXT PRIMARY KEY,
+        userId TEXT,
         timestamp TEXT,
         voiceFrequencyScore TEXT, 
         heartRateScore TEXT,
@@ -29,9 +29,9 @@ export const initializeDatabase = async () => {
     `);
     await db.execAsync(`
       CREATE TABLE IF NOT EXISTS MatchResultsReceived (
-        matchID TEXT PRIMARY KEY,
+        matchId TEXT PRIMARY KEY,
         ResultID TEXT,
-        userID TEXT,
+        userId TEXT,
         timestamp TEXT,
         voiceFrequencyScore TEXT, 
         heartRateScore TEXT,

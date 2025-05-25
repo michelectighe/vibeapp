@@ -2,17 +2,17 @@ export { saveStickyNoteToDB, updateStickyNotePosition, deleteStickyNoteById } fr
 export { initializeDatabase, dropTable } from "./dbInit";
 export {
   saveResult,
-  getResults,
+  getResultsForUser,
   getLatestResults,
-  truncateResults,
   deleteResult,
   getResultByID,
 } from "./dbVibeCheck";
 export {
   saveVibeMatchReceived,
-  getVibeMatchResults,
-  getLocalMatchRef,
+  getMatchResultByID,
+  getLocalMatchMeta,
   deleteVibeMatchResult,
 } from "./dbVibeMatch";
+export { truncateLocalTable } from "./database";
 
-export { deleteFirestoreRecord } from "./fireStore";
+export { deleteFirestoreRecord, truncateCollection } from "./fireStore";

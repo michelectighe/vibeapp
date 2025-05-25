@@ -4,8 +4,8 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { vibrationLevels } from "@data";
 import { Fonts, Colors } from "@constants";
 import { hexToRgba, scaledStyle } from "@utils";
-import { loadResults } from "@utils";
-export const ResultSelector = ({ results, onSelect, onShare, onTrash }) => {
+
+export const ResultSelector = ({ results, onSelect, onShare, onTrash, showIcons = true }) => {
   const formatDate = (timestamp) => {
     if (!timestamp?.toDate) return "";
     return timestamp.toDate().toLocaleDateString("en-US", {
@@ -26,33 +26,37 @@ export const ResultSelector = ({ results, onSelect, onShare, onTrash }) => {
     <View>
       {results.map((item) => {
         const level = getVibrationLevel(item.overallVibrationScore);
-        const levelColor = hexToRgba(level.color3, 0.7);
+        // const levelColor = hexToRgba(level.color3, 0.7);
 
         return (
-          <View key={item.id} style={styles.outsideGradient}>
+          <View key={item.resultId} style={styles.outsideGradient}>
             <View style={[styles.card]}>
               <View style={styles.cardTop}>
                 <Text style={[styles.label, { color: level.color3 }]}>{level.label}</Text>
-                <Ionicons
-                  name="share-outline"
-                  size={20}
-                  color={level.color3}
-                  onPress={() => onShare(item)}
-                  style={styles.iconShare}
-                />
+                {showIcons && (
+                  <Ionicons
+                    name="share-outline"
+                    size={20}
+                    color={level.color3}
+                    onPress={() => onShare(item)}
+                    style={styles.iconShare}
+                  />
+                )}
               </View>
               <TouchableOpacity style={styles.scoreButton} onPress={() => onSelect(item)}>
                 <Text style={[styles.score, { color: level.color3 }]}>
                   {item.overallVibrationScore.toFixed(0)}
                 </Text>
               </TouchableOpacity>
-              <Ionicons
-                name="trash-outline"
-                size={20}
-                color={level.color3}
-                onPress={() => onTrash(item)}
-                style={styles.iconTrash}
-              />
+              {showIcons && (
+                <Ionicons
+                  name="trash-outline"
+                  size={20}
+                  color={level.color3}
+                  onPress={() => onTrash(item)}
+                  style={styles.iconTrash}
+                />
+              )}
               <Text style={[styles.date, { color: level.color3 }]}>
                 {formatDate(item.timestamp)}
               </Text>

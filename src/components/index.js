@@ -59,3 +59,5 @@ export { KeyboardDone } from "./KeyboardDone";
 export { LinedTextInput } from "./LinedTextInput";
 
 export { ChakraSpineLine } from "./ChakraSpineLine";
+
+export { ScrollViewCustom } from "./ScrollViewCustom";

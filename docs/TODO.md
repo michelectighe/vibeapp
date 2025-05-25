@@ -120,7 +120,7 @@
 - [ ] figure out subscription details
 - [ ] look in to ads/store products
 - [ ] Get subscription set up correctly on each screen that needs it
-- [ ] Offline usage - store userID locally so they can get local results
+- [ ] Offline usage - store userId locally so they can get local results
 - [ ] update firestore when back online
 
 ### 13. Optional (if time permits)

@@ -4,11 +4,11 @@ import * as SQLite from "expo-sqlite";
 export const saveResult = async (result) => {
   try {
     const db = await SQLite.openDatabaseAsync("vibrationResults.db");
- //   console.log("saving result:", result);
+    //   console.log("saving result:", result);
     await db.runAsync(
       `INSERT INTO results (
-                resultID,
-                userID,
+                resultId,
+                userId,
                 timestamp,
                 voiceFrequencyScore, 
                 heartRateScore,
@@ -21,8 +21,8 @@ export const saveResult = async (result) => {
                 emotionalScore
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
       [
-        result.resultID,
-        result.userID,
+        result.resultId,
+        result.userId,
         result.timestamp,
         JSON.stringify(result.voiceFrequencyScore),
         JSON.stringify(result.heartRateScore),
@@ -44,28 +44,29 @@ export const saveResult = async (result) => {
 
 // Function to  all results
 // utils/db.js (or wherever you put it)
-export const getResults = async (userID) => {
+export const getResultsForUser = async (userId) => {
   try {
     const db = await SQLite.openDatabaseAsync("vibrationResults.db");
 
-    const result = await db.getAllAsync(
-      `SELECT * FROM results WHERE userID = '${userID}' ORDER BY timestamp DESC;`,
+    const results = await db.getAllAsync(
+      `SELECT * FROM results WHERE userId = ? ORDER BY timestamp DESC;`,
+      [userId],
     );
 
-    return result?.[0] || null;
+    return Array.isArray(results) ? results : [results];
   } catch (error) {
     console.error("❌ Error retrieving results:", error);
-    return null;
+    return [];
   }
 };
 
-export const getResultByID = async (userID, resultID) => {
+export const getResultByID = async (userId, resultId) => {
   try {
     const db = await SQLite.openDatabaseAsync("vibrationResults.db");
 
     const result = await db.getAllAsync(
-      `SELECT * FROM results WHERE userID = ?  AND resultID = ? ORDER BY timestamp DESC LIMIT 1;`,
-      [userID, resultID],
+      `SELECT * FROM results WHERE userId = ?  AND resultId = ? ORDER BY timestamp DESC LIMIT 1;`,
+      [userId, resultId],
     );
     return result?.[0] || null;
   } catch (error) {
@@ -75,12 +76,12 @@ export const getResultByID = async (userID, resultID) => {
 };
 
 // utils/db.js (or wherever you put it)
-export const getLatestResults = async (userID) => {
+export const getLatestResults = async (userId) => {
   try {
     const db = await SQLite.openDatabaseAsync("vibrationResults.db");
     const result = await db.getAllAsync(
-      `SELECT * FROM results WHERE userID = ? ORDER BY timestamp DESC LIMIT 1;`,
-      [userID],
+      `SELECT * FROM results WHERE userId = ? ORDER BY timestamp DESC LIMIT 1;`,
+      [userId],
     );
     return result?.[0] || null;
   } catch (error) {
@@ -89,28 +90,16 @@ export const getLatestResults = async (userID) => {
   }
 };
 
-export const truncateResults = async () => {
-  try {
-    const db = await SQLite.openDatabaseAsync("vibrationResults.db"); // Open DB
-
-    await db.execAsync("DELETE FROM results;"); // ✅ Deletes all rows
-    await db.execAsync("VACUUM;"); // ✅ Reclaims space after deletion
-
-    ////console.log("✅ Table truncated successfully!");
-  } catch (error) {
-    console.error("❌ Error truncating table:", error);
-  }
-};
-
-export const deleteResult = async (id, callback) => {
+export const deleteResult = async (userId, resultId, callback) => {
   try {
     const db = await SQLite.openDatabaseAsync("vibrationResults.db");
-    await db.runAsync("DELETE FROM results WHERE resultID = ?;", [id]);
-    ////console.log(`✅ Deleted result with ID: ${id}`);
 
-    // Refresh results if a callback is provided
+    await db.runAsync("DELETE FROM results WHERE resultId = ? AND userId = ?;", [resultId, userId]);
+    console.log(`✅ Deleted result with resultId: ${resultId} AND userId: ${userId}`);
+
     if (callback) {
-      getResults(callback);
+      const updatedResults = await getResultsForUser(userId);
+      callback(updatedResults); // ✅ pass them into the callback
     }
   } catch (error) {
     console.error("❌ Error deleting result:", error);

@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-//import { initApp } from "@utils";
 import { useAuth, useModel, useSoundModel } from "@context";
 import { View, Animated, Easing } from "react-native";
 import { AnimatedLogo, GradientBackground } from "@components";
@@ -12,17 +11,7 @@ export const SplashScreen = ({ navigation, route }) => {
   const { user, authLoading } = useAuth();
   const rotateAnim = useRef(new Animated.Value(0)).current;
   const fadeAnim = useRef(new Animated.Value(0.1)).current;
-  const [matchId, setMatchId] = useState(null);
 
-  useEffect(() => {
-    const start = async () => {
-      await initApp();
-    };
-    start();
-  });
-  useEffect(() => {
-    setMatchId(route.params?.id || null);
-  }, [route]);
 
   useEffect(() => {
     Animated.loop(
@@ -41,31 +30,6 @@ export const SplashScreen = ({ navigation, route }) => {
     }).start();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  useEffect(() => {
-    const startApp = async () => {
-      try {
-        await new Promise((resolve) => setTimeout(resolve, 300));
-
-        //  await initApp();
-
-        if (authLoading) return;
-
-        if (matchId) {
-          navigation.replace("Tabs", {
-            screen: "VibeMatch",
-            params: { screen: "MatchScreen", params: { id: matchId } },
-          });
-        } else if (user) {
-          navigation.replace("Tabs", { screen: "Home" });
-        } else {
-          navigation.replace("Welcome");
-        }
-      } catch (e) {
-        console.error("❌ Init failed", e);
-      }
-    };
-    startApp();
-  }, [authLoading, user]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Animated.View style={[styles.animatedView, { opacity: fadeAnim }]}>

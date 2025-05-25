@@ -13,9 +13,9 @@ export const saveResults = async (result) => {
       console.warn("User not logged in, skipping Firestore save.");
       return;
     }
- //   console.log('SAVING RESULTS:', result.resultID)
+    //   console.log('SAVING RESULTS:', result.resultId)
     await saveToLocalDB(result);
-    await setDoc(doc(db, "users", user.uid, "results", result.resultID), result);
+    await setDoc(doc(db, "users", user.uid, "results", result.resultId), result);
   } catch (error) {
     console.error("Error saving results:", error);
   }

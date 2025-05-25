@@ -16,7 +16,7 @@ import { hexToRgba } from "@/utils";
 
 export const EnergyCleanseScreen = () => {
   const auth = getAuth();
-  const [userID, setUserID] = useState();
+  const [userId, setUserID] = useState();
   const { vibrationInfo } = useAnalysis();
   const navigation = useNavigation();
   const [overallColor, setColor] = useState();
@@ -126,7 +126,7 @@ export const EnergyCleanseScreen = () => {
     try {
       const timestamp = new Date();
 
-      await getFirestore().collection("users").doc(userID).collection("cleanses").add({
+      await getFirestore().collection("users").doc(userId).collection("cleanses").add({
         completedAt: timestamp,
         vibrationInfo,
         meditationId: meditation.id,
