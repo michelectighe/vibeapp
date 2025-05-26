@@ -10,12 +10,12 @@ import { VibeMatchStack } from "./VibeMatchStack";
 import { MeditationStack } from "./MeditationStack";
 import { StreakStack } from "./StreakStack";
 import { ToolsStack } from "./ToolsStack";
-import { Ionicons } from "@expo/vector-icons";
 import LinearGradient from "react-native-linear-gradient";
 import { VibeKeyHome } from "@screens";
 import { ProfileAvatar, TabBarIcon } from "@components";
 import { Colors } from "@constants";
 import { resetStack } from "@/utils";
+import { Goals } from "@/screens";
 
 const Tab = createBottomTabNavigator();
 
@@ -109,6 +109,8 @@ export const MyTabs = () => {
             iconName = focused ? "heart" : "heart-outline";
           } else if (route.name === "InnerWork") {
             iconName = focused ? "footsteps" : "footsteps-outline";
+          } else if (route.name === "Goals") {
+            iconName = focused ? "note" : "note-outline";
           }
 
           return (
@@ -177,6 +179,16 @@ export const MyTabs = () => {
           },
         })}
         options={{ tabBarLabel: "Match" }}
+      />
+      <Tab.Screen
+        name="Goals"
+        component={Goals}
+        listeners={({ navigation, route }) => ({
+          tabPress: (e) => {
+            resetStack("Goals");
+          },
+        })}
+        options={{ tabBarLabel: "Goals" }}
       />
       <Tab.Screen
         name="InnerWork"

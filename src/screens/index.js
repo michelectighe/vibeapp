@@ -5,7 +5,5 @@ export * from "@screens/VibeMatch";
 export * from "@screens/Meditation";
 export * from "@screens/Streaks";
 export * from "@screens/Tools";
-export { VibeKeyHome } from "./VibeKeyHome";
-export { SplashScreen } from "./SplashScreen";
-export { WelcomeScreen } from "./WelcomeScreen";
-export { GoodNewsScreen } from "./GoodNews";
+export * from "@screens/Main";
+

@@ -1,4 +1,4 @@
-import React, { useImperativeHandle, forwardRef, useEffect, useState } from "react";
+import React, { useImperativeHandle, useRef, forwardRef, useEffect, useState } from "react";
 import * as SQLite from "expo-sqlite";
 import { updateStickyNotePosition } from "@database";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
@@ -8,15 +8,27 @@ import Animated, {
   withSpring,
   withTiming,
   runOnJS,
+  makeMutable,
 } from "react-native-reanimated";
 import FastImage from "react-native-fast-image";
 import { GestureDetector, Gesture } from "react-native-gesture-handler";
 import { Colors, Fonts } from "@constants";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import { globalZIndexCounter } from "../state/zIndexStore";
+
 
 export const StickyNote = forwardRef(
   (
-    { id, text, doneValue, disableDrag = false, onPress, onDelete, color = Colors.stickyNotes },
+    {
+      id,
+      text,
+      doneValue,
+      disableDrag = false,
+      onPress,
+      onDelete,
+      color = Colors.stickyNotes,
+      textColor = Colors.textDark,
+    },
     ref,
   ) => {
     const offsetX = useSharedValue(0);
@@ -33,7 +45,9 @@ export const StickyNote = forwardRef(
     const checkmarkOpacity = useSharedValue(0);
     const checkmarkScale = useSharedValue(0.5);
     const [visible, setVisible] = useState(true);
+    // const zIndexCounter = makeMutable(10);
 
+    //console.log('zindexcurrent:', zIndex.current)
     useEffect(() => {
       if (done) {
         checkmarkOpacity.value = withTiming(1, { duration: 300 });
@@ -61,6 +75,14 @@ export const StickyNote = forwardRef(
       loadPosition();
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+    useEffect(() => {
+      scale.value = 0.4;
+      opacity.value = 0;
+
+      scale.value = withSpring(1, { damping: 6 });
+      opacity.value = withTiming(1, { duration: 300 });
+    }, []);
+
     const savePositionWithDone = async (newDoneValue) => {
       try {
         await updateStickyNotePosition(id, {
@@ -78,17 +100,16 @@ export const StickyNote = forwardRef(
       .onStart((e) => {
         tackOpacity.value = withTiming(0, { duration: 100 });
         tackScale.value = withTiming(0.5, { duration: 100 });
-        zIndex.value = 10;
         startX.value = offsetX.value - e.translationX;
         startY.value = offsetY.value - e.translationY;
+         zIndex.value = globalZIndexCounter.value++;
       })
       .onUpdate((e) => {
         offsetX.value = e.translationX + startX.value;
         offsetY.value = e.translationY + startY.value;
       })
       .onEnd(() => {
-        //  zIndex.value = withDelay(500, withTiming(0));
-        zIndex.value = withTiming(0, { duration: 200 });
+
         offsetX.value = withSpring(offsetX.value);
         offsetY.value = withSpring(offsetY.value);
         tackOpacity.value = withTiming(1, { duration: 1000 });
@@ -116,10 +137,18 @@ export const StickyNote = forwardRef(
         runOnJS(setDone)(newDone);
         runOnJS(savePositionWithDone)(newDone);
       });
+    // const singleTapGesture = Gesture.Tap()
+    //   .numberOfTaps(1)
+    //   .onStart(() => {
+    //      zIndex.value = globalZIndexCounter.value++;
+    //   })
+    //   .onEnd(() => {
+    //   });
 
     const gesture = Gesture.Simultaneous(
       Gesture.Simultaneous(panGesture, rotateGesture),
       doubleTapGesture,
+    //  singleTapGesture,
     );
 
     const animatedStyle = useAnimatedStyle(() => ({
@@ -169,7 +198,7 @@ export const StickyNote = forwardRef(
           </View>
         )}
         <View style={styles.center}>
-          <Text style={styles.text}>{text}</Text>
+          <Text style={[styles.text, { color: textColor }]}>{text}</Text>
         </View>
         <Animated.View
           style={[
@@ -185,6 +214,7 @@ export const StickyNote = forwardRef(
       </Animated.View>
     );
     if (!visible) return null;
+
     return disableDrag ? (
       <TouchableOpacity onPress={onPress} activeOpacity={0.8}>
         {NoteContent}
@@ -215,13 +245,13 @@ const styles = StyleSheet.create({
     position: "absolute",
     alignContent: "center",
     top: 6,
-    zIndex: 10,
+    //   zIndex: 10,
   },
   iconContainer: {
     position: "absolute",
     bottom: 6,
     left: 6,
-    zIndex: 10,
+    //   zIndex: 10,
   },
   infoImage: {
     width: 25,
@@ -240,12 +270,11 @@ const styles = StyleSheet.create({
     bottom: 0,
     justifyContent: "center",
     alignItems: "center",
-    zIndex: 5,
+    //   zIndex: 5,
   },
   text: {
     fontFamily: Fonts.journal,
     fontSize: 12,
     textAlign: "center",
-    color: Colors.textDark,
   },
 });

@@ -1,7 +1,8 @@
-// StreakScreen.styles.js
+// Goals.styles.js
 import { StyleSheet } from "react-native";
 import { scaledStyle } from "@utils";
 import { Colors, Fonts } from "@constants";
+import { SCREEN_WIDTH } from "@/utils";
 
 const rawStyles = {
   imageBackground: {
@@ -10,34 +11,36 @@ const rawStyles = {
   },
   container: {
     flex: 1,
+    width: SCREEN_WIDTH,
   },
   topSection: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
     marginTop: 100,
+    width: SCREEN_WIDTH,
   },
   streakTitle: {
     marginTop: 0,
     marginBottom: 10,
     fontSize: 24,
-    color: Colors.textDark,
+    color: Colors.textLight,
     fontFamily: Fonts.title,
     textAlign: "center",
   },
   descriptionText: {
     fontSize: 16,
-    color: Colors.textDark,
+    color: Colors.textLight,
     fontFamily: Fonts.body,
     textAlign: "center",
-    marginBottom: 0,
+    marginBottom: 20,
   },
   notesArea: {
-    flex: 3,
+    flex: 4,
     position: "relative",
     justifyContent: "center",
     alignItems: "center",
-    width: "100%",
+    width: SCREEN_WIDTH,
     padding: 10,
     //   backgroundColor: "red"
   },

@@ -1,5 +1,3 @@
-import { BreathingCard } from "@/components/BreathingCard";
-
 // src/components/index.js
 export { AddNoteModal } from "./AddnoteModal";
 export { AnimatedLogo } from "./AnimatedLogo";
@@ -19,7 +17,6 @@ export { EdgeGlow } from "./EdgeGlow";
 export { ExpandableInfoItem } from "./ExpandableInfoItem";
 export { ExpandableItem } from "./ExpandableItem";
 export { FloatingFeather } from "./FloatingFeather";
-export { FloatingPhrase } from "./FloatingPhrase";
 
 export { FuzzyGlow } from "./FuzzyGlow";
 export { FuzzyGlowChakra } from "./FuzzyGlowChakra";
@@ -61,3 +58,8 @@ export { LinedTextInput } from "./LinedTextInput";
 export { ChakraSpineLine } from "./ChakraSpineLine";
 
 export { ScrollViewCustom } from "./ScrollViewCustom";
+
+export { ChakraColorPicker } from "./ChakraColorPicker";
+
+export { StickyNote } from "./StickyNote";
+export { DatePickerStrip } from "./DatePicker";
