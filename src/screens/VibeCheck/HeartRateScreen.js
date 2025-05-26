@@ -137,38 +137,39 @@ function HeartRateScreenInner() {
           </>
         }
         bottomContent={
-          vibeListCat && environment && (
-          <View style={styles.infoContainer}>
-            <Text style={styles.labelTitle}>What else is being measured?</Text>
+          vibeListCat &&
+          environment && (
+            <View style={styles.infoContainer}>
+              <Text style={styles.labelTitle}>What else is being measured?</Text>
 
-            <View style={styles.columns}>
-              <View style={styles.column}>
-                <Text style={styles.label}>Background Sound</Text>
-                <Text style={styles.labelResult}>{soundLabel}</Text>
-                {[...vibeListCat]
-                  .sort((a, b) => b.score - a.score)
-                  .slice(0, 3)
-                  .map((item, index) => (
-                    <Text key={index} style={styles.labelResult}>
-                      {item.category}
-                    </Text>
-                  ))}
-                {/* <Text style={styles.labelResult}>{vibeList}</Text> */}
+              <View style={styles.columns}>
+                <View style={styles.column}>
+                  <Text style={styles.label}>Background Sound</Text>
+                  <Text style={styles.labelResult}>{soundLabel}</Text>
+                  {[...vibeListCat]
+                    .sort((a, b) => b.score - a.score)
+                    .slice(0, 3)
+                    .map((item, index) => (
+                      <Text key={index} style={styles.labelResult}>
+                        {item.category}
+                      </Text>
+                    ))}
+                  {/* <Text style={styles.labelResult}>{vibeList}</Text> */}
+                </View>
+                <View style={styles.column}>
+                  <Text style={styles.label}>Magnetic Field</Text>
+                  <Text style={styles.labelResult}>{magLabel}</Text>
+                  <Text style={styles.labelResult}>{magValue.toFixed(1)} µT</Text>
+                  <Text style={[styles.label,]}>Your Motion</Text>
+                  <Text style={[styles.labelResult,]}>{motionLabel}</Text>
+
+                  <Text style={[styles.label,]}>Location Vibe</Text>
+                  <Text style={[styles.labelResult, { textAlign: "center" }]}>{spaceLabel}</Text>
+                </View>
               </View>
-              <View style={styles.column}>
-                <Text style={styles.label}>Magnetic Field</Text>
-                <Text style={styles.labelResult}>{magLabel}</Text>
-                <Text style={styles.labelResult}>{magValue.toFixed(1)} µT</Text>
-         
-              </View>
+
+
             </View>
-
-            <Text style={[styles.label, { textAlign: "center" }]}>Your Motion</Text>
-            <Text style={[styles.labelResult, { textAlign: "center" }]}>{motionLabel}</Text>
-
-            <Text style={[styles.label, { textAlign: "center" }]}>Location Vibe</Text>
-            <Text style={[styles.labelResult, { textAlign: "center" }]}>{spaceLabel}</Text>
-          </View>
           )
         }
       />

@@ -6,7 +6,7 @@ import { SCREEN_WIDTH } from "@/utils";
 
 const rawStyles = {
   imageBackground: {
-    width: "100%",
+    width: SCREEN_WIDTH,
     height: "100%",
   },
   container: {
@@ -45,11 +45,15 @@ const rawStyles = {
     //   backgroundColor: "red"
   },
   bottomSection: {
-    flex: 1,
+    flex: 2,
     justifyContent: "left",
     alignItems: "left",
     paddingBottom: 150,
     paddingHorizontal: 10,
+  },
+  datePicker: {
+    position: "absolute",
+    bottom: 100,
   },
   localModalContainer: {
     position: "absolute",

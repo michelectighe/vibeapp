@@ -209,7 +209,7 @@ export const StickyNote = forwardRef(
             })),
           ]}
         >
-          <Icon name="check" size={100} color="pink" />
+          <Icon name="check" size={100} color="white" />
         </Animated.View>
       </Animated.View>
     );

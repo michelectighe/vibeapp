@@ -33,6 +33,7 @@ export const ResultsScreen = ({ navigation }) => {
   const [saving, setSaving] = useState(false);
   const [dataReady, setDataReady] = useState(false);
   const [oldResults, setOldResults] = useState(false);
+  
 
   const oldResultsRef = useRef(false);
   const infoImage = require("@assets/images/info.webp");
@@ -53,27 +54,29 @@ export const ResultsScreen = ({ navigation }) => {
   } = useAnalysis();
 
   useEffect(() => {
-    try {
-      //if the user is logged in and a result ID was passed in, get the data and set it
-      if (user.uid && resultId && resultId !== null && !oldResultsRef.current) {
-        oldResultsRef.current = true;
-        const loadResult = async () => {
-          const existing = await getResultByID(user.uid, resultId);
-          console.log("EXISTING:", existing);
-          if (existing) {
-            await resetAnalysis();
-            await setResult(existing);
-          }
-        };
-        loadResult();
+    if (user) {
+      try {
+        //if the user is logged in and a result ID was passed in, get the data and set it
+        if (user.uid && resultId && resultId !== null && !oldResultsRef.current) {
+          oldResultsRef.current = true;
+          const loadResult = async () => {
+            const existing = await getResultByID(user.uid, resultId);
+            console.log("EXISTING:", existing);
+            if (existing) {
+              await resetAnalysis();
+              await setResult(existing);
+            }
+          };
+          loadResult();
+        }
+      } catch (error) {
+        console.error("Error loading old results:", error);
       }
-    } catch (error) {
-      console.error("Error loading old results:", error);
     }
     // if the data is valid, continue
-    if (overallVibrationScore === null || chakraScores === null || overallVibrationScore === 0)
+    if (overallVibrationScore === null || chakraScores === null || overallVibrationScore === 0) {
       return;
-
+    }
     let isMounted = true;
 
     const fetchData = async () => {
@@ -91,7 +94,7 @@ export const ResultsScreen = ({ navigation }) => {
         setImage(result.image);
         setDataReady(true);
         //save to db if the data is new
-        if (!oldResultsRef.current) {
+        if (!oldResultsRef.current && user) {
           await saveResultsToDB();
           console.log("try to save because NOT old score?????");
           oldResultsRef.current = true; // set to make sure it doesn't try to save again
@@ -101,10 +104,11 @@ export const ResultsScreen = ({ navigation }) => {
       }
     };
     fetchData();
+    isMounted = true;
     return () => {
       isMounted = false;
     };
-  }, [overallVibrationScore, vibrationInfo, chakraScores, user.uid, resultId]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [overallVibrationScore, vibrationInfo, chakraScores, user, resultId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const saveResultsToDB = async () => {
     setSaving(true);
@@ -133,7 +137,7 @@ export const ResultsScreen = ({ navigation }) => {
   };
 
   const resetAndLeave = () => {
-    console.log('returnTo value:', returnTo)
+    console.log("returnTo value:", returnTo);
     if (returnTo && typeof returnTo === "object") {
       navigation.reset({
         index: 0,

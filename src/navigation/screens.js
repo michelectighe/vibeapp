@@ -5,7 +5,7 @@ export const VIBE_CHECK_SCREENS = [
   //"AudioPerceptionScreen",
   "HeartRate",
   "Results",
-  "ChakraResults",
+  "ChakraScreen",
 ];
 
 export const VIBE_MATCH_SCREENS = ["VibeMatchScreen", "ShareScreen", "MatchScreen"];

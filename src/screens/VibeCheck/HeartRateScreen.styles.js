@@ -33,10 +33,11 @@ const rawStyles = {
     backgroundColor: Colors.surface,
     borderRadius: 16,
     width: SCREEN_WIDTH * 0.9,
+    height: SCREEN_HEIGHT * 0.4,
   },
   labelTitle: {
     fontSize: 18,
-    fontWeight: "600",
+   // fontWeight: "600",
     color: Colors.textDark,
     marginBottom: 16,
     textAlign: "center",
@@ -62,11 +63,11 @@ const rawStyles = {
     borderBottomColor: "grey",
   },
   labelResult: {
-    fontSize: 24,
-    fontWeight: "600",
+    fontSize: 14,
+  //  fontWeight: "600",
     color: Colors.textDark,
     marginBottom: 16,
-    fontFamily: Fonts.script,
+    fontFamily: Fonts.body,
   },
   singleRow: {
     width: SCREEN_WIDTH * 0.9,

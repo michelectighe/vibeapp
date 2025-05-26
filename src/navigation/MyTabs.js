@@ -4,6 +4,8 @@ import { View, StyleSheet, Animated } from "react-native";
 import { BlurView } from "@react-native-community/blur";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { CardStyleInterpolators } from "@react-navigation/stack";
+import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
+
 import { SettingsStack } from "./SettingsStack";
 import { VibeCheckStack } from "./VibeCheckStack";
 import { VibeMatchStack } from "./VibeMatchStack";
@@ -110,7 +112,14 @@ export const MyTabs = () => {
           } else if (route.name === "InnerWork") {
             iconName = focused ? "footsteps" : "footsteps-outline";
           } else if (route.name === "Goals") {
-            iconName = focused ? "note" : "note-outline";
+            return (
+              <FontAwesome5
+                name="clipboard-list"
+                size={size}
+                color={color}
+                solid={focused} // solid version when focused
+              />
+            );
           }
 
           return (

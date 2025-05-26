@@ -24,8 +24,8 @@ export const Goals = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const noteRefs = useRef({});
   const zIndexCounterRef = useRef(1);
-  const [selectedDate, setSelectedDate] = useState(format(new Date(), "yyyy-MM-dd")); // today
-
+  // const [selectedDate, setSelectedDate] = useState(format(new Date(), "yyyy-MM-dd")); // today
+  const [selectedDate, setSelectedDate] = useState(); // today
   const [showDeleteModal, setShowDeleteModal] = useState({
     visible: false,
     deleteId: null,
@@ -66,7 +66,8 @@ export const Goals = () => {
 
     const newNote = {
       id: newId,
-      timestamp: new Date().toISOString(),
+      timestamp: new Date(`${selectedDate}T00:00:00`).toISOString(),
+
       text,
       x: randomX,
       y: randomY,
@@ -88,12 +89,6 @@ export const Goals = () => {
           <Text style={styles.descriptionText}>
             Drag and rotate your sticky notes to place your daily intentions.
           </Text>
-        </View>
-        <View style={{ width: SCREEN_WIDTH }}>
-          <DatePickerStrip
-            selectedDate={selectedDate}
-            onSelectDate={(date) => setSelectedDate(date)}
-          />
         </View>
         <View style={styles.notesArea}>
           <FastImage
@@ -141,6 +136,12 @@ export const Goals = () => {
         />
 
         <View style={styles.bottomSection}>
+          <View style={[styles.datePicker, { width: SCREEN_WIDTH }]}>
+            <DatePickerStrip
+              selectedDate={selectedDate}
+              onSelectDate={(date) => setSelectedDate(date)}
+            />
+          </View>
           <StickyNote
             id="add"
             text="Add a Goal"

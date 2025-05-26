@@ -104,7 +104,7 @@ export const ShareScreen = ({ navigation }) => {
     }
   };
 
-  if (loading) {
+  if (!myResults) {
     return <ActivityIndicator size="large" style={{ marginTop: SCREEN_HEIGHT * 0.2 }} />;
   }
 
