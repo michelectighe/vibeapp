@@ -1,6 +1,6 @@
 import "react-native-reanimated";
 import "./src/styles/CustomText"; // must be imported before any screens load
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, Linking } from "react";
 //import { setJSExceptionHandler } from "react-native-exception-handler";
 // import crashlytics from "@react-native-firebase/crashlytics";
 import { NavigationContainer, useNavigationContainerRef } from "@react-navigation/native";
@@ -76,52 +76,69 @@ const linking = {
 
 const Stack = createNativeStackNavigator();
 const AppInner = () => {
-  const [ready, setReady] = useState(false);
+  const [isReady, setIsReady] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
+  const [initialLink, setInitialLink] = useState(null);
+  const [checkForLink, setCheckForLink] = useState(false);
+
   useEffect(() => {
     const init = async () => {
+      console.log("linking:", linking);
       try {
         await initializeRevenueCat();
-        await initApp(); // ✅ waits for auth to resolve now
-        setReady(true);
+
+        // await initApp();
+        // // const url = await Linking.getInitialURL();
+        // //   setInitialLink(url); // <--- store the deep link if present
+        // setCheckForLink(true);
+        //    setInitialLink(url);
+        // setIsReady(true);
       } catch (err) {
         console.error("Failed to init app:", err);
       }
     };
 
     init();
-  }, []);
+  }, [linking]);
 
-  if (!ready) return <SplashScreen />;
+  // const handleHomeReady = () => {
+  //   setShowSplash(false);
+  // };
+
+  // if (!isReady) {
+  //   return <SplashScreen />;
+  // }
   return (
     <AnalysisProvider>
       <MusicManager />
       <NavigationContainer linking={linking} ref={navigationRef}>
         <ModelProvider>
           <Stack.Navigator
-            initialRouteName="Tabs" // maybe change later to welcome screen
+            initialRouteName="Splash" // maybe change later to welcome screen
             screenOptions={() => ({
               headerShown: false,
               animation: "fade",
             })}
           >
-            <Stack.Screen
-              name="Tabs"
-              component={MyTabs}
-              options={{ headerShown: false, animation: "fade" }}
-            />
+            {/* SplashScreen sits on top of everything until cleared */}
 
-            <Stack.Screen
-              name="ChakraDetailModal"
-              component={ChakraDetailModal}
-              options={{
-                presentation: "transparentModal", // or "modal"
-                headerShown: false,
-              }}
-            />
-            <Stack.Screen name="Welcome" component={WelcomeScreen} />
-            <Stack.Screen name="Streaks" component={StreakStack} />
-            <Stack.Screen name="GoodNews" component={GoodNewsScreen} />
-            <Stack.Screen name="DevOnly" component={DevOnly} />
+            <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false }}>
+            </Stack.Screen>
+              <Stack.Screen name="Tabs" component={MyTabs} options={{ headerShown: false }} />
+
+              <Stack.Screen
+                name="ChakraDetailModal"
+                component={ChakraDetailModal}
+                options={{
+                  presentation: "transparentModal", // or "modal"
+                  headerShown: false,
+                }}
+              />
+              <Stack.Screen name="Welcome" component={WelcomeScreen} />
+              <Stack.Screen name="Streaks" component={StreakStack} />
+              <Stack.Screen name="GoodNews" component={GoodNewsScreen} />
+              <Stack.Screen name="DevOnly" component={DevOnly} />
+
           </Stack.Navigator>
         </ModelProvider>
       </NavigationContainer>
@@ -136,7 +153,7 @@ export const App = () => {
         <AuthProvider>
           <UserProfileProvider>
             <MyResultsProvider>
-              <AppInner />
+            <AppInner />
             </MyResultsProvider>
           </UserProfileProvider>
         </AuthProvider>

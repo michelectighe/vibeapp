@@ -21,7 +21,7 @@ import {
   cardsGoodNews,
 } from "@/data";
 
-export const VibeKeyHome = () => {
+export const VibeKeyHome = ({ onReady }) => {
   const auth = getAuth();
   const user = auth.currentUser;
   useAmbientControlForScreen(true);
@@ -33,6 +33,15 @@ export const VibeKeyHome = () => {
   const [sections, setSections] = useState([]);
   const [goodNewsCardData, setGoodNewsCard] = useState(null); // not defaulted to cardsGoodNews[0]
   const [goodNewsLoaded, setGoodNewsLoaded] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      console.log("telling app.js we are ready");
+      onReady?.(); // <- Only calls it if defined
+      // ✅ this sets state in App.js!
+    }, 300);
+    return () => clearTimeout(timeout);
+  }, []);
 
   useEffect(() => {
     (async () => {

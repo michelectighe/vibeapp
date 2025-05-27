@@ -63,3 +63,4 @@ export { resetStack } from "./resetStack";
 export { checkConnection } from "./checkConnection";
 
 export { getTodayGoodNews, uploadDataToFireStore } from "./manageGoodNews";
+export { getSharedResult } from "./getSharedResult";

@@ -28,6 +28,7 @@ import { useAnalysis } from "@/context";
 import { globalStyles } from "@/styles";
 import { SCREEN_WIDTH } from "@/utils";
 import { LinedTextInput } from "@/components";
+import { saveJournalEntryDb, saveJournalEntryFs } from "@database";
 
 export const JournalScreen = () => {
   useAmbientControlForScreen(true);
@@ -76,10 +77,26 @@ export const JournalScreen = () => {
     return () => clearInterval(interval);
   }, [promptRequest]);
 
-  const handleSave = () => {
-    setIsTyping(true);
-    setSaved(true);
+  const handleSave = async () => {
+    const createdAt = new Date().toISOString();
+    const id = createdAt; // or use uuid
+
+    const newEntry = { id, prompt, entry, createdAt };
+
+    try {
+      await saveJournalEntryDb(newEntry);
+
+    //  if (userIsLoggedIn()) {
+        await saveJournalEntryFs(prompt, entry, createdAt);
+    //  }
+
+      setSaved(true);
+      console.log("✅ Journal entry saved locally and to Firestore!");
+    } catch (err) {
+      console.error("❌ Error saving journal entry:", err.message);
+    }
   };
+
   const handleNewPrompt = () => {
     // setEntry("");
     setPromptRequest(true);

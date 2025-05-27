@@ -4,4 +4,5 @@ export { EntangledSelfScreen } from "./EntangledSelfScreen";
 export { FrequenciesScreen } from "./FrequenciesScreen";
 export { GuidedMeditationScreen } from "./GuidedMeditationScreen";
 export { QuantumJournalScreen } from "./QuantumJournalScreen";
+export { JournalListScreen } from "./JournalListScreen";
 

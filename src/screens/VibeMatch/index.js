@@ -2,4 +2,3 @@ export { MatchComparisonScreen } from "./MatchComparisonScreen";
 export { MatchScreen } from "./MatchScreen";
 export { ShareScreen } from "./ShareScreen";
 export { VibeMatchScreen } from "./VibeMatchScreen";
-export { SharedMatchIntroScreen } from "./SharedMatchIntroScreen";

@@ -23,11 +23,17 @@ export const collectionExists = async (collectionName) => {
 };
 
 export const truncateCollection = async (collectionName) => {
-  const colRef = collection(db, collectionName);
-  const snapshot = await getDocs(colRef);
-  const deletions = snapshot.docs.map((docSnap) => deleteDoc(doc(db, collectionName, docSnap.id)));
+  try {
+    const colRef = collection(db, collectionName);
+    const snapshot = await getDocs(colRef);
+    const deletions = snapshot.docs.map((docSnap) =>
+      deleteDoc(doc(db, collectionName, docSnap.id)),
+    );
 
-  await Promise.all(deletions);
+    await Promise.all(deletions);
+  } catch (e) {
+    console.error("Error truncating firebase:", e);
+  }
   console.log(`✅ All documents in ${collectionName} have been deleted.`);
 };
 

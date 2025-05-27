@@ -86,6 +86,15 @@ export const initializeDatabase = async () => {
       );
         `);
 
+    await db.execAsync(`
+      CREATE TABLE IF NOT EXISTS journalEntries (
+      id TEXT PRIMARY KEY,
+      prompt TEXT,
+      entry TEXT,
+      createdAt TEXT
+    );
+     `);
+
     ////console.log("Database initialized successfully");
   } catch (error) {
     console.error("❌ SQL Error Creating Table:", error);

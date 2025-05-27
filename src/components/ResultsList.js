@@ -4,7 +4,6 @@ import Ionicons from "react-native-vector-icons/Ionicons";
 import { vibrationLevels } from "@data";
 import { Fonts, Colors } from "@constants";
 import { hexToRgba, scaledStyle } from "@utils";
-import { loadResults } from "@utils";
 export const ResultsList = ({ results, onSelect }) => {
   const formatDate = (timestamp) => {
     if (!timestamp?.toDate) return "";

@@ -16,3 +16,12 @@ export {
 export { truncateLocalTable } from "./database";
 
 export { deleteFirestoreRecord, truncateCollection } from "./fireStore";
+
+export {
+  saveJournalEntryDb,
+  getJournalEntriesDb,
+  deleteJournalEntryDb,
+  saveJournalEntryFs,
+  getJournalEntriesFs,
+  deleteJournalEntryFs,
+} from "./dbJournal";

@@ -6,7 +6,7 @@ export const saveResult = async (result) => {
     const db = await SQLite.openDatabaseAsync("vibrationResults.db");
     //   console.log("saving result:", result);
     await db.runAsync(
-      `INSERT INTO results (
+      `INSERT OR IGNORE INTO  results (
                 resultId,
                 userId,
                 timestamp,

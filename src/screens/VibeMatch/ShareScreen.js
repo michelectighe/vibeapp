@@ -53,12 +53,15 @@ export const ShareScreen = ({ navigation }) => {
       //   setShowSubModal(true);
       //   setLoading(false);
     } else {
-      setShareName(user.displayName);
-      if (myResults) {
+      if (user.displayName) {
+        setShareName(user.displayName);
+      }
+      if (myResults && !loading) {
+        console.log('MYRESULTS IN SHARE SCREEN:', myResults.length)
         setResults(myResults);
       }
     }
-  }, [authLoading, user, isPremium, myResults]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [authLoading, loading, user, isPremium, myResults]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onShare = async (item) => {
     try {
@@ -133,40 +136,11 @@ export const ShareScreen = ({ navigation }) => {
                 contentContainerStyle={styles.scrollContent}
                 showsVerticalScrollIndicator={false}
               >
-                {/* <View style={styles.options}>
-                  <View style={[styles.anonymous]}>
-                    <Text style={[styles.anonymousText]}>anonymous</Text>
-                    <Switch
-                      style={styles.switch}
-                      value={isAnonymous}
-                      onValueChange={(val) => {
-                        setIsAnonymous(val);
-                      }}
-                      thumbColor={isAnonymous ? Colors.accent : "#ccc"}
-                      trackColor={{ false: "#aaa", true: Colors.accentLight }}
-                    />
-                  </View>
-                  {!isAnonymous && (
-                    <View style={[styles.shareAs, {}]}>
-                      <Text style={{ color: Colors.textLight }}>Share as: </Text>
-                      <TextInput
-                        style={styles.input}
-                        placeholder="Enter your name"
-                        placeholderTextColor={Colors.mediumGray}
-                        value={shareName}
-                        onChangeText={setShareName}
-                        autoCapitalize="none"
-                        returnKeyType="done"
-                        onSubmitEditing={Keyboard.dismiss}
-                      />
-                    </View>
-                  )}
-                </View> */}
                 <ResultSelector
                   results={results}
                   onSelect={(item) => showResults(item)}
-                  onShare={onShare}
-                  onTrash={onTrash}
+                  onShare={() => onShare()}
+                  onTrash={() => onTrash()}
                 />
               </ScrollView>
             </>

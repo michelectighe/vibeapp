@@ -33,7 +33,7 @@ export const cardsTools = [
     image: require("@assets/images/home/journal.png"),
     screen: {
       name: "InnerWork", // <- This is the tab name
-      params: { screen: "QuantumJournalScreen" }, // <- This is the nested screen
+      params: { screen: "JournalListScreen" }, // <- This is the nested screen
     },
     textColor: Colors.textLight,
   },
@@ -41,7 +41,7 @@ export const cardsTools = [
     id: "breath-work",
     title: "Breath Work",
     subtitle: "Breathe your nervous system into a peaceful state",
-   icon: "cloud-outline",
+    icon: "cloud-outline",
     image: require("@assets/images/home/breath.png"),
     screen: {
       name: "InnerWork", // <- This is the tools stack name

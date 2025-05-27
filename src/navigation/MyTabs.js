@@ -21,7 +21,7 @@ import { Goals } from "@/screens";
 
 const Tab = createBottomTabNavigator();
 
-export const MyTabs = () => {
+export const MyTabs = ({handleHomeReady}) => {
   // const navigationRef = useNavigationContainerRef();
   const scaleAnim = useRef(new Animated.Value(1)).current;
 
@@ -139,12 +139,6 @@ export const MyTabs = () => {
     >
       <Tab.Screen
         name="Home"
-        component={VibeKeyHome}
-        listeners={({ navigation, route }) => ({
-          tabPress: (e) => {
-            resetStack("Home");
-          },
-        })}
         options={{
           unmountOnBlur: true,
           headerShown: false,
@@ -152,7 +146,15 @@ export const MyTabs = () => {
           presentation: "modal",
           cardStyleInterpolator: CardStyleInterpolators.forFadeFromCenter,
         }}
-      />
+        listeners={({ navigation, route }) => ({
+          tabPress: (e) => {
+            resetStack("Home");
+          },
+        })}
+      >
+        {(props) => <VibeKeyHome {...props} onReady={handleHomeReady} />}
+      </Tab.Screen>
+
       <Tab.Screen
         name="VibeCheck"
         component={VibeCheckStack}

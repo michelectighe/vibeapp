@@ -63,3 +63,4 @@ export { ChakraColorPicker } from "./ChakraColorPicker";
 
 export { StickyNote } from "./StickyNote";
 export { DatePickerStrip } from "./DatePicker";
+export { SplashDeepLink } from "./SplashDeepLink";

@@ -9,6 +9,13 @@ const rawStyles = {
     paddingHorizontal: 0,
     alignItems: "center",
   },
+  expired: {
+    fontSize: 28,
+    marginTop: 100,
+    textAlign: "center",
+    width: SCREEN_WIDTH * 0.9,
+    color: Colors.textLight,
+  },
   title: {
     fontSize: 28,
     marginTop: 100,

@@ -95,14 +95,13 @@ export const EnergyCleanseScreen = () => {
       // 🔇 Stop current playing track
       await stopTrack();
       setPlayingState((prev) => ({ ...prev, [type]: false }));
-      setCompleted((prev) => ({ ...prev, [type]: true }));
     } else {
       // 🔄 Stop all previous tracks first
       await stopTrack();
 
       // 🔊 Start the new track
       await playTrack(item.id, item.audio, item.audioTitle, "VibeKey", 1, (fadeIn = true));
-
+      setCompleted((prev) => ({ ...prev, [type]: true }));
       // ✅ Mark only this one as playing
       setPlayingState({
         meditation: false,

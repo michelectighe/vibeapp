@@ -10,7 +10,7 @@ import { styles } from "./BreathingModalScreen.styles";
 export const BreathingModalScreen = () => {
   useAmbientControlForScreen(true);
   const { vibrationInfo } = useAnalysis();
-  console.log("vibrationInfo:", vibrationInfo);
+  //console.log("vibrationInfo:", vibrationInfo);
   const route = useRoute();
   const { pattern } = route.params;
   const navigation = useNavigation();
@@ -21,10 +21,10 @@ export const BreathingModalScreen = () => {
 
   useEffect(() => {
     const result = vibrationInfo;
-    console.log("result");
+ //   console.log("result");
     if (result == null) return;
 
-    console.log("result:", result);
+  //  console.log("result:", result);
     setColor(result.color);
     setColor2(result.color2);
     setColor3(result.color3);
@@ -43,7 +43,10 @@ export const BreathingModalScreen = () => {
   }
 
   return (
-    <GradientBackground colors={[overallColor, overallColor2, overallColor4, overallColor3, overallColor3]} modal={true}>
+    <GradientBackground
+      colors={[overallColor, overallColor2, overallColor4, overallColor3, overallColor3]}
+      modal={true}
+    >
       <CloseX xColor={overallColor4} onPress={() => navigation.goBack()} />
       <SectionLayout
         topFlex={6}
