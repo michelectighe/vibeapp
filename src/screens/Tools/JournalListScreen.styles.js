@@ -4,24 +4,34 @@ import { SCREEN_WIDTH } from "@/utils";
 import { scaledStyle } from "@/utils";
 
 const rawStyles = {
-  container: {
-    flex: 1,
-    marginTop: 100,
-    backgroundColor: Colors.background || "#f9f9f9",
-    paddingHorizontal: 16,
-    paddingTop: 24,
-  },
   search: {
-    backgroundColor: Colors.white,
+    backgroundColor: "white",
+    justifyContent: "center",
     borderRadius: 12,
     padding: 12,
     fontSize: 16,
+    marginTop: 120,
+    width: SCREEN_WIDTH * 0.9,
     marginBottom: 16,
     borderWidth: 1,
-    borderColor: Colors.lightGray || "#ccc",
+    borderColor: "#ccc",
+    alignSelf: "center",
+  },
+  scrollView: {
+    position: "absolute",
+    top: 50,
+    //   bottom: 80,
+    left: 0,
+    right: 0,
+    zIndex: 1,
+  },
+  scrollContent: {
+    paddingTop: 190, // this matches the height of your title/logo area
+    paddingHorizontal: 20,
+    paddingBottom: 160,
   },
   entry: {
-    backgroundColor: Colors.offWhite || "#fff",
+    backgroundColor: Colors.surface || "#fff",
     padding: 16,
     borderRadius: 12,
     marginBottom: 12,
@@ -35,11 +45,16 @@ const rawStyles = {
     fontSize: 16,
     fontWeight: "600",
     marginBottom: 6,
-    color: Colors.primaryText || "#333",
+    color: Colors.textDark || "#333",
   },
   snippet: {
     fontSize: 14,
-    color: Colors.secondaryText || "#666",
+    color: Colors.textDark || "#666",
+  },
+  new: {
+    marginTop: 20,
+    width: SCREEN_WIDTH * .5,
+    alignSelf: "center"
   },
 };
 

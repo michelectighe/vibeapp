@@ -13,6 +13,7 @@ import { Animated, TouchableOpacity, Text, StyleSheet } from "react-native";
 import { Fonts, Colors } from "@constants";
 
 export const CustomSpiritualButton = ({
+  isDirty = true,
   label,
   onPress,
   color = Colors.surface,
@@ -31,8 +32,13 @@ export const CustomSpiritualButton = ({
   return (
     <Animated.View style={{ opacity: fadeAnim, width: "100%" }}>
       <TouchableOpacity
+        disabled={!isDirty}
         onPress={onPress}
-        style={[styles.button, { backgroundColor: color || Colors.surface }]}
+        style={[
+          styles.button,
+          !isDirty && styles.disabled,
+          { backgroundColor: color || Colors.surface },
+        ]}
         activeOpacity={0.85}
       >
         <Text style={[styles.label, { color: textColor }]}>{label}</Text>
@@ -57,5 +63,14 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 18,
     fontFamily: Fonts.body,
+  },
+  button: {
+    backgroundColor: Colors.primary,
+    padding: 12,
+    borderRadius: 8,
+    alignItems: "center",
+  },
+  disabled: {
+    opacity: 0.5,
   },
 });

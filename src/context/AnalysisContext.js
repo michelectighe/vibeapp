@@ -37,6 +37,8 @@ export const AnalysisProvider = ({ children }) => {
   const [environmentScore, setEnvironmentScore] = useState();
   const [voiceStrength, setVoiceStrength] = useState(-1);
   const [voiceClarity, setVoiceClarity] = useState(5);
+  const [resultId, setResultId] = useState();
+  const [journalId, setJournalId] = useState();
 
   const [auraColor, setAuraColor] = useState(Colors.aura70);
   const [overallVibrationScore, setOverallVibeScore] = useState(0);
@@ -105,6 +107,8 @@ export const AnalysisProvider = ({ children }) => {
       setMotion(cleanResult.motionScore.score);
       setEnvironmentScore(cleanResult.environmentScore); // this contains only one value
       setChakraScores(cleanResult.chakraScores);
+      setResultId(cleanResult.resultId);
+      setJournalId(cleanResult.journalId);
     } catch (error) {
       console.error("error setting old data:", error);
     }
@@ -271,7 +275,7 @@ export const AnalysisProvider = ({ children }) => {
       voiceClarityScore &&
       voiceFrequencyScore
     )
-    //  console.log("updating chakra scores");
+      //  console.log("updating chakra scores");
       updateChakraScores();
     setAuraColor(getAuraColor()); // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
@@ -392,6 +396,8 @@ export const AnalysisProvider = ({ children }) => {
         rawBPM,
         resetAnalysis,
         setResult,
+        resultId,
+        journalId,
       }}
     >
       {children}

@@ -9,7 +9,7 @@ export const initializeDatabase = async () => {
   }
   try {
     //    await db.execAsync(`PRAGMA foreign_keys=ON;`); // 🔥 Enforce SQLite execution before table creation
-    //  await dropTable();
+    // await dropTable();
 
     await db.execAsync(`
       CREATE TABLE IF NOT EXISTS results (
@@ -24,7 +24,8 @@ export const initializeDatabase = async () => {
         environmentScore TEXT,
         voiceStrengthScore TEXT,
         voiceClarityScore TEXT,
-        emotionalScore TEXT
+        emotionalScore TEXT,
+        journalId TEXT
       );
     `);
     await db.execAsync(`
@@ -88,10 +89,9 @@ export const initializeDatabase = async () => {
 
     await db.execAsync(`
       CREATE TABLE IF NOT EXISTS journalEntries (
-      id TEXT PRIMARY KEY,
       prompt TEXT,
       entry TEXT,
-      createdAt TEXT
+      createdAt TEXT PRIMARY KEY
     );
      `);
 
@@ -105,7 +105,7 @@ export const dropTable = async () => {
   if (!db) {
     db = await SQLite.openDatabaseAsync("vibrationResults.db");
   }
-  //  await db.execAsync("DROP TABLE IF EXISTS sticky_notes;");
+  await db.execAsync("DROP TABLE IF EXISTS results;");
   //await db.execAsync("DROP TABLE IF EXISTS matchesSent;");
   //await db.execAsync("DROP TABLE IF EXISTS matchesReceived;");
   //console.log("🗑️ Table dropped. Restart app to recreate.");

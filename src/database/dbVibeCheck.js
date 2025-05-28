@@ -6,7 +6,7 @@ export const saveResult = async (result) => {
     const db = await SQLite.openDatabaseAsync("vibrationResults.db");
     //   console.log("saving result:", result);
     await db.runAsync(
-      `INSERT OR IGNORE INTO  results (
+      `INSERT OR REPLACE INTO  results (
                 resultId,
                 userId,
                 timestamp,
@@ -18,8 +18,9 @@ export const saveResult = async (result) => {
                 environmentScore,
                 voiceStrengthScore,
                 voiceClarityScore,
-                emotionalScore
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
+                emotionalScore,
+                journalId
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
       [
         result.resultId,
         result.userId,
@@ -33,6 +34,7 @@ export const saveResult = async (result) => {
         JSON.stringify(result.voiceStrengthScore),
         JSON.stringify(result.voiceClarityScore),
         JSON.stringify(result.emotionScore),
+        result.journalId ?? 0,
       ],
     );
     //   const allResults = await db.getAllAsync(`SELECT * FROM results`);
@@ -87,6 +89,15 @@ export const getLatestResults = async (userId) => {
   } catch (error) {
     console.error("❌ Error retrieving results:", error);
     return null;
+  }
+};
+
+export const updateJournalResult = async (id, resultId) => {
+  try {
+    const db = await SQLite.openDatabaseAsync("vibrationResults.db");
+    await db.runAsync("Update results set journalId = ? where resultId = ?;", [id, resultId]);
+  } catch (e) {
+    console.error("error updating journal entry in results:", e);
   }
 };
 

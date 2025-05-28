@@ -10,6 +10,7 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH, hexToRgba } from "@/utils";
 
 export const GradientBackground = ({ children, colors, logo = false , modal= false}) => {
  // console.log('gradientColors:', colors)
+ if (!colors) { colors = [Colors.gradient1, Colors.gradient2, Colors.gradient3];}
   if (!modal) {
     colors = hexToRgba(colors, 0.8);
   }

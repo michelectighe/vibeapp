@@ -28,10 +28,12 @@ import { useAnalysis } from "@/context";
 import { globalStyles } from "@/styles";
 import { SCREEN_WIDTH } from "@/utils";
 import { LinedTextInput } from "@/components";
-import { saveJournalEntryDb, saveJournalEntryFs } from "@database";
+import { saveJournalEntryDb, saveJournalEntryFs, updateJournalResult } from "@database";
+import { getJournalEntryByIdDb, getJournalEntryByIdFs } from "@/database";
 
 export const JournalScreen = () => {
   useAmbientControlForScreen(true);
+  const { vibrationInfo, journalId, resultId } = useAnalysis();
   const navigation = useNavigation();
   const [prompt, setPrompt] = useState("");
   const [entry, setEntry] = useState("");
@@ -42,9 +44,36 @@ export const JournalScreen = () => {
   const [overallColor2, setColor2] = useState();
   const [overallColor3, setColor3] = useState();
   const [overallColor4, setColor4] = useState();
-  const [promptRequest, setPromptRequest] = useState(true);
+  const [promptRequest, setPromptRequest] = useState(false);
+  const [isDirty, setIsDirty] = useState(false);
+  const [currentEntry, setCurrentEntry] = useState(null);
+  const [currentJournalId, setCurrentJournalId] = useState(journalId || null);
 
-  const { vibrationInfo } = useAnalysis();
+  useEffect(() => {
+    try {
+    const getExisting = async () => {
+      console.log("do we have the current journal id?:", currentJournalId);
+      if (!currentJournalId || currentJournalId === 0) {
+        console.log("go ahead and get a new prompt");
+        setPromptRequest(true);
+        return;
+      }
+      const journalEntry = await getJournalEntryByIdFs(journalId);
+      console.log("GOT CURRENT ENTRY:", journalEntry);
+      setCurrentEntry(journalEntry);
+      if (journalEntry) {
+        setPromptRequest(false);
+        setPrompt(journalEntry.prompt);
+        setEntry(journalEntry.entry);
+        setIsTyping(false);
+        setIsDirty(false);
+      }
+    };
+    getExisting();
+  } catch(e) {
+    console.error("error getting existing journal entry:", e);
+  }
+  }, [currentJournalId]);
 
   useEffect(() => {
     if (vibrationInfo == null) return;
@@ -52,7 +81,7 @@ export const JournalScreen = () => {
     setColor2(vibrationInfo.color2);
     setColor3(vibrationInfo.color3);
     setColor4(vibrationInfo.color4);
-    setPromptRequest(true);
+  //  setPromptRequest(true);
   }, [vibrationInfo]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
@@ -60,7 +89,7 @@ export const JournalScreen = () => {
     if (!promptRequest) return;
     const newPrompt =
       quantumJournalPrompts[Math.floor(Math.random() * quantumJournalPrompts.length)];
-    console.log("newPrompt:", newPrompt);
+    setIsDirty(false);
     let i = 0;
     const interval = setInterval(() => {
       setAnimatedText(newPrompt.slice(0, i + 1));
@@ -79,18 +108,24 @@ export const JournalScreen = () => {
 
   const handleSave = async () => {
     const createdAt = new Date().toISOString();
-    const id = createdAt; // or use uuid
+    const id = currentEntry?.id || createdAt; // or use uuid
 
     const newEntry = { id, prompt, entry, createdAt };
 
     try {
       await saveJournalEntryDb(newEntry);
 
-    //  if (userIsLoggedIn()) {
-        await saveJournalEntryFs(prompt, entry, createdAt);
-    //  }
+      //  if (userIsLoggedIn()) {
+      await saveJournalEntryFs(id, prompt, entry, createdAt);
+      //  }
+      console.log("SAVING JOURNAL ID TO RESULTSID:", resultId);
+      console.log("SAVING JOURNAL ID:", id);
 
       setSaved(true);
+      if (!currentEntry) await updateJournalResult(id, resultId);
+      setCurrentEntry(newEntry);
+      setIsDirty(false);
+
       console.log("✅ Journal entry saved locally and to Firestore!");
     } catch (err) {
       console.error("❌ Error saving journal entry:", err.message);
@@ -131,11 +166,14 @@ export const JournalScreen = () => {
             </View>
           }
           middleContent={
-            <View style={{ width: "90%", overflow: "hidden" }}>
+            <View style={{ width: "90%", height: "80%", overflow: "hidden" }}>
               <KeyboardDone inputID="journalInputAccessory" />
               <LinedTextInput
                 value={entry}
-                onChangeText={setEntry}
+                onChangeText={(t) => {
+                  setEntry(t);
+                  setIsDirty(true);
+                }}
                 placeholder="Write whatever flows through..."
                 placeholderTextColor={Colors.mediumGray}
                 style={{ backgroundColor: overallColor4, borderRadius: 12 }}
@@ -146,17 +184,18 @@ export const JournalScreen = () => {
                 keyboardAppearance="dark"
                 inputAccessoryViewID={"journalInputAccessory"}
               />
+              {saved && !isDirty && (
+                <Text style={[styles.savedMessage, { color: overallColor4 }]}>
+                  Journal Entry Saved
+                </Text>
+              )}
             </View>
           }
           bottomContent={
             <>
               <View style={styles.bottomText}>
-                {saved && (
-                  <Text style={[styles.savedMessage, { color: overallColor4 }]}>
-                    Journal Entry Saved
-                  </Text>
-                )}
                 <CustomSpiritualButton
+                  isDirty={isDirty}
                   label="Save Entry"
                   onPress={handleSave}
                   color={overallColor2}

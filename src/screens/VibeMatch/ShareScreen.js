@@ -24,7 +24,7 @@ import { MyResultsContext } from "@/context/MyResultsContext";
 
 export const ShareScreen = ({ navigation }) => {
   useAmbientControlForScreen(true);
-  const { myResults, loading } = useContext(MyResultsContext);
+  const { myResults, loading, refreshResults } = useContext(MyResultsContext);
   const { profile } = useUserProfile();
   const [results, setResults] = useState([]);
   const [showSubModal, setShowSubModal] = useState(false);
@@ -77,7 +77,8 @@ export const ShareScreen = ({ navigation }) => {
 
   const onTrash = async (item) => {
     try {
-      console.log("userid:", user.uid);
+      console.log("TRASH:", item);
+      if (!item) return;
       console.log("trying to delete item:", item.id);
 
       await deleteFirestoreRecord("results", item.id, user.uid);
@@ -85,6 +86,7 @@ export const ShareScreen = ({ navigation }) => {
       deleteResult(user.uid, item.id, (updatedResults) => {
         setResults(updatedResults); // or however you're storing them in state
       });
+      refreshResults();
     } catch (err) {
       console.error("Deletion error:", err);
     }

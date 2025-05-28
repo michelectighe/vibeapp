@@ -127,6 +127,7 @@ export const ResultsScreen = ({ navigation }) => {
       emotionScore: emotionScore,
       overallVibrationScore: overallVibrationScore, // optional, could skip check if you trust it
       chakraScores: chakraScores || {},
+      journalId: 0,
     };
 
     if (newResult.resultId && newResult.timestamp) {

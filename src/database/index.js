@@ -6,6 +6,7 @@ export {
   getLatestResults,
   deleteResult,
   getResultByID,
+  updateJournalResult,
 } from "./dbVibeCheck";
 export {
   saveVibeMatchReceived,
@@ -24,4 +25,6 @@ export {
   saveJournalEntryFs,
   getJournalEntriesFs,
   deleteJournalEntryFs,
+  getJournalEntryByIdDb,
+  getJournalEntryByIdFs,
 } from "./dbJournal";

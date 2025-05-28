@@ -44,7 +44,7 @@ const rawStyles = {
   bottomText: {
     marginTop: 10,
     justifyContent: "center",
-    width: SCREEN_WIDTH *.9,
+    width: SCREEN_WIDTH * 0.9,
   },
   bottomNote: {
     position: "absolute",
@@ -57,6 +57,7 @@ const rawStyles = {
     fontFamily: Fonts.body,
     fontSize: 18,
     textAlign: "center",
+    marginTop: 20,
   },
 };
 
