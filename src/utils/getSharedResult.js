@@ -14,9 +14,9 @@ try {
             localRef.theirResultID,); // if there is, get the local results (if they exist)
         
             if (sharedResult) {
-                const sharedName = localRef?.theirName || 'Someone';
-                console.log("[Cache Hit]: Found local match");
-                return sharedResult, sharedName;
+              const sharedName = localRef?.theirName || "Someone";
+              //console.log("[Cache Hit]: Found local match");
+              return sharedResult, sharedName;
             } 
         };
     };

@@ -15,10 +15,10 @@ export const loadResults = async (userId) => {
     // first try getting local results
     const localResultsRef = getResultsForUser(userId);
     if (localResultsRef.length > 0) {
-      console.log("Got local Results");
+      //console.log("Got local Results");
       return localResultsRef;
     } else {
-      console.log("no local results. checking firebase");
+      //console.log("no local results. checking firebase");
       const resultsRef = collection(db, "users", userId, "results");
       const q = query(resultsRef, orderBy("timestamp", "desc"));
       const snapshot = await getDocs(q);

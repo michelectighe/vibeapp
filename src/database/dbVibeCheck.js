@@ -1,9 +1,11 @@
 import * as SQLite from "expo-sqlite";
+import { getDb } from "./dbInit";
 
+//const db = await getDb();
 
 export const saveResult = async (result) => {
   try {
-    const db = await SQLite.openDatabaseAsync("vibrationResults.db");
+    const db = await getDb();
     //   console.log("saving result:", result);
     await db.runAsync(
       `INSERT OR REPLACE INTO  results (
@@ -18,7 +20,7 @@ export const saveResult = async (result) => {
                 environmentScore,
                 voiceStrengthScore,
                 voiceClarityScore,
-                emotionalScore,
+                emotionScore,
                 journalId
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
       [
@@ -37,8 +39,8 @@ export const saveResult = async (result) => {
         result.journalId ?? 0,
       ],
     );
-    //   const allResults = await db.getAllAsync(`SELECT * FROM results`);
-    //   console.log("✅ All saved results:", JSON.stringify(allResults, null, 2));
+    const allResults = await db.getAllAsync(`SELECT * FROM results`);
+    console.log("✅ All saved results:", JSON.stringify(allResults, null, 2));
   } catch (error) {
     console.error("🔥 SQL Error Saving Result:", error);
   }
@@ -48,7 +50,7 @@ export const saveResult = async (result) => {
 // utils/db.js (or wherever you put it)
 export const getResultsForUser = async (userId) => {
   try {
-    const db = await SQLite.openDatabaseAsync("vibrationResults.db");
+    const db = await getDb();
 
     const results = await db.getAllAsync(
       `SELECT * FROM results WHERE userId = ? ORDER BY timestamp DESC;`,
@@ -64,7 +66,7 @@ export const getResultsForUser = async (userId) => {
 
 export const getResultByID = async (userId, resultId) => {
   try {
-    const db = await SQLite.openDatabaseAsync("vibrationResults.db");
+    const db = await getDb();
 
     const result = await db.getAllAsync(
       `SELECT * FROM results WHERE userId = ?  AND resultId = ? ORDER BY timestamp DESC LIMIT 1;`,
@@ -80,7 +82,7 @@ export const getResultByID = async (userId, resultId) => {
 // utils/db.js (or wherever you put it)
 export const getLatestResults = async (userId) => {
   try {
-    const db = await SQLite.openDatabaseAsync("vibrationResults.db");
+    const db = await getDb();
     const result = await db.getAllAsync(
       `SELECT * FROM results WHERE userId = ? ORDER BY timestamp DESC LIMIT 1;`,
       [userId],
@@ -92,10 +94,22 @@ export const getLatestResults = async (userId) => {
   }
 };
 
-export const updateJournalResult = async (id, resultId) => {
+export const updateJournalResultDb = async ({ journalId, resultId }) => {
   try {
-    const db = await SQLite.openDatabaseAsync("vibrationResults.db");
-    await db.runAsync("Update results set journalId = ? where resultId = ?;", [id, resultId]);
+    const db = await getDb();
+console.log("📦 typeof journalId:", typeof journalId);
+console.log("🧪 journalId raw value:", JSON.stringify(journalId));
+console.log("🧪 resultId raw value:", JSON.stringify(resultId));
+    await db.runAsync("UPDATE results SET journalId = ? WHERE resultId = ?;", [
+      journalId,
+      resultId,
+    ]);
+ //   await db.runAsync("UPDATE results SET journalId = ? WHERE resultId = ?", [journalId, resultId]);
+
+    const updated = await db.getFirstAsync("SELECT journalId FROM results WHERE resultId = ?", [
+      resultId,
+    ]);
+    console.log("🔁 After update:", updated);
   } catch (e) {
     console.error("error updating journal entry in results:", e);
   }
@@ -103,7 +117,7 @@ export const updateJournalResult = async (id, resultId) => {
 
 export const deleteResult = async (userId, resultId, callback) => {
   try {
-    const db = await SQLite.openDatabaseAsync("vibrationResults.db");
+    const db = await getDb();
 
     await db.runAsync("DELETE FROM results WHERE resultId = ? AND userId = ?;", [resultId, userId]);
     console.log(`✅ Deleted result with resultId: ${resultId} AND userId: ${userId}`);

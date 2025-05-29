@@ -28,7 +28,7 @@ import { useAnalysis } from "@/context";
 import { globalStyles } from "@/styles";
 import { SCREEN_WIDTH } from "@/utils";
 import { LinedTextInput } from "@/components";
-import { saveJournalEntryDb, saveJournalEntryFs, updateJournalResult } from "@database";
+import { saveJournalEntryDb, saveJournalEntryFs, updateJournalResultDb } from "@database";
 import { getJournalEntryByIdDb, getJournalEntryByIdFs } from "@/database";
 
 export const JournalScreen = () => {
@@ -51,28 +51,28 @@ export const JournalScreen = () => {
 
   useEffect(() => {
     try {
-    const getExisting = async () => {
-      console.log("do we have the current journal id?:", currentJournalId);
-      if (!currentJournalId || currentJournalId === 0) {
-        console.log("go ahead and get a new prompt");
-        setPromptRequest(true);
-        return;
-      }
-      const journalEntry = await getJournalEntryByIdFs(journalId);
-      console.log("GOT CURRENT ENTRY:", journalEntry);
-      setCurrentEntry(journalEntry);
-      if (journalEntry) {
-        setPromptRequest(false);
-        setPrompt(journalEntry.prompt);
-        setEntry(journalEntry.entry);
-        setIsTyping(false);
-        setIsDirty(false);
-      }
-    };
-    getExisting();
-  } catch(e) {
-    console.error("error getting existing journal entry:", e);
-  }
+      const getExisting = async () => {
+        //console.log("do we have the current journal id?:", currentJournalId);
+        if (!currentJournalId || currentJournalId === 0) {
+          //console.log("go ahead and get a new prompt");
+          setPromptRequest(true);
+          return;
+        }
+        const journalEntry = await getJournalEntryByIdFs(journalId);
+        //console.log("GOT CURRENT ENTRY:", journalEntry);
+        setCurrentEntry(journalEntry);
+        if (journalEntry) {
+          setPromptRequest(false);
+          setPrompt(journalEntry.prompt);
+          setEntry(journalEntry.entry);
+          setIsTyping(false);
+          setIsDirty(false);
+        }
+      };
+      getExisting();
+    } catch (e) {
+      console.error("error getting existing journal entry:", e);
+    }
   }, [currentJournalId]);
 
   useEffect(() => {
@@ -81,7 +81,7 @@ export const JournalScreen = () => {
     setColor2(vibrationInfo.color2);
     setColor3(vibrationInfo.color3);
     setColor4(vibrationInfo.color4);
-  //  setPromptRequest(true);
+    //  setPromptRequest(true);
   }, [vibrationInfo]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
@@ -118,15 +118,15 @@ export const JournalScreen = () => {
       //  if (userIsLoggedIn()) {
       await saveJournalEntryFs(id, prompt, entry, createdAt);
       //  }
-      console.log("SAVING JOURNAL ID TO RESULTSID:", resultId);
-      console.log("SAVING JOURNAL ID:", id);
+      //console.log("SAVING JOURNAL ID TO RESULTSID:", resultId);
+      //console.log("SAVING JOURNAL ID:", id);
 
       setSaved(true);
-      if (!currentEntry) await updateJournalResult(id, resultId);
+      if (!currentEntry) await updateJournalResultDb(id, resultId);
       setCurrentEntry(newEntry);
       setIsDirty(false);
 
-      console.log("✅ Journal entry saved locally and to Firestore!");
+      //console.log("✅ Journal entry saved locally and to Firestore!");
     } catch (err) {
       console.error("❌ Error saving journal entry:", err.message);
     }

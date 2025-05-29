@@ -12,7 +12,7 @@ import { globalStyles } from "@styles";
 import { useRoute, useFocusEffect } from "@react-navigation/native";
 import { getResultByID } from "@database";
 import { hexToRgba } from "@/utils";
-//import HapticTest from "@/components/HapticTest";
+
 
 Text.defaultProps = Text.defaultProps || {};
 Text.defaultProps.allowFontScaling = false;
@@ -33,7 +33,6 @@ export const ResultsScreen = ({ navigation }) => {
   const [saving, setSaving] = useState(false);
   const [dataReady, setDataReady] = useState(false);
   const [oldResults, setOldResults] = useState(false);
-  
 
   const oldResultsRef = useRef(false);
   const infoImage = require("@assets/images/info.webp");
@@ -61,7 +60,7 @@ export const ResultsScreen = ({ navigation }) => {
           oldResultsRef.current = true;
           const loadResult = async () => {
             const existing = await getResultByID(user.uid, resultId);
-            console.log("EXISTING:", existing);
+            //console.log("EXISTING:", existing);
             if (existing) {
               await resetAnalysis();
               await setResult(existing);
@@ -96,7 +95,7 @@ export const ResultsScreen = ({ navigation }) => {
         //save to db if the data is new
         if (!oldResultsRef.current && user) {
           await saveResultsToDB();
-          console.log("try to save because NOT old score?????");
+               //console.log("try to save because NOT old score?????");
           oldResultsRef.current = true; // set to make sure it doesn't try to save again
         }
       } catch (e) {
@@ -127,7 +126,7 @@ export const ResultsScreen = ({ navigation }) => {
       emotionScore: emotionScore,
       overallVibrationScore: overallVibrationScore, // optional, could skip check if you trust it
       chakraScores: chakraScores || {},
-      journalId: 0,
+      journalId: "0",
     };
 
     if (newResult.resultId && newResult.timestamp) {

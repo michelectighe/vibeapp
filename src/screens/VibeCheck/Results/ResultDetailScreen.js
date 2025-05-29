@@ -91,8 +91,8 @@ export const ResultDetailScreen = ({ navigation }) => {
                 textColor={overallColor3}
               />
               <CustomSpiritualButton
-                label="Journal"
-                onPress={() => navigation.navigate("JournalScreen")}
+                label="Gratitude"
+                onPress={() => navigation.navigate("GratitudeScreen")}
                 color={overallColor2}
                 textColor={overallColor3}
               />

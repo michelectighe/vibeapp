@@ -21,12 +21,14 @@ import { deleteFirestoreRecord } from "@/database";
 import { deleteResult } from "@/database";
 import { SCREEN_HEIGHT } from "@/utils";
 import { MyResultsContext } from "@/context/MyResultsContext";
+import { CustomSpiritualButton } from "@/components";
 
 export const ShareScreen = ({ navigation }) => {
   useAmbientControlForScreen(true);
   const { myResults, loading, refreshResults } = useContext(MyResultsContext);
   const { profile } = useUserProfile();
   const [results, setResults] = useState([]);
+  const [noResults, setNoResults] = useState(true);
   const [showSubModal, setShowSubModal] = useState(false);
   const auth = getAuth();
   const { user, authLoading, isPremium } = useAuth(); // 🔑 assuming `isPremium` is part of auth context
@@ -56,15 +58,16 @@ export const ShareScreen = ({ navigation }) => {
       if (user.displayName) {
         setShareName(user.displayName);
       }
-      if (myResults && !loading) {
-        console.log('MYRESULTS IN SHARE SCREEN:', myResults.length)
+      if (myResults && !loading && myResults.length > 0) {
         setResults(myResults);
+        setNoResults(false);
       }
     }
   }, [authLoading, loading, user, isPremium, myResults]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const onShare = async (item) => {
     try {
+      //console.log("onshare item:", item);
       const name = profile.displayName;
       const link = await createMatchLink(item.id, auth.currentUser.uid, name, isAnonymous);
       await Share.share({
@@ -77,14 +80,14 @@ export const ShareScreen = ({ navigation }) => {
 
   const onTrash = async (item) => {
     try {
-      console.log("TRASH:", item);
+      //   console.log("TRASH:", item);
       if (!item) return;
-      console.log("trying to delete item:", item.id);
+      // console.log("trying to delete item:", item.id);
 
       await deleteFirestoreRecord("results", item.id, user.uid);
       //delete locally too
       deleteResult(user.uid, item.id, (updatedResults) => {
-        setResults(updatedResults); // or however you're storing them in state
+        setResults(updatedResults);
       });
       refreshResults();
     } catch (err) {
@@ -112,7 +115,7 @@ export const ShareScreen = ({ navigation }) => {
   if (!myResults) {
     return <ActivityIndicator size="large" style={{ marginTop: SCREEN_HEIGHT * 0.2 }} />;
   }
-
+  console.log("results:", results);
   return (
     <>
       <GradientBackground
@@ -132,19 +135,36 @@ export const ShareScreen = ({ navigation }) => {
             <>
               <View style={styles.titleWrapper}>
                 <Text style={styles.title}>Vibe Match</Text>
-                <Text style={styles.subTitle}>Let&apos;s see if your vibes are in sync.</Text>
+                {!noResults && (
+                  <Text style={styles.subTitle}>Let&apos;s see if your vibes are in sync.</Text>
+                )}
+                {noResults && (
+                  <View>
+                    <Text style={styles.noResults}>No Results to Share</Text>
+                    <CustomSpiritualButton
+                      label="Do a Vibe Check"
+                      onPress={() =>
+                        navigation.navigate("VibeCheck", { screen: "VibecheckScreen" })
+                      }
+                      color={Colors.surface}
+                      textColor={Colors.textDark}
+                    />
+                  </View>
+                )}
               </View>
-              <ScrollView
-                contentContainerStyle={styles.scrollContent}
-                showsVerticalScrollIndicator={false}
-              >
-                <ResultSelector
-                  results={results}
-                  onSelect={(item) => showResults(item)}
-                  onShare={() => onShare()}
-                  onTrash={() => onTrash()}
-                />
-              </ScrollView>
+              {!noResults && (
+                <ScrollView
+                  contentContainerStyle={styles.scrollContent}
+                  showsVerticalScrollIndicator={false}
+                >
+                  <ResultSelector
+                    results={results}
+                    onSelect={(item) => showResults(item)}
+                    onShare={(item) => onShare(item)}
+                    onTrash={(item) => onTrash(item)}
+                  />
+                </ScrollView>
+              )}
             </>
           }
         />

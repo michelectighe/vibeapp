@@ -5,10 +5,10 @@ export const deleteFirestoreRecord = async (collectionName, resultId, userId) =>
   try {
     const exists = await collectionExists(collectionName);
     if (!exists) {
-      console.log(collectionName, " collection doesn't exist");
+      //console.log(collectionName, " collection doesn't exist");
     } else {
       await deleteDoc(doc(db, "users", userId, collectionName, resultId));
-      console.log(`✅ Deleted Firestore document ${resultId} from ${collectionName}`);
+      //console.log(`✅ Deleted Firestore document ${resultId} from ${collectionName}`);
     }
   } catch (error) {
     console.error("❌ Error deleting Firestore document:", error);

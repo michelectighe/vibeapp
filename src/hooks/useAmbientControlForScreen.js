@@ -19,7 +19,7 @@ export const useAmbientControlForScreen = (playMusic = true) => {
           setShouldPlayAmbient(playMusic);
           // make sure global and screen ambient are true before playing
           if (!playMusic || !userPref) {
-            console.log("fading out");
+            //console.log("fading out");
             fadeOutMusic();
           } else if (playMusic && userPref && playingStatus.state.state !== "playing") {
             //   console.log("playingStatus.state: ", playingStatus);

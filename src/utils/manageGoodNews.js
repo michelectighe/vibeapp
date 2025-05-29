@@ -19,7 +19,7 @@ export const getTodayGoodNews = async () => {
     const snapshot = await getDocs(collection(db, "goodNews"));
     const backups = snapshot.docs.filter((d) => d.id.startsWith("random"));
     const random = backups[Math.floor(Math.random() * backups.length)];
-   //     console.log("today good new:", random.data());
+    ////console.log("today good new:", random.data());
     return random?.data() || null;
   }
 };
@@ -32,7 +32,7 @@ export const uploadDataToFireStore = async () => {
     for (const item of goodNewsBackup) {
       const docRef = doc(db, "goodNews", item.id);
       await setDoc(docRef, item);
-      console.log(`Uploaded: ${item.title}`);
+      //console.log(`Uploaded: ${item.title}`);
     }
     console.log("All stories uploaded!");
     return true;

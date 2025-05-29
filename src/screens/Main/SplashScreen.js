@@ -41,7 +41,8 @@ export const SplashScreen = ({ navigation, route, matchId = null }) => {
         await initApp();
 
         if (authLoading) return;
-        console.log("DO WE COME IN HERE WITH AN ID:", matchId);
+        //console.log("DO WE COME IN HERE WITH AN ID:", matchId);
+
         if (!matchId) {
           // don't do this if coming from the match screen (deep link)
           if (user) {

@@ -1,6 +1,7 @@
 import React, { useImperativeHandle, useRef, forwardRef, useEffect, useState } from "react";
 import * as SQLite from "expo-sqlite";
-import { updateStickyNotePosition } from "@database";
+import { getDb } from "@/database/dbInit";
+import { updateStickyNotePositionDb } from "@database";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Animated, {
   useSharedValue,
@@ -15,7 +16,6 @@ import { GestureDetector, Gesture } from "react-native-gesture-handler";
 import { Colors, Fonts } from "@constants";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { globalZIndexCounter } from "../state/zIndexStore";
-
 
 export const StickyNote = forwardRef(
   (
@@ -58,7 +58,7 @@ export const StickyNote = forwardRef(
     useEffect(() => {
       const loadPosition = async () => {
         try {
-          const db = await SQLite.openDatabaseAsync("vibrationResults.db");
+          const db = await getDb();
           const results = await db.getFirstAsync(
             "SELECT x, y, rotation FROM sticky_notes WHERE id = ?",
             [id],
@@ -85,7 +85,7 @@ export const StickyNote = forwardRef(
 
     const savePositionWithDone = async (newDoneValue) => {
       try {
-        await updateStickyNotePosition(id, {
+        await updateStickyNotePositionDb(id, {
           x: offsetX.value,
           y: offsetY.value,
           rotation: rotation.value,
@@ -102,14 +102,13 @@ export const StickyNote = forwardRef(
         tackScale.value = withTiming(0.5, { duration: 100 });
         startX.value = offsetX.value - e.translationX;
         startY.value = offsetY.value - e.translationY;
-         zIndex.value = globalZIndexCounter.value++;
+        zIndex.value = globalZIndexCounter.value++;
       })
       .onUpdate((e) => {
         offsetX.value = e.translationX + startX.value;
         offsetY.value = e.translationY + startY.value;
       })
       .onEnd(() => {
-
         offsetX.value = withSpring(offsetX.value);
         offsetY.value = withSpring(offsetY.value);
         tackOpacity.value = withTiming(1, { duration: 1000 });
@@ -148,7 +147,7 @@ export const StickyNote = forwardRef(
     const gesture = Gesture.Simultaneous(
       Gesture.Simultaneous(panGesture, rotateGesture),
       doubleTapGesture,
-    //  singleTapGesture,
+      //  singleTapGesture,
     );
 
     const animatedStyle = useAnimatedStyle(() => ({

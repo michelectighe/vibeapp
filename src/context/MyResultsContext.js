@@ -18,7 +18,7 @@ export const MyResultsProvider = ({ children }) => {
   useEffect(() => {
     const loadUserResults = async () => {
       if (authLoading || !user?.uid) {
-        console.log("⏳ Waiting for auth...");
+        //console.log("⏳ Waiting for auth...");
         return;
       }
       setLoading(true);

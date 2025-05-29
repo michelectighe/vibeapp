@@ -1,4 +1,5 @@
 import * as SQLite from "expo-sqlite";
+import { getDb } from "./dbInit";
 import { db } from "@/config/firebaseConfig";
 import {
   collection,
@@ -12,9 +13,9 @@ import {
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
-export const getJournalEntryByIdDb = async (journalId) => {
+export const getJournalEntryByIdDb = async ({ journalId }) => {
   try {
-    const db = await SQLite.openDatabaseAsync("vibrationResults.db");
+    const db = await getDb();
 
     const result = await db.getAllAsync(
       `SELECT * FROM journalEntries where id = ? ORDER BY createdAt DESC;`,
@@ -44,7 +45,7 @@ export const getJournalEntryByIdFs = async (journalId) => {
 
 export const getJournalEntriesDb = async () => {
   try {
-    const db = await SQLite.openDatabaseAsync("vibrationResults.db");
+    const db = await getDb();
 
     const result = await db.getAllAsync(`SELECT * FROM journalEntries ORDER BY createdAt DESC;`);
     return result?.[0] || null;
@@ -65,22 +66,36 @@ export const getJournalEntriesFs = async () => {
 /*****************************************************************/
 export const saveJournalEntryDb = async (journal) => {
   try {
-    const db = await SQLite.openDatabaseAsync("vibrationResults.db");
+    const db = await getDb();
+   // console.log("JOURNAL being saved:", journal);
     await db.runAsync(
       `INSERT OR REPLACE into journalEntries (
         id,    
         prompt,
         entry,
+        gratitude,
+        kindness,
         createdAt 
-    ) VALUES (?, ?, ?, ?)`,
-      [journal.id, journal.prompt, journal.entry, journal.createdAt],
+    ) VALUES (?, ?, ?, ?, ?, ?);`,
+      [
+        journal.id,
+        journal.prompt,
+        journal.entry,
+        journal.gratitude,
+        journal.kindness,
+        journal.createdAt.toISOString(),
+      ],
     );
+    const updated = await db.getFirstAsync("SELECT * from journalEntries WHERE id = ?", [
+      journal.id,
+    ]);
+    //console.log("🔁 After update:", updated);
   } catch (error) {
     console.error("🔥 SQL Error Saving JournalEntries:", error);
   }
 };
 
-export const saveJournalEntryFs = async (id, prompt, entry, createdAt) => {
+export const saveJournalEntryFs = async (id, prompt, entry, gratitude, kindness, createdAt) => {
   const user = getAuth().currentUser;
   if (!user) throw new Error("User not authenticated");
 
@@ -89,13 +104,15 @@ export const saveJournalEntryFs = async (id, prompt, entry, createdAt) => {
   return setDoc(entryRef, {
     prompt,
     entry,
+    gratitude,
+    kindness,
     createdAt: createdAt ? new Date(createdAt) : serverTimestamp(),
   });
 };
 /************************************************************* */
 export const deleteJournalEntryDb = async (id) => {
   try {
-    const db = await SQLite.openDatabaseAsync("vibrationResults.db");
+    const db = await getDb();
     await db.runAsync("DELETE FROM journalEntries WHERE id = ?;", [id]);
     ////console.log(`✅ Deleted result with ID: ${id}`);
   } catch (error) {

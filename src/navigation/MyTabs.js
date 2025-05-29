@@ -28,7 +28,7 @@ export const MyTabs = ({handleHomeReady}) => {
   // useFocusEffect(
   //   useCallback(() => {
   //     const currentRoute = navigationRef.getCurrentRoute();
-  //     console.log("currentRoute:", currentRoute);
+  ////console.log("currentRoute:", currentRoute);
   //     if (currentRoute) {
   //       navigationRef.reset({
   //         index: 0,

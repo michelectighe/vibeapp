@@ -26,6 +26,13 @@ const rawStyles = {
     color: Colors.textLight,
     fontFamily: Fonts.body,
   },
+  noResults: {
+    marginBottom: 20,
+    textAlign: "center",
+    fontSize: 18,
+    color: Colors.textLight,
+    fontFamily: Fonts.body,
+  },
   scrollContent: {
     backgroundColor: "transparent",
     paddingTop: 150,

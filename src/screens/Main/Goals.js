@@ -8,15 +8,12 @@ import { DeleteConfirmationModal } from "@components/DeleteConfirmationModal";
 import { CloseX } from "@/components";
 import { useNavigation } from "@react-navigation/native";
 
-import { saveStickyNoteToDB, deleteStickyNoteById } from "@database";
+import { saveStickyNoteToDb, deleteStickyNoteByIdDb } from "@database";
 import { styles } from "./Goals.styles";
 import { Colors } from "@constants";
 import uuid from "react-native-uuid";
 import { format, subDays } from "date-fns";
 import { SCREEN_WIDTH } from "@/utils";
-
-
-
 
 export const Goals = () => {
   const navigation = useNavigation();
@@ -33,7 +30,7 @@ export const Goals = () => {
 
   useEffect(() => {
     const loadNotes = async () => {
-      const db = await SQLite.openDatabaseAsync("vibrationResults.db");
+      const db = await getDb();
       const result = await db.getAllAsync("SELECT * FROM sticky_notes");
       setNotes(result);
     };
@@ -50,7 +47,7 @@ export const Goals = () => {
       noteRef.triggerDelete();
     }
     setTimeout(async () => {
-      await deleteStickyNoteById(id);
+      await deleteStickyNoteByIdDb(id);
       setNotes((prev) => prev.filter((note) => note.id !== id));
     }, 1600);
   };
@@ -77,7 +74,7 @@ export const Goals = () => {
       done: false,
     };
 
-    await saveStickyNoteToDB(newNote);
+    await saveStickyNoteToDb(newNote);
     setNotes((prev) => [...prev, newNote]);
   };
   return (

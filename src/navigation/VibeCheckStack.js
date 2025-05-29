@@ -19,6 +19,7 @@ import {
   AudioPerceptionScreen,
   JournalScreen,
   BreathingModalScreen,
+  GratitudeScreen,
 } from "@screens";
 
 // ✅ Stack Navigator for Analysis-related screens
@@ -31,7 +32,7 @@ export const VibeCheckStack = () => {
       initialRouteName="VibeCheckScreen"
       screenOptions={() => ({
         headerShown: false,
-        unmountOnBlur: true, 
+        unmountOnBlur: true,
         // tabBarStyle: { display: "none" },
       })}
     >
@@ -58,7 +59,7 @@ export const VibeCheckStack = () => {
         name="VibeCheckScreen"
         component={VibeCheckScreen}
         options={{
-          unmountOnBlur: true, 
+          unmountOnBlur: true,
           //   tabBarStyle: { display: "none" },
           headerShown: false,
           gestureEnabled: true,
@@ -85,7 +86,7 @@ export const VibeCheckStack = () => {
         name="EmotionTransitionScreen"
         component={EmotionTransitionScreen}
         options={{
-          unmountOnBlur: true, 
+          unmountOnBlur: true,
           tabBarStyle: { display: "none" },
           headerShown: false,
           gestureEnabled: true,
@@ -304,6 +305,33 @@ export const VibeCheckStack = () => {
       <Stack.Screen
         name="JournalScreen"
         component={JournalScreen}
+        options={{
+          headerShown: false,
+          gestureEnabled: true,
+          presentation: "modal",
+          cardStyleInterpolator: CardStyleInterpolators.forFadeFromCenter,
+          transitionSpec: {
+            open: {
+              animation: "timing",
+              config: {
+                duration: 1000, // 👈 slow this down
+                easing: Easing.out(Easing.poly(4)),
+              },
+            },
+            close: {
+              animation: "timing",
+              config: {
+                duration: 1000, // 👈 match for closing too
+                easing: Easing.out(Easing.poly(4)),
+              },
+            },
+          },
+        }}
+      />
+
+      <Stack.Screen
+        name="GratitudeScreen"
+        component={GratitudeScreen}
         options={{
           headerShown: false,
           gestureEnabled: true,

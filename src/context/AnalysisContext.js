@@ -91,7 +91,7 @@ export const AnalysisProvider = ({ children }) => {
     try {
       const cleanResult = {
         ...result,
-        emotionalScore: JSON.parse(result.emotionalScore),
+        emotionScore: JSON.parse(result.emotionScore),
         heartRateScore: JSON.parse(result.heartRateScore),
         voiceClarityScore: JSON.parse(result.voiceClarityScore),
         voiceFrequencyScore: JSON.parse(result.voiceFrequencyScore),
@@ -99,7 +99,7 @@ export const AnalysisProvider = ({ children }) => {
         motionScore: JSON.parse(result.motionScore),
         environmentScore: JSON.parse(result.environmentScore),
       };
-      setEmotions(cleanResult.emotionalScore.value);
+      setEmotions(cleanResult.emotionScore.value);
       setHeartRate(cleanResult.heartRateScore);
       setVoiceClarity(cleanResult.voiceClarityScore.raw); // need to use the score for this one because value is not raw
       setVoiceFrequency(cleanResult.voiceFrequencyScore.value);
@@ -398,6 +398,7 @@ export const AnalysisProvider = ({ children }) => {
         setResult,
         resultId,
         journalId,
+        setJournalId,
       }}
     >
       {children}

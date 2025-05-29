@@ -4,13 +4,6 @@ import { Colors, Fonts } from "@constants";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 
 const rawStyles = {
-  titleWrapper: {
-    position: "absolute",
-    top: 120,
-    width: SCREEN_WIDTH,
-    alignItems: "center",
-    backgroundColor: "transparent",
-  },
   scrollView: {
     position: "absolute",
     top: 0,
@@ -18,6 +11,11 @@ const rawStyles = {
     left: 0,
     right: 0,
     zIndex: 1,
+  },
+  scrollContent: {
+    paddingTop: 190, // this matches the height of your title/logo area
+//    paddingHorizontal: 20,
+    paddingBottom: 100,
   },
   divider: {
     height: 1,

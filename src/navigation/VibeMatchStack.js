@@ -4,6 +4,7 @@ import {
   ShareScreen,
   MatchScreen,
   MatchComparisonScreen,
+  MatchListScreen,
 } from "@screens";
 
 export const VibeMatchStack = () => {
@@ -39,6 +40,13 @@ export const VibeMatchStack = () => {
       <Stack.Screen
         name="MatchComparisonScreen"
         component={MatchComparisonScreen}
+        options={{
+          headerShown: false,
+        }}
+      />
+      <Stack.Screen
+        name="MatchListScreen"
+        component={MatchListScreen}
         options={{
           headerShown: false,
         }}

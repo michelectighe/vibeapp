@@ -84,7 +84,7 @@ const navigation = useNavigation();
   };
 
   return (
-    <View style={{ flex: 1 }}>
+
       <GradientBackground
         colors={
           overallColor
@@ -143,7 +143,7 @@ const navigation = useNavigation();
           })}
         </ScrollView>
       </GradientBackground>
-    </View>
+
   );
 };
 

@@ -6,3 +6,4 @@ export { ResultDetailScreen } from "./ResultDetailScreen";
 export { ResultsScreen } from "./ResultsScreen";
 export { ResultsBreakdownScreen } from "./ResultsBreakdownScreen";
 export { BreathingModalScreen } from "./BreathingModalScreen";
+export { GratitudeScreen } from "./GratitudeScreen";

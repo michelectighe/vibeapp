@@ -83,7 +83,7 @@ const AppInner = () => {
 
   useEffect(() => {
     const init = async () => {
-      console.log("linking:", linking);
+      //console.log("linking:", linking);
       try {
         await initializeRevenueCat();
 

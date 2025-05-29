@@ -9,20 +9,18 @@ export const initApp = async () => {
 
       const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
         if (currentUser) {
- 
-            currentUser.getIdTokenResult()
-            .then((idTokenResult) => {
-              console.log("Custom claims:", idTokenResult.claims);
-              if (idTokenResult.claims.admin) {
-                console.log("✅ You are an admin");
-              } else {
-                console.log("❌ You are NOT an admin");
-              }
-            });
+          currentUser.getIdTokenResult().then((idTokenResult) => {
+            //    console.log("Custom claims:", idTokenResult.claims);
+            if (idTokenResult.claims.admin) {
+              //console.log("✅ You are an admin");
+            } else {
+              //console.log("❌ You are NOT an admin");
+            }
+          });
 
-          console.log("✅ user logged in:", currentUser.email);
+          //console.log("✅ user logged in:", currentUser.email);
         } else {
-          console.log("🚫 user NOT logged in");
+          //console.log("🚫 user NOT logged in");
         }
 
         // ✅ Resolve as soon as auth is checked (regardless of login status)

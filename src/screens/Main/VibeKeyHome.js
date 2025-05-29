@@ -9,6 +9,7 @@ import { Colors } from "@constants";
 import { GradientBackground, HomeHeaderCard, Card } from "@components";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./VibeKeyHome.styles";
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { globalStyles } from "@styles";
 import { SectionLayout, SectionWithCards } from "@/components";
 import { getTodayGoodNews } from "@/utils";
@@ -26,7 +27,7 @@ export const VibeKeyHome = ({ onReady }) => {
   const user = auth.currentUser;
   useAmbientControlForScreen(true);
   // console.log("me:", user.uid);
-
+  const tabBarHeight = useBottomTabBarHeight();
   const positionY = useRef(new Animated.Value(-100)).current;
   const navigation = useNavigation();
   const { profile, loading } = useUserProfile();
@@ -36,7 +37,7 @@ export const VibeKeyHome = ({ onReady }) => {
 
   useEffect(() => {
     const timeout = setTimeout(() => {
-      console.log("telling app.js we are ready");
+      //console.log("telling app.js we are ready");
       onReady?.(); // <- Only calls it if defined
       // ✅ this sets state in App.js!
     }, 300);
@@ -181,35 +182,25 @@ export const VibeKeyHome = ({ onReady }) => {
         <Text>Loading...</Text>
       ) : (
         <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}>
-          <SectionLayout
-            topFlex={1}
-            middleFlex={0}
-            bottomFlex={0}
-            safe={true}
-            topContent={
-              <>
-                <ScrollView
-                  style={styles.scrollView}
-                  contentContainerStyle={styles.scrollContent}
-                  showsVerticalScrollIndicator={false}
-                >
-                  <HomeHeaderCard name={profile?.displayName || "friend"} />
+          <ScrollView
+            style={[styles.scrollView, { bottom: tabBarHeight + 12 }]}
+            contentContainerStyle={[styles.scrollContent, { paddingTop: 100 }]}
+            showsVerticalScrollIndicator={false}
+          >
+            <HomeHeaderCard name={profile?.displayName || "friend"} />
 
-                  {sections.map((section, index) => (
-                    <Animatable.View key={section.title} animation="fadeInUp" delay={index * 100}>
-                      <SectionWithCards
-                        title={section.title}
-                        cards={section.cards}
-                        isCompact={section.isCompact}
-                        isScrollable={section.isScrollable}
-                        isNews={section.isNews}
-                      />
-                    </Animatable.View>
-                  ))}
-                </ScrollView>
-              </>
-            }
-          />
+            {sections.map((section, index) => (
+              <Animatable.View key={section.title} animation="fadeInUp" delay={index * 100}>
+                <SectionWithCards
+                  title={section.title}
+                  cards={section.cards}
+                  isCompact={section.isCompact}
+                  isScrollable={section.isScrollable}
+                  isNews={section.isNews}
+                />
+              </Animatable.View>
+            ))}
+          </ScrollView>
         </GradientBackground>
       )}
     </>

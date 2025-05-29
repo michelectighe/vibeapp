@@ -6,7 +6,7 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 const rawStyles = {
   titleWrapper: {
     position: "absolute",
-    top: 10,
+    top: "50%",
     width: SCREEN_WIDTH,
     alignItems: "center",
     backgroundColor: "transparent",
@@ -14,8 +14,8 @@ const rawStyles = {
   prompt: {
     fontSize: 26,
     textAlign: "center",
-    marginTop: 50,
-    marginBottom: 20,
+    //  marginTop: 50,
+    marginBottom: 0,
     width: "80%",
     fontFamily: Fonts.body,
   },
@@ -27,16 +27,15 @@ const rawStyles = {
   textInput: {
     backgroundColor: Colors.textLight,
     borderRadius: 16,
- //   padding: 16,
+    //   padding: 16,
     fontSize: 16,
     color: Colors.textDark,
     fontFamily: Fonts.journal,
-    minHeight: SCREEN_HEIGHT * 0.3,
+    minHeight: SCREEN_HEIGHT * 0.2,
     maxHeight: SCREEN_HEIGHT * 0.3,
     minWidth: SCREEN_WIDTH * 0.9,
     maxWidth: SCREEN_WIDTH * 0.9,
     textAlignVertical: "top",
-    marginBottom: 20,
     marginTop: 20,
     overflow: "hidden",
   },
@@ -46,19 +45,18 @@ const rawStyles = {
     justifyContent: "center",
     width: SCREEN_WIDTH * 0.9,
   },
-  bottomNote: {
-    position: "absolute",
-    bottom: 100,
-    fontFamily: Fonts.body,
-    fontSize: 16,
-    textAlign: "center",
-  },
   savedMessage: {
     fontFamily: Fonts.body,
     fontSize: 18,
     textAlign: "center",
-    color: Colors.textLight,
     marginTop: 20,
+  },
+  bottomNote: {
+    position: "absolute",
+    bottom: "30%",
+    fontFamily: Fonts.body,
+    fontSize: 16,
+    textAlign: "center",
   },
 };
 

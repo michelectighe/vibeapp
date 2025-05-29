@@ -41,7 +41,7 @@ export const EnergyCleanseScreen = () => {
         try {
           const status = await isPlayingTrack(true); // get title needs to be true
           const { title } = status;
-          console.log("playing:", status);
+          //console.log("playing:", status);
           if (title?.toLowerCase().includes("meditation")) {
             setPlayingState({ meditation: true, frequency: false });
           } else if (title?.toLowerCase().includes("frequency")) {
@@ -58,7 +58,7 @@ export const EnergyCleanseScreen = () => {
       checkAudioStatus();
 
       return () => {
-        console.log("leaving");
+        //console.log("leaving");
       };
     }, []),
   );
@@ -133,7 +133,7 @@ export const EnergyCleanseScreen = () => {
         breathingId: breathing.id,
       });
 
-      console.log("✅ Cleanse written to Firebase");
+      //console.log("✅ Cleanse written to Firebase");
     } catch (e) {
       console.warn("❌ Failed to write cleanse:", e);
     }

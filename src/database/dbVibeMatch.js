@@ -1,11 +1,25 @@
 import * as SQLite from "expo-sqlite";
+import { getDb } from "./dbInit";
+
+import {
+  collection,
+  query,
+  where,
+  getDocs,
+  doc,
+  getDoc,
+  setDoc,
+  deleteDoc,
+  serverTimestamp,
+} from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 export const getMatchResultByID = async (matchId, userId, resultId) => {
   try {
     console.log("getting match result: ", matchId);
     console.log("for userid:", userId);
     console.log("for resultid:", resultId);
-    const db = await SQLite.openDatabaseAsync("vibrationResults.db");
+    const db = await getDb();
 
     const result = await db.getAllAsync(
       `SELECT * FROM matchResultsReceived WHERE matchId = ? AND userId = ?  AND resultId = ? ORDER BY timestamp DESC LIMIT 1;`,
@@ -19,7 +33,7 @@ export const getMatchResultByID = async (matchId, userId, resultId) => {
 };
 export const saveVibeMatchReceived = async (myResult, sharedResult, matchId, sharedName) => {
   try {
-    const db = await SQLite.openDatabaseAsync("vibrationResults.db");
+    const db = await getDb();
     await db.runAsync(
       ` INSERT OR IGNORE INTO matchResultsReceived ( 
                 matchId,
@@ -34,7 +48,7 @@ export const saveVibeMatchReceived = async (myResult, sharedResult, matchId, sha
                 environmentScore,
                 voiceStrengthScore,
                 voiceClarityScore,
-                emotionalScore
+                emotionScore
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
       [
         matchId,
@@ -73,7 +87,7 @@ export const saveVibeMatchReceived = async (myResult, sharedResult, matchId, sha
 
 export const deleteVibeMatchResult = async (id, callback) => {
   try {
-    const db = await SQLite.openDatabaseAsync("vibrationResults.db");
+    const db = await getDb();
     await db.runAsync("DELETE FROM vibeMatchResults WHERE id = ?;", [id]);
     ////console.log(`✅ Deleted result with ID: ${id}`);
 
@@ -87,7 +101,7 @@ export const deleteVibeMatchResult = async (id, callback) => {
 };
 
 export const getLocalMatchMeta = async (matchId) => {
-  const db = await SQLite.openDatabaseAsync("vibrationResults.db");
+  const db = await getDb();
   try {
     const match = await db.getAllAsync(
       `SELECT * FROM matchesReceived WHERE matchId = ? ORDER BY timestamp DESC LIMIT 1;`,
@@ -98,4 +112,24 @@ export const getLocalMatchMeta = async (matchId) => {
     console.error("❌ Error retrieving match results:", error);
     return null;
   }
+};
+
+export const getAllMatchesForUserFs = async () => {
+  const user = getAuth().currentUser;
+  if (!user) throw new Error("User not authenticated");
+
+  const uid = user.uid;
+
+  const sentQuery = query(collection(db, "matches"), where("myUserID", "==", uid));
+  const receivedQuery = query(collection(db, "matches"), where("theirUserID", "==", uid));
+
+  const [sentSnap, receivedSnap] = await Promise.all([getDocs(sentQuery), getDocs(receivedQuery)]);
+
+  const sentMatches = sentSnap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+  const receivedMatches = receivedSnap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+
+  // Optional: filter out duplicates if you expect any overlap
+  const allMatches = [...sentMatches, ...receivedMatches];
+
+  return allMatches;
 };

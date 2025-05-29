@@ -5,17 +5,19 @@ import { scaledStyle } from "@/utils";
 
 const rawStyles = {
   search: {
+    position: "absolute",
     backgroundColor: "white",
     justifyContent: "center",
     borderRadius: 12,
     padding: 12,
     fontSize: 16,
-    marginTop: 120,
+    top: 120,
     width: SCREEN_WIDTH * 0.9,
     marginBottom: 16,
     borderWidth: 1,
     borderColor: "#ccc",
     alignSelf: "center",
+    zIndex: 10,
   },
   scrollView: {
     position: "absolute",
@@ -23,10 +25,10 @@ const rawStyles = {
     //   bottom: 80,
     left: 0,
     right: 0,
-    zIndex: 1,
+   // zIndex: 1,
   },
   scrollContent: {
-    paddingTop: 190, // this matches the height of your title/logo area
+  //  paddingTop: 190, // this matches the height of your title/logo area
     paddingHorizontal: 20,
     paddingBottom: 160,
   },

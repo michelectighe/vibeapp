@@ -1,9 +1,9 @@
 import * as SQLite from "expo-sqlite";
+import { getDb } from "./dbInit";
 
-
-export const saveStickyNoteToDB = async (sticky) => {
+export const saveStickyNoteToDb = async (sticky) => {
   try {
-    const db = await SQLite.openDatabaseAsync("vibrationResults.db");
+      const db = await getDb();
     await db.runAsync(
       `INSERT INTO sticky_notes (
         id,
@@ -31,8 +31,8 @@ export const saveStickyNoteToDB = async (sticky) => {
   }
 };
 
-export const updateStickyNotePosition = async (id, { x, y, rotation, done }) => {
-  const db = await SQLite.openDatabaseAsync("vibrationResults.db");
+export const updateStickyNotePositionDb = async (id, { x, y, rotation, done }) => {
+  const db = await getDb();
   //console.log("updating id:", id);
   await db.runAsync("UPDATE sticky_notes SET x = ?, y = ?, rotation = ?, done = ? WHERE id = ?", [
     x,
@@ -43,10 +43,10 @@ export const updateStickyNotePosition = async (id, { x, y, rotation, done }) => 
   ]);
 };
 
-export const deleteStickyNoteById = async (id) => {
+export const deleteStickyNoteByIdDb = async (id) => {
   try {
     //console.log("delete id:", id);
-    const db = await SQLite.openDatabaseAsync("vibrationResults.db");
+    const db = await getDb();
     await db.runAsync("DELETE FROM sticky_notes WHERE id = ?", [id]);
   } catch (error) {
     console.error("Error deleting note:", error);

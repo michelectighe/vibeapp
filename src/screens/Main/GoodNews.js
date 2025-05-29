@@ -24,7 +24,7 @@ export const GoodNewsScreen = () => {
         const snap = await getDoc(ref);
         if (snap.exists()) {
           setStory(snap.data());
-          console.log('story url:', snap.data().imageUrl)
+          //console.log('story url:', snap.data().imageUrl)
           return;
         }
       }

@@ -46,7 +46,7 @@ export const QuantumJournalScreen = () => {
   useEffect(() => {
     if (currentEntry) {
       setPromptRequest(false);
-      console.log("currentEntry:", currentEntry);
+      //console.log("currentEntry:", currentEntry);
       setPrompt(currentEntry.prompt);
       setEntry(currentEntry.entry);
       setIsTyping(false);
@@ -60,7 +60,7 @@ export const QuantumJournalScreen = () => {
     if (!currentEntry && promptRequest) {
       const newPrompt =
         quantumJournalPrompts[Math.floor(Math.random() * quantumJournalPrompts.length)];
-      console.log("newPrompt:", newPrompt);
+      //console.log("newPrompt:", newPrompt);
       let i = 0;
       const interval = setInterval(() => {
         setAnimatedText(newPrompt.slice(0, i + 1));
@@ -84,8 +84,9 @@ export const QuantumJournalScreen = () => {
   const handleSave = async () => {
     const createdAt = new Date().toISOString();
     const id = currentEntry?.id || createdAt; // or use uuid
-
-    const newEntry = { id, prompt, entry, createdAt };
+    const gratitude = "";
+    const kindness = "";
+    const newEntry = { id, prompt, entry, gratitude, kindness, createdAt };
 
     try {
       await saveJournalEntryDb(newEntry);
@@ -96,7 +97,7 @@ export const QuantumJournalScreen = () => {
 
       setSaved(true);
       setIsDirty(false);
-      console.log("✅ Journal entry saved locally and to Firestore!");
+      //console.log("✅ Journal entry saved locally and to Firestore!");
     } catch (err) {
       console.error("❌ Error saving journal entry:", err.message);
     }

@@ -64,12 +64,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: Fonts.body,
   },
-  button: {
-    backgroundColor: Colors.primary,
-    padding: 12,
-    borderRadius: 8,
-    alignItems: "center",
-  },
   disabled: {
     opacity: 0.5,
   },
