@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, Image, ScrollView, Linking } from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { doc, getDoc } from "firebase/firestore";
-import { db } from "@/config/firebaseConfig";
+import { dbFs } from "@/config/firebaseConfig";
 import { getTodayGoodNews } from "@/utils";
 import { CloseX, GradientBackground } from "@components";
 import { Colors } from "@constants";
@@ -20,7 +20,7 @@ export const GoodNewsScreen = () => {
   useEffect(() => {
     const loadStory = async () => {
       if (storyId) {
-        const ref = doc(db, "goodNews", storyId);
+        const ref = doc(dbFs, "goodNews", storyId);
         const snap = await getDoc(ref);
         if (snap.exists()) {
           setStory(snap.data());

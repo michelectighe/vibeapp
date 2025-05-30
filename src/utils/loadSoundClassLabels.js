@@ -14,6 +14,7 @@ export const loadSoundClassLabels = async () => {
      const fullEntries = parsed.map((entry) => ({
        label: entry.display_name,
        category: entry.classification,
+       display_name: entry.display_name,
      }));
 
     return fullEntries;

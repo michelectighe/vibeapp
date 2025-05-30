@@ -1,7 +1,7 @@
 export const VIBE_CHECK_SCREENS = [
   "VibeCheckScreen",
-  "Emotions",
-  "EmotionTransitionScreen",
+  //"Emotions",
+  //"EmotionTransitionScreen",
   //"AudioPerceptionScreen",
   "HeartRate",
   "Results",

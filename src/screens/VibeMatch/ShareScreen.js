@@ -10,6 +10,7 @@ import {
   ScrollView,
 } from "react-native";
 import { getAuth } from "firebase/auth";
+import { MyResultsContext } from "@/context/MyResultsContext";
 import { useAuth, useUserProfile } from "@context";
 import { GradientBackground, ResultSelector, SectionLayout } from "@components";
 import { createMatchLink } from "@services";
@@ -17,15 +18,13 @@ import { Colors } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
 import { SubscriptionModal } from "@components";
 import { styles } from "./ShareScreen.styles";
-import { deleteFirestoreRecord } from "@/database";
 import { deleteResult } from "@/database";
 import { SCREEN_HEIGHT } from "@/utils";
-import { MyResultsContext } from "@/context/MyResultsContext";
 import { CustomSpiritualButton } from "@/components";
 
 export const ShareScreen = ({ navigation }) => {
   useAmbientControlForScreen(true);
-  const { myResults, loading, refreshResults } = useContext(MyResultsContext);
+  const { myResults, setMyResults, loading } = useContext(MyResultsContext);
   const { profile } = useUserProfile();
   const [results, setResults] = useState([]);
   const [noResults, setNoResults] = useState(true);
@@ -78,22 +77,22 @@ export const ShareScreen = ({ navigation }) => {
     }
   };
 
-  const onTrash = async (item) => {
-    try {
-      //   console.log("TRASH:", item);
-      if (!item) return;
-      // console.log("trying to delete item:", item.id);
-
-      await deleteFirestoreRecord("results", item.id, user.uid);
-      //delete locally too
-      deleteResult(user.uid, item.id, (updatedResults) => {
-        setResults(updatedResults);
-      });
-      refreshResults();
-    } catch (err) {
-      console.error("Deletion error:", err);
+const onTrash = async (item) => {
+  try {
+    if (!user?.uid || !item) {
+      console.error("❌ Cannot delete — missing user or item.");
+      return;
     }
-  };
+    const success = await deleteResult(item.resultId, user.uid);
+    if (success) {
+      console.log('succeeded')
+      setMyResults((prev) => prev.filter((r) => r.resultId !== item.resultId));
+    } else { console.log('failed')}
+  } catch (err) {
+    console.error("Deletion error:", err);
+  }
+};
+
 
   const showResults = async (item) => {
     try {
@@ -115,7 +114,7 @@ export const ShareScreen = ({ navigation }) => {
   if (!myResults) {
     return <ActivityIndicator size="large" style={{ marginTop: SCREEN_HEIGHT * 0.2 }} />;
   }
-  console.log("results:", results);
+  // console.log("results:", results);
   return (
     <>
       <GradientBackground
@@ -158,7 +157,7 @@ export const ShareScreen = ({ navigation }) => {
                   showsVerticalScrollIndicator={false}
                 >
                   <ResultSelector
-                    results={results}
+                    results={myResults}
                     onSelect={(item) => showResults(item)}
                     onShare={(item) => onShare(item)}
                     onTrash={(item) => onTrash(item)}

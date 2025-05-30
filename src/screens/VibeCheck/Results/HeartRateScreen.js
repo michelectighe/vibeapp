@@ -9,7 +9,7 @@ import { Colors } from "@constants";
 import { useAmbientControlForScreen ,useVibeCheckNavigation} from "@hooks";
 import { EnvironmentProvider, MotionProvider } from "@context";
 import { styles } from "./HeartRateScreen.styles";
-import { hexToRgba } from "@/utils";
+
 
 function HeartRateScreenInner() {
   const { goToNextScreen } = useVibeCheckNavigation();
@@ -18,7 +18,6 @@ function HeartRateScreenInner() {
   const {
     environment,
     vibeList,
-    soundLabels,
     averageSound,
     averageMagnitude,
     averageEnvironment,
@@ -32,7 +31,6 @@ function HeartRateScreenInner() {
   const [soundLabel, setSoundLabel] = useState("");
   const [soundValue, setSoundValue] = useState();
   const [vibeListCat, setVibeListCat] = useState("");
-  const [topSoundLabels, setTopSoundLabels] = useState("")
   const [motionLabel, setMotionLabel] = useState("");
 
   const navigation = useNavigation();
@@ -43,8 +41,6 @@ function HeartRateScreenInner() {
   const debounceSoundTimeout = useRef(null);
   const debounceMagTimeout = useRef(null);
   const debounceMotionTimeout = useRef(null);
-  const successCardOpacity = useRef(new Animated.Value(0)).current;
-
 
   useFocusEffect(
     useCallback(() => {
@@ -77,11 +73,6 @@ function HeartRateScreenInner() {
     stopMotionTracking();
     stopEnvironmentTracking();
     setStablized(true);
-    Animated.timing(successCardOpacity, {
-      toValue: 1,
-      duration: 3000,
-      useNativeDriver: true,
-    }).start();
   };
 
   useEffect(() => {
@@ -114,7 +105,6 @@ function HeartRateScreenInner() {
       });
 
       setVibeListCat(vibeList);
-      setTopSoundLabels(soundLabels);
       setSoundValue(environment.sound.value);
       setMagValue(environment.magnetometer.value);
       setSpaceLabel(environment.overall.label);
@@ -124,8 +114,8 @@ function HeartRateScreenInner() {
   return (
     <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}>
       <SectionLayout
-        topFlex={3}
-        middleFlex={0.5}
+        topFlex={2.5}
+        middleFlex={1}
         bottomFlex={4}
         topContent={
           <>
@@ -135,19 +125,13 @@ function HeartRateScreenInner() {
               </View>
             )}
             {stable && (
-              <Animated.View style={[styles.finishButtonWrapper, { opacity: successCardOpacity }]}>
-                <View style={styles.successCard}>
-                  <Text style={styles.successTitle}>✔️ Vibe Check Complete</Text>
-                  <Text style={styles.successSubtitle}>
-                    We’ve gathered everything we need. Ready to see your results?
-                  </Text>
-                  <CustomSpiritualButton
-                    label="Reveal My Frequency"
-                    onPress={goToNextScreen}
-                    color={hexToRgba(Colors.textDark)}
-                    textColor={Colors.textLight}
-                  />
-                </View>
+              <Animated.View style={[styles.finishButtonWrapper, { opacity: buttonOpacity }]}>
+                <CustomSpiritualButton
+                  label="Finish"
+                  onPress={goToNextScreen}
+                  color={Colors.buttonBackground}
+                  textColor={Colors.textDark}
+                />
               </Animated.View>
             )}
           </>
@@ -157,37 +141,34 @@ function HeartRateScreenInner() {
           environment && (
             <View style={styles.infoContainer}>
               <Text style={styles.labelTitle}>What else is being measured?</Text>
-              <View style={styles.sideBySide}>
-                <View style={styles.leftColumn}>
-                  <View style={styles.largeCard}>
-                    <Text style={styles.iconLabel}>🎧 Background Sound</Text>
-                    <Text style={[styles.iconValue, { height: "25%" }]}>{soundLabel}</Text>
-                    <View style={styles.divider} />
-                    <Text style={[styles.iconValue, { opacity: 0.75 }]}>Detected Tones</Text>
-                    {topSoundLabels.map((label, i) => (
-                      <Text key={i} style={styles.iconSubValue}>
-                        {label}
+
+              <View style={styles.columns}>
+                <View style={styles.column}>
+                  <Text style={styles.label}>Background Sound</Text>
+                  <Text style={styles.labelResult}>{soundLabel}</Text>
+                  {[...vibeListCat]
+                    .sort((a, b) => b.score - a.score)
+                    .slice(0, 3)
+                    .map((item, index) => (
+                      <Text key={index} style={styles.labelResult}>
+                        {item.category}
                       </Text>
                     ))}
-                  </View>
+                  {/* <Text style={styles.labelResult}>{vibeList}</Text> */}
                 </View>
+                <View style={styles.column}>
+                  <Text style={styles.label}>Magnetic Field</Text>
+                  <Text style={styles.labelResult}>{magLabel}</Text>
+                  <Text style={styles.labelResult}>{magValue.toFixed(1)} µT</Text>
+                  <Text style={[styles.label,]}>Your Motion</Text>
+                  <Text style={[styles.labelResult,]}>{motionLabel}</Text>
 
-                <View style={styles.rightColumn}>
-                  <View style={[styles.iconItem, { height: "40%" }]}>
-                    <Text style={styles.iconLabel}>📡 Magnetic Field</Text>
-                    <Text style={styles.iconValue}>{magLabel}</Text>
-                    <Text style={styles.iconSubValue}>{magValue.toFixed(1)} µT</Text>
-                  </View>
-                  <View style={[styles.iconItem, { height: "30%" }]}>
-                    <Text style={styles.iconLabel}>🧘 Your Motion</Text>
-                    <Text style={styles.iconValue}>{motionLabel}</Text>
-                  </View>
-                  <View style={[styles.iconItem, { height: "31%" }]}>
-                    <Text style={styles.iconLabel}>📍 Location Vibe</Text>
-                    <Text style={styles.iconValue}>{spaceLabel}</Text>
-                  </View>
+                  <Text style={[styles.label,]}>Location Vibe</Text>
+                  <Text style={[styles.labelResult, { textAlign: "center" }]}>{spaceLabel}</Text>
                 </View>
               </View>
+
+
             </View>
           )
         }

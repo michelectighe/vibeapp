@@ -5,9 +5,8 @@ export {
 } from "./dbStickyNote";
 export { initializeDatabase, dropTable, getDb } from "./dbInit";
 export {
-  saveResult,
+  saveResults,
   getResultsForUser,
-  getLatestResults,
   deleteResult,
   getResultByID,
   updateJournalResultDb,

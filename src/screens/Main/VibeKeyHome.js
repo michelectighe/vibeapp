@@ -1,17 +1,16 @@
-import React, { useRef, useCallback, useEffect, useState } from "react";
+import React, { useRef, useCallback, useEffect, useState, useContext } from "react";
 import * as Animatable from "react-native-animatable";
 import { Animated, View, Text, ScrollView } from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { getAuth } from "firebase/auth";
-import { getLatestResults } from "@/database";
 import { useUserProfile } from "@context";
 import { Colors } from "@constants";
-import { GradientBackground, HomeHeaderCard, Card } from "@components";
+import { GradientBackground, HomeHeaderCard, SectionWithCards } from "@components";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./VibeKeyHome.styles";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { globalStyles } from "@styles";
-import { SectionLayout, SectionWithCards } from "@/components";
+import { MyResultsContext } from "@/context/MyResultsContext";
 import { getTodayGoodNews } from "@/utils";
 import {
   cardsTools,
@@ -25,6 +24,7 @@ import {
 export const VibeKeyHome = ({ onReady }) => {
   const auth = getAuth();
   const user = auth.currentUser;
+  const { myResults } = useContext(MyResultsContext);
   useAmbientControlForScreen(true);
   // console.log("me:", user.uid);
   const tabBarHeight = useBottomTabBarHeight();
@@ -34,6 +34,14 @@ export const VibeKeyHome = ({ onReady }) => {
   const [sections, setSections] = useState([]);
   const [goodNewsCardData, setGoodNewsCard] = useState(null); // not defaulted to cardsGoodNews[0]
   const [goodNewsLoaded, setGoodNewsLoaded] = useState(false);
+
+  const getLatest = () => {
+    if (myResults.length > 0) {
+      return myResults[0];
+    } else {
+      return null;
+    }
+  };
 
   useEffect(() => {
     const timeout = setTimeout(() => {
@@ -86,12 +94,7 @@ export const VibeKeyHome = ({ onReady }) => {
         ]);
         return;
       }
-
-      // Fetch latest result
-      //e2QRlxDQ97SfKxkucxKzT6Ph4t62
-      //  console.log("userId:", userId);
-      const latest = await getLatestResults(userId);
-      //  console.log("latest results:", latest);
+      const latest = getLatest();
       if (!latest) {
         const filtered = cards.filter((c) => c.id !== "recent-results");
         setSections([
@@ -163,7 +166,7 @@ export const VibeKeyHome = ({ onReady }) => {
     ];
 
     buildSections();
-  }, [user, goodNewsLoaded]);
+  }, [user, goodNewsLoaded, myResults]);
 
   useFocusEffect(
     useCallback(() => {
@@ -174,6 +177,51 @@ export const VibeKeyHome = ({ onReady }) => {
         useNativeDriver: true,
       }).start();
     }, []), // eslint-disable-line react-hooks/exhaustive-deps
+  );
+
+  useFocusEffect(
+    useCallback(() => {
+      const refreshLatestResults = async () => {
+        const userId = user?.uid;
+        if (!userId || !goodNewsLoaded) return;
+
+        const latest = getLatest();
+        if (!latest) {
+          // Remove recent-results card if there are no results
+          setSections((prevSections) => {
+            return prevSections.map((section) =>
+              section.title === "Vibe Check"
+                ? {
+                    ...section,
+                    cards: section.cards.filter((c) => c.id !== "recent-results"),
+                  }
+                : section,
+            );
+          });
+          return;
+        }
+        const updatedCards = cardsVibeCheck.map((c) =>
+          c.id === "recent-results" && latest
+            ? {
+                ...c,
+                subtitle: `Score: ${latest.overallVibrationScore} on ${new Date(
+                  latest.timestamp,
+                ).toLocaleDateString()}`,
+                resultId: latest.resultId,
+              }
+            : c,
+        );
+
+        setSections((prevSections) => {
+          const updated = prevSections.map((section) =>
+            section.title === "Vibe Check" ? { ...section, cards: updatedCards } : section,
+          );
+          return updated;
+        });
+      };
+
+      refreshLatestResults();
+    }, [user, goodNewsLoaded, myResults]),
   );
 
   return (

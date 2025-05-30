@@ -1,18 +1,16 @@
-import React, { useEffect, useRef, useState , useCallback} from "react";
+import React, { useEffect, useRef, useState , useContext} from "react";
 import { View, TouchableOpacity, Text, ActivityIndicator } from "react-native";
 import uuid from "react-native-uuid";
 import { getAuth } from "firebase/auth";
-import FastImage from "react-native-fast-image";
-import { saveResults } from "@utils/saveResults";
 import { useAnalysis } from "@context";
 import { CustomButton, CloseX, GradientBackground, SectionLayout } from "@components";
 import { Colors } from "@constants";
 import { styles } from "./ResultsScreen.styles";
 import { globalStyles } from "@styles";
-import { useRoute, useFocusEffect } from "@react-navigation/native";
-import { getResultByID } from "@database";
+import { useRoute } from "@react-navigation/native";
+import { getResultByID, saveResults } from "@database";
 import { hexToRgba } from "@/utils";
-
+import { MyResultsContext } from "@/context/MyResultsContext";
 
 Text.defaultProps = Text.defaultProps || {};
 Text.defaultProps.allowFontScaling = false;
@@ -20,6 +18,7 @@ Text.defaultProps.allowFontScaling = false;
 export const ResultsScreen = ({ navigation }) => {
   const route = useRoute();
   const { resultId, returnTo } = route.params || {};
+  const { setMyResults } = useContext(MyResultsContext);
   const auth = getAuth();
   const user = auth.currentUser;
   const [overallLabel, setLabel] = useState(null);
@@ -95,7 +94,7 @@ export const ResultsScreen = ({ navigation }) => {
         //save to db if the data is new
         if (!oldResultsRef.current && user) {
           await saveResultsToDB();
-               //console.log("try to save because NOT old score?????");
+          //console.log("try to save because NOT old score?????");
           oldResultsRef.current = true; // set to make sure it doesn't try to save again
         }
       } catch (e) {
@@ -129,9 +128,11 @@ export const ResultsScreen = ({ navigation }) => {
       journalId: "0",
     };
 
-    if (newResult.resultId && newResult.timestamp) {
+    if (newResult.resultId && newResult.timestamp && user) {
+      const userId = user.uid;
       //  console.log("Saving to local DB:", newResult);
-      await saveResults(newResult);
+      const success = await saveResults(newResult, userId);
+      if (success) setMyResults((prev) => [newResult, ...prev]);
     }
     setSaving(false);
   };

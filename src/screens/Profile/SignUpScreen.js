@@ -12,7 +12,7 @@ import {
 import { AppleButton } from "@invertase/react-native-apple-authentication";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { MaterialIcons } from "@expo/vector-icons";
-import { auth, db } from "@config/firebaseConfig";
+import { auth, dbFs } from "@config/firebaseConfig";
 import { doc, setDoc, serverTimestamp } from "firebase/firestore";
 import { getFriendlyError, signInWithApple } from "@utils";
 import { styles } from "./SignUpScreen.style";
@@ -58,7 +58,7 @@ export const SignUpScreen = ({ navigation }) => {
         displayName: name,
       });
       // 2. Create Firestore user doc
-      await setDoc(doc(db, "users", user.uid), {
+      await setDoc(doc(dbFs, "users", user.uid), {
         name: name,
         email: user.email,
         createdAt: serverTimestamp(),

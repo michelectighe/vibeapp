@@ -22,7 +22,7 @@ import {
 } from "@utils";
 import { validatePassword, getPasswordStrength } from "@utils/validatePassword";
 import { updateDoc, doc } from "firebase/firestore";
-import { db } from "@config/firebaseConfig";
+import { dbFs } from "@config/firebaseConfig";
 import * as keychain from "react-native-keychain";
 import {
   GradientBackground,
@@ -95,7 +95,7 @@ export const UpdateProfileScreen = ({ navigation }) => {
     if (!isDirty) return;
     try {
       const updates = {};
-      const ref = doc(db, "users", user.uid);
+      const ref = doc(dbFs, "users", user.uid);
       if (password || confirmPassword) {
         const validationError = validatePassword(password, confirmPassword);
         if (validationError) {

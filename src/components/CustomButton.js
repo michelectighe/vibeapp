@@ -13,7 +13,7 @@ import { SCREEN_WIDTH } from "@utils";
 export const CustomButton = ({ imgSource = "", onPress }) => {
   const imageFade = useRef(new Animated.Value(0)).current;
   const pulseAnim = useRef(new Animated.Value(1)).current;
-  const textFade = useRef(new Animated.Value(0.6)).current;
+  const textFade = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
     Animated.timing(imageFade, {
@@ -40,7 +40,7 @@ export const CustomButton = ({ imgSource = "", onPress }) => {
     ).start();
   }, []);
   useEffect(() => {
-    textFade.setValue(0.6); // ⬅️ Set the correct initial value before loop starts
+    textFade.setValue(1); // ⬅️ Set the correct initial value before loop starts
 
     Animated.loop(
       Animated.sequence([
@@ -50,7 +50,7 @@ export const CustomButton = ({ imgSource = "", onPress }) => {
           useNativeDriver: true,
         }),
         Animated.timing(textFade, {
-          toValue: 0.6, // ⬅️ Be precise
+          toValue: 1, // ⬅️ Be precise
           duration: 1500,
           useNativeDriver: true,
         }),

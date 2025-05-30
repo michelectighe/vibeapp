@@ -37,7 +37,7 @@ export const CircularTimer = ({
   return (
     <Svg width={size} height={size} style={{ position: "absolute" }}>
       <Circle
-        stroke={Colors.lightGray}
+        stroke={Colors.surface}
         fill="none"
         cx={size / 2}
         cy={size / 2}

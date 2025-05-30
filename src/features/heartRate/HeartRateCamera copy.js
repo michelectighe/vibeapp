@@ -43,6 +43,7 @@ export const HeartRateCamera = ({ onStableReading }) => {
   const lastUpdateTimeRef = useRef(Date.now());
   const placeholderOpacity = useRef(new Animated.Value(1)).current;
   const cameraOpacity = useRef(new Animated.Value(0)).current;
+  const buttonOpacity = useRef(new Animated.Value(0)).current;
   const warningOpacity = useRef(new Animated.Value(0)).current;
   const newWarningRef = useRef("");
   const frameProcessorHeartActiveRef = useRef(false);
@@ -91,7 +92,7 @@ export const HeartRateCamera = ({ onStableReading }) => {
           setCameraReady(false);
           setCameraActive(false);
           setFlashMode("off");
-          //    const averageMetrics = computeAverageMetrics();
+           //    const averageMetrics = computeAverageMetrics();
           //   //console.log("averageMetric:", averageMetrics);
           //   if (averageMetrics) setHeartRate(averageMetrics);
         })();
@@ -236,65 +237,83 @@ export const HeartRateCamera = ({ onStableReading }) => {
         toValue: 0,
         duration: 800,
         useNativeDriver: true,
-      }).start();
+      }).start(() => {
+        Animated.timing(buttonOpacity, {
+          toValue: 1,
+          duration: 800,
+          useNativeDriver: true,
+        }).start();
+      });
     }
   };
 
   return (
+  
     <View style={styles.container}>
       {/* Circular Camera View */}
-      // Updated top part of HeartRateScreen (visual polish)
       <Animated.View style={[styles.cameraWrapper, { opacity: cameraOpacity }]}>
-        {device && /*!stable &&*/ (
-          <View style={styles.cameraRing}>
-            <View style={styles.cameraCircle}>
-              <Camera
-                ref={cameraHeartRef}
-                style={styles.camera}
-                device={device}
-                isActive={cameraActive}
-                video={true}
-                audio={false}
-                frameProcessor={heartRateProcessor}
-                frameProcessorFps={15}
-                fps={15}
-                torch={flashMode}
-                onInitialized={() => {
-                  setCameraReady(true);
-                  Animated.timing(placeholderOpacity, {
-                    toValue: 0,
-                    duration: 800,
-                    useNativeDriver: true,
-                  }).start(() => {
-                    Animated.timing(cameraOpacity, {
-                      toValue: 1,
-                      duration: 800,
-                      useNativeDriver: true,
-                    }).start();
-                  });
-                }}
-              />
-            </View>
-            <CircularTimer
-              duration={30000} //mct
-              size={105}
-              color={Colors.textDark}
-              onComplete={handleTimerExpired}
-            />
-          </View>
+        {device && !stable && (
+          <Camera
+            ref={cameraHeartRef}
+            style={styles.camera}
+            device={device}
+            isActive={cameraActive}
+            video={true}
+            audio={false}
+            frameProcessor={heartRateProcessor}
+            frameProcessorFps={15}
+            fps={15}
+            torch={flashMode}
+            onInitialized={() => {
+              setCameraReady(true);
+              Animated.timing(placeholderOpacity, {
+                toValue: 0,
+                duration: 800,
+                useNativeDriver: true,
+              }).start(() => {
+                Animated.timing(cameraOpacity, {
+                  toValue: 1,
+                  duration: 800,
+                  useNativeDriver: true,
+                }).start();
+              });
+            }}
+          />
         )}
+        <CircularTimer
+          duration={30000} // mct timer for testing
+          size={100}
+          color={Colors.textDark}
+          onComplete={handleTimerExpired}
+        />
       </Animated.View>
+      {/* {stable && (
+        <Animated.View style={[styles.finishButtonWrapper, { opacity: buttonOpacity }]}>
+          <CustomSpiritualButton
+            label="Finish"
+            onPress={goToNextScreen}
+            color={Colors.buttonBackground}
+            textColor={Colors.textLight}
+          />
+        </Animated.View>
+      )} */}
+
+      {/* Heart rate data block */}
       {!stable && (
-        <View style={styles.vitalsBlock}>
+        <View style={styles.textCenterBlock}>
           {typeof localHeartRate.bpm === "number" && !isNaN(localHeartRate.bpm) && (
-            <Text style={styles.vitalsBPM}>❤️ {localHeartRate.bpm} BPM</Text>
+            <Text style={styles.bpmText}>
+              {localHeartRate.bpm ? `❤️ ${localHeartRate.bpm} BPM` : "Measuring..."}
+            </Text>
           )}
           {typeof localHeartRate.rmssd === "number" && !isNaN(localHeartRate.rmssd) && (
-            <Text style={styles.vitalsRMSSD}>RMSSD: {localHeartRate.rmssd.toFixed(0)} ms</Text>
+            <Text style={styles.rmssdText}>RMSSD: {localHeartRate.rmssd.toFixed(0)} ms</Text>
           )}
         </View>
       )}
-      <Animated.View style={[styles.warningWrapper, { opacity: warningOpacity }]}>
+
+      {/* Finger warning */}
+      <Animated.View style={[styles.warningBlock, { opacity: warningOpacity }]}>
         <Text style={styles.warningText}>{fingerWarning || " "}</Text>
       </Animated.View>
     </View>
@@ -305,7 +324,7 @@ const rawStyles = {
   container: {
     flex: 1,
     width: "100%",
-    height: "100%",
+    height: "100%", // Lock vertical space
     position: "relative",
     backgroundColor: "transparent",
     alignItems: "center",
@@ -314,19 +333,16 @@ const rawStyles = {
   },
 
   cameraWrapper: {
-    marginTop: 50, // space from top of screen
+    position: "absolute",
+    top: 10,
     alignSelf: "center",
-    width: "35%",
-    height: "35%",
-    borderRadius: 60,
-    overflow: "visible", // allow shadow ring to extend
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    overflow: "hidden",
+    backgroundColor: "blue",
     justifyContent: "center",
     alignItems: "center",
-    shadowColor: Colors.black,
-    shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 3 },
-    shadowRadius: 6,
-    elevation: 4,
   },
 
   camera: {
@@ -334,58 +350,47 @@ const rawStyles = {
     height: "100%",
     borderRadius: 50,
   },
-  vitalsBlock: {
-    marginTop: 16,
+
+  textCenterBlock: {
+    position: "absolute",
+    top: 120, // Just below the camera
+    alignSelf: "center",
     alignItems: "center",
   },
 
-  warningWrapper: {
-    height: "25%",
-    marginTop: 16, // or increase bottom spacing
+  warningBlock: {
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
     alignItems: "center",
   },
-  vitalsBPM: {
-    marginTop: 10,
-    fontSize: 18,
-    fontWeight: "bold",
+
+  bpmText: {
+    textAlign: "center",
     color: Colors.textDark,
+    fontSize: 16,
   },
-  vitalsRMSSD: {
+  rmssdText: {
+    color: Colors.textDark,
+    fontFamily: "AppFont",
+    textAlign: "center",
+    marginBottom: 4,
     fontSize: 14,
-    color: Colors.textDark,
-    marginTop: 4,
   },
-
-  warningText: {
-    fontSize: 15,
+  stableText: {
+    fontSize: 28,
     color: Colors.textDark,
     textAlign: "center",
-    opacity: 0.85,
-    paddingHorizontal: 20,
-    minHeight: 28,
-    marginBottom: 20,
+    marginTop: 4,
   },
-  cameraRing: {
-    width: 100,
-    height: 100,
-    borderRadius: 60,
-    borderWidth: 14,
-    borderColor: Colors.surface, // or use gradient background
-    justifyContent: "center",
-    alignItems: "center",
-    shadowColor: Colors.textDark,
-    shadowOpacity: 0.4,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 10,
-    zIndex: 10,
+  warningText: {
+    color: Colors.textDark,
+    fontSize: 16,
+    textAlign: "center",
+    paddingHorizontal: 20,
+    minHeight: 28, // Ensures it doesn't shift height when disappearing
   },
 
-  cameraCircle: {
-    width: 100,
-    height: 100,
-    borderRadius: 50,
-    overflow: "hidden",
-  },
 };
 
 export const styles = StyleSheet.create(scaledStyle(rawStyles));

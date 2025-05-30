@@ -1,14 +1,14 @@
 import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
-import { db } from "@/config/firebaseConfig";
+import { dbFs } from "@/config/firebaseConfig";
 
 export const deleteFirestoreRecord = async (collectionName, resultId, userId) => {
   try {
     const exists = await collectionExists(collectionName);
     if (!exists) {
-      //console.log(collectionName, " collection doesn't exist");
+      console.log(collectionName, " collection doesn't exist");
     } else {
-      await deleteDoc(doc(db, "users", userId, collectionName, resultId));
-      //console.log(`✅ Deleted Firestore document ${resultId} from ${collectionName}`);
+      await deleteDoc(doc(dbFs, "users", userId, collectionName, resultId));
+      console.log(`✅ Deleted Firestore document ${resultId} from ${collectionName}`);
     }
   } catch (error) {
     console.error("❌ Error deleting Firestore document:", error);
@@ -16,7 +16,7 @@ export const deleteFirestoreRecord = async (collectionName, resultId, userId) =>
 };
 
 export const collectionExists = async (collectionName) => {
-  const colRef = collection(db, collectionName);
+  const colRef = collection(dbFs, collectionName);
   const snapshot = await getDocs(colRef);
 
   return !snapshot.empty;
@@ -24,10 +24,10 @@ export const collectionExists = async (collectionName) => {
 
 export const truncateCollection = async (collectionName) => {
   try {
-    const colRef = collection(db, collectionName);
+    const colRef = collection(dbFs, collectionName);
     const snapshot = await getDocs(colRef);
     const deletions = snapshot.docs.map((docSnap) =>
-      deleteDoc(doc(db, collectionName, docSnap.id)),
+      deleteDoc(doc(dbFs, collectionName, docSnap.id)),
     );
 
     await Promise.all(deletions);

@@ -1,4 +1,4 @@
-import { db } from "@config/firebaseConfig";
+import { dbFs } from "@config/firebaseConfig";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { generateShortId } from "@utils/generateShortId";
 
@@ -16,7 +16,7 @@ export const createMatchLink = async (resultId, userId, displayName, shareAnonym
 
     while (exists) {
       matchId = generateShortId();
-      const matchRef = doc(db, "matchLinks", matchId);
+      const matchRef = doc(dbFs, "matchLinks", matchId);
       const snapshot = await getDoc(matchRef);
       exists = snapshot.exists();
     }
@@ -26,7 +26,7 @@ export const createMatchLink = async (resultId, userId, displayName, shareAnonym
     const sharedByUserId = userId;
 
     // 1. Friendly ID version (used in links)
-    await setDoc(doc(db, "matchLinks", matchId), {
+    await setDoc(doc(dbFs, "matchLinks", matchId), {
       matchId,
       sharedByUserId,
       sharedByResultId,
@@ -35,7 +35,7 @@ export const createMatchLink = async (resultId, userId, displayName, shareAnonym
     });
 
     // 2. ResultId-based version (used for Firestore rules)
-    await setDoc(doc(db, "matchLinks", sharedByResultId), {
+    await setDoc(doc(dbFs, "matchLinks", sharedByResultId), {
       matchId,
       sharedByUserId,
       sharedByResultId,

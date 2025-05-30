@@ -1,6 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
 import { useAuth } from "./AuthContext";
-import { loadResults } from "@/utils";
+import { getResultsForUser } from "@/database";
 
 export const MyResultsContext = createContext();
 
@@ -9,12 +9,6 @@ export const MyResultsProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const { user, authLoading } = useAuth();
 
-  const refreshResults = async () => {
-    if (!user?.uid) return;
-    const results = await loadResults(user.uid);
-    setMyResults(results);
-  };
-
   useEffect(() => {
     const loadUserResults = async () => {
       if (authLoading || !user?.uid) {
@@ -22,15 +16,30 @@ export const MyResultsProvider = ({ children }) => {
         return;
       }
       setLoading(true);
-      await refreshResults();
+      await loadResults();
       setLoading(false);
     };
 
     loadUserResults();
   }, [user?.uid, authLoading]);
 
+  const loadResults = async (userId) => {
+    try {
+      if (!userId) {
+        console.warn("User not logged in");
+        return [];
+      }
+      // first try getting local results
+      const results = getResultsForUser(userId);
+        setMyResults(results);
+    } catch (error) {
+      console.error("Error loading results:", error);
+      return [];
+    }
+  };
+
   return (
-    <MyResultsContext.Provider value={{ myResults, loading, refreshResults, setMyResults }}>
+    <MyResultsContext.Provider value={{ myResults, loading,  setMyResults }}>
       {children}
     </MyResultsContext.Provider>
   );

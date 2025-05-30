@@ -1,6 +1,6 @@
 import * as SQLite from "expo-sqlite";
 import { getDb } from "./dbInit";
-import { db } from "@/config/firebaseConfig";
+import { dbFs } from "@/config/firebaseConfig";
 import {
   collection,
   addDoc,
@@ -32,7 +32,7 @@ export const getJournalEntryByIdFs = async (journalId) => {
   const user = getAuth().currentUser;
   if (!user) throw new Error("User not authenticated");
 
-  const entryRef = doc(db, `users/${user.uid}/journalEntries/${journalId}`);
+  const entryRef = doc(dbFs, `users/${user.uid}/journalEntries/${journalId}`);
   const snapshot = await getDoc(entryRef);
 
   if (!snapshot.exists()) {
@@ -59,7 +59,7 @@ export const getJournalEntriesFs = async () => {
   const user = getAuth().currentUser;
   if (!user) throw new Error("User not authenticated");
 
-  const snapshot = await getDocs(collection(db, `users/${user.uid}/journalEntries`));
+  const snapshot = await getDocs(collection(dbFs, `users/${user.uid}/journalEntries`));
   return snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
 };
 
@@ -99,7 +99,7 @@ export const saveJournalEntryFs = async (id, prompt, entry, gratitude, kindness,
   const user = getAuth().currentUser;
   if (!user) throw new Error("User not authenticated");
 
-  const entryRef = doc(db, `users/${user.uid}/journalEntries/${id}`);
+  const entryRef = doc(dbFs, `users/${user.uid}/journalEntries/${id}`);
 
   return setDoc(entryRef, {
     prompt,
@@ -125,6 +125,6 @@ export const deleteJournalEntryFs = async (entryId) => {
   const user = getAuth().currentUser;
   if (!user) throw new Error("User not authenticated");
 
-  const entryRef = doc(db, `users/${user.uid}/journalEntries/${entryId}`);
+  const entryRef = doc(dbFs, `users/${user.uid}/journalEntries/${entryId}`);
   return deleteDoc(entryRef);
 };

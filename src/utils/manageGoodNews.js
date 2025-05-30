@@ -1,13 +1,13 @@
 //utils/manageGoodNews.js
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
-import { db } from "@/config/firebaseConfig";
+import { dbFs } from "@/config/firebaseConfig";
 import { goodNewsBackup } from "@/data/goodNewsBackup";
 
 import { collection, getDocs } from "firebase/firestore";
 
 export const getTodayGoodNews = async () => {
   const today = new Date().toISOString().split("T")[0];
-  const docRef = doc(db, "goodNews", today);
+  const docRef = doc(dbFs, "goodNews", today); 
   //console.log('what is doc ref:', docRef)
   const docSnap = await getDoc(docRef);
 
@@ -16,7 +16,7 @@ export const getTodayGoodNews = async () => {
     return docSnap.data();
   } else {
     // Random fallback logic
-    const snapshot = await getDocs(collection(db, "goodNews"));
+    const snapshot = await getDocs(collection(dbFs, "goodNews"));
     const backups = snapshot.docs.filter((d) => d.id.startsWith("random"));
     const random = backups[Math.floor(Math.random() * backups.length)];
     ////console.log("today good new:", random.data());
@@ -30,7 +30,7 @@ export const getTodayGoodNews = async () => {
 export const uploadDataToFireStore = async () => {
   try {
     for (const item of goodNewsBackup) {
-      const docRef = doc(db, "goodNews", item.id);
+      const docRef = doc(dbFs, "goodNews", item.id);
       await setDoc(docRef, item);
       //console.log(`Uploaded: ${item.title}`);
     }

@@ -33,11 +33,12 @@ const rawStyles = {
     backgroundColor: Colors.surface,
     borderRadius: 16,
     width: SCREEN_WIDTH * 0.9,
-    height: SCREEN_HEIGHT * 0.4,
+    height: SCREEN_HEIGHT * 0.45,
+    //   backgroundColor: "blue",
   },
   labelTitle: {
     fontSize: 18,
-   // fontWeight: "600",
+    // fontWeight: "600",
     color: Colors.textDark,
     marginBottom: 16,
     textAlign: "center",
@@ -64,7 +65,7 @@ const rawStyles = {
   },
   labelResult: {
     fontSize: 14,
-  //  fontWeight: "600",
+    //  fontWeight: "600",
     color: Colors.textDark,
     marginBottom: 16,
     fontFamily: Fonts.body,
@@ -73,12 +74,112 @@ const rawStyles = {
     width: SCREEN_WIDTH * 0.9,
     marginTop: 8,
   },
+
+  // New styles to add in HeartRateScreen.styles.js
+  sideBySide: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+    gap: 10,
+
+    //    backgroundColor: "red",
+  },
+
+  leftColumn: {
+    flex: 1,
+  },
+  divider: {
+    height: 1,
+    backgroundColor: "grey", // soft white line, adjust for dark background
+    marginTop: 10,
+    marginBottom: 10,
+    marginHorizontal: 16,
+    borderRadius: 0.5,
+  },
+  rightColumn: {
+    height: "85%",
+    flex: 1,
+    justifyContent: "space-between",
+    gap: 12,
+  },
+
+  largeCard: {
+    height: "93%", // Taller card for background sound
+    backgroundColor: "rgba(255,255,255,0.8)",
+    padding: 12,
+    borderRadius: 12,
+    shadowColor: Colors.black,
+    shadowOpacity: 0.05,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    elevation: 2,
+  },
+
+  iconItem: {
+    width: "100%",
+    height: "34.5%",
+    backgroundColor: "rgba(255,255,255,0.8)",
+    padding: 12,
+    borderRadius: 12,
+    shadowColor: Colors.black,
+    shadowOpacity: 0.05,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    elevation: 2,
+    justifyContent: "center",
+  },
+  iconLabel: {
+    fontSize: 14,
+    fontFamily: Fonts.body,
+    color: Colors.textDark,
+    marginBottom: 4,
+  },
+  iconValue: {
+    fontSize: 16,
+    fontFamily: Fonts.body,
+    fontWeight: "600",
+    color: Colors.textDark,
+  },
+  iconSubValue: {
+    fontSize: 13,
+    fontFamily: Fonts.body,
+    color: Colors.textDark,
+    marginTop: 2,
+  },
+  successCard: {
+    backgroundColor: Colors.surface,
+    padding: 24,
+    borderRadius: 16,
+    alignItems: "center",
+    width: "100%",
+    height: "100%",
+    shadowColor: Colors.black,
+    shadowOpacity: 0.3,
+    shadowRadius: 6,
+    shadowOffset: { width: 0, height: 3 },
+    elevation: 14,
+    marginTop: 24,
+  },
   finishButtonWrapper: {
-    position: "absolute",
-    top: 110, // Just below the camera
-    alignSelf: "center",
-    width: "70%",
-    zIndex: 5,
+    //  position: "absolute",
+    //   top: 110, // Just below the camera
+    //  alignSelf: "center",
+    width: "80%",
+    height: "80%",
+    //   zIndex: 5,
+  },
+  successTitle: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: Colors.textDark,
+    marginTop: 10,
+    marginBottom: 8,
+  },
+  successSubtitle: {
+    fontSize: 14,
+    color: Colors.textDark,
+    marginBottom: 26,
+    textAlign: "center",
   },
 };
 

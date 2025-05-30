@@ -1,6 +1,6 @@
 import { getLocalMatchMeta } from "@/database";
 import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
-import { db } from "@config/firebaseConfig";
+import { dbFs } from "@config/firebaseConfig";
 export const getSharedResult =  async (matchId) => { 
 
 try {
@@ -21,7 +21,7 @@ try {
         };
     };
     // else get it from firebase.
-    const matchRef = doc(db, "matchLinks", matchId);
+    const matchRef = doc(dbFs, "matchLinks", matchId);
     const matchSnap = await getDoc(matchRef);
     if (!matchSnap.exists()) {
       console.warn("Invalid match ID");
@@ -30,7 +30,7 @@ try {
     }
     const matchData = matchSnap.data();
     const sharedResultRef = doc(
-      db,
+      dbFs,
       "users",
       matchData.sharedByUserId,
       "results",
@@ -41,7 +41,7 @@ try {
     if (sharedResultSnap.exists()) {
       // Add the viewer's UID and timestamp to the match link
       const viewerId = user?.uid || "anonymous";
-      await updateDoc(doc(db, "matchLinks", matchId), {
+      await updateDoc(doc(dbFs, "matchLinks", matchId), {
         viewers: arrayUnion({
           viewerId,
           timestamp: new Date().toISOString(),

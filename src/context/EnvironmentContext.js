@@ -16,6 +16,7 @@ export const EnvironmentProvider = ({ children }) => {
   const [environmentValues, setEnvironmentValues] = useState([]);
   const [soundValues, setSoundValues] = useState([]);
   const [vibeList, setVibeList] = useState([]);
+  const [soundLabels, setSoundLabels] = useState([]);
   const [averageMagnitude, setAverageMagnitude] = useState(0);
   const [averageSound, setAverageSound] = useState(0);
   const [averageEnvironment, setAverageEnvironment] = useState(0);
@@ -136,7 +137,7 @@ export const EnvironmentProvider = ({ children }) => {
   /************************************************************ */
   const updateValues = (results) => {
     //console.log("results:", results)
-    const { rankedCategories, percentGood, percentBad, decibels } = results;
+    const { rankedCategories, percentGood, percentBad, decibels , topLabels} = results;
 
     setSoundValues((prev) => {
       const updated = [...prev, decibels];
@@ -146,6 +147,7 @@ export const EnvironmentProvider = ({ children }) => {
     });
     setLatestSound(decibels);
     setVibeList(rankedCategories);
+    setSoundLabels(topLabels)
     setPercentGood(Number(percentGood));
     //setBad(percentBad);
 
@@ -199,6 +201,7 @@ export const EnvironmentProvider = ({ children }) => {
         averageSound,
         averageEnvironment,
         vibeList,
+        soundLabels,
         startEnvironmentTracking,
         stopEnvironmentTracking,
       }}

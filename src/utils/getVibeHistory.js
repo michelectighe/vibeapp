@@ -1,5 +1,5 @@
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "@config/firebaseConfig";
+import { dbFs } from "@config/firebaseConfig";
 import { format, startOfWeek } from "date-fns";
 import { getAuth } from "firebase/auth";
 import { getVibrationInfo } from "@/utils/vibrationInfo";
@@ -64,7 +64,7 @@ export const getVibeHistory = async () => {
     return [];
   }
 
-  const resultsRef = collection(db, "users", user.uid, "results");
+  const resultsRef = collection(dbFs, "users", user.uid, "results");
   const querySnapshot = await getDocs(resultsRef);
 
   const scores = [];

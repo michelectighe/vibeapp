@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { doc, getDoc, setDoc, updateDoc } from "firebase/firestore";
-import { db } from "@config/firebaseConfig";
+import { dbFs } from "@config/firebaseConfig";
 import { useAuth } from "./AuthContext";
 
 const UserProfileContext = createContext();
@@ -14,7 +14,7 @@ export const UserProfileProvider = ({ children }) => {
     const fetchProfile = async () => {
       if (user?.uid) {
         try {
-          const ref = doc(db, "users", user.uid);
+          const ref = doc(dbFs, "users", user.uid);
           const snap = await getDoc(ref);
           if (!snap.exists()) {
             const fallbackProfile = {
@@ -42,11 +42,11 @@ export const UserProfileProvider = ({ children }) => {
   }, [user?.uid]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const updateUserData = async (uid, data) => {
-    const userRef = doc(db, "users", uid);
+    const userRef = doc(dbFs, "users", uid);
     await updateDoc(userRef, data);
   };
   const fetchUserData = async () => {
-    const userRef = doc(db, "users", user.uid);
+    const userRef = doc(dbFs, "users", user.uid);
     const docSnap = await getDoc(userRef);
 
     if (docSnap.exists()) {
