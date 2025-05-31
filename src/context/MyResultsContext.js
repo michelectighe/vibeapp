@@ -12,11 +12,12 @@ export const MyResultsProvider = ({ children }) => {
   useEffect(() => {
     const loadUserResults = async () => {
       if (authLoading || !user?.uid) {
-        //console.log("⏳ Waiting for auth...");
         return;
       }
       setLoading(true);
-      await loadResults();
+      const results = await loadResults(user.uid);
+//console.log("myResults:", JSON.stringify(results, null, 2));
+      setMyResults(results);
       setLoading(false);
     };
 
@@ -31,7 +32,7 @@ export const MyResultsProvider = ({ children }) => {
       }
       // first try getting local results
       const results = getResultsForUser(userId);
-        setMyResults(results);
+      return results;
     } catch (error) {
       console.error("Error loading results:", error);
       return [];

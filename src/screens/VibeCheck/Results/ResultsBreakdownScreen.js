@@ -35,6 +35,7 @@ const navigation = useNavigation();
     rawHRV,
     emotionScore,
     overallVibrationScore,
+    hawkinsScore,
   } = useAnalysis();
 
   const results = {
@@ -47,6 +48,7 @@ const navigation = useNavigation();
     rawHRV,
     emotionScore,
     overallVibrationScore,
+    hawkinsScore,
   };
   useEffect(() => {
     const result = vibrationInfo;

@@ -1,6 +1,7 @@
 import React from "react";
 import { ImageBackground, TouchableOpacity, View, useWindowDimensions } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { Colors } from "@/constants";
 
 export const HomeButton = () => {
   const navigation = useNavigation();

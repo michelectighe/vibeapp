@@ -6,6 +6,7 @@ import { Fonts, Colors } from "@constants";
 import { hexToRgba, scaledStyle } from "@utils";
 
 export const ResultSelector = ({ results, onSelect, onShare, onTrash, showIcons = true }) => {
+//  console.log('results in resultselect:', results)
   const formatDate = (timestamp) => {
     if (!timestamp?.toDate) return "";
     return timestamp.toDate().toLocaleDateString("en-US", {
@@ -45,7 +46,7 @@ export const ResultSelector = ({ results, onSelect, onShare, onTrash, showIcons 
               </View>
               <TouchableOpacity style={styles.scoreButton} onPress={() => onSelect(item)}>
                 <Text style={[styles.score, { color: level.color3 }]}>
-                  {item.overallVibrationScore.toFixed(0)}
+                  {item.hawkinsScore.toFixed(0)}
                 </Text>
               </TouchableOpacity>
               {showIcons && (

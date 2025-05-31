@@ -1,17 +1,14 @@
-import * as SQLite from "expo-sqlite";
-import { collection, getDocs, setDoc, deleteDoc, doc } from "firebase/firestore";
+import { collection, getDocs, query, orderBy, setDoc, deleteDoc, doc } from "firebase/firestore";
 import { dbFs } from "@/config/firebaseConfig";
 import { getDb } from "./dbInit";
 
-//const db = await getDb();
 
 export const saveResults = async (result, userId) => {
   try {
-    console.log("SAVING RESULTS:", result.resultId);
+    const db = await getDb();
     await saveResultDb(result);
     await setDoc(doc(dbFs, "users", userId, "results", result.resultId), result);
     return true;
-    console.log("done setting results");
   } catch (error) {
     console.error("Error saving results:", error);
     return false;
@@ -31,13 +28,14 @@ export const saveResultDb = async (result) => {
                 heartRateScore,
                 motionScore, 
                 overallVibrationScore, 
+                hawkinsScore,
                 chakraScores,
                 environmentScore,
                 voiceStrengthScore,
                 voiceClarityScore,
                 emotionScore,
                 journalId
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
       [
         result.resultId,
         result.userId,
@@ -46,6 +44,7 @@ export const saveResultDb = async (result) => {
         JSON.stringify(result.heartRateScore),
         JSON.stringify(result.motionScore),
         result.overallVibrationScore ?? 0,
+        result.hawkinsScore ?? 0,
         JSON.stringify(result.chakraScores), // ✅ Store as JSON string
         JSON.stringify(result.environmentScore),
         JSON.stringify(result.voiceStrengthScore),
@@ -67,16 +66,16 @@ export const saveResultDb = async (result) => {
 export const getResultsForUser = async (userId) => {
   try {
     const db = await getDb();
-
     const results = await db.getAllAsync(
       `SELECT * FROM results WHERE userId = ? ORDER BY timestamp DESC;`,
       [userId],
     );
+
     return Array.isArray(results) ? results : [results];
   } catch (error) {
     console.error("❌ Error retrieving results locally:", error);
   }
- // if no local, try firebase
+  // if no local, try firebase
   try {
     const resultsRef = collection(dbFs, "users", userId, "results");
     const q = query(resultsRef, orderBy("timestamp", "desc"));
@@ -134,14 +133,13 @@ export const deleteResult = async (userId, resultId) => {
 
     await db.runAsync("DELETE FROM results WHERE resultId = ? AND userId = ?;", [resultId, userId]);
     const isItGone = db.runAsync("SELECT * FROM results where resultId = ?", [resultId]);
-    console.log('did it delete:', isItGone);
+    console.log("did it delete:", isItGone);
   } catch (e) {
-    return false;
     console.error("Error deleting result from SQLite:", e);
+    return false;
   }
 
   try {
-
     const ref = doc(dbFs, "users", userId, "results", resultId);
     await deleteDoc(ref);
     console.log("✅ Deleted Firestore record:", ref.path);
@@ -150,5 +148,4 @@ export const deleteResult = async (userId, resultId) => {
     console.error(" Error deleting result from Firestore", e);
     return false;
   }
-
 };

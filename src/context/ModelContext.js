@@ -1,8 +1,8 @@
 // ModelContext.js
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { loadTensorflowModel } from 'react-native-fast-tflite';
-import RNFS from 'react-native-fs';
-import { loadSoundClassLabels } from '@/utils';
+import { loadTensorflowModel } from "react-native-fast-tflite";
+import RNFS from "react-native-fs";
+import { loadSoundClassLabels } from "@/utils";
 
 const ModelContext = createContext();
 
@@ -14,16 +14,19 @@ export const ModelProvider = ({ children }) => {
   useEffect(() => {
     (async () => {
       try {
-        const sm = await loadTensorflowModel(require('@assets/models/sound.tflite'));
+        const sm = await loadTensorflowModel(require("@assets/models/sound.tflite") /*"core-ml"*/);
         setSoundModel(sm);
 
-        const em = await loadTensorflowModel(require('@assets/models/ferplus_model_pd_best.tflite'));
+        const em = await loadTensorflowModel(
+          require("@assets/models/ferplus_model_pd_best.tflite"),
+          //     "core-ml",
+        );
         setEmotionModel(em);
 
         const sounds = await loadSoundClassLabels();
         setSounds(sounds);
       } catch (e) {
-        console.error('Model loading failed:', e);
+        console.error("Model loading failed:", e);
       }
     })();
   }, []);

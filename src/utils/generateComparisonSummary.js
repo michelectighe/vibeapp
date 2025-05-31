@@ -60,7 +60,7 @@ export const generateComparisonSummary = (myResult, sharedResult) => {
     }
   });
 
-  const vibeDelta = Math.abs(myResult.overallVibrationScore - sharedResult.overallVibrationScore);
+  const vibeDelta = Math.abs(myResult.hawkinsScore - sharedResult.hawkinsScore);
   let summary = "";
   if (vibeDelta < 10) {
     summary = "are almost energetically identical — a powerful resonance!";

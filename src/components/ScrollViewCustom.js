@@ -2,19 +2,18 @@ import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { StyleSheet, ScrollView } from "react-native";
 import { scaledStyle } from "@/utils";
 
-export const ScrollViewCustom = ({children}) => {
+export const ScrollViewCustom = ({ children }) => {
   const tabBarHeight = useBottomTabBarHeight();
-return (
-  <ScrollView
-    style={[styles.scrollView, { bottom: tabBarHeight + 12 }]}
-    contentContainerStyle={[styles.scrollContent, { paddingTop: 150 }]}
-    showsVerticalScrollIndicator={false}
-  >
-    {children}
-
-  </ScrollView>
-);
-}
+  return (
+    <ScrollView
+      style={[styles.scrollView, { bottom: tabBarHeight + 12 }]}
+      contentContainerStyle={[styles.scrollContent, { paddingTop: 150 }]}
+      showsVerticalScrollIndicator={false}
+    >
+      {children}
+    </ScrollView>
+  );
+};
 
 const rawStyles = {
   scrollView: {

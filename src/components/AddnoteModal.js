@@ -18,14 +18,14 @@ import { SCREEN_HEIGHT } from "@/utils";
 
 export const AddNoteModal = ({ visible, onClose, onSave }) => {
   const [text, setText] = useState("");
-  const [stickyColor, setStickyColor] = useState(Colors.rootChakra); // default
-  const [stickyTextColor, setStickyTextColor] = useState("white"); // Not undefined!
+  const [stickyColor, setStickyColor] = useState(Colors.paleYellow); // default
+  const [stickyTextColor, setStickyTextColor] = useState(Colors.darkText); // Not undefined!
 
   const handleSave = () => {
     if (!text.trim()) return;
-  //  console.log("Saving with color:", stickyColor, "textColor:", stickyTextColor);
+    //  console.log("Saving with color:", stickyColor, "textColor:", stickyTextColor);
 
-    onSave(text.trim(), stickyColor, stickyTextColor || "white");
+    onSave(text.trim(), stickyColor, stickyTextColor || Colors.textDark);
     setText("");
     setStickyColor(Colors.rootChakra); // optional reset
     setStickyTextColor("white");
@@ -54,7 +54,7 @@ export const AddNoteModal = ({ visible, onClose, onSave }) => {
                 <CustomSpiritualButton
                   label="Cancel"
                   onPress={onClose}
-                  color={Colors.paleYellow}
+                  color={Colors.surface}
                   textColor={Colors.buttonText}
                 />
               </View>
@@ -62,7 +62,7 @@ export const AddNoteModal = ({ visible, onClose, onSave }) => {
                 <CustomSpiritualButton
                   label="Save"
                   onPress={handleSave}
-                  color={Colors.paleYellow}
+                  color={Colors.surface}
                   textColor={Colors.buttonText}
                 />
               </View>
@@ -96,7 +96,7 @@ const styles = StyleSheet.create({
   modal: {
     height: SCREEN_HEIGHT * 0.6,
     width: SCREEN_WIDTH * 0.9,
-    backgroundColor: "white",
+    backgroundColor: Colors.surface,
     borderRadius: 12,
     padding: 20,
     marginBottom: 20,
@@ -155,6 +155,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     overflow: "hidden",
     marginTop: 0,
-    backgroundColor: "white",
+    backgroundColor: "transparent",
   },
 });

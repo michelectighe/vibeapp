@@ -29,6 +29,12 @@ export const metricDetails = [
     description:
       "Your face tells a story your words may not. Using facial recognition and micro-expression analysis, this feature detects subtle emotional signals—stress, joy, calm, or sadness—even before you're fully aware of them. It's like a mirror to your emotional truth, helping you recognize what you’re holding inside and giving tools to shift your emotional vibration intentionally.",
   },
+  {
+    name: "aperture-outline",
+    label: "Hawkins Scale",
+    description:
+      "The Hawkins Scale is a vibrational frequency scale ranging from 0 to 1000 that measures levels of human consciousness. Developed by Dr. David R. Hawkins, it assigns numerical values to emotional and spiritual states — from shame and guilt at the low end to love, joy, and enlightenment at the high end. Each level represents a distinct frequency that reflects our mindset, emotional energy, and awareness. A score above 200 indicates a positive, life-enhancing state, while levels below 200 reflect energy-draining emotions and thought patterns.",
+  },
   // {
   //   name: "moon-outline",
   //   label: "Sleep Quality",

@@ -100,7 +100,7 @@ export const EnergyCleanseScreen = () => {
       await stopTrack();
 
       // 🔊 Start the new track
-      await playTrack(item.id, item.audio, item.audioTitle, "VibeKey", 1, (fadeIn = true));
+      await playTrack(item.id, item.audio, item.audioTitle, "VibeKey", 1);
       setCompleted((prev) => ({ ...prev, [type]: true }));
       // ✅ Mark only this one as playing
       setPlayingState({

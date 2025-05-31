@@ -49,6 +49,7 @@ export const ResultsScreen = ({ navigation }) => {
     heartRate,
     setResult,
     resetAnalysis,
+    hawkinsScore,
   } = useAnalysis();
 
   useEffect(() => {
@@ -124,6 +125,7 @@ export const ResultsScreen = ({ navigation }) => {
       voiceClarityScore: voiceClarityScore,
       emotionScore: emotionScore,
       overallVibrationScore: overallVibrationScore, // optional, could skip check if you trust it
+      hawkinsScore: hawkinsScore,
       chakraScores: chakraScores || {},
       journalId: "0",
     };
@@ -188,7 +190,7 @@ export const ResultsScreen = ({ navigation }) => {
             />
             <View style={styles.titleWrapper}>
               <Text style={[styles.score, { color: overallColor4 }]}>
-                {overallVibrationScore.toFixed(0)}%
+                {hawkinsScore.toFixed(0)}
               </Text>
               <Text
                 style={[styles.label, { color: overallColor4, textShadowColor: overallColor4 }]}

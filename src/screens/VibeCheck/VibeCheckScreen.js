@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect } from "react";
-import { View, Text } from "react-native";
+import React, { useCallback, useEffect, useRef } from "react";
+import { View, Text, Animated } from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { GradientBackground, CustomSpiritualButton } from "@components";
 import { useAnalysis } from "@context";
@@ -8,73 +8,84 @@ import { Colors } from "@constants";
 import { useAmbientControlForScreen, useVibeCheckNavigation } from "@hooks";
 import { styles } from "./VibeCheckScreen.styles";
 import { FadeInSlideText, SectionLayout } from "@/components";
+import { hexToRgba } from "@/utils";
 
 export const VibeCheckScreen = () => {
   useAmbientControlForScreen(false);
   const { goToNextScreen } = useVibeCheckNavigation();
+    const continueOpacity = useRef(new Animated.Value(0)).current;
 
-  const startAnalysis = async () => {
-       await resetAnalysis();
-       goToNextScreen();
-  }
-  const navigation = useNavigation();
-  const { resetAnalysis } = useAnalysis();
-  useEffect(() => {
-    //console.log("Mounted");
-
-    return () => {
-      //console.log("UNMOUNTED");
+    const startAnalysis = async () => {
+      await resetAnalysis();
+      goToNextScreen();
     };
-  }, []);
+    const navigation = useNavigation();
+    const { resetAnalysis } = useAnalysis();
+    useEffect(() => {
+      //console.log("Mounted");
 
-
-  useFocusEffect(
-    useCallback(() => {
-      const cleanup = async () => {
-        try {
-          await cleanupMedia(true, true, true, null, true);
-        } catch (e) {
-          console.warn("cleanup failed in VibeCheckMain screen:", e);
-        }
+      return () => {
+        //console.log("UNMOUNTED");
       };
-      cleanup();
-    }, []), // eslint-disable-line react-hooks/exhaustive-deps
-  );
+    }, []);
+    useEffect(() => {
+      Animated.timing(continueOpacity, {
+        toValue: 1,
+        duration: 1000,
+        useNativeDriver: true,
+      }).start();
+    }, []);
 
-  const openInfo = () => navigation.navigate("MetricInfoScreen");
+    useFocusEffect(
+      useCallback(() => {
+        const cleanup = async () => {
+          try {
+            await cleanupMedia(true, true, true, null, true);
+          } catch (e) {
+            console.warn("cleanup failed in VibeCheckMain screen:", e);
+          }
+        };
+        cleanup();
+      }, []), // eslint-disable-line react-hooks/exhaustive-deps
+    );
 
-  return (
-    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}>
-      <SectionLayout
-        topFlex={2}
-        middleFlex={0}
-        bottomFlex={1}
-        equalHeight={false}
-        safe={true}
-        topContent={
-          <FadeInSlideText style={styles.descriptionText} text="
+    const openInfo = () => navigation.navigate("MetricInfoScreen");
+
+    return (
+      <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}>
+        <SectionLayout
+          topFlex={2}
+          middleFlex={0}
+          bottomFlex={1}
+          equalHeight={false}
+          safe={true}
+          topContent={
+            <FadeInSlideText
+              style={styles.descriptionText}
+              position={-300}
+              text="
             Unlock your vibrational frequency by tuning into the harmony of your voice, movement,
             heart rhythm, surroundings and emotions. This sacred insight guides you toward deeper
             alignment, balance, and energetic elevation."
-          />
-        }
-        bottomContent={
-          <View style={styles.buttonContainer}>
-            <CustomSpiritualButton
-              label="How does this work?"
-              onPress={openInfo}
-              color={Colors.buttonBackground}
-              textColor={Colors.buttonText}
             />
-            <CustomSpiritualButton
-              label="Let's Begin"
-              onPress={startAnalysis}
-              color={Colors.buttonBackground}
-              textColor={Colors.buttonText}
-            />
-          </View>
-        }
-      />
-    </GradientBackground>
-  );
+          }
+          bottomContent={
+            <Animated.View style={[styles.buttonContainer, { opacity: continueOpacity }]}>
+              <CustomSpiritualButton
+                label="How does this work?"
+                onPress={openInfo}
+                color={hexToRgba(Colors.textDark)}
+                textColor={Colors.textLight}
+              />
+              <CustomSpiritualButton
+                label="Let's Begin"
+                onPress={startAnalysis}
+                color={hexToRgba(Colors.textDark)}
+                textColor={Colors.textLight}
+              />
+            </Animated.View>
+          }
+        />
+      </GradientBackground>
+    );
 };

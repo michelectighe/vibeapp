@@ -20,8 +20,10 @@ import {
   cardsStreak,
   cardsGoodNews,
 } from "@/data";
+import { useAnalysis } from "@/context";
 
 export const VibeKeyHome = ({ onReady }) => {
+  const { resetAnalysis } = useAnalysis();
   const auth = getAuth();
   const user = auth.currentUser;
   const { myResults } = useContext(MyResultsContext);
@@ -111,7 +113,7 @@ export const VibeKeyHome = ({ onReady }) => {
           c.id === "recent-results"
             ? {
                 ...c,
-                subtitle: `Score: ${latest.overallVibrationScore} on ${new Date(
+                subtitle: `Score: ${latest.hawkinsScore} on ${new Date(
                   latest.timestamp,
                 ).toLocaleDateString()}`,
                 resultId: latest.resultId,
@@ -173,7 +175,7 @@ export const VibeKeyHome = ({ onReady }) => {
       positionY.setValue(-30);
       Animated.timing(positionY, {
         toValue: 45,
-        duration: 1500,
+        duration: 1000,
         useNativeDriver: true,
       }).start();
     }, []), // eslint-disable-line react-hooks/exhaustive-deps
@@ -182,6 +184,7 @@ export const VibeKeyHome = ({ onReady }) => {
   useFocusEffect(
     useCallback(() => {
       const refreshLatestResults = async () => {
+        resetAnalysis();
         const userId = user?.uid;
         if (!userId || !goodNewsLoaded) return;
 
@@ -204,7 +207,7 @@ export const VibeKeyHome = ({ onReady }) => {
           c.id === "recent-results" && latest
             ? {
                 ...c,
-                subtitle: `Score: ${latest.overallVibrationScore} on ${new Date(
+                subtitle: `Score: ${latest.hawkinsScore} on ${new Date(
                   latest.timestamp,
                 ).toLocaleDateString()}`,
                 resultId: latest.resultId,

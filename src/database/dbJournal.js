@@ -13,9 +13,13 @@ import {
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
+
+
 export const getJournalEntryByIdDb = async ({ journalId }) => {
   try {
+
     const db = await getDb();
+
 
     const result = await db.getAllAsync(
       `SELECT * FROM journalEntries where id = ? ORDER BY createdAt DESC;`,
@@ -47,6 +51,7 @@ export const getJournalEntriesDb = async () => {
   try {
     const db = await getDb();
 
+
     const result = await db.getAllAsync(`SELECT * FROM journalEntries ORDER BY createdAt DESC;`);
     return result?.[0] || null;
   } catch (error) {
@@ -67,7 +72,7 @@ export const getJournalEntriesFs = async () => {
 export const saveJournalEntryDb = async (journal) => {
   try {
     const db = await getDb();
-   // console.log("JOURNAL being saved:", journal);
+    // console.log("JOURNAL being saved:", journal);
     await db.runAsync(
       `INSERT OR REPLACE into journalEntries (
         id,    

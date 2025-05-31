@@ -147,7 +147,6 @@ const rawStyles = {
     justifyContent: "center",
     alignItems: "center",
     background: "transparent",
-    overflow: "hidden",
   },
 
   backgroundImage: {

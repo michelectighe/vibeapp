@@ -21,3 +21,4 @@ export { cardsMeditationScan } from "./cardsMeditationScan";
 export { cardsGoodNews } from "./cardsGoodNews";
 
 export { metricComparisonDescriptions } from "./metricComparisonDescriptions";
+export { hawkinsLevels } from "./hawkinsLevels";

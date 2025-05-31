@@ -1,6 +1,11 @@
 import React from "react";
 import { ScrollView, SafeAreaView } from "react-native";
-import { ExpandableInfoItem, CloseX, GradientBackground } from "@components";
+import {
+  ExpandableInfoItem,
+  CloseX,
+  GradientBackground,
+  HawkinsLevelExpandable,
+} from "@components";
 import { metricDetails } from "@data";
 import { Colors } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
@@ -17,22 +22,23 @@ export const MetricInfoScreen = () => {
       logo={false}
     >
       {/* <SafeAreaView style={styles.safeArea}> */}
-        <CloseX xColor={Colors.textLight} onPress={() => navigation.goBack()} />
+      <CloseX xColor={Colors.textLight} onPress={() => navigation.goBack()} />
 
-        <ScrollView
-          style={styles.scrollView}
-          contentContainerStyle={styles.scrollContent}
-          showsVerticalScrollIndicator={false}
-        >
-          {metricDetails.map((item, index) => (
-            <ExpandableInfoItem
-              key={index}
-              icon={item.name}
-              title={item.label}
-              description={item.description}
-            />
-          ))}
-        </ScrollView>
+      <ScrollView
+        style={styles.scrollView}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        {metricDetails.map((item, index) => (
+          <ExpandableInfoItem
+            key={index}
+            icon={item.name}
+            title={item.label}
+            description={item.description}
+          />
+        ))}
+        <HawkinsLevelExpandable />
+      </ScrollView>
       {/* </SafeAreaView> */}
     </GradientBackground>
   );

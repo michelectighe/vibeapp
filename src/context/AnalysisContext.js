@@ -42,6 +42,7 @@ export const AnalysisProvider = ({ children }) => {
 
   const [auraColor, setAuraColor] = useState(Colors.aura70);
   const [overallVibrationScore, setOverallVibeScore] = useState(0);
+  const [hawkinsScore, setHawkins] = useState(0);
   const [chakraScores, setChakraScores] = useState({
     root: -1,
     sacral: -1,
@@ -199,6 +200,11 @@ export const AnalysisProvider = ({ children }) => {
       { label: "emotionScore", score: emotionScore?.score, weight: 0.2 },
     ];
 
+    const normalizeToHawkins = (score) => {
+      const clamped = Math.max(56, Math.min(score, 82));
+      const normalized = (clamped - 56) / (82 - 56); // or divide by 26
+      return 200 + normalized * 800;
+    };
     const valid = scores.filter(({ label, score }) => isValidScore(label, score));
     const invalid = scores.filter(({ label, score }) => !isValidScore(label, score));
 
@@ -220,7 +226,11 @@ export const AnalysisProvider = ({ children }) => {
     const roundedOverall = Math.round(normalizedScore);
 
     //console.log("dynamic weighted score:", normalizedScore);
+    const Hawkins = Math.round(normalizeToHawkins(roundedOverall));
     setOverallVibeScore(roundedOverall);
+    setHawkins(Hawkins);
+    //const hawkinsScore = 200 + ((Math.max(56, Math.min(rawScore, 82)) - 56) / 26) * 800;
+
     setVibrationInfo(getVibrationInfo(roundedOverall));
   }, [
     voiceFrequencyScore,
@@ -399,6 +409,7 @@ export const AnalysisProvider = ({ children }) => {
         resultId,
         journalId,
         setJournalId,
+        hawkinsScore,
       }}
     >
       {children}

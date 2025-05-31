@@ -71,7 +71,7 @@ export const getVibeHistory = async () => {
   querySnapshot.forEach((doc) => {
     const data = doc.data();
 
-    if (data.timestamp?.seconds && data.overallVibrationScore != null) {
+    if (data.timestamp?.seconds && data.hawkinsScore != null) {
       // Convert chakraScores object into an array
       const chakraArray = chakraData.map((chakra) => ({
         ...chakra,
@@ -80,7 +80,7 @@ export const getVibeHistory = async () => {
       //console.log("chakraArray:", chakraArray);
       scores.push({
         timestamp: new Date(data.timestamp.seconds * 1000),
-        score: data.overallVibrationScore,
+        score: data.hawkinsScore,
         chakraScores: chakraArray,
         // include any other fields if needed
       });

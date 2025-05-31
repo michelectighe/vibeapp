@@ -32,7 +32,7 @@ export const GratitudeScreen = () => {
   const [saved, setSaved] = useState(false);
   const [isDirty, setIsDirty] = useState(false);
   const [currentJournalId, setCurrentJournalId] = useState(journalId || null);
-  const [currentEntry, setCurrentEntry] = useState(null)
+  const [currentEntry, setCurrentEntry] = useState(null);
 
   const [overallColor, setColor] = useState(vibrationInfo?.color);
   const [overallColor2, setColor2] = useState(vibrationInfo?.color2);
@@ -54,7 +54,7 @@ export const GratitudeScreen = () => {
        if (journalEntry) {
          setGratitude(journalEntry.gratitude);
          setKindness(journalEntry.kindness);
-         setIsTyping(false);
+       //  setIsTyping(false);
          setIsDirty(false);
        }
      };

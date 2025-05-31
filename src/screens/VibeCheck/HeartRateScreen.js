@@ -32,7 +32,7 @@ function HeartRateScreenInner() {
   const [soundLabel, setSoundLabel] = useState("");
   const [soundValue, setSoundValue] = useState();
   const [vibeListCat, setVibeListCat] = useState("");
-  const [topSoundLabels, setTopSoundLabels] = useState("")
+  const [topSoundLabels, setTopSoundLabels] = useState("");
   const [motionLabel, setMotionLabel] = useState("");
 
   const navigation = useNavigation();
@@ -44,7 +44,15 @@ function HeartRateScreenInner() {
   const debounceMagTimeout = useRef(null);
   const debounceMotionTimeout = useRef(null);
   const successCardOpacity = useRef(new Animated.Value(0)).current;
+  const detailsOpacity = useRef(new Animated.Value(0)).current;
 
+  useEffect(() => {
+    Animated.timing(detailsOpacity, {
+      toValue: 1,
+      duration: 5000,
+      useNativeDriver: true,
+    }).start();
+  }, []);
 
   useFocusEffect(
     useCallback(() => {
@@ -155,7 +163,7 @@ function HeartRateScreenInner() {
         bottomContent={
           vibeListCat &&
           environment && (
-            <View style={styles.infoContainer}>
+            <Animated.View style={[styles.infoContainer, { opacity: detailsOpacity }]}>
               <Text style={styles.labelTitle}>What else is being measured?</Text>
               <View style={styles.sideBySide}>
                 <View style={styles.leftColumn}>
@@ -188,7 +196,7 @@ function HeartRateScreenInner() {
                   </View>
                 </View>
               </View>
-            </View>
+            </Animated.View>
           )
         }
       />

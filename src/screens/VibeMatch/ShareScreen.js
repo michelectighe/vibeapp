@@ -9,6 +9,7 @@ import {
   Text,
   ScrollView,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { getAuth } from "firebase/auth";
 import { MyResultsContext } from "@/context/MyResultsContext";
 import { useAuth, useUserProfile } from "@context";
@@ -22,8 +23,9 @@ import { deleteResult } from "@/database";
 import { SCREEN_HEIGHT } from "@/utils";
 import { CustomSpiritualButton } from "@/components";
 
-export const ShareScreen = ({ navigation }) => {
+export const ShareScreen = () => {
   useAmbientControlForScreen(true);
+  const navigation = useNavigation();
   const { myResults, setMyResults, loading } = useContext(MyResultsContext);
   const { profile } = useUserProfile();
   const [results, setResults] = useState([]);
@@ -68,7 +70,7 @@ export const ShareScreen = ({ navigation }) => {
     try {
       //console.log("onshare item:", item);
       const name = profile.displayName;
-      const link = await createMatchLink(item.id, auth.currentUser.uid, name, isAnonymous);
+      const link = await createMatchLink(item.resultId, auth.currentUser.uid, name, isAnonymous);
       await Share.share({
         message: `Compare your vibe with mine! Tap this link to begin: ${link}`,
       });
@@ -77,22 +79,23 @@ export const ShareScreen = ({ navigation }) => {
     }
   };
 
-const onTrash = async (item) => {
-  try {
-    if (!user?.uid || !item) {
-      console.error("❌ Cannot delete — missing user or item.");
-      return;
+  const onTrash = async (item) => {
+    try {
+      if (!user?.uid || !item) {
+        console.error("❌ Cannot delete — missing user or item.");
+        return;
+      }
+      const success = await deleteResult(user.uid, item.resultId);
+      if (success) {
+        console.log("succeeded");
+        setMyResults((prev) => prev.filter((r) => r.resultId !== item.resultId));
+      } else {
+        console.log("failed");
+      }
+    } catch (err) {
+      console.error("Deletion error:", err);
     }
-    const success = await deleteResult(item.resultId, user.uid);
-    if (success) {
-      console.log('succeeded')
-      setMyResults((prev) => prev.filter((r) => r.resultId !== item.resultId));
-    } else { console.log('failed')}
-  } catch (err) {
-    console.error("Deletion error:", err);
-  }
-};
-
+  };
 
   const showResults = async (item) => {
     try {

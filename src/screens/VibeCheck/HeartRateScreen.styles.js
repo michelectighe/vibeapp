@@ -161,12 +161,8 @@ const rawStyles = {
     marginTop: 24,
   },
   finishButtonWrapper: {
-    //  position: "absolute",
-    //   top: 110, // Just below the camera
-    //  alignSelf: "center",
     width: "80%",
     height: "80%",
-    //   zIndex: 5,
   },
   successTitle: {
     fontSize: 20,

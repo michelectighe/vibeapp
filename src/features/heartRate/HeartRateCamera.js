@@ -245,7 +245,7 @@ export const HeartRateCamera = ({ onStableReading }) => {
       {/* Circular Camera View */}
       // Updated top part of HeartRateScreen (visual polish)
       <Animated.View style={[styles.cameraWrapper, { opacity: cameraOpacity }]}>
-        {device && /*!stable &&*/ (
+        {device && !stable && (
           <View style={styles.cameraRing}>
             <View style={styles.cameraCircle}>
               <Camera

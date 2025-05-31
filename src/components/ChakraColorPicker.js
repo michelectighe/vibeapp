@@ -2,15 +2,17 @@ import React from "react";
 import { View, ScrollView, TouchableOpacity, StyleSheet } from "react-native";
 import { FuzzyGlow } from "@/components/FuzzyGlow";
 import { Colors } from "@/constants";
+import { hexToRgba } from "@/utils";
 
 const chakraColors = [
-  { name: "Root", color: Colors.rootChakra, textColor: "white" },
-  { name: "Sacral", color: Colors.sacralChakra, textColor: "white" },
-  { name: "Solar Plexus", color: Colors.solarPlexusChakra, textColor: "black" },
-  { name: "Heart", color: Colors.heartChakra, textColor: "black" },
-  { name: "Throat", color: Colors.throatChakra, textColor: "white" },
-  { name: "Third Eye", color: Colors.thirdEyeChakra, textColor: "white"},
-  { name: "Crown", color: Colors.crownChakra, textColor: "black" },
+  { name: "default", color: hexToRgba(Colors.paleYellow), textColor: "black" },
+  { name: "Root", color: hexToRgba(Colors.rootChakra), textColor: "white" },
+  { name: "Sacral", color: hexToRgba(Colors.sacralChakra), textColor: "white" },
+  { name: "Solar Plexus", color: hexToRgba(Colors.solarPlexusChakra), textColor: "black" },
+  { name: "Heart", color: hexToRgba(Colors.heartChakra), textColor: "black" },
+  { name: "Throat", color: hexToRgba(Colors.throatChakra), textColor: "white" },
+  { name: "Third Eye", color: hexToRgba(Colors.thirdEyeChakra), textColor: "white" },
+  { name: "Crown", color: hexToRgba(Colors.crownChakra), textColor: "black" },
 ];
 
 export const ChakraColorPicker = ({ onColorSelect, selectedColor }) => {
@@ -21,8 +23,8 @@ export const ChakraColorPicker = ({ onColorSelect, selectedColor }) => {
       showsHorizontalScrollIndicator={false}
     >
       {chakraColors.map(({ name, color, textColor }) => {
-    //    console.log("name:", name)
-     //   console.log("textColor:", textColor)
+        //    console.log("name:", name)
+        //   console.log("textColor:", textColor)
         const isSelected = selectedColor === color;
 
         return (
@@ -45,13 +47,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 0,
     gap: 12,
     alignItems: "center",
-    backgroundColor: "white",
+    backgroundColor: Colors.surface,
   },
   glowWrapper: {
     borderRadius: 20,
     padding: 4,
   },
   selected: {
+    borderRadius: 60,
     borderWidth: 2,
     borderColor: "#fff",
   },

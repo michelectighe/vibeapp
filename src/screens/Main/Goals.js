@@ -8,7 +8,7 @@ import { DeleteConfirmationModal } from "@components/DeleteConfirmationModal";
 import { CloseX } from "@/components";
 import { useNavigation } from "@react-navigation/native";
 
-import { saveStickyNoteToDb, deleteStickyNoteByIdDb } from "@database";
+import { saveStickyNoteToDb, deleteStickyNoteByIdDb, getAllStickyNotes } from "@database";
 import { styles } from "./Goals.styles";
 import { Colors } from "@constants";
 import uuid from "react-native-uuid";
@@ -30,9 +30,10 @@ export const Goals = () => {
 
   useEffect(() => {
     const loadNotes = async () => {
-      const db = await getDb();
-      const result = await db.getAllAsync("SELECT * FROM sticky_notes");
-      setNotes(result);
+      console.log("trying to get stickies");
+      const stickies = await getAllStickyNotes();
+      console.log("stickies returned:", stickies);
+      setNotes(stickies);
     };
     loadNotes();
   }, []);
@@ -61,10 +62,9 @@ export const Goals = () => {
     const randomY = Math.floor(Math.random() * 200); // tweak as needed
     const randomRotation = Math.random() * 0.3 - 0.15; // ± ~8.5°
 
-    const newNote = {
+    const sticky = {
       id: newId,
       timestamp: new Date(`${selectedDate}T00:00:00`).toISOString(),
-
       text,
       x: randomX,
       y: randomY,
@@ -74,8 +74,8 @@ export const Goals = () => {
       done: false,
     };
 
-    await saveStickyNoteToDb(newNote);
-    setNotes((prev) => [...prev, newNote]);
+    await saveStickyNoteToDb(sticky);
+    setNotes((prev) => [...prev, sticky]);
   };
   return (
     <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}>

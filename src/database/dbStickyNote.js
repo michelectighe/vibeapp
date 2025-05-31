@@ -1,9 +1,12 @@
 import * as SQLite from "expo-sqlite";
 import { getDb } from "./dbInit";
 
+
 export const saveStickyNoteToDb = async (sticky) => {
   try {
-      const db = await getDb();
+    console.log("saving sticky:", sticky);
+    const db = await getDb();
+
     await db.runAsync(
       `INSERT INTO sticky_notes (
         id,
@@ -31,16 +34,31 @@ export const saveStickyNoteToDb = async (sticky) => {
   }
 };
 
+export const getAllStickyNotes = async () => {
+  try {
+    const db = await getDb();
+    const result = await db.getAllAsync("SELECT * FROM sticky_notes");
+    console.log("get all stickies:", result);
+    return result;
+  } catch (e) {
+    console.error("error getting all stickyNotes:", e);
+  }
+};
+
 export const updateStickyNotePositionDb = async (id, { x, y, rotation, done }) => {
-  const db = await getDb();
-  //console.log("updating id:", id);
-  await db.runAsync("UPDATE sticky_notes SET x = ?, y = ?, rotation = ?, done = ? WHERE id = ?", [
-    x,
-    y,
-    rotation,
-    done,
-    id,
-  ]);
+  try {
+    const db = await getDb();
+    //console.log("updating id:", id);
+    await db.runAsync("UPDATE sticky_notes SET x = ?, y = ?, rotation = ?, done = ? WHERE id = ?", [
+      x,
+      y,
+      rotation,
+      done,
+      id,
+    ]);
+  } catch (e) {
+    console.error("Error updating sticky:", e);
+  }
 };
 
 export const deleteStickyNoteByIdDb = async (id) => {

@@ -1,4 +1,4 @@
-import { getLocalMatchMeta } from "@/database";
+import { getLocalMatchMeta , getMatchResultByID} from "@/database";
 import { doc, getDoc, updateDoc, arrayUnion } from "firebase/firestore";
 import { dbFs } from "@config/firebaseConfig";
 export const getSharedResult =  async (matchId) => { 
@@ -25,7 +25,7 @@ try {
     const matchSnap = await getDoc(matchRef);
     if (!matchSnap.exists()) {
       console.warn("Invalid match ID");
-      setLoadingShared(false);
+   //   setLoadingShared(false);
       return;
     }
     const matchData = matchSnap.data();
@@ -57,4 +57,4 @@ try {
 } catch (error) {
   console.error("Error loading shared result:", error);
 }
-}    
+};  

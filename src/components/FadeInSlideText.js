@@ -2,9 +2,9 @@
 import { useRef, useEffect } from "react";
 import { Animated, Text } from "react-native";
 
-export const FadeInSlideText = ({ text, duration = 3000, style }) => {
+export const FadeInSlideText = ({ text, duration = 3000, style, position = 200 }) => {
   const opacity = useRef(new Animated.Value(0)).current;
-  const translateY = useRef(new Animated.Value(200)).current;
+  const translateY = useRef(new Animated.Value(position)).current;
 
   useEffect(() => {
     Animated.parallel([

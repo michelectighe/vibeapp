@@ -20,4 +20,5 @@ export const metricRanges = {
   hrvScore: { min: 0, max: 100 }, 
   emotionScore: { min: 0, max: 100 },
   overallVibrationScore: { min: 0, max: 100 },
+  hawkinsScore: { min: 200, max: 1000 },
 };

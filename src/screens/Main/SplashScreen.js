@@ -45,11 +45,15 @@ export const SplashScreen = ({ navigation, route, matchId = null }) => {
 
         if (!matchId) {
           // don't do this if coming from the match screen (deep link)
-          if (user) {
-            navigation.replace("Tabs", { screen: "Home" });
-          } else {
-            navigation.replace("Welcome");
-          }
+         //  if (user) {
+             navigation.navigate("Tabs", { screen: "Home" });
+       //    } else {
+            //  navigation.navigate("Tabs", {
+            //    screen: "Settings",
+            //    params: { screen: "SignInScreen" },
+            //  });
+            
+        //   }
         }
       } catch (e) {
         console.error("❌ Init failed", e);

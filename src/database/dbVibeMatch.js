@@ -1,5 +1,6 @@
 import * as SQLite from "expo-sqlite";
 import { getDb } from "./dbInit";
+import { dbFs } from "@/config/firebaseConfig";
 
 import {
   collection,
@@ -16,9 +17,9 @@ import { getAuth } from "firebase/auth";
 
 export const getMatchResultByID = async (matchId, userId, resultId) => {
   try {
-    console.log("getting match result: ", matchId);
-    console.log("for userid:", userId);
-    console.log("for resultid:", resultId);
+    // console.log("getting match result: ", matchId);
+    // console.log("for userid:", userId);
+    // console.log("for resultid:", resultId);
     const db = await getDb();
 
     const result = await db.getAllAsync(
@@ -44,6 +45,7 @@ export const saveVibeMatchReceived = async (myResult, sharedResult, matchId, sha
                 heartRateScore,
                 motionScore, 
                 overallVibrationScore, 
+                hawkinsScore,
                 chakraScores,
                 environmentScore,
                 voiceStrengthScore,
@@ -59,6 +61,7 @@ export const saveVibeMatchReceived = async (myResult, sharedResult, matchId, sha
         JSON.stringify(sharedResult.heartRateScore),
         JSON.stringify(sharedResult.motionScore),
         sharedResult.overallVibrationScore ?? 0,
+        sharedResult.hawkinsScore ?? 0,
         JSON.stringify(sharedResult.chakraScores), // ✅ Store as JSON string
         JSON.stringify(sharedResult.environmentScore),
         JSON.stringify(sharedResult.voiceStrengthScore),
@@ -85,16 +88,10 @@ export const saveVibeMatchReceived = async (myResult, sharedResult, matchId, sha
   }
 };
 
-export const deleteVibeMatchResult = async (id, callback) => {
+export const deleteVibeMatchResult = async (id) => {
   try {
     const db = await getDb();
     await db.runAsync("DELETE FROM vibeMatchResults WHERE id = ?;", [id]);
-    ////console.log(`✅ Deleted result with ID: ${id}`);
-
-    // Refresh results if a callback is provided
-    if (callback) {
-      //   getVibeMatchResults(callback);
-    }
   } catch (error) {
     console.error("❌ Error deleting result:", error);
   }
@@ -120,8 +117,8 @@ export const getAllMatchesForUserFs = async () => {
 
   const uid = user.uid;
 
-  const sentQuery = query(collection(db, "matches"), where("myUserID", "==", uid));
-  const receivedQuery = query(collection(db, "matches"), where("theirUserID", "==", uid));
+  const sentQuery = query(collection(dbFs, "matches"), where("myUserID", "==", uid));
+  const receivedQuery = query(collection(dbFs, "matches"), where("theirUserID", "==", uid));
 
   const [sentSnap, receivedSnap] = await Promise.all([getDocs(sentQuery), getDocs(receivedQuery)]);
 
