@@ -39,6 +39,7 @@ export const ShareScreen = () => {
   useEffect(() => {
     if (authLoading) return;
     if (!user) {
+      console.log("trying to navigate to sign in screen");
       navigation.navigate("Tabs", {
         screen: "Settings",
         params: {

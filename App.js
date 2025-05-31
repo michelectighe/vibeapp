@@ -81,69 +81,90 @@ const AppInner = () => {
   const [initialLink, setInitialLink] = useState(null);
   const [checkForLink, setCheckForLink] = useState(false);
 
-  useEffect(() => {
-    const init = async () => {
-      //console.log("linking:", linking);
-      try {
-        await initializeRevenueCat();
+const navigationRef = useNavigationContainerRef();
 
-        // await initApp();
-        // // const url = await Linking.getInitialURL();
-        // //   setInitialLink(url); // <--- store the deep link if present
-        // setCheckForLink(true);
-        //    setInitialLink(url);
-        // setIsReady(true);
-      } catch (err) {
-        console.error("Failed to init app:", err);
-      }
-    };
+// useEffect(() => {
+//   const unsubscribe = navigationRef.addListener("state", () => {
+//     const currentRoute = navigationRef.getCurrentRoute();
+//     console.log("Navigated to:", currentRoute?.name);
+//   });
 
-    init();
-  }, [linking]);
+//   return unsubscribe;
+// }, []);
 
-  // const handleHomeReady = () => {
-  //   setShowSplash(false);
-  // };
+useEffect(() => {
+  const init = async () => {
+    //console.log("linking:", linking);
+    try {
+       Purchases.setDebugLogsEnabled(false);
+      await initializeRevenueCat();
 
-  // if (!isReady) {
-  //   return <SplashScreen />;
-  // }
-  return (
-    <AnalysisProvider>
-      <MusicManager />
-      <NavigationContainer linking={linking} ref={navigationRef}>
-        <ModelProvider>
-          <Stack.Navigator
-            initialRouteName="Splash" // maybe change later to welcome screen
-            screenOptions={() => ({
+      // await initApp();
+      // // const url = await Linking.getInitialURL();
+      // //   setInitialLink(url); // <--- store the deep link if present
+      // setCheckForLink(true);
+      //    setInitialLink(url);
+      // setIsReady(true);
+    } catch (err) {
+      console.error("Failed to init app:", err);
+    }
+  };
+
+  init();
+}, [linking]);
+
+// const handleHomeReady = () => {
+//   setShowSplash(false);
+// };
+
+// if (!isReady) {
+//   return <SplashScreen />;
+// }
+return (
+  <AnalysisProvider>
+    <MusicManager />
+    <NavigationContainer
+      linking={linking}
+      ref={navigationRef}
+      onStateChange={() => {
+        const route = navigationRef.getCurrentRoute();
+        console.log("Route changed to:", route.name);
+      }}
+    >
+      <ModelProvider>
+        <Stack.Navigator
+          initialRouteName="Splash" // maybe change later to welcome screen
+          screenOptions={() => ({
+            headerShown: false,
+            animation: "fade",
+          })}
+        >
+          {/* SplashScreen sits on top of everything until cleared */}
+
+          <Stack.Screen
+            name="Splash"
+            component={SplashScreen}
+            options={{ headerShown: false }}
+          ></Stack.Screen>
+          <Stack.Screen name="Tabs" component={MyTabs} options={{ headerShown: false }} />
+
+          <Stack.Screen
+            name="ChakraDetailModal"
+            component={ChakraDetailModal}
+            options={{
+              presentation: "transparentModal", // or "modal"
               headerShown: false,
-              animation: "fade",
-            })}
-          >
-            {/* SplashScreen sits on top of everything until cleared */}
-
-            <Stack.Screen name="Splash" component={SplashScreen} options={{ headerShown: false }}>
-            </Stack.Screen>
-              <Stack.Screen name="Tabs" component={MyTabs} options={{ headerShown: false }} />
-
-              <Stack.Screen
-                name="ChakraDetailModal"
-                component={ChakraDetailModal}
-                options={{
-                  presentation: "transparentModal", // or "modal"
-                  headerShown: false,
-                }}
-              />
-              <Stack.Screen name="Welcome" component={WelcomeScreen} />
-              <Stack.Screen name="Streaks" component={StreakStack} />
-              <Stack.Screen name="GoodNews" component={GoodNewsScreen} />
-              <Stack.Screen name="DevOnly" component={DevOnly} />
-
-          </Stack.Navigator>
-        </ModelProvider>
-      </NavigationContainer>
-    </AnalysisProvider>
-  );
+            }}
+          />
+          <Stack.Screen name="Welcome" component={WelcomeScreen} />
+          <Stack.Screen name="Streaks" component={StreakStack} />
+          <Stack.Screen name="GoodNews" component={GoodNewsScreen} />
+          <Stack.Screen name="DevOnly" component={DevOnly} />
+        </Stack.Navigator>
+      </ModelProvider>
+    </NavigationContainer>
+  </AnalysisProvider>
+);
 };
 
 export const App = () => {

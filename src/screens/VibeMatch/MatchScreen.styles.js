@@ -23,6 +23,13 @@ const rawStyles = {
     width: SCREEN_WIDTH * 0.9,
     color: Colors.textLight,
   },
+  noResults: {
+    marginBottom: 20,
+    textAlign: "center",
+    fontSize: 18,
+    color: Colors.textLight,
+    fontFamily: Fonts.body,
+  },
   scrollView: {
     width: SCREEN_WIDTH,
   },

@@ -6,9 +6,11 @@ import { AnimatedLogo, GradientBackground } from "@components";
 import { Colors } from "@constants";
 import { styles } from "./SplashScreen.styles";
 import { globalStyles } from "@styles";
+import { useNavigation } from "@react-navigation/native";
 
-export const SplashScreen = ({ navigation, route, matchId = null }) => {
+export const SplashScreen = ({ route, matchId = null }) => {
   const { user, authLoading } = useAuth();
+  const navigation = useNavigation();
   const rotateAnim = useRef(new Animated.Value(0)).current;
   const fadeAnim = useRef(new Animated.Value(0.1)).current;
 
@@ -34,33 +36,52 @@ export const SplashScreen = ({ navigation, route, matchId = null }) => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
+    if (authLoading) return;
     const startApp = async () => {
       try {
         await new Promise((resolve) => setTimeout(resolve, 300));
-
         await initApp();
-
         if (authLoading) return;
         //console.log("DO WE COME IN HERE WITH AN ID:", matchId);
 
         if (!matchId) {
           // don't do this if coming from the match screen (deep link)
-         //  if (user) {
-             navigation.navigate("Tabs", { screen: "Home" });
-       //    } else {
-            //  navigation.navigate("Tabs", {
-            //    screen: "Settings",
-            //    params: { screen: "SignInScreen" },
-            //  });
-            
-        //   }
+          if (user) {
+            navigation.navigate("Tabs", { screen: "Home" });
+          } else {
+            console.log(
+              "❌ ❌ ❌ ❌ ❌ ❌ ❌ ❌ ❌ ❌ ❌ ❌ ❌ going to sign in screen from splash",
+            );
+            navigation.navigate("Tabs", {
+              screen: "Settings",
+              params: { screen: "SignInScreen" },
+            });
+          }
+        } else {
+          if (!user) {
+            console.log(
+              "❌ ❌ ❌ ❌ ❌ ❌ ❌ ❌ ❌ ❌ ❌ ❌ ❌ going to sign in screen from splash with match",
+            );
+            navigation.navigate("Tabs", {
+              screen: "Settings",
+              params: {
+                screen: "SignInScreen",
+                params: {
+                  returnTo: {
+                    name: "VibeMatch",
+                    params: { screen: "MatchScreen" },
+                  },
+                },
+              },
+            });
+          }
         }
       } catch (e) {
         console.error("❌ Init failed", e);
       }
     };
     startApp();
-  }, [authLoading, user]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [authLoading, user, matchId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Animated.View style={[styles.animatedView, { opacity: fadeAnim }]}>

@@ -4,7 +4,7 @@ import { View, Text, ActivityIndicator, ScrollView } from "react-native";
 import { getAuth } from "firebase/auth";
 import { useNavigation } from "@react-navigation/native";
 
-import { GradientBackground, ResultSelector } from "@components";
+import { GradientBackground, ResultSelector, CustomSpiritualButton } from "@components";
 import { Colors } from "@constants";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./MatchScreen.styles";
@@ -12,7 +12,7 @@ import { styles } from "./MatchScreen.styles";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { MyResultsContext } from "@/context/MyResultsContext";
 import { SplashScreen } from "../Main";
-import { getSharedResult } from "@/utils";
+import { getSharedResult } from "@/database";
 
 //setLogLevel("debug");
 export const MatchScreen = ({ route }) => {
@@ -27,21 +27,25 @@ export const MatchScreen = ({ route }) => {
   const [sharedResult, setSharedResult] = useState(null);
   const [matchFound, setMatchFound] = useState(false);
   const [shareName, setSharedName] = useState("Someone");
+  const [noResults, setNoResults] = useState(true);
   const tabBarHeight = useBottomTabBarHeight();
   useEffect(() => {
     setMatchId(route.params?.id || null);
   }, [route]);
 
   useEffect(() => {
-    //    console.log("user", user);
+    if (!matchId) return;
+    console.log("user", user);
     if (!user) return;
     const fetchSharedResult = async () => {
+      console.log("match:", matchId);
       if (!matchId) return;
-      const sharedData = await getSharedResult(matchId);
-      //   console.log("SHARED DATA BACK:", sharedData);
+      const sharedData = await getSharedResult(user?.uid, matchId);
+      // console.log("SHARED DATA BACK:", sharedData);
       if (sharedData) {
-        setSharedName(sharedData.sharedName);
-        setSharedResult(sharedData.sharedResult);
+        // console.log('SHARED NAME:', sharedData[1].sharedName)
+        setSharedName(sharedData[1].sharedName);
+        setSharedResult(sharedData[0].sharedResult);
         setMatchFound(true);
       }
       setLoadingShared(false);
@@ -49,10 +53,17 @@ export const MatchScreen = ({ route }) => {
     fetchSharedResult();
   }, [matchId, user]);
 
-  //console.log('shared:', sharedResult)
+  useEffect(() => {
+    if (myResults && !loading && myResults.length > 0) {
+      // setResults(myResults);
+      setNoResults(false);
+    }
+  }, [myResults]);
+
+  // console.log("shared:", sharedResult);
   // console.log("loadingShared", loadingShared);
-  //  console.log("loading", loading);
-  if (loading || loadingShared) {
+  // console.log("loading", loading);
+  if (loading || loadingShared || !user) {
     return <SplashScreen matchId={matchId} />;
   }
 
@@ -61,15 +72,29 @@ export const MatchScreen = ({ route }) => {
       <View style={styles.container}>
         {!matchFound && <Text style={styles.expired}>Match request has expired</Text>}
         {matchFound && (
+          <View>
+            <Text style={styles.title}>
+              {`${shareName} wants to match. Let's see if your vibes are in sync.`}
+            </Text>
+            {noResults && (
+              <View>
+                <Text style={styles.noResults}>No Results to Share</Text>
+                <CustomSpiritualButton
+                  label="Do a Vibe Check"
+                  onPress={() => navigation.navigate("VibeCheck", { screen: "VibecheckScreen" })}
+                  color={Colors.surface}
+                  textColor={Colors.textDark}
+                />
+              </View>
+            )}
+          </View>
+        )}
+        {!noResults && matchFound && (
           <ScrollView
             style={[styles.scrollView, { bottom: tabBarHeight + 12 }]}
             contentContainerStyle={styles.scrollContent}
             showsVerticalScrollIndicator={false}
           >
-            <Text style={styles.title}>
-              {" "}
-              {shareName} wants to match. Let's see if your vibes are in sync.
-            </Text>
             <Text style={styles.resultText}>Select one of your results to compare:</Text>
             <ResultSelector
               results={myResults ?? []}
