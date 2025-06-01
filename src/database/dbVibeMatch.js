@@ -37,6 +37,7 @@ export const getMatchResultById = async (matchId, theirUserId, resultId) => {
 };
 export const saveVibeMatchReceived = async (sharedResult, matchData) => {
   try {
+    console.log('saving vibematchreceived', sharedResult)
     const db = await getDb();
     await db.runAsync(
       ` INSERT OR IGNORE INTO matchResultsReceived ( 

@@ -72,3 +72,9 @@ export {
 } from "./matchLinkStore";
 
 export { normalizeMetricForStorage } from "./normalizeMetricsForSaing";
+export {
+  parseMetric,
+  normalizeInverted,
+  calculateChakraScores,
+  calculateOverallVibe,
+} from "./analysisContextHelpers";

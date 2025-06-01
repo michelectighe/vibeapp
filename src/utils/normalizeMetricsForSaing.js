@@ -7,11 +7,11 @@ export const normalizeMetricForStorage = (raw, score = null) => {
 
   if (typeof raw === "object") {
     ["value", "bpm", "sdnn", "rmssd", "raw"].forEach((key) => {
-      if (raw[key] != null) result[key] = raw[key];
+      if (raw[key] != null) result[key] = raw[key] || 0;
     });
   } else {
-    result.value = raw;
+    result.value = raw || 0;
   }
 
-  return result;
+  return result || 0;
 };

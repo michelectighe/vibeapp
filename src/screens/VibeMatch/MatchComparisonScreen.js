@@ -15,37 +15,38 @@ export const MatchComparisonScreen = ({ route }) => {
   const { myResult, sharedResult, shareName, matchId } = route.params;
   const tabBarHeight = useBottomTabBarHeight();
 
-  const [summary, setSummary] = useState(null);
+const [comparisons, setComparisons] = useState([]);
 
-  useEffect(() => {
-    if (myResult && sharedResult && matchId && shareName) {
-      const saveMatch = async () => {
-        //  console.log('matchid:', matchId)
-        //    console.log("myResut:", myResult);
-        //    console.log("sharedResult:", sharedResult);
-        //    console.log('sharename:', shareName);
-        const matchData = {
-          matchId: matchId,
-          myUserId: myResult.userId,
-          theirUserId: sharedResult.userId,
-          myResultId: myResult.resultId,
-          theirResultId: sharedResult.resultId,
-          theirName: shareName,
-          timestamp: Date.now(),
-        };
-        await saveVibeMatchReceived(sharedResult, matchData);
-        const result = generateComparisonSummary(myResult, sharedResult);
-        setSummary(result);
+useEffect(() => {
+  if (myResult && sharedResult && matchId && shareName) {
+    const saveMatch = async () => {
+      console.log("matchid:", matchId);
+      console.log("myResut:", myResult);
+      console.log("sharedResult:", sharedResult);
+      console.log("sharename:", shareName);
+      const matchData = {
+        matchId: matchId,
+        myUserId: myResult.userId,
+        theirUserId: sharedResult.userId,
+        myResultId: myResult.resultId,
+        theirResultId: sharedResult.resultId,
+        theirName: shareName,
+        timestamp: Date.now(),
       };
-      saveMatch();
-    }
-  }, [myResult, sharedResult, matchId, shareName]);
+      await saveVibeMatchReceived(sharedResult, matchData);
+      const result = generateComparisonSummary(myResult, sharedResult);
+      console.log("resut after generatecomparison:", result);
+      setComparisons(result);
+    };
+    saveMatch();
+  }
+}, [myResult, sharedResult, matchId, shareName]);
 
-  if (!summary) return null;
+if (!comparisons) return null;
 
-  const groupByCategory = (category) =>
-    summary.comparisons.filter((item) => item.category === category);
- // console.log(groupByCategory);
+const groupByCategory = (category) =>
+  comparisons.filter((item) => item.alignmentLevel === category);
+
 
   return (
     <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}>
@@ -56,7 +57,7 @@ export const MatchComparisonScreen = ({ route }) => {
       >
         {/* <View style={styles.titleWrapper}> */}
         <Text style={styles.title}>You and {shareName}</Text>
-        <Text style={styles.summary}>{summary.overallSummary}</Text>
+        <Text style={styles.summary}>{comparisons.overallSummary}</Text>
         {/* </View> */}
         {/* ✨ COMPLETELY ALIGNED */}
         <Text style={styles.sectionTitle}>Completely Aligned</Text>

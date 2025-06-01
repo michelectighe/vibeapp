@@ -1,4 +1,4 @@
-import { collection, getDocs, query, orderBy, setDoc, deleteDoc, doc } from "firebase/firestore";
+import { collection, getDocs, query, orderBy, setDoc, deleteDoc, doc, where } from "firebase/firestore";
 import { dbFs } from "@/config/firebaseConfig";
 import { getDb } from "./dbInit";
 
@@ -40,7 +40,7 @@ export const saveResultDb = async (result) => {
         result.resultId,
         result.userId,
         result.timestamp,
-        JSON.stringify(result.voiceFrequencyScore),
+        JSON.stringify(result?.voiceFrequencyScore),
         JSON.stringify(result.heartRateScore),
         JSON.stringify(result.motionScore),
         result.overallVibrationScore ?? 0,
@@ -91,7 +91,7 @@ export const getResultsForUser = async (userId) => {
   }
 };
 
-export const getResultByID = async (userId, resultId) => {
+export const getResultById = async (userId, resultId) => {
   try {
     const db = await getDb();
 

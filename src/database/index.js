@@ -9,7 +9,7 @@ export {
   saveResults,
   getResultsForUser,
   deleteResult,
-  getResultByID,
+  getResultById,
   updateJournalResultDb,
 } from "./dbVibeCheck";
 export {

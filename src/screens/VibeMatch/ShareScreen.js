@@ -148,31 +148,32 @@ export const ShareScreen = () => {
                   <Text style={styles.subTitle}>Let&apos;s see if your vibes are in sync.</Text>
                 )}
               </View>
-              {!noResults && (
-                <ScrollView
-                  contentContainerStyle={styles.scrollContent}
-                  showsVerticalScrollIndicator={false}
-                >
-                  <View>
-                    <CustomSpiritualButton
-                      label="Do a New Vibe Check"
-                      onPress={() => {
-                        console.log("TAKE TEWST");
-                        setCreateShare();
-                        navigation.navigate("VibeCheck", { screen: "VibecheckScreen" });
-                      }}
-                      color={Colors.surface}
-                      textColor={Colors.textDark}
-                    />
-                  </View>
+
+              <ScrollView
+                contentContainerStyle={styles.scrollContent}
+                showsVerticalScrollIndicator={false}
+              >
+   
+                  <CustomSpiritualButton
+                    label="Do a New Vibe Check"
+                    onPress={() => {
+                      console.log("TAKE TEWST");
+                      setCreateShare();
+                      navigation.navigate("VibeCheck", { screen: "VibecheckScreen" });
+                    }}
+                    color={Colors.surface}
+                    textColor={Colors.textDark}
+                  />
+  
+                {!noResults && (
                   <ResultSelector
                     results={myResults}
                     onSelect={(item) => showResults(item)}
                     onShare={(item) => onShare(item)}
                     onTrash={(item) => onTrash(item)}
                   />
-                </ScrollView>
-              )}
+                )}
+              </ScrollView>
             </>
           }
         />

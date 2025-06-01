@@ -14,10 +14,10 @@ import { Colors } from "@constants";
 import { styles } from "./ResultsScreen.styles";
 import { globalStyles } from "@styles";
 import { useRoute } from "@react-navigation/native";
-import { getResultByID, saveResults } from "@database";
+import { getResultById, saveResults } from "@database";
 import { hexToRgba } from "@/utils";
 import { MyResultsContext } from "@/context/MyResultsContext";
-import { getMatchId, getCreateShare } from "@/utils";
+import { getMatchId, getCreateShare, normalizeMetricForStorage } from "@/utils";
 
 Text.defaultProps = Text.defaultProps || {};
 Text.defaultProps.allowFontScaling = false;
@@ -47,16 +47,23 @@ export const ResultsScreen = ({ navigation }) => {
   const infoImage = require("@assets/images/info.webp");
 
   const {
+    voiceFrequency,
+    voiceClarity,
+    voiceStrength,
     voiceFrequencyScore,
     voiceClarityScore,
     voiceStrengthScore,
+    environment,
     environmentScore,
+    motion,
     motionScore,
+    emotion,
     emotionScore,
     overallVibrationScore,
     chakraScores,
     vibrationInfo,
     heartRate,
+    heartRateScore,
     setResult,
     resetAnalysis,
     hawkinsScore,
@@ -70,12 +77,13 @@ export const ResultsScreen = ({ navigation }) => {
   useEffect(() => {
     if (user) {
       try {
+        console.log("inside result screen");
         //if the user is logged in and a result ID was passed in, get the data and set it
         if (user.uid && resultId && resultId !== null && !oldResultsRef.current) {
           oldResultsRef.current = true;
           const loadResult = async () => {
-            const existing = await getResultByID(user.uid, resultId);
-            //console.log("EXISTING:", existing);
+            const existing = await getResultById(user.uid, resultId);
+            console.log("EXISTING:", existing);
             if (existing) {
               await resetAnalysis();
               await setResult(existing);
@@ -95,7 +103,9 @@ export const ResultsScreen = ({ navigation }) => {
 
     const fetchData = async () => {
       try {
+        console.log("inside fetchData");
         const result = vibrationInfo;
+        console.log("results:", result);
         if (!result) return;
 
         setLabel(result.label);
@@ -109,6 +119,7 @@ export const ResultsScreen = ({ navigation }) => {
         setDataReady(true);
         //save to db if the data is new
         if (!oldResultsRef.current && user) {
+          console.log("going to save");
           await saveResultsToDB();
           //console.log("try to save because NOT old score?????");
           oldResultsRef.current = true; // set to make sure it doesn't try to save again
@@ -125,33 +136,38 @@ export const ResultsScreen = ({ navigation }) => {
   }, [overallVibrationScore, vibrationInfo, chakraScores, user, resultId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const saveResultsToDB = async () => {
+    console.log("insaveresultstodb");
     setSaving(true);
     const newResultId = uuid.v4();
     const newTimeStamp = new Date().toISOString();
+
     const newResult = {
       resultId: newResultId,
       timestamp: newTimeStamp,
       userId: user.uid,
-      voiceFrequencyScore: voiceFrequencyScore,
-      heartRateScore: heartRate,
-      motionScore: motionScore,
-      environmentScore: environmentScore,
-      voiceStrengthScore: voiceStrengthScore,
-      voiceClarityScore: voiceClarityScore,
-      emotionScore: emotionScore,
-      overallVibrationScore: overallVibrationScore, // optional, could skip check if you trust it
-      hawkinsScore: hawkinsScore,
+      voiceFrequencyScore: normalizeMetricForStorage(
+        voiceFrequency ?? 0,
+        voiceFrequencyScore?.score || 0,
+      ),
+      heartRateScore: normalizeMetricForStorage(heartRate ?? 0, heartRateScore ?? 0),
+      motionScore: normalizeMetricForStorage(motion ?? 0, motionScore ?? 0),
+      environmentScore: normalizeMetricForStorage(environment ?? 0, environmentScore ?? 0),
+      voiceStrengthScore: normalizeMetricForStorage(
+        voiceStrength ?? 0,
+        voiceStrengthScore?.score || 0,
+      ),
+      voiceClarityScore: normalizeMetricForStorage(
+        voiceClarity ?? 0,
+        voiceClarityScore?.score || 0,
+      ),
+      emotionScore: normalizeMetricForStorage(emotion ?? 0, emotionScore?.score || 0),
+      overallVibrationScore: overallVibrationScore ?? 0,
+      hawkinsScore: hawkinsScore ?? 0,
       chakraScores: chakraScores || {},
       journalId: "0",
     };
-
-    if (newResult.resultId && newResult.timestamp && user) {
-      const userId = user.uid;
-      //  console.log("Saving to local DB:", newResult);
-      const success = await saveResults(newResult, userId);
-      if (success) setMyResults((prev) => [newResult, ...prev]);
-    }
-    setSaving(false);
+    await saveResults(newResult, user.uid); // Firestore save
+    setMyResults((prevResults) => [newResult, ...prevResults]);
   };
 
   const resetAndLeave = () => {

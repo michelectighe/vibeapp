@@ -22,7 +22,7 @@ export const getJournalEntryByIdDb = async ({ journalId }) => {
 
 
     const result = await db.getAllAsync(
-      `SELECT * FROM journalEntries where id = ? ORDER BY createdAt DESC;`,
+      `SELECT * FROM journalEntries WHERE id = ? ORDER BY createdAt DESC;`,
       [journalId],
     );
     return result?.[0] || null;

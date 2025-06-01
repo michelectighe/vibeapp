@@ -1,3 +1,4 @@
+// db/initializeDatabase.js
 import * as SQLite from "expo-sqlite";
 
 let dbInstance;
@@ -7,22 +8,17 @@ export const getDb = async () => {
   return dbInstance;
 };
 
-// Function to initialize the database asynchronously
 export const initializeDatabase = async () => {
   const db = await getDb();
-
+//  await dropAllTables();
   try {
-    await db.execAsync(`PRAGMA foreign_keys=ON;`); // 🔥 Enforce SQLite execution before table creation
-
-    //   await db.execAsync("DROP TABLE IF EXISTS matchResultsReceived;");
-    //  await db.execAsync("DROP TABLE IF EXISTS matchResultsSent;");
-   //   await db.execAsync("DROP TABLE IF EXISTS matchedReceived;");
+    await db.execAsync(`PRAGMA foreign_keys=ON;`);
 
     await db.execAsync(`
       CREATE TABLE IF NOT EXISTS results (
         resultId TEXT PRIMARY KEY,
         userId TEXT,
-        timestamp TEXT,
+        timestamp DATETIME,
         voiceFrequencyScore TEXT,
         heartRateScore TEXT,
         motionScore TEXT,
@@ -34,21 +30,20 @@ export const initializeDatabase = async () => {
         voiceClarityScore TEXT,
         emotionScore TEXT,
         journalId TEXT
+        -- FOREIGN KEY (journalId) REFERENCES journalEntries(id)
       );
     `);
-    const columns = await db.getAllAsync("PRAGMA table_info(results);");
-    // console.log("🔍 results table columns:", columns);
 
     await db.execAsync(`
-      CREATE TABLE IF NOT EXISTS MatchResultsReceived (
+      CREATE TABLE IF NOT EXISTS matchResultsReceived (
         matchId TEXT PRIMARY KEY,
-        ResultID TEXT,
+        resultId TEXT,
         userId TEXT,
-        timestamp TEXT,
-        voiceFrequencyScore TEXT, 
+        timestamp DATETIME,
+        voiceFrequencyScore TEXT,
         heartRateScore TEXT,
-        motionScore TEXT, 
-        overallVibrationScore REAL, 
+        motionScore TEXT,
+        overallVibrationScore REAL,
         hawkinsScore REAL,
         chakraScores TEXT,
         environmentScore TEXT,
@@ -59,68 +54,73 @@ export const initializeDatabase = async () => {
     `);
 
     await db.execAsync(`
-   CREATE TABLE IF NOT EXISTS matchesReceived (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    MatchId TEXT,
-    myUserId TEXT,
-    theirUserId TEXT,
-    myResultId TEXT,
-    theirResultId TEXT,
-    theirName TEXT,
-    timeStamp TEXT,
-    UNIQUE (MatchID, myResultID, theirResultID)
-  );
-`);
+      CREATE TABLE IF NOT EXISTS matchesReceived (
+        matchId TEXT,
+        myUserId TEXT,
+        theirUserId TEXT,
+        myResultId TEXT,
+        theirResultId TEXT,
+        theirName TEXT,
+        timestamp DATETIME,
+        UNIQUE (matchId, myResultId, theirResultId)
+      );
+    `);
 
     await db.execAsync(`
-  CREATE TABLE IF NOT EXISTS matchesSent (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    MatchID TEXT,
-    myUserId TEXT,
-    theirUserId TEXT,
-    myResultId TEXT,
-    theirResultId TEXT,
-    theirName TEXT,
-    timeStamp TEXT,
-    UNIQUE (MatchID, myResultID, theirResultID)
-  );
-`);
+      CREATE TABLE IF NOT EXISTS matchesSent (
+        matchId TEXT,
+        myUserId TEXT,
+        theirUserId TEXT,
+        myResultId TEXT,
+        theirResultId TEXT,
+        theirName TEXT,
+        timestamp DATETIME,
+        UNIQUE (matchId, myResultId, theirResultId)
+      );
+    `);
 
     await db.execAsync(`
       CREATE TABLE IF NOT EXISTS sticky_notes (
         id TEXT PRIMARY KEY,
-        timestamp TEXT,
+        timestamp DATETIME,
         text TEXT,
         x REAL,
         y REAL,
         rotation REAL,
         color TEXT,
-        done BOOL
+        done BOOLEAN
       );
-        `);
+    `);
 
     await db.execAsync(`
       CREATE TABLE IF NOT EXISTS journalEntries (
-      id TEXT,
-      prompt TEXT,
-      entry TEXT,
-      gratitude TEXT,
-      kindness TEXT,
-      createdAt TEXT PRIMARY KEY
-    );
-     `);
+        id TEXT PRIMARY KEY,
+        prompt TEXT,
+        entry TEXT,
+        gratitude TEXT,
+        kindness TEXT,
+        createdAt DATETIME
+      );
+    `);
 
-    ////console.log("Database initialized successfully");
+    console.log("✅ Database initialized cleanly");
   } catch (error) {
     console.error("❌ SQL Error Creating Table:", error);
   }
 };
 
-export const dropTable = async () => {
-  db = await getDb();
-
-  await db.execAsync("DROP TABLE IF EXISTS results;");
-  //await db.execAsync("DROP TABLE IF EXISTS matchesSent;");
-  //await db.execAsync("DROP TABLE IF EXISTS MatchResultsReceived;");
-  //console.log("🗑️ Table dropped. Restart app to recreate.");
+export const dropAllTables = async () => {
+  const db = await getDb();
+  const tables = [
+    "results",
+    "matchResultsReceived",
+    "matchesReceived",
+    "matchesSent",
+    "sticky_notes",
+    "journalEntries",
+  ];
+  for (const table of tables) {
+    await db.execAsync(`DROP TABLE IF EXISTS ${table};`);
+  }
+  console.log("🧹 All tables dropped.");
 };

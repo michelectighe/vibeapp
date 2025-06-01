@@ -16,7 +16,6 @@ export const MyResultsProvider = ({ children }) => {
       }
       setLoading(true);
       const results = await loadResults(user.uid);
-//console.log("myResults:", JSON.stringify(results, null, 2));
       setMyResults(results);
       setLoading(false);
     };

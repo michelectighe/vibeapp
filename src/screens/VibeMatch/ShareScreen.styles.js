@@ -40,6 +40,10 @@ const rawStyles = {
     paddingBottom: 160,
     width: SCREEN_WIDTH * 0.9,
   },
+  newVibe: {
+    marginBottom: 30,
+    width: SCREEN_WIDTH * 0.8,
+  },
   options: {
     borderRadius: 20,
     marginTop: 20,

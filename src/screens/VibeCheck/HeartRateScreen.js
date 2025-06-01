@@ -188,11 +188,15 @@ function HeartRateScreenInner() {
                   </View>
                   <View style={[styles.iconItem, { height: "30%" }]}>
                     <Text style={styles.iconLabel}>🧘 Your Motion</Text>
-                    <Text style={styles.iconValue}>{motionLabel}</Text>
+                    <Text style={styles.iconValue} numberOfLines={2}>
+                      {motionLabel}
+                    </Text>
                   </View>
                   <View style={[styles.iconItem, { height: "31%" }]}>
                     <Text style={styles.iconLabel}>📍 Location Vibe</Text>
-                    <Text style={styles.iconValue}>{spaceLabel}</Text>
+                    <Text style={styles.iconValue} numberOfLines={2}>
+                      {spaceLabel}
+                    </Text>
                   </View>
                 </View>
               </View>

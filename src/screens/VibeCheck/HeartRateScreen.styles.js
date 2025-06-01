@@ -126,7 +126,7 @@ const rawStyles = {
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
     elevation: 2,
-    justifyContent: "center",
+//    justifyContent: "center",
   },
   iconLabel: {
     fontSize: 14,

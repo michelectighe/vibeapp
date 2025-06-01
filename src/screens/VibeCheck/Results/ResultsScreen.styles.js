@@ -68,7 +68,7 @@ const rawStyles = {
   navButtons: {
   //  position: "absolute",
    // bottom: 0,
-    marginTop: 30,
+    marginTop: 50,
     width: "80%",
   },
   loading: {
