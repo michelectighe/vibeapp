@@ -18,7 +18,6 @@ const getAlignmentLevel = (myScore, theirScore) => {
 };
 
 export const getFullMetricComparison = (myScore, theirScore, metricKey) => {
-    console.log('ingetfull:', myScore, theirScore, metricKey)
   const metric = metricComparisonDescriptions[metricKey];
   if (!metric) return null;
 

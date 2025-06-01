@@ -19,6 +19,7 @@ export {
   deleteVibeMatchResult,
   getAllMatchesForUserFs,
   getSharedResult,
+  saveCompletedMatchLink,
 } from "./dbVibeMatch";
 export { truncateLocalTable, execAsync } from "./database";
 

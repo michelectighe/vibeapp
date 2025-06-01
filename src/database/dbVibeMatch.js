@@ -17,7 +17,6 @@ import {
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
-
 export const getMatchResultById = async (matchId, theirUserId, resultId) => {
   try {
     // console.log("getting match result: ", matchId);
@@ -37,7 +36,7 @@ export const getMatchResultById = async (matchId, theirUserId, resultId) => {
 };
 export const saveVibeMatchReceived = async (sharedResult, matchData) => {
   try {
-    console.log('saving vibematchreceived', sharedResult)
+    console.log("saving vibematchreceived", sharedResult);
     const db = await getDb();
     await db.runAsync(
       ` INSERT OR IGNORE INTO matchResultsReceived ( 
@@ -90,7 +89,10 @@ export const saveVibeMatchReceived = async (sharedResult, matchData) => {
 
     // 2. ResultId-based version (used for Firestore rules)
 
-    await setDoc(doc(dbFs, "users", matchData.myUserId, "matchesReceived", matchData.matchId), matchData);
+    await setDoc(
+      doc(dbFs, "users", matchData.myUserId, "matchesReceived", matchData.matchId),
+      matchData,
+    );
   } catch (error) {
     console.error("🔥 SQL Error Saving VibeMatchResults:", error);
   }
@@ -143,13 +145,12 @@ export const getAllMatchesForUserFs = async () => {
   return allMatches;
 };
 
-
 export const getSharedResult = async (userId, matchId) => {
   try {
     const localRef = await getLocalMatchMeta(matchId);
-    console.log('what is LOCALREF:', localRef)
+    console.log("what is LOCALREF:", localRef);
     if (localRef.length > 0) {
-      console.log('got their match record:', localRef)
+      console.log("got their match record:", localRef);
       if (localRef && localRef) {
         // see if there is a loal match record
         const sharedResult = await getMatchResultById(
@@ -167,7 +168,7 @@ export const getSharedResult = async (userId, matchId) => {
       }
     }
     // else get it from firebase.
-    console.log('NO LOCAL MATCH RECORD')
+    console.log("NO LOCAL MATCH RECORD");
     const matchRef = doc(dbFs, "matchLinks", matchId);
     const matchSnap = await getDoc(matchRef);
     if (!matchSnap.exists()) {
@@ -176,7 +177,7 @@ export const getSharedResult = async (userId, matchId) => {
       return;
     }
     const matchData = matchSnap.data();
- //   console.log('MATCH DATA FROM FS:', matchData)
+    //   console.log('MATCH DATA FROM FS:', matchData)
     const sharedResultRef = doc(
       dbFs,
       "users",
@@ -187,9 +188,8 @@ export const getSharedResult = async (userId, matchId) => {
     const sharedResultSnap = await getDoc(sharedResultRef);
 
     if (sharedResultSnap.exists()) {
-
       // Add the viewer's UID and timestamp to the match link
-      const viewerId = userId|| "anonymous";
+      const viewerId = userId || "anonymous";
       await updateDoc(doc(dbFs, "matchLinks", matchId), {
         viewers: arrayUnion({
           viewerId,
@@ -197,13 +197,62 @@ export const getSharedResult = async (userId, matchId) => {
         }),
       });
       const sharedResult = sharedResultSnap.data();
-  //          console.log("SHARED RESULT:", sharedResult);
+      //          console.log("SHARED RESULT:", sharedResult);
       const sharedName = matchData.sharedByUserName;
-      return [{sharedResult},{sharedName}];
+      return [{ sharedResult }, { sharedName }];
     } else return null;
 
     console.log("[Firestore Fetch]: Match not found locally, fetched from server");
   } catch (error) {
     console.error("Error loading shared result:", error);
   }
-};  
+};
+
+export const saveCompletedMatchLink = async ({
+  matchId,
+  recipientUserId,
+  recipientUserName,
+  recipientResultId,
+  comparisonResults,
+}) => {
+  try {
+    console.log(
+      "saving to fs:",
+      matchId,
+      recipientUserId,
+      recipientUserName,
+      recipientResultId,
+      comparisonResults,
+    );
+    // ✅ Destructure inside the function
+    const { overallSummary, comparisons } = comparisonResults;
+    
+    const matchRef = doc(dbFs, "matchLinks", matchId);
+    await updateDoc(matchRef, {
+      recipientUserId,
+      recipientUserName,
+      recipientResultId,
+      completed: true,
+      read: false,
+      timestamp: new Date(),
+      comparisonResults: {
+        overallSummary,
+        comparisons,
+      },
+    });
+
+    console.log("✅ Match link updated with comparison results");
+  } catch (error) {
+    console.error("❌ Error updating match link:", error);
+  }
+};
+
+// export const getComparisonData = (matchId) => {
+
+//   const { sharedByUserName, recipientUserName, comparisonResults } = matchLinkDoc.data();
+
+// }
+
+// export const getCompletedMatches = () => {
+
+// }

@@ -104,4 +104,24 @@ export const metricComparisonDescriptions = {
       { min: 76, max: 100, description: "peaceful and energetically uplifting" },
     ],
   },
+  hawkinsScore: {
+    label: "Hawkins Consciousness Level",
+    descriptions: {
+      aligned: "You're both operating at similar levels of consciousness — powerful alignment.",
+      slightlyDifferent: "A mild difference in your current vibrational states.",
+      moderatelyDifferent: "You're on different energetic wavelengths — noticeable contrast.",
+      completelyUnaligned:
+        "Significant gap in consciousness levels — very different internal states.",
+    },
+    scoreMeanings: [
+      { min: 0, max: 99, description: "shame, guilt, or apathy — very low vibration" },
+      { min: 100, max: 199, description: "fear, anger, or pride — lower consciousness states" },
+      { min: 200, max: 299, description: "courage or neutrality — beginning of empowerment" },
+      { min: 300, max: 399, description: "willingness or acceptance — open and evolving" },
+      { min: 400, max: 499, description: "reason or understanding — intellectually aware" },
+      { min: 500, max: 599, description: "love or joy — heart-centered and high vibration" },
+      { min: 600, max: 799, description: "peace or bliss — deeply spiritual awareness" },
+      { min: 800, max: 1000, description: "enlightenment — transcendent vibrational state" },
+    ],
+  },
 };

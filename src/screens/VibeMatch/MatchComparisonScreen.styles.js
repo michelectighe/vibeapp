@@ -5,12 +5,12 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 
 const rawStyles = {
   titleWrapper: {
-  //  position: "absolute",
-  //  top: 100,
+    //  position: "absolute",
+    //  top: 100,
     width: SCREEN_WIDTH,
     alignItems: "center",
     backgroundColor: "transparent",
- //   zIndex: 2,
+    //   zIndex: 2,
   },
   title: {
     textAlign: "center",
@@ -18,6 +18,15 @@ const rawStyles = {
     color: Colors.textLight,
     fontFamily: Fonts.body,
   },
+  subtitle: {
+    fontSize: 16,
+    fontStyle: "italic",
+    color: Colors.textLight,
+    textAlign: "center",
+    marginBottom: 16,
+    paddingHorizontal: 12,
+  },
+
   scrollView: {
     width: SCREEN_WIDTH,
   },

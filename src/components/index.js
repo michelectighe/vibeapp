@@ -8,7 +8,7 @@ export { BreathingCircle } from "./BreathingCircle";
 export { BreathingPatternSelector } from "./BreathingPatternSelector";
 export { ChakraComparisonCard } from "./ChakraComparisonCards";
 export { CloseX } from "./CloseX";
-export { ComparisonCard } from "./ComparisonCards";
+export { ComparisonCard } from "./ComparisonCard";
 export { CustomButton } from "./CustomButton";
 export { CustomModal } from "./CustomModal";
 export { CustomSpiritualButton } from "./CustomSpiritualButton";

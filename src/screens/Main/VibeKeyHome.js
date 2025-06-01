@@ -21,6 +21,7 @@ import {
   cardsGoodNews,
 } from "@/data";
 import { useAnalysis } from "@/context";
+import { CustomSpiritualButton } from "@/components";
 
 export const VibeKeyHome = ({ onReady }) => {
   const { resetAnalysis } = useAnalysis();
@@ -226,7 +227,7 @@ export const VibeKeyHome = ({ onReady }) => {
       refreshLatestResults();
     }, [user, goodNewsLoaded, myResults]),
   );
-
+  const handleMatchNotification = () => {};
   return (
     <>
       {loading ? (
@@ -239,7 +240,14 @@ export const VibeKeyHome = ({ onReady }) => {
             showsVerticalScrollIndicator={false}
           >
             <HomeHeaderCard name={profile?.displayName || "friend"} />
-
+            <CustomSpiritualButton
+              label="Match Notifications"
+              onPress={() =>
+                navigation.navigate("VibeMatch", { screen: "MatchNotificationScreen" })
+              }
+              color={Colors.buttonBackground}
+              textColor={Colors.textDark}
+            />
             {sections.map((section, index) => (
               <Animatable.View key={section.title} animation="fadeInUp" delay={index * 100}>
                 <SectionWithCards

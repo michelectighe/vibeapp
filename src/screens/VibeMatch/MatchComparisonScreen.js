@@ -1,52 +1,103 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, ScrollView } from "react-native";
 import { Colors } from "@constants";
-import { generateComparisonSummary } from "@utils/generateComparisonSummary";
-import { GradientBackground, ChakraComparisonCard, ComparisonCard } from "@components";
+import {
+  GradientBackground,
+  ChakraComparisonCard,
+  ComparisonCard,
+  SectionLayout,
+  CustomSpiritualButton,
+  CloseX,
+} from "@components";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./MatchComparisonScreen.styles";
 import { chakraData } from "@/data";
-import { SectionLayout } from "@/components";
-import { saveVibeMatchReceived } from "@/database";
+import { saveVibeMatchReceived, saveCompletedMatchLink } from "@/database";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+import { generateComparisonSummary } from "@utils/generateComparisonSummary";
+import { useUserProfile } from "@/context";
 
 export const MatchComparisonScreen = ({ route }) => {
+  const { profile } = useUserProfile();
   useAmbientControlForScreen(true);
-  const { myResult, sharedResult, shareName, matchId } = route.params;
+  const {
+    myResult,
+    sharedResult,
+    shareName,
+    matchId,
+    viewerRole,
+    comparisonResults,
+    myName,
+    theirName,
+  } = route.params;
   const tabBarHeight = useBottomTabBarHeight();
+  const isSender = viewerRole === "sender";
 
-const [comparisons, setComparisons] = useState([]);
+  const [comparisons, setComparisons] = useState([]);
+  const [ chakraComparisons, setChakraComparisons] = useState([]);
+  const [overallSummary, setOverallSummary] = useState("");
 
-useEffect(() => {
-  if (myResult && sharedResult && matchId && shareName) {
-    const saveMatch = async () => {
-      console.log("matchid:", matchId);
-      console.log("myResut:", myResult);
-      console.log("sharedResult:", sharedResult);
-      console.log("sharename:", shareName);
-      const matchData = {
-        matchId: matchId,
-        myUserId: myResult.userId,
-        theirUserId: sharedResult.userId,
-        myResultId: myResult.resultId,
-        theirResultId: sharedResult.resultId,
-        theirName: shareName,
-        timestamp: Date.now(),
+  useEffect(() => {
+    if (isSender && comparisonResults) {
+      setOverallSummary(comparisonResults.overallSummary);
+      setComparisons(comparisonResults.comparisons);
+      setChakraComparisons(comparisonResults.chakraComparisons);
+    } else if (myResult && sharedResult && matchId && shareName) {
+      const saveMatch = async () => {
+        const matchData = {
+          matchId,
+          myUserId: myResult.userId,
+          theirUserId: sharedResult.userId,
+          myResultId: myResult.resultId,
+          theirResultId: sharedResult.resultId,
+          theirName: shareName,
+          timestamp: Date.now(),
+        };
+
+        await saveVibeMatchReceived(sharedResult, matchData);
+        const result = generateComparisonSummary(myResult, sharedResult);
+        setOverallSummary(result.overallSummary);
+        setComparisons(result.comparisons);
       };
-      await saveVibeMatchReceived(sharedResult, matchData);
-      const result = generateComparisonSummary(myResult, sharedResult);
-      console.log("resut after generatecomparison:", result);
-      setComparisons(result);
-    };
-    saveMatch();
-  }
-}, [myResult, sharedResult, matchId, shareName]);
+      saveMatch();
+    }
+  }, [myResult, sharedResult, matchId, shareName]);
 
-if (!comparisons) return null;
+  const groupByCategory = (category) =>
+    comparisons.filter((item) => item.alignmentLevel === category);
 
-const groupByCategory = (category) =>
-  comparisons.filter((item) => item.alignmentLevel === category);
+  const onSave = async () => {
+    console.log('trying to save')
+    await saveCompletedMatchLink({
+      matchId,
+      recipientUserId: myResult.userId,
+      recipientUserName: profile?.displayName || "Unknown", // from context or fallback
+      recipientResultId: myResult.resultId,
+      comparisonResults: {
+        overallSummary,
+        comparisons,
+      },
+    });
+  };
 
+  const renderSection = (title, category, emptyText) => (
+    <>
+      <Text style={styles.sectionTitle}>{title}</Text>
+      {groupByCategory(category).length === 0 ? (
+        <Text style={styles.noData}>{emptyText}</Text>
+      ) : (
+        groupByCategory(category).map((item) => (
+          <ComparisonCard
+            key={item.key || item.label}
+            label={item.label}
+            myVal={`${item.myDescription} (${item.myScore})`}
+            theirVal={`${item.theirDescription} (${item.theirScore})`}
+            description={item.comparisonText}
+          />
+        ))
+      )}
+    </>
+  );
 
   return (
     <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}>
@@ -55,92 +106,21 @@ const groupByCategory = (category) =>
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        {/* <View style={styles.titleWrapper}> */}
         <Text style={styles.title}>You and {shareName}</Text>
-        <Text style={styles.summary}>{comparisons.overallSummary}</Text>
-        {/* </View> */}
-        {/* ✨ COMPLETELY ALIGNED */}
-        <Text style={styles.sectionTitle}>Completely Aligned</Text>
-        {groupByCategory("aligned").length === 0 ? (
-          <Text style={styles.noData}>No perfect matches.</Text>
-        ) : (
-          groupByCategory("aligned").map((item) => (
-            <ComparisonCard
-              key={item.key}
-              keyName={item.key}
-              myVal={item.myVal}
-              theirVal={item.theirVal}
-              type={item.type}
-              category={item.category}
-              label={item.label}
-              description={item.description}
-            />
-          ))
+        {overallSummary ? <Text style={styles.subtitle}>{overallSummary}</Text> : null}
+        {renderSection("Completely Aligned", "aligned", "No perfect matches.")}
+        {renderSection("Slight Differences", "slightlyDifferent", "Nothing mildly different.")}
+        {renderSection("Moderate Differences", "moderatelyDifferent", "No notable contrasts here.")}
+        {renderSection(
+          "Completely Unaligned",
+          "completelyUnaligned",
+          "You're vibing on the same plane.",
         )}
 
-        {/* ✨ SLIGHT DIFFERENCES */}
-        <Text style={styles.sectionTitle}>Slight Differences</Text>
-        {groupByCategory("slightlyDifferent").length === 0 ? (
-          <Text style={styles.noData}>Nothing mildly different.</Text>
-        ) : (
-          groupByCategory("slightlyDifferent").map((item) => (
-            <ComparisonCard
-              key={item.key}
-              keyName={item.key}
-              myVal={item.myVal}
-              theirVal={item.theirVal}
-              type={item.type}
-              category={item.category}
-              label={item.label}
-              description={item.description}
-            />
-          ))
-        )}
-
-        {/* ✨ MODERATE DIFFERENCES */}
-        <Text style={styles.sectionTitle}>Moderate Differences</Text>
-        {groupByCategory("moderatelyDifferent").length === 0 ? (
-          <Text style={styles.noData}>No notable contrasts here.</Text>
-        ) : (
-          groupByCategory("moderatelyDifferent").map((item) => (
-            <ComparisonCard
-              key={item.key}
-              keyName={item.key}
-              myVal={item.myVal}
-              theirVal={item.theirVal}
-              type={item.type}
-              category={item.category}
-              label={item.label}
-              description={item.description}
-            />
-          ))
-        )}
-
-        {/* ✨ COMPLETELY UNALIGNED */}
-        <Text style={styles.sectionTitle}>Completely Unaligned</Text>
-        {groupByCategory("completelyUnaligned").length === 0 ? (
-          <Text style={styles.noData}>You're vibing on the same plane.</Text>
-        ) : (
-          groupByCategory("completelyUnaligned").map((item) => (
-            <ComparisonCard
-              key={item.key}
-              keyName={item.key}
-              myVal={item.myVal}
-              theirVal={item.theirVal}
-              type={item.type}
-              category={item.category}
-              label={item.label}
-              description={item.description}
-            />
-          ))
-        )}
-
-        {/* 🌈 CHAKRA COMPARISON */}
         <Text style={styles.sectionTitle}>Chakra Comparison</Text>
         {chakraData.map((chakra) => {
           const yourScore = myResult.chakraScores?.[chakra.id];
           const theirScore = sharedResult.chakraScores?.[chakra.id];
-
           return (
             <ChakraComparisonCard
               key={chakra.id}
@@ -150,6 +130,13 @@ const groupByCategory = (category) =>
             />
           );
         })}
+        {!isSender && (
+          <CustomSpiritualButton
+            label="Save Match Results"
+            onPress={onSave}
+            style={{ marginTop: 24 }}
+          />
+        )}
       </ScrollView>
     </GradientBackground>
   );
