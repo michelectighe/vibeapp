@@ -51,9 +51,9 @@ export const MatchListScreen = () => {
               <Text style={styles.info}>Score: {match.overallMatch || "?"}</Text>
               <Text style={styles.info}>
                 Type:{" "}
-                {match.myUserID === match.theirUserID
+                {match.myUserId === match.theirUserId
                   ? "Self"
-                  : match.myUserID
+                  : match.myUserId
                   ? "Sent"
                   : "Received"}
               </Text>

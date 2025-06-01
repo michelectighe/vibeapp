@@ -70,3 +70,5 @@ export {
   setCreateShare,
   clearCreateShare,
 } from "./matchLinkStore";
+
+export { normalizeMetricForStorage } from "./normalizeMetricsForSaing";

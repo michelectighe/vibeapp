@@ -14,7 +14,7 @@ export {
 } from "./dbVibeCheck";
 export {
   saveVibeMatchReceived,
-  getMatchResultByID,
+  getMatchResultById,
   getLocalMatchMeta,
   deleteVibeMatchResult,
   getAllMatchesForUserFs,

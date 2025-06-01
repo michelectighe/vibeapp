@@ -16,7 +16,7 @@ import { hexToRgba } from "@/utils";
 
 export const EnergyCleanseScreen = () => {
   const auth = getAuth();
-  const [userId, setUserID] = useState();
+  const [userId, setUserId] = useState();
   const { vibrationInfo } = useAnalysis();
   const navigation = useNavigation();
   const [overallColor, setColor] = useState();
@@ -68,7 +68,7 @@ export const EnergyCleanseScreen = () => {
 
   useEffect(() => {
     if (auth) {
-      setUserID(auth.user?.uid || null);
+      setUserId(auth.user?.uid || null);
     }
   }, [auth]);
 

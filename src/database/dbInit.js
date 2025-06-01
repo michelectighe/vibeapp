@@ -14,7 +14,9 @@ export const initializeDatabase = async () => {
   try {
     await db.execAsync(`PRAGMA foreign_keys=ON;`); // 🔥 Enforce SQLite execution before table creation
 
-//    await db.execAsync("DROP TABLE IF EXISTS matchResultsReceived;");
+    //   await db.execAsync("DROP TABLE IF EXISTS matchResultsReceived;");
+    //  await db.execAsync("DROP TABLE IF EXISTS matchResultsSent;");
+   //   await db.execAsync("DROP TABLE IF EXISTS matchedReceived;");
 
     await db.execAsync(`
       CREATE TABLE IF NOT EXISTS results (
@@ -59,11 +61,11 @@ export const initializeDatabase = async () => {
     await db.execAsync(`
    CREATE TABLE IF NOT EXISTS matchesReceived (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    MatchID TEXT,
-    myUserID TEXT,
-    theirUserID TEXT,
-    myResultID TEXT,
-    theirResultID TEXT,
+    MatchId TEXT,
+    myUserId TEXT,
+    theirUserId TEXT,
+    myResultId TEXT,
+    theirResultId TEXT,
     theirName TEXT,
     timeStamp TEXT,
     UNIQUE (MatchID, myResultID, theirResultID)
@@ -74,10 +76,10 @@ export const initializeDatabase = async () => {
   CREATE TABLE IF NOT EXISTS matchesSent (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     MatchID TEXT,
-    myUserID TEXT,
-    theirUserID TEXT,
-    myResultID TEXT,
-    theirResultID TEXT,
+    myUserId TEXT,
+    theirUserId TEXT,
+    myResultId TEXT,
+    theirResultId TEXT,
     theirName TEXT,
     timeStamp TEXT,
     UNIQUE (MatchID, myResultID, theirResultID)

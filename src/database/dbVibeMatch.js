@@ -18,7 +18,7 @@ import {
 import { getAuth } from "firebase/auth";
 
 
-export const getMatchResultByID = async (matchId, theirUserId, resultId) => {
+export const getMatchResultById = async (matchId, theirUserId, resultId) => {
   try {
     // console.log("getting match result: ", matchId);
     // console.log("for userid:", userId);
@@ -146,14 +146,15 @@ export const getAllMatchesForUserFs = async () => {
 export const getSharedResult = async (userId, matchId) => {
   try {
     const localRef = await getLocalMatchMeta(matchId);
+    console.log('what is LOCALREF:', localRef)
     if (localRef.length > 0) {
-      console.log('got their match record:', localRef.theirResultID)
-      if (localRef.theirResultID && localRef.theirUserID) {
+      console.log('got their match record:', localRef)
+      if (localRef && localRef) {
         // see if there is a loal match record
-        const sharedResult = await getMatchResultByID(
+        const sharedResult = await getMatchResultById(
           matchId,
-          localRef.theirUserID,
-          localRef.theirResultID,
+          localRef.theirUserId,
+          localRef.theirResultId,
           userId,
         ); // if there is, get the local results (if they exist)
 
