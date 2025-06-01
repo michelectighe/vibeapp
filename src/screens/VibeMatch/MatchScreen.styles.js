@@ -19,6 +19,7 @@ const rawStyles = {
   title: {
     fontSize: 28,
     marginTop: 100,
+    marginBottom: 20,
     textAlign: "center",
     width: SCREEN_WIDTH * 0.9,
     color: Colors.textLight,
@@ -58,6 +59,7 @@ const rawStyles = {
   },
   resultText: {
     marginTop: 20,
+    marginBottom: 20,
     fontSize: 18,
     textAlign: "center",
     color: Colors.textLight,

@@ -24,6 +24,7 @@ import { MusicManager } from "@utils";
 import { SplashScreen, WelcomeScreen, ChakraDetailModal, GoodNewsScreen } from "@screens";
 import { DevOnly } from "./devOnlyScreen";
 import { initializeRevenueCat } from "@utils";
+import { DeepLinkHandler } from "@components";
 
 //setGlobalErrorHandler();
 // setTimeout(() => {
@@ -87,12 +88,13 @@ const AppInner = () => {
       <NavigationContainer
         linking={linking}
         ref={navigationRef}
-        onStateChange={() => {
-          const route = navigationRef.getCurrentRoute();
-          console.log("Route changed to:", route.name);
-        }}
+        // onStateChange={() => {
+        //   const route = navigationRef.getCurrentRoute();
+        //   console.log("Route changed to:", route.name);
+        // }}
       >
         <ModelProvider>
+          <DeepLinkHandler />
           <Stack.Navigator
             initialRouteName="Splash" // maybe change later to welcome screen
             screenOptions={() => ({

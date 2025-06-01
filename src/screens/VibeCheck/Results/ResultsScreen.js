@@ -3,7 +3,13 @@ import { View, TouchableOpacity, Text, ActivityIndicator } from "react-native";
 import uuid from "react-native-uuid";
 import { getAuth } from "firebase/auth";
 import { useAnalysis } from "@context";
-import { CustomButton, CloseX, GradientBackground, SectionLayout } from "@components";
+import {
+  CustomButton,
+  CloseX,
+  GradientBackground,
+  SectionLayout,
+  CustomSpiritualButton,
+} from "@components";
 import { Colors } from "@constants";
 import { styles } from "./ResultsScreen.styles";
 import { globalStyles } from "@styles";
@@ -35,6 +41,7 @@ export const ResultsScreen = ({ navigation }) => {
   const [saving, setSaving] = useState(false);
   const [dataReady, setDataReady] = useState(false);
   const [oldResults, setOldResults] = useState(false);
+  const [matchLinkActive, setMatchLinkActive] = useState(false);
 
   const oldResultsRef = useRef(false);
   const infoImage = require("@assets/images/info.webp");
@@ -55,6 +62,11 @@ export const ResultsScreen = ({ navigation }) => {
     hawkinsScore,
   } = useAnalysis();
 
+  useEffect(() => {
+    if (matchId !== null) {
+      setMatchLinkActive(true);
+    }
+  }, [matchId]);
   useEffect(() => {
     if (user) {
       try {
@@ -195,7 +207,7 @@ export const ResultsScreen = ({ navigation }) => {
       <SectionLayout
         topFlex={2}
         middleFlex={5}
-        bottomFlex={1}
+        bottomFlex={1.5}
         safe={false}
         topContent={
           <>
@@ -237,11 +249,27 @@ export const ResultsScreen = ({ navigation }) => {
           </View>
         }
         bottomContent={
-          <>
-            {saving && (
-              <ActivityIndicator size="large" color={Colors.white} style={styles.loading} />
+          <View style={styles.navButtons}>
+            {createShare && (
+              <CustomSpiritualButton
+                label="Return to Share Results"
+                onPress={() => navigation.navigate("VibeMatch", { screen: "ShareScreen" })}
+                color={overallColor2}
+                textColor={overallColor3}
+              />
             )}
-          </>
+            {matchLinkActive && (
+              <CustomSpiritualButton
+                label="Return to Match Results"
+                onPress={() => navigation.navigate("VibeMatch", { screen: "MatchScreen" })}
+                color={overallColor2}
+                textColor={overallColor3}
+              />
+            )}
+            {/* {saving && (
+              <ActivityIndicator size="large" color={Colors.white} style={styles.loading} />
+            )} */}
+          </View>
         }
       />
     </GradientBackground>

@@ -189,7 +189,10 @@ export const MyTabs = ({handleHomeReady}) => {
             resetStack("ShareScreen");
           },
         })}
-        options={{ tabBarLabel: "Match" }}
+        options={{
+          tabBarItemStyle: { display: "none" },
+          tabBarButton: () => null,
+        }}
       />
       <Tab.Screen
         name="Goals"

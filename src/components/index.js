@@ -65,3 +65,5 @@ export { StickyNote } from "./StickyNote";
 export { DatePickerStrip } from "./DatePicker";
 
 export { HawkinsLevelExpandable } from "./HawkinsLevelExpandable";
+
+export { DeepLinkHandler } from "./DeepLinkHandler";

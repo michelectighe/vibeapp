@@ -35,7 +35,7 @@ export const getMatchResultByID = async (matchId, theirUserId, resultId) => {
     return null;
   }
 };
-export const saveVibeMatchReceived = async (myResult, sharedResult, matchId, sharedName) => {
+export const saveVibeMatchReceived = async (sharedResult, matchData) => {
   try {
     const db = await getDb();
     await db.runAsync(
@@ -56,7 +56,7 @@ export const saveVibeMatchReceived = async (myResult, sharedResult, matchId, sha
                 emotionScore
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
       [
-        matchId,
+        matchData.matchId,
         sharedResult.resultId,
         sharedResult.userId,
         sharedResult.timestamp,
@@ -75,17 +75,21 @@ export const saveVibeMatchReceived = async (myResult, sharedResult, matchId, sha
     await db.runAsync(
       `
   INSERT OR IGNORE INTO matchesReceived (
-    MatchID, myUserID, theirUserID, myResultID, theirResultID, theirName
-  ) VALUES (?, ?, ?, ?, ?, ?)`,
+    matchId, myUserId, theirUserId, myResultId, theirResultId, theirName, timestamp
+  ) VALUES (?, ?, ?, ?, ?, ?, ?)`,
       [
-        matchId,
-        myResult.userId,
-        sharedResult.userId,
-        myResult.resultId,
-        sharedResult.resultId,
-        sharedName,
+        matchData.matchId,
+        matchData.myUserId,
+        matchData.theirUserId,
+        matchData.myResultId,
+        matchData.theirResultId,
+        matchData.theirName,
       ],
     );
+
+    // 2. ResultId-based version (used for Firestore rules)
+
+    await setDoc(doc(dbFs, "users", matchData.myUserId, "matchesReceived", matchData.matchId), matchData);
   } catch (error) {
     console.error("🔥 SQL Error Saving VibeMatchResults:", error);
   }
@@ -103,13 +107,13 @@ export const deleteVibeMatchResult = async (id) => {
 export const getLocalMatchMeta = async (matchId) => {
   const db = await getDb();
   try {
-    console.log('getlocalMatchData:', matchId)
+    console.log("getlocalMatchData:", matchId);
     const match = await db.getAllAsync(
       `SELECT * FROM matchesReceived WHERE matchId = ? ORDER BY timestamp DESC LIMIT 1;`,
       [matchId],
     );
 
-    console.log('aftergetloalmatchdata:', match.id)
+    console.log("aftergetloalmatchdata:", match.id);
     return match || null;
   } catch (error) {
     console.error("❌ Error retrieving match results:", error);
@@ -123,14 +127,15 @@ export const getAllMatchesForUserFs = async () => {
 
   const uid = user.uid;
 
-  const sentQuery = query(collection(dbFs, "matches"), where("myUserID", "==", uid));
-  const receivedQuery = query(collection(dbFs, "matches"), where("theirUserID", "==", uid));
+  const sentQuery = query(collection(dbFs, "matchLinks"), where("sharedByUserId", "==", uid));
+  const receivedQuery = query(collection(dbFs, "users", uid, "matchesReceived"));
 
   const [sentSnap, receivedSnap] = await Promise.all([getDocs(sentQuery), getDocs(receivedQuery)]);
 
   const sentMatches = sentSnap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
   const receivedMatches = receivedSnap.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
-
+  console.log("SENT QUERY:", sentMatches);
+  console.log("RECEIVED QUERY:", receivedMatches);
   // Optional: filter out duplicates if you expect any overlap
   const allMatches = [...sentMatches, ...receivedMatches];
 

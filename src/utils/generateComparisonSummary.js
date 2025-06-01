@@ -69,7 +69,7 @@ export const generateComparisonSummary = (myResult, sharedResult) => {
   if (vibeDelta < 10) {
     summary = "are almost energetically identical — a powerful resonance!";
   } else if (vibeDelta < 20) {
-    summary = "are deeply attuned with only subtle shifts between you.";
+    summary = "are deeply attuned in most areas - a natural pair.";
   } else if (vibeDelta < 40) {
     summary = "show a balanced contrast — complementary in many ways.";
   } else if (vibeDelta < 60) {

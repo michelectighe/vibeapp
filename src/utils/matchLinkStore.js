@@ -14,10 +14,10 @@ export const clearMatchId = () => {
 
 export const setCreateShare = () => {
   createShare = true;
-}
+};
 
 export const getCreateShare = () => createShare;
 
 export const clearCreateShare = () => {
   createShare = false;
-}
+};

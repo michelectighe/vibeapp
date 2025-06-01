@@ -24,8 +24,16 @@ export const MatchComparisonScreen = ({ route }) => {
         //    console.log("myResut:", myResult);
         //    console.log("sharedResult:", sharedResult);
         //    console.log('sharename:', shareName);
-        //    console.log("MY RESULT TO COMPARE:", myResult);
-        await saveVibeMatchReceived(myResult, sharedResult, matchId, shareName);
+        const matchData = {
+          matchId: matchId,
+          myUserId: myResult.userId,
+          theirUserId: sharedResult.userId,
+          myResultId: myResult.resultId,
+          theirResultId: sharedResult.resultId,
+          theirName: shareName,
+          timestamp: Date.now(),
+        };
+        await saveVibeMatchReceived(sharedResult, matchData);
         const result = generateComparisonSummary(myResult, sharedResult);
         setSummary(result);
       };

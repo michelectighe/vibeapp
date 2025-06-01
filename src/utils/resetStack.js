@@ -5,7 +5,7 @@ import { navigationRef } from "@/services";
 export const resetStack = (screenName, route) => {
   console.log('screenName', screenName)
   console.log('route', route)
-  if ((!screenName || !route ) && screenName !== "MatchScreen") return;
+  if ((!screenName || !route)) return;
   const whereFrom = navigationRef.getCurrentRoute();
 
   if (!whereFrom.params || whereFrom.name === "MatchScreen") return;

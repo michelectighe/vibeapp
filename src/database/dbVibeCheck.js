@@ -132,8 +132,7 @@ export const deleteResult = async (userId, resultId) => {
     const db = await getDb();
 
     await db.runAsync("DELETE FROM results WHERE resultId = ? AND userId = ?;", [resultId, userId]);
-    const isItGone = db.runAsync("SELECT * FROM results where resultId = ?", [resultId]);
-    console.log("did it delete:", isItGone);
+    await db.runAsync("DELETE FROM matchesReceived WHERE myResultId = ? ;", [resultId]);
   } catch (e) {
     console.error("Error deleting result from SQLite:", e);
     return false;
@@ -142,10 +141,48 @@ export const deleteResult = async (userId, resultId) => {
   try {
     const ref = doc(dbFs, "users", userId, "results", resultId);
     await deleteDoc(ref);
+
+    deleteMatchesReceivedByUser(userId);
+    deleteSharedLinksByUser(userId);
     console.log("✅ Deleted Firestore record:", ref.path);
     return true;
   } catch (e) {
     console.error(" Error deleting result from Firestore", e);
     return false;
+  }
+};
+
+const deleteSharedLinksByUser = async (userId) => {
+  try {
+    const q = query(collection(dbFs, "matcheLinks"), where("sharedByUserId", "==", userId));
+    const querySnapshot = await getDocs(q);
+
+    const deletePromises = querySnapshot.docs.map((docSnap) =>
+      deleteDoc(doc(dbFs, "matcheLinks", docSnap.id)),
+    );
+
+    await Promise.all(deletePromises);
+    console.log(`✅ Deleted ${querySnapshot.size} shared match links for user ${userId}`);
+  } catch (error) {
+    console.error("❌ Error deleting shared links:", error);
+  }
+};
+
+const deleteMatchesReceivedByUser = async (userId) => {
+  try {
+    const q = query(
+      collection(dbFs, "users", userId, "matchesReceived"),
+      where("myUserId", "==", userId),
+    );
+    const querySnapshot = await getDocs(q);
+
+    const deletePromises = querySnapshot.docs.map((docSnap) =>
+      deleteDoc(doc(dbFs, "users", userId, "matchesReceived", docSnap.id)),
+    );
+
+    await Promise.all(deletePromises);
+    console.log(`✅ Deleted ${querySnapshot.size} matchesReceived for user ${userId}`);
+  } catch (error) {
+    console.error("❌ Error deleting shared links:", error);
   }
 };

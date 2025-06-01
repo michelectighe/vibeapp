@@ -31,21 +31,24 @@ const rawStyles = {
   },
   innerContent: {
     flex: 1,
-    paddingTop: SCREEN_HEIGHT * 0.1,
-    alignItems: "center",
-    justifyContent: "space-evenly",
-    paddingHorizontal: SCREEN_WIDTH * 0.06,
+    paddingTop: SCREEN_HEIGHT * 0.07,
+
+    //    alignItems: "center",
+    //   justifyContent: "space-evenly",
+    //   paddingHorizontal: SCREEN_WIDTH * 0.06,
   },
   descriptionBox: {
     marginTop: SCREEN_HEIGHT * 0.02,
+    // marginBottom: 30,
     borderRadius: 30,
     padding: 20,
+    paddingBottom: 0,
     maxWidth: SCREEN_WIDTH * 0.9,
     alignItems: "center",
     alignSelf: "center",
     justifyContent: "flex-start",
     width: "90%",
-    paddingBottom: 60,
+    //   paddingBottom: 60,
   },
   descriptionText: {
     color: Colors.textLight,
@@ -53,14 +56,20 @@ const rawStyles = {
     textAlign: "center",
   },
   infoButton: {
-    position: "absolute",
+    //    position: "absolute",
     bottom: 10,
     padding: 10,
-    marginTop: 30,
+    marginTop: 10,
     zIndex: 10,
   },
   infoIcon: {
     fontSize: 36,
+  },
+  navButtons: {
+  //  position: "absolute",
+   // bottom: 0,
+    marginTop: 30,
+    width: "80%",
   },
   loading: {
     marginTop: 20,

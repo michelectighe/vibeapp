@@ -13,7 +13,7 @@ import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { MyResultsContext } from "@/context/MyResultsContext";
 import { SplashScreen } from "../Main";
 import { getSharedResult } from "@/database";
-import { getMatchId } from "@/utils";
+import { getMatchId, clearMatchId } from "@/utils";
 
 //setLogLevel("debug");
 export const MatchScreen = ({ route }) => {
@@ -36,7 +36,7 @@ export const MatchScreen = ({ route }) => {
 
   useEffect(() => {
     if (!matchId) return;
-  //  console.log("user", user);
+    //  console.log("user", user);
     if (!user) return;
     const fetchSharedResult = async () => {
       console.log("match:", matchId);
@@ -44,12 +44,20 @@ export const MatchScreen = ({ route }) => {
       const sharedData = await getSharedResult(user?.uid, matchId);
       // console.log("SHARED DATA BACK:", sharedData);
       if (sharedData) {
-        // console.log('SHARED NAME:', sharedData[1].sharedName)
-        setSharedName(sharedData[1].sharedName);
-        setSharedResult(sharedData[0].sharedResult);
-        setMatchFound(true);
+        // same user don't save
+        if (sharedData[0].sharedResult.userId !== user.uid) {
+          setSharedName(sharedData[1].sharedName);
+          setSharedResult(sharedData[0].sharedResult);
+          setMatchFound(true);
+        } else {
+          clearMatchId();
+        }
+      } else {
+        // no match data.  clear the link
+        clearMatchId();
       }
       setLoadingShared(false);
+      console.log('got here')
     };
     fetchSharedResult();
   }, [matchId, user]);
@@ -79,14 +87,15 @@ export const MatchScreen = ({ route }) => {
             </Text>
           </View>
         )}
-        {!noResults && matchFound && (
+        {matchFound && (
           <ScrollView
             style={[styles.scrollView, { bottom: tabBarHeight + 12 }]}
             contentContainerStyle={styles.scrollContent}
             showsVerticalScrollIndicator={false}
           >
-            <Text style={styles.resultText}>Select one of your results to compare:</Text>
-
+            {!noResults && (
+              <Text style={styles.resultText}>Select one of your results to compare:</Text>
+            )}
             {/* <Text style={styles.noResults}>No Results to Share</Text> */}
             <CustomSpiritualButton
               label="Do a New Vibe Check"
@@ -97,6 +106,7 @@ export const MatchScreen = ({ route }) => {
             <ResultSelector
               results={myResults ?? []}
               onSelect={(selected) => {
+                clearMatchId();
                 navigation.navigate("MatchComparisonScreen", {
                   myResult: selected,
                   sharedResult,

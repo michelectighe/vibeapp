@@ -27,6 +27,7 @@ export const createMatchLink = async (resultId, userId, displayName, shareAnonym
 
     // 1. Friendly ID version (used in links)
     await setDoc(doc(dbFs, "matchLinks", matchId), {
+   //   await setDoc(doc(dbFs, "matchLinks"), {
       matchId,
       sharedByUserId,
       sharedByResultId,
