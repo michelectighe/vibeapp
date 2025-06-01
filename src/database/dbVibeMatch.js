@@ -54,7 +54,7 @@ export const saveVibeMatchReceived = async (myResult, sharedResult, matchId, sha
                 voiceStrengthScore,
                 voiceClarityScore,
                 emotionScore
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
       [
         matchId,
         sharedResult.resultId,

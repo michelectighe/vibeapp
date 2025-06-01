@@ -18,16 +18,19 @@ export const MatchComparisonScreen = ({ route }) => {
   const [summary, setSummary] = useState(null);
 
   useEffect(() => {
-    const saveMatch = async () => {
-      //  console.log('matchid:', matchId)
-      //    console.log("myResut:", myResult);
-      //    console.log("sharedResult:", sharedResult);
-      //    console.log('sharename:', shareName);
-      await saveVibeMatchReceived(myResult, sharedResult, matchId, shareName);
-    };
-    saveMatch();
-    const result = generateComparisonSummary(myResult, sharedResult);
-    setSummary(result);
+    if (myResult && sharedResult && matchId && shareName) {
+      const saveMatch = async () => {
+        //  console.log('matchid:', matchId)
+        //    console.log("myResut:", myResult);
+        //    console.log("sharedResult:", sharedResult);
+        //    console.log('sharename:', shareName);
+        //    console.log("MY RESULT TO COMPARE:", myResult);
+        await saveVibeMatchReceived(myResult, sharedResult, matchId, shareName);
+        const result = generateComparisonSummary(myResult, sharedResult);
+        setSummary(result);
+      };
+      saveMatch();
+    }
   }, [myResult, sharedResult, matchId, shareName]);
 
   if (!summary) return null;

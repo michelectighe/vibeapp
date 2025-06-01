@@ -17,14 +17,18 @@ export const generateComparisonSummary = (myResult, sharedResult) => {
   const extractScore = (val) => {
     if (val == null) return null;
     if (typeof val === "number") return val;
+    if (typeof val === "string") {
+      const value = JSON.parse(val);
+      return value.score;
+    }
     if (typeof val === "object" && "score" in val) return parseFloat(val.score);
     return null;
   };
 
   fieldsToCompare.forEach((key) => {
-    const myVal = extractScore(myResult[key]);
     const theirVal = extractScore(sharedResult[key]);
-
+    const myVal = extractScore(myResult[key]);
+    //console.log('you val:', myVal)
     if (myVal != null && theirVal != null) {
       const diff = Math.abs(myVal - theirVal);
       let category = "";
@@ -60,7 +64,7 @@ export const generateComparisonSummary = (myResult, sharedResult) => {
     }
   });
 
-  const vibeDelta = Math.abs(myResult.hawkinsScore - sharedResult.hawkinsScore);
+  const vibeDelta = Math.abs(myResult.overallVibrationScore - sharedResult.overallVibrationScore);
   let summary = "";
   if (vibeDelta < 10) {
     summary = "are almost energetically identical — a powerful resonance!";

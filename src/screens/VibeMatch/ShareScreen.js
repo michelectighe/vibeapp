@@ -20,7 +20,7 @@ import { useAmbientControlForScreen } from "@hooks";
 import { SubscriptionModal } from "@components";
 import { styles } from "./ShareScreen.styles";
 import { deleteResult } from "@/database";
-import { SCREEN_HEIGHT } from "@/utils";
+import { clearCreateShare, setCreateShare, SCREEN_HEIGHT } from "@/utils";
 import { CustomSpiritualButton } from "@/components";
 
 export const ShareScreen = () => {
@@ -67,9 +67,15 @@ export const ShareScreen = () => {
     }
   }, [authLoading, loading, user, isPremium, myResults]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const handleTakeTest = () => {
+    console.log("TAKE TEWST");
+    setCreateShare();
+    navigation.navigate("VibeCheck", { screen: "VibecheckScreen" });
+  };
   const onShare = async (item) => {
     try {
       //console.log("onshare item:", item);
+      clearCreateShare();
       const name = profile.displayName;
       const link = await createMatchLink(item.resultId, auth.currentUser.uid, name, isAnonymous);
       await Share.share({
@@ -141,25 +147,24 @@ export const ShareScreen = () => {
                 {!noResults && (
                   <Text style={styles.subTitle}>Let&apos;s see if your vibes are in sync.</Text>
                 )}
-                {noResults && (
-                  <View>
-                    <Text style={styles.noResults}>No Results to Share</Text>
-                    <CustomSpiritualButton
-                      label="Do a Vibe Check"
-                      onPress={() =>
-                        navigation.navigate("VibeCheck", { screen: "VibecheckScreen" })
-                      }
-                      color={Colors.surface}
-                      textColor={Colors.textDark}
-                    />
-                  </View>
-                )}
               </View>
               {!noResults && (
                 <ScrollView
                   contentContainerStyle={styles.scrollContent}
                   showsVerticalScrollIndicator={false}
                 >
+                  <View>
+                    <CustomSpiritualButton
+                      label="Do a New Vibe Check"
+                      onPress={() => {
+                        console.log("TAKE TEWST");
+                        setCreateShare();
+                        navigation.navigate("VibeCheck", { screen: "VibecheckScreen" });
+                      }}
+                      color={Colors.surface}
+                      textColor={Colors.textDark}
+                    />
+                  </View>
                   <ResultSelector
                     results={myResults}
                     onSelect={(item) => showResults(item)}

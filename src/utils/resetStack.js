@@ -2,11 +2,12 @@ import { StackActions , CommonActions} from "@react-navigation/native";
 import { navigationRef } from "@/services";
 
 
-export const resetStack = (screenName) => {
-  return;
-  if (!screenName) return;
+export const resetStack = (screenName, route) => {
+  console.log('screenName', screenName)
+  console.log('route', route)
+  if ((!screenName || !route ) && screenName !== "MatchScreen") return;
   const whereFrom = navigationRef.getCurrentRoute();
-  console.log('WHEREFROM:', wherefrom)
+
   if (!whereFrom.params || whereFrom.name === "MatchScreen") return;
 
   navigationRef.dispatch(

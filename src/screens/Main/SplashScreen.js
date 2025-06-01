@@ -1,24 +1,20 @@
 import React, { useEffect, useRef, useState } from "react";
-import { initApp } from "@utils";
-import { useAuth, useModels } from "@context";
 import { View, Animated, Easing } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { initApp, getMatchId } from "@utils";
+import { useAuth } from "@context";
 import { AnimatedLogo, GradientBackground } from "@components";
 import { Colors } from "@constants";
 import { styles } from "./SplashScreen.styles";
-import { globalStyles } from "@styles";
-import { useNavigation } from "@react-navigation/native";
 
-export const SplashScreen = ({ route, matchId = null }) => {
-  const { user, authLoading } = useAuth();
+export const SplashScreen = () => {
   const navigation = useNavigation();
+  const { user, authLoading } = useAuth();
   const rotateAnim = useRef(new Animated.Value(0)).current;
   const fadeAnim = useRef(new Animated.Value(0.1)).current;
 
-  // useEffect(() => {
-  //   setMatchId(route.params?.id || null);
-  // }, [route]);
-
   useEffect(() => {
+    // Logo animation
     Animated.loop(
       Animated.timing(rotateAnim, {
         toValue: 1,
@@ -33,55 +29,61 @@ export const SplashScreen = ({ route, matchId = null }) => {
       duration: 800,
       useNativeDriver: true,
     }).start();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
-    if (authLoading) return;
     const startApp = async () => {
+      if (authLoading) return;
+
       try {
         await new Promise((resolve) => setTimeout(resolve, 300));
         await initApp();
-        if (authLoading) return;
-        //console.log("DO WE COME IN HERE WITH AN ID:", matchId);
 
-        if (!matchId) {
-          // don't do this if coming from the match screen (deep link)
+        const matchId = getMatchId();
+
+        if (matchId) {
+          console.log("✅ Deep link matchId found:", matchId);
           if (user) {
-            navigation.navigate("Tabs", { screen: "Home" });
-          } else {
-            console.log(
-              "❌ ❌ ❌ ❌ ❌ ❌ ❌ ❌ ❌ ❌ ❌ ❌ ❌ going to sign in screen from splash",
-            );
+            // Logged in, go straight to match
             navigation.navigate("Tabs", {
-              screen: "Settings",
-              params: { screen: "SignInScreen" },
+              screen: "VibeMatch",
+              // params: { screen: "MatchScreen", params: { id: matchId } },
+              params: { screen: "MatchScreen" },
             });
-          }
-        } else {
-          if (!user) {
-            console.log(
-              "❌ ❌ ❌ ❌ ❌ ❌ ❌ ❌ ❌ ❌ ❌ ❌ ❌ going to sign in screen from splash with match",
-            );
+          } else {
+            // Not logged in, go to sign-in with redirect
             navigation.navigate("Tabs", {
               screen: "Settings",
               params: {
                 screen: "SignInScreen",
                 params: {
                   returnTo: {
-                    name: "VibeMatch",
-                    params: { screen: "MatchScreen" },
+                    screen: "VibeMatch",
+                    params: { screen: "MatchScreen", params: { id: matchId } },
                   },
                 },
               },
             });
+            // Don't clear yet — MatchScreen will handle it after login
+          }
+        } else {
+          // No matchId — normal flow
+          if (user) {
+            navigation.navigate("Tabs", { screen: "Home" });
+          } else {
+            navigation.navigate("Tabs", {
+              screen: "Settings",
+              params: { screen: "SignInScreen" },
+            });
           }
         }
       } catch (e) {
-        console.error("❌ Init failed", e);
+        console.error("❌ Splash init failed", e);
       }
     };
+
     startApp();
-  }, [authLoading, user, matchId]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [authLoading, user]);
 
   return (
     <Animated.View style={[styles.animatedView, { opacity: fadeAnim }]}>

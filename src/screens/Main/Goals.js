@@ -32,7 +32,7 @@ export const Goals = () => {
     const loadNotes = async () => {
       console.log("trying to get stickies");
       const stickies = await getAllStickyNotes();
-      console.log("stickies returned:", stickies);
+      //   console.log("stickies returned:", stickies);
       setNotes(stickies);
     };
     loadNotes();

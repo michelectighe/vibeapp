@@ -1,13 +1,12 @@
 import "react-native-reanimated";
 import "./src/styles/CustomText"; // must be imported before any screens load
-import React, { useRef, useEffect, useState, Linking } from "react";
+import React, { useRef, useEffect, useState } from "react";
 //import { setJSExceptionHandler } from "react-native-exception-handler";
 // import crashlytics from "@react-native-firebase/crashlytics";
 import { NavigationContainer, useNavigationContainerRef } from "@react-navigation/native";
-import { navigationRef } from "@services";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { initApp } from "@utils";
+import { linking } from "@/navigation/linkingConfig";
 
 import { LogBox, Text } from "react-native";
 import { enableScreens } from "react-native-screens";
@@ -52,28 +51,6 @@ LogBox.ignoreLogs([
   "Sending `playback-play-when-ready-changed` with no listeners registered",
 ]);
 
-const linking = {
-  prefixes: ["vibekey://"],
-  config: {
-    screens: {
-      Tabs: {
-        screens: {
-          VibeMatch: {
-            screens: {
-              MatchScreen: {
-                path: "match",
-                parse: {
-                  id: (id) => `${id}`,
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-  },
-};
-
 const Stack = createNativeStackNavigator();
 const AppInner = () => {
   const [isReady, setIsReady] = useState(false);
@@ -81,90 +58,74 @@ const AppInner = () => {
   const [initialLink, setInitialLink] = useState(null);
   const [checkForLink, setCheckForLink] = useState(false);
 
-const navigationRef = useNavigationContainerRef();
+  const navigationRef = useNavigationContainerRef();
 
-// useEffect(() => {
-//   const unsubscribe = navigationRef.addListener("state", () => {
-//     const currentRoute = navigationRef.getCurrentRoute();
-//     console.log("Navigated to:", currentRoute?.name);
-//   });
+  // useEffect(() => {
+  //   const unsubscribe = navigationRef.addListener("state", () => {
+  //     const currentRoute = navigationRef.getCurrentRoute();
+  //     console.log("Navigated to:", currentRoute?.name);
+  //   });
 
-//   return unsubscribe;
-// }, []);
+  //   return unsubscribe;
+  // }, []);
 
-useEffect(() => {
-  const init = async () => {
-    //console.log("linking:", linking);
-    try {
-       Purchases.setDebugLogsEnabled(false);
-      await initializeRevenueCat();
+  useEffect(() => {
+    const init = async () => {
+      try {
+        Purchases.setDebugLogsEnabled(false);
+        await initializeRevenueCat();
+      } catch (err) {
+        console.error("Failed to init revenueCat:", err);
+      }
+    };
+    init();
+  }, []);
 
-      // await initApp();
-      // // const url = await Linking.getInitialURL();
-      // //   setInitialLink(url); // <--- store the deep link if present
-      // setCheckForLink(true);
-      //    setInitialLink(url);
-      // setIsReady(true);
-    } catch (err) {
-      console.error("Failed to init app:", err);
-    }
-  };
-
-  init();
-}, [linking]);
-
-// const handleHomeReady = () => {
-//   setShowSplash(false);
-// };
-
-// if (!isReady) {
-//   return <SplashScreen />;
-// }
-return (
-  <AnalysisProvider>
-    <MusicManager />
-    <NavigationContainer
-      linking={linking}
-      ref={navigationRef}
-      onStateChange={() => {
-        const route = navigationRef.getCurrentRoute();
-        console.log("Route changed to:", route.name);
-      }}
-    >
-      <ModelProvider>
-        <Stack.Navigator
-          initialRouteName="Splash" // maybe change later to welcome screen
-          screenOptions={() => ({
-            headerShown: false,
-            animation: "fade",
-          })}
-        >
-          {/* SplashScreen sits on top of everything until cleared */}
-
-          <Stack.Screen
-            name="Splash"
-            component={SplashScreen}
-            options={{ headerShown: false }}
-          ></Stack.Screen>
-          <Stack.Screen name="Tabs" component={MyTabs} options={{ headerShown: false }} />
-
-          <Stack.Screen
-            name="ChakraDetailModal"
-            component={ChakraDetailModal}
-            options={{
-              presentation: "transparentModal", // or "modal"
+  return (
+    <AnalysisProvider>
+      <MusicManager />
+      <NavigationContainer
+        linking={linking}
+        ref={navigationRef}
+        onStateChange={() => {
+          const route = navigationRef.getCurrentRoute();
+          console.log("Route changed to:", route.name);
+        }}
+      >
+        <ModelProvider>
+          <Stack.Navigator
+            initialRouteName="Splash" // maybe change later to welcome screen
+            screenOptions={() => ({
               headerShown: false,
-            }}
-          />
-          <Stack.Screen name="Welcome" component={WelcomeScreen} />
-          <Stack.Screen name="Streaks" component={StreakStack} />
-          <Stack.Screen name="GoodNews" component={GoodNewsScreen} />
-          <Stack.Screen name="DevOnly" component={DevOnly} />
-        </Stack.Navigator>
-      </ModelProvider>
-    </NavigationContainer>
-  </AnalysisProvider>
-);
+              animation: "fade",
+            })}
+          >
+            {/* SplashScreen sits on top of everything until cleared */}
+
+            <Stack.Screen
+              name="Splash"
+              component={SplashScreen}
+              options={{ headerShown: false }}
+            ></Stack.Screen>
+            <Stack.Screen name="Tabs" component={MyTabs} options={{ headerShown: false }} />
+
+            <Stack.Screen
+              name="ChakraDetailModal"
+              component={ChakraDetailModal}
+              options={{
+                presentation: "transparentModal", // or "modal"
+                headerShown: false,
+              }}
+            />
+            <Stack.Screen name="Welcome" component={WelcomeScreen} />
+            <Stack.Screen name="Streaks" component={StreakStack} />
+            <Stack.Screen name="GoodNews" component={GoodNewsScreen} />
+            <Stack.Screen name="DevOnly" component={DevOnly} />
+          </Stack.Navigator>
+        </ModelProvider>
+      </NavigationContainer>
+    </AnalysisProvider>
+  );
 };
 
 export const App = () => {
@@ -174,7 +135,7 @@ export const App = () => {
         <AuthProvider>
           <UserProfileProvider>
             <MyResultsProvider>
-            <AppInner />
+              <AppInner />
             </MyResultsProvider>
           </UserProfileProvider>
         </AuthProvider>

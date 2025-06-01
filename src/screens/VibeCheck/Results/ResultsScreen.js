@@ -11,6 +11,7 @@ import { useRoute } from "@react-navigation/native";
 import { getResultByID, saveResults } from "@database";
 import { hexToRgba } from "@/utils";
 import { MyResultsContext } from "@/context/MyResultsContext";
+import { getMatchId, getCreateShare } from "@/utils";
 
 Text.defaultProps = Text.defaultProps || {};
 Text.defaultProps.allowFontScaling = false;
@@ -20,6 +21,8 @@ export const ResultsScreen = ({ navigation }) => {
   const { resultId, returnTo } = route.params || {};
   const { setMyResults } = useContext(MyResultsContext);
   const auth = getAuth();
+  const createShare = getCreateShare();
+  const matchId = getMatchId();
   const user = auth.currentUser;
   const [overallLabel, setLabel] = useState(null);
   const [overallDescription, setDescription] = useState(null);
@@ -140,19 +143,33 @@ export const ResultsScreen = ({ navigation }) => {
   };
 
   const resetAndLeave = () => {
-    console.log("returnTo value:", returnTo);
-    if (returnTo && typeof returnTo === "object") {
-      navigation.reset({
-        index: 0,
-        routes: [returnTo],
+    console.log("creating share:", createShare);
+    if (createShare) {
+      navigation.navigate("Tabs", {
+        screen: "VibeMatch",
+        params: { screen: "ShareScreen" },
       });
-    } else if (typeof returnTo === "string") {
-      //console.log("string return:", returnTo);
-      navigation.reset({
-        index: 0,
-        routes: [{ name: returnTo }],
+    } else if (matchId) {
+      console.log("MATCHRECEIVED:", matchId);
+      navigation.navigate("Tabs", {
+        screen: "VibeMatch",
+        params: { screen: "MatchScreen" },
       });
-    } else {
+    }
+    // return;
+    // console.log("returnTo value:", returnTo);
+    // if (returnTo && typeof returnTo === "object") {
+    //   navigation.reset({
+    //     index: 0,
+    //     routes: [returnTo],
+    //   });
+    // } else if (typeof returnTo === "string") {
+    //   //console.log("string return:", returnTo);
+    //   navigation.reset({
+    //     index: 0,
+    //     routes: [{ name: returnTo }],
+    //   });
+    else {
       navigation.reset({
         index: 0,
         routes: [{ name: "Tabs", screen: "Home" }],

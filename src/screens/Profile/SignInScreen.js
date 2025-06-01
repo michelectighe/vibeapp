@@ -102,6 +102,7 @@ export const SignInScreen = ({ navigation, route }) => {
     resetAndLeave();
   };
   const resetAndLeave = () => {
+    console.log('RETURN TO IN SIGN IN:', returnTo)
     if (returnTo && typeof returnTo === "object") {
       navigation.reset({
         index: 0,

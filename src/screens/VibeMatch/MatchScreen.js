@@ -13,6 +13,7 @@ import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { MyResultsContext } from "@/context/MyResultsContext";
 import { SplashScreen } from "../Main";
 import { getSharedResult } from "@/database";
+import { getMatchId } from "@/utils";
 
 //setLogLevel("debug");
 export const MatchScreen = ({ route }) => {
@@ -22,7 +23,7 @@ export const MatchScreen = ({ route }) => {
   const user = auth.currentUser;
   useAmbientControlForScreen(true);
   const navigation = useNavigation();
-  const [matchId, setMatchId] = useState(null);
+  const [matchId, setLocalMatchId] = useState(null);
   const [loadingShared, setLoadingShared] = useState(true);
   const [sharedResult, setSharedResult] = useState(null);
   const [matchFound, setMatchFound] = useState(false);
@@ -30,12 +31,12 @@ export const MatchScreen = ({ route }) => {
   const [noResults, setNoResults] = useState(true);
   const tabBarHeight = useBottomTabBarHeight();
   useEffect(() => {
-    setMatchId(route.params?.id || null);
-  }, [route]);
+    setLocalMatchId(getMatchId());
+  }, []);
 
   useEffect(() => {
     if (!matchId) return;
-    console.log("user", user);
+  //  console.log("user", user);
     if (!user) return;
     const fetchSharedResult = async () => {
       console.log("match:", matchId);
@@ -76,17 +77,6 @@ export const MatchScreen = ({ route }) => {
             <Text style={styles.title}>
               {`${shareName} wants to match. Let's see if your vibes are in sync.`}
             </Text>
-            {noResults && (
-              <View>
-                <Text style={styles.noResults}>No Results to Share</Text>
-                <CustomSpiritualButton
-                  label="Do a Vibe Check"
-                  onPress={() => navigation.navigate("VibeCheck", { screen: "VibecheckScreen" })}
-                  color={Colors.surface}
-                  textColor={Colors.textDark}
-                />
-              </View>
-            )}
           </View>
         )}
         {!noResults && matchFound && (
@@ -96,6 +86,14 @@ export const MatchScreen = ({ route }) => {
             showsVerticalScrollIndicator={false}
           >
             <Text style={styles.resultText}>Select one of your results to compare:</Text>
+
+            {/* <Text style={styles.noResults}>No Results to Share</Text> */}
+            <CustomSpiritualButton
+              label="Do a New Vibe Check"
+              onPress={() => navigation.navigate("VibeCheck", { screen: "VibecheckScreen" })}
+              color={Colors.surface}
+              textColor={Colors.textDark}
+            />
             <ResultSelector
               results={myResults ?? []}
               onSelect={(selected) => {

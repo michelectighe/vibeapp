@@ -14,7 +14,7 @@ export const initializeDatabase = async () => {
   try {
     await db.execAsync(`PRAGMA foreign_keys=ON;`); // 🔥 Enforce SQLite execution before table creation
 
-    //    await db.execAsync("DROP TABLE IF EXISTS results;");
+//    await db.execAsync("DROP TABLE IF EXISTS matchResultsReceived;");
 
     await db.execAsync(`
       CREATE TABLE IF NOT EXISTS results (
