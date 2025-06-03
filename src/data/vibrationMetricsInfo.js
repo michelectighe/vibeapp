@@ -1,7 +1,7 @@
 export const vibrationMetricsInfo = {
   voiceFrequencyScore: {
     label: "Voice Frequency",
-    range: [20, 100],
+    range: [85, 255],
     explanation: "A balanced vocal pitch suggests emotional harmony. Ideal range is 85–255 Hz.",
     unit: "Hz",
   },
@@ -14,7 +14,7 @@ export const vibrationMetricsInfo = {
   },
   voiceStrengthScore: {
     label: "Voice Strength",
-    range: [20, 100],
+    range: [-20, -5],
     explanation:
       "Represents the loudness of your voice, measured in decibels (dB). Higher values indicate a stronger vocal presence. A typical speaking voice ranges from -20 dB to -10 dB, while -5 dB or higher reflects a powerful tone.",
     unit: "dB",
@@ -36,10 +36,10 @@ export const vibrationMetricsInfo = {
 
   motionScore: {
     label: "Motion / Stillness",
-    range: [20, 100],
+    range: [0, 0.25],
     explanation:
-      "Measures physical activity or restlessness. Higher scores are more calm/meditative.",
-    unit: "%",
+      "Measures physical activity or restlessness(between 0 and 2.5 motion variation). Lower scores are more calm/meditative.",
+    unit: "m/s²",
   },
   environmentScore: {
     label: "Environmental Vibe",
@@ -59,7 +59,7 @@ export const vibrationMetricsInfo = {
     explanation: "Aggregate vibration score across all metrics. Higher = more elevated frequency.",
     unit: "%",
   },
-  HawkinsScore: {
+  hawkinsScore: {
     label: "Consciousness - Hawkins scale",
     range: [0, 1000],
     explanation:

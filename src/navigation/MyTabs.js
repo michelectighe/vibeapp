@@ -109,7 +109,7 @@ export const MyTabs = ({handleHomeReady}) => {
             iconName = focused ? "scan" : "scan-circle-outline";
           } else if (route.name === "VibeMatch") {
             iconName = focused ? "heart" : "heart-outline";
-          } else if (route.name === "InnerWork") {
+          } else if (route.name === "tools") {
             iconName = focused ? "footsteps" : "footsteps-outline";
           } else if (route.name === "Goals") {
             return (
@@ -190,8 +190,8 @@ export const MyTabs = ({handleHomeReady}) => {
           },
         })}
         options={{
-          tabBarItemStyle: { display: "none" },
-          tabBarButton: () => null,
+          tabBarLabel: "Check",
+          unmountOnBlur: true,
         }}
       />
       <Tab.Screen
@@ -202,14 +202,14 @@ export const MyTabs = ({handleHomeReady}) => {
             resetStack("Goals");
           },
         })}
-        options={{ tabBarLabel: "Goals" }}
+        options={{ tabBarItemStyle: { display: "none" }, tabBarButton: () => null }}
       />
       <Tab.Screen
-        name="InnerWork"
+        name="Tools"
         component={ToolsStack}
         listeners={({ navigation, route }) => ({
           tabPress: (e) => {
-            resetStack("InnerWork");
+            resetStack("tools");
           },
         })}
         options={{

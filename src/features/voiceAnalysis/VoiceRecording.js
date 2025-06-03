@@ -104,6 +104,7 @@ export const useVoiceRecording = () => {
       // ////console.log("averageVoiceClarity:", avgClarity.toFixed(2));
       // ////console.log("averageFrequency:", avgFrequency.toFixed());
       setVoiceStrength(avgLoudness.toFixed(2));
+      console.log('SETTING VOICE STRENGTH', avgLoudness)
       setVoiceClarity(avgClarity.toFixed(2));
       setVoiceFrequency(avgFrequency.toFixed(2));
     } catch (error) {

@@ -17,6 +17,7 @@ import { Colors, Fonts } from "@constants";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { globalZIndexCounter } from "../state/zIndexStore";
 
+
 export const StickyNote = forwardRef(
   (
     {
@@ -28,6 +29,7 @@ export const StickyNote = forwardRef(
       onDelete,
       color = Colors.stickyNotes,
       textColor = Colors.textDark,
+      onEdit,
     },
     ref,
   ) => {
@@ -45,7 +47,6 @@ export const StickyNote = forwardRef(
     const checkmarkOpacity = useSharedValue(0);
     const checkmarkScale = useSharedValue(0.5);
     const [visible, setVisible] = useState(true);
-    // const zIndexCounter = makeMutable(10);
 
     //console.log('zindexcurrent:', zIndex.current)
     useEffect(() => {
@@ -136,18 +137,16 @@ export const StickyNote = forwardRef(
         runOnJS(setDone)(newDone);
         runOnJS(savePositionWithDone)(newDone);
       });
-    // const singleTapGesture = Gesture.Tap()
-    //   .numberOfTaps(1)
-    //   .onStart(() => {
-    //      zIndex.value = globalZIndexCounter.value++;
-    //   })
-    //   .onEnd(() => {
-    //   });
+    const longPressGesture = Gesture.LongPress()
+      .onStart(() => {
+        runOnJS(onEdit)(true);
+      })
+      .onEnd(() => {});
 
     const gesture = Gesture.Simultaneous(
       Gesture.Simultaneous(panGesture, rotateGesture),
       doubleTapGesture,
-      //  singleTapGesture,
+      longPressGesture,
     );
 
     const animatedStyle = useAnimatedStyle(() => ({
@@ -223,6 +222,7 @@ export const StickyNote = forwardRef(
     );
   },
 );
+
 StickyNote.displayName = "StickyNote";
 
 const styles = StyleSheet.create({

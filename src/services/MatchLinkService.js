@@ -39,6 +39,8 @@ export const createMatchLink = async (resultId, userId, displayName, shareAnonym
       comparisonResults: {
         overallSummary: null,
         comparisons: null,
+        sharedChakras: null,
+        recipientChakras: null,
       },
     });
 

@@ -46,7 +46,7 @@
 - [x] Fix feathers
 - [x] emotional transition screen: change timing to exit after text (change font)
 - [x] heart rate screen - change layout
-- [ ] apply sectionLayout to all screens
+- [x] apply sectionLayout to all screens
 - [x] style results screen
 - [x] breathing screen: change circle to fuzzy glow
 - [x] centralize colors
@@ -68,10 +68,10 @@
 
 ### 6. VibeMatch Section
 
-- [ ] Test deep linking - when not signed in and when app not open vs already open
+- [x] Test deep linking - when not signed in and when app not open vs already open
 - [ ] Sharpen up match results screen
-- [ ] Improve match selection screen (add option for retaking test first before comparing)
-- [ ] Fix link for not signed in
+- [x] Improve match selection screen (add option for retaking test first before comparing)
+- [x] Fix link for not signed in
 
 ### 7. Results Screen Polish
 

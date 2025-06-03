@@ -126,7 +126,7 @@ const rawStyles = {
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
     elevation: 2,
-//    justifyContent: "center",
+    //    justifyContent: "center",
   },
   iconLabel: {
     fontSize: 14,
@@ -138,6 +138,12 @@ const rawStyles = {
     fontSize: 16,
     fontFamily: Fonts.body,
     fontWeight: "600",
+    color: Colors.textDark,
+  },
+  shaky: {
+    fontSize: 16,
+    fontFamily: Fonts.body,
+    fontWeight: "300",
     color: Colors.textDark,
   },
   iconSubValue: {

@@ -14,7 +14,7 @@ import { hexToRgba } from "@/utils";
 function HeartRateScreenInner() {
   const { goToNextScreen } = useVibeCheckNavigation();
   const { setSound, setMagnitude, setMotion, setEnvironment } = useAnalysis();
-  const { averageMotion, motionEval, stopMotionTracking } = useMotion();
+  const { motionEval, stopMotionTracking, isFidgeting, sessionStdDev } = useMotion();
   const {
     environment,
     vibeList,
@@ -47,11 +47,13 @@ function HeartRateScreenInner() {
   const detailsOpacity = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
-    Animated.timing(detailsOpacity, {
-      toValue: 1,
-      duration: 5000,
-      useNativeDriver: true,
-    }).start();
+    setTimeout(async () => {
+      Animated.timing(detailsOpacity, {
+        toValue: 1,
+        duration: 5000,
+        useNativeDriver: true,
+      }).start();
+    }, 1600);
   }, []);
 
   useFocusEffect(
@@ -73,13 +75,13 @@ function HeartRateScreenInner() {
   );
 
   useEffect(() => {
-    if (stable && averageMagnitude && averageMotion && averageEnvironment) {
+    if (stable && averageMagnitude && averageEnvironment) {
       setSound(averageSound);
       setMagnitude(averageMagnitude);
-      setMotion(averageMotion);
       setEnvironment(averageEnvironment);
+      setMotion(sessionStdDev);
     }
-  }, [stable, averageSound, averageMagnitude, averageMotion, averageEnvironment]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [stable, averageSound, averageMagnitude, sessionStdDev, averageEnvironment]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleStableReading = () => {
     stopMotionTracking();
@@ -191,6 +193,7 @@ function HeartRateScreenInner() {
                     <Text style={styles.iconValue} numberOfLines={2}>
                       {motionLabel}
                     </Text>
+                    {isFidgeting && <Text style={styles.shaky}>shaky</Text>}
                   </View>
                   <View style={[styles.iconItem, { height: "31%" }]}>
                     <Text style={styles.iconLabel}>📍 Location Vibe</Text>

@@ -164,7 +164,7 @@ export const EnvironmentProvider = ({ children }) => {
         ? updated.slice(-MAX_VALUES) // keep only the most recent ones
         : updated;
     });
-
+//console.log('ENV VALUES:', overall.value)
   };
 
 

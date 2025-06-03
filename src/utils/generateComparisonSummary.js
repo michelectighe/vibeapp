@@ -76,7 +76,6 @@ if (countByAlignment.aligned >= comparisons.length * 0.7) {
 return {
   overallSummary,
   comparisons,
-  chakraComparisons,
 };
 
 };

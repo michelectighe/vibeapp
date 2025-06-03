@@ -38,7 +38,7 @@ export const getAllStickyNotes = async () => {
   try {
     const db = await getDb();
     const result = await db.getAllAsync("SELECT * FROM sticky_notes");
-    console.log("get all stickies:", result);
+
     return result;
   } catch (e) {
     console.error("error getting all stickyNotes:", e);
@@ -60,6 +60,36 @@ export const updateStickyNotePositionDb = async (id, { x, y, rotation, done }) =
     console.error("Error updating sticky:", e);
   }
 };
+export const updateStickyDoneDb = async (id, done) => {
+  try {
+    const db = await getDb();
+    //console.log("updating id:", id);
+    console.log("setting done:", done);
+    await db.runAsync("UPDATE sticky_notes SET done = ? WHERE id = ?", [done, id]);
+  } catch (e) {
+    console.error("Error updating sticky:", e);
+  }
+};
+
+export const updateStickyDb = async (id, text, color) => {
+  try {
+    console.log("UPDATING t=:", id, text, color);
+    const db = await getDb();
+    //console.log("updating id:", id);
+
+    await db.runAsync("UPDATE sticky_notes SET text = ?, color = ?  WHERE id = ?", [
+      text,
+      color,
+      id,
+    ]);
+  } catch (e) {
+    console.error("Error updating sticky:", e);
+  }
+};
+
+ 
+
+
 
 export const deleteStickyNoteByIdDb = async (id) => {
   try {

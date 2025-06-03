@@ -1,33 +1,62 @@
 import React, { useState, useRef, useCallback, useEffect } from "react";
 
 import { ImageBackground, View, Text, Animated } from "react-native";
+import { BlurView } from "expo-blur";
 import { useEnvironment } from "@context";
 import { Colors } from "@constants";
 import { styles } from "./MeditationSpaceScreen.styles";
-import { globalStyles } from "@styles";
 import { useFocusEffect, useNavigation } from "@react-navigation/native";
 import { CloseX } from "@/components";
 import { useAmbientControlForScreen } from "@/hooks";
+import { debounceLabel } from "@utils";
 
 export const MeditationSpaceScreen = () => {
+  const {
+    environment,
+    vibeList,
+    soundLabels,
+    averageSound,
+    averageMagnitude,
+    averageEnvironment,
+    stopEnvironmentTracking,
+  } = useEnvironment();
   useAmbientControlForScreen(false);
   const navigation = useNavigation();
-  const { environment, vibeList } = useEnvironment();
-  const [combinedCalm, setCombinedCalm] = useState(0);
+  const [soundValue, setSoundValue] = useState();
+  const [vibeListCat, setVibeListCat] = useState("");
   const [spaceLabel, setSpaceLabel] = useState("Neutral");
   const [magLabel, setMagLabel] = useState("");
   const [soundLabel, setSoundLabel] = useState("");
+  const [topSoundLabels, setTopSoundLabels] = useState("");
+  const [magValue, setMagValue] = useState();
   const imageFade = useRef(new Animated.Value(0)).current;
+  const lastSoundLabelRef = useRef(null);
+  const lastMagLabelRef = useRef(null);
+  const lastMotionLabelRef = useRef(null);
+  const lastSetTimestampRef = useRef(null);
+  const debounceSoundTimeout = useRef(null);
+  const debounceMagTimeout = useRef(null);
+  const debounceMotionTimeout = useRef(null);
+  const successCardOpacity = useRef(new Animated.Value(0)).current;
+  const detailsOpacity = useRef(new Animated.Value(0)).current;
 
-  // useFocusEffect(
-  //   useCallback(() => {
-  //     const parent = navigation.getParent?.();
-  //     parent?.setOptions({ tabBarStyle: { display: "none" } });
-  //     return () => {
-  //       //console.log("leaving secons focus effect");
-  //     };
-  //   }, [navigation]),
-  // );
+  useEffect(() => {
+    setTimeout(async () => {
+      Animated.timing(detailsOpacity, {
+        toValue: 1,
+        duration: 5000,
+        useNativeDriver: true,
+      }).start();
+    }, 1600);
+  }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      return () => {
+        stopEnvironmentTracking();
+      };
+    }, []), // eslint-disable-line react-hooks/exhaustive-deps
+  );
 
   useEffect(() => {
     Animated.timing(imageFade, {
@@ -38,63 +67,87 @@ export const MeditationSpaceScreen = () => {
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (environment && environment.overall && environment.magnetometer && environment.sound) {
-      setSoundLabel(environment.sound.label);
-      setMagLabel(environment.magnetometer.label);
-      setCombinedCalm(Number(environment.overall.score));
+    if (environment?.overall && environment.magnetometer && environment.sound) {
+      debounceLabel({
+        newLabel: environment.sound.label,
+        lastLabelRef: lastSoundLabelRef,
+        lastSetTimestampRef,
+        timeoutRef: debounceSoundTimeout,
+        setter: setSoundLabel,
+      });
+      debounceLabel({
+        newLabel: environment.magnetometer.label,
+        lastLabelRef: lastMagLabelRef,
+        lastSetTimestampRef,
+        timeoutRef: debounceMagTimeout,
+        setter: setMagLabel,
+      });
+      setVibeListCat(vibeList);
+      setTopSoundLabels(soundLabels);
+      setSoundValue(environment.sound.value);
+      setMagValue(environment.magnetometer.value);
       setSpaceLabel(environment.overall.label);
     }
-  }, [environment, vibeList]);
-
-  // useEffect(() => {
-  //   setGlowColor(Colors.white);
-  //   setGlowSizeNum(100);
-  //   const scaledSize = 30;
-  //   Animated.timing(glowAnim, {
-  //     toValue: scaledSize,
-  //     duration: 500,
-  //     easing: Easing.inOut(Easing.ease),
-  //     useNativeDriver: false,
-  //   }).start();
-  // }, [combinedCalm]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  // useEffect(() => {
-  //   const listener = glowAnim.addListener(({ value }) => {
-  //     const newSize = width * (0.2 + value * 0.8);
-  //     setGlowSizeNum(1000);
-  //   });
-
-  //   return () => glowAnim.removeListener(listener);
-  // }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [environment]);
 
   return (
-    <View style={globalStyles.container}>
+    <View style={styles.container}>
       <CloseX xColor={Colors.textDark} onPress={() => navigation.goBack()} />
       <ImageBackground
         style={styles.backgroundImage}
         source={require("@assets/images/backgroundMeditation.webp")}
         resizeMode="cover"
       >
-        <View style={styles.centerContainer}>
-          <Text style={styles.labelText}> {soundLabel}</Text>
-          <Text style={styles.labelText}> {magLabel}</Text>
-          <Text style={styles.labelText}>Overall: {spaceLabel}</Text>
-          {vibeList.map((item, index) => (
-            <Text key={index} style={styles.vibeItem}>
-              {item.category.toUpperCase()}: {(item.score * 100).toFixed(2)}%
-            </Text>
-          ))}
 
-          {!isNaN(combinedCalm) && combinedCalm != null && (
-            <Text style={styles.scoreText}>{combinedCalm.toFixed(0)}</Text>
+          {vibeListCat && environment && (
+            <Animated.View style={[styles.infoContainer, { opacity: detailsOpacity }]}>
+              <BlurView intensity={5} tint="light" style={styles.card}>
+                <View style={styles.sideBySide}>
+                  <View style={styles.leftColumn}>
+                    <View style={styles.largeCard}>
+                      <View style={styles.subLargeCardShort}>
+                        <Text style={styles.iconLabel}>🎧 Background Sound</Text>
+                        <Animated.Text style={[styles.iconValue]}>{soundLabel}</Animated.Text>
+                      </View>
+                      <View style={styles.dividerLeft} />
+                      <View style={styles.subLargeCardTall}>
+                        <Text style={[styles.iconLabel, {}]}>Detected Tones</Text>
+                        {topSoundLabels.map((label, i) => (
+                          <Animated.Text key={i} style={[styles.iconValue]}>
+                            {label}
+                          </Animated.Text>
+                        ))}
+                      </View>
+                    </View>
+                  </View>
+
+                  <View style={styles.rightColumn}>
+                    <View style={styles.largeCard}>
+                      <View style={[styles.subLargeCardShort]}>
+                        <Text style={styles.iconLabel}>📡 Magnetic Field</Text>
+                        <Animated.Text style={styles.iconValue}>{magLabel}</Animated.Text>
+                        <Animated.Text style={styles.iconSubValue}>
+                          {magValue.toFixed(1)} µT
+                        </Animated.Text>
+                      </View>
+                      <View style={styles.dividerRight} />
+                      <View style={[styles.subLargeCardTall]}>
+                        <Text style={styles.iconLabel}>Location Vibe</Text>
+                        <Animated.Text style={styles.iconValue} numberOfLines={2}>
+                          {spaceLabel}
+                        </Animated.Text>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </BlurView>
+            </Animated.View>
           )}
-        </View>
-        <View style={styles.bottomRow}>
-          <View style={styles.bottomInner}>
-            <View style={styles.bottomColumn}></View>
-          </View>
-        </View>
+    
       </ImageBackground>
     </View>
   );
 };
+
+
+// 📍 

@@ -1,21 +1,29 @@
-import { useRef } from "react";
-import { TouchableOpacity, StyleSheet, Animated, Easing, Image, Text } from "react-native";
+import React, { useRef, useEffect } from "react";
+import { TouchableOpacity, StyleSheet, Animated, Easing } from "react-native";
 import { Colors, Fonts } from "@constants";
-import { Ionicons } from "@expo/vector-icons";
 import { scaledStyle } from "@/utils";
 
-export const CloseX = ({ xColor = Colors.textLight, onPress }) => {
+export const CloseX = React.memo(({ xColor = Colors.textLight, onPress }) => {
   const rotate = useRef(new Animated.Value(0)).current;
-  // Rotation loop
-  rotate.setValue(0); // reset before loop
-  Animated.loop(
-    Animated.timing(rotate, {
-      toValue: 1,
-      duration: 8000, // adjust for desired spin speed
-      easing: Easing.linear,
-      useNativeDriver: true,
-    }),
-  ).start();
+
+  useEffect(() => {
+    // Only start the animation ONCE when the component mounts
+    rotate.setValue(0); // reset only once, if ever needed
+    const animation = Animated.loop(
+      Animated.timing(rotate, {
+        toValue: 1,
+        duration: 8000,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+    );
+    animation.start();
+
+    // Optionally clean up on unmount
+    return () => {
+      animation.stop();
+    };
+  }, [rotate]);
 
   const spin = rotate.interpolate({
     inputRange: [0, 1],
@@ -47,14 +55,13 @@ export const CloseX = ({ xColor = Colors.textLight, onPress }) => {
       />
     </TouchableOpacity>
   );
-};
+});
 
 const rawStyles = {
   feather: {
     position: "absolute",
     right: 1,
-    top: 1
-    ,
+    top: 1,
     width: 40,
     height: 40,
     opacity: 0.6,

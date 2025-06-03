@@ -7,6 +7,7 @@ import {
   GuidedMeditationScreen,
   QuantumJournalScreen,
   JournalListScreen,
+  GoalsByDayScreen,
 } from "@screens";
 
 export const ToolsStack = () => {
@@ -40,6 +41,16 @@ export const ToolsStack = () => {
       <Stack.Screen
         name="FrequenciesScreen"
         component={FrequenciesScreen}
+        options={{
+          headerShown: false,
+          tabBarVisible: true,
+          tabBarStyle: { display: "flex" },
+          title: "",
+        }}
+      />
+      <Stack.Screen
+        name="GoalsByDayScreen"
+        component={GoalsByDayScreen}
         options={{
           headerShown: false,
           tabBarVisible: true,

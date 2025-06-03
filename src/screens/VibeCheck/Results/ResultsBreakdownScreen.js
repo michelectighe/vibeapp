@@ -39,6 +39,7 @@ const navigation = useNavigation();
   } = useAnalysis();
 
   const results = {
+    hawkinsScore,
     voiceFrequencyScore,
     voiceClarityScore,
     voiceStrengthScore,
@@ -48,8 +49,8 @@ const navigation = useNavigation();
     rawHRV,
     emotionScore,
     overallVibrationScore,
-    hawkinsScore,
   };
+  
   useEffect(() => {
     const result = vibrationInfo;
     if (!result) return;
@@ -61,91 +62,95 @@ const navigation = useNavigation();
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-
-   const getMetricStatus = (value, [min, max]) => {
+  const getMetricStatus = (value, [min, max]) => {
     if (value === null || value === undefined || value === 0) {
       return { icon: "⚠️", label: "Data missing", style: styles.missing };
     }
-  
+
     const range = max - min;
     const buffer = range * 0.15; // 15% suboptimal threshold on either end
-  
+
     if (value < min || value > max) {
       return { icon: "❌", label: "Outside healthy range", style: styles.outOfRange };
     }
-  
+
     if (value < min + buffer) {
       return { icon: "⚠️", label: "Slightly outside healthy range", style: styles.suboptimal };
     }
 
-     if (value > (max - buffer)) {
-        return { icon: "🌟", label: "Optimal range", style: styles.optimal };
-     }
-  
+    if (value > max - buffer) {
+      return { icon: "🌟", label: "Optimal range", style: styles.optimal };
+    }
+
     return { icon: "✅", label: "Within healthy range", style: styles.inRange };
   };
+function formatValue(val) {
+  if (val == null) return "";
+  const rounded = Number(val).toFixed(2);
+  // Remove trailing ".00" if present
+  return rounded.endsWith(".00") ? Number(rounded).toString() : rounded;
+}
 
   return (
+    <GradientBackground
+      colors={
+        overallColor
+          ? [overallColor4, overallColor, overallColor2, overallColor3, overallColor4]
+          : [Colors.white, Colors.white, Colors.white]
+      }
+    >
+      <CloseX xColor={overallColor4} onPress={() => navigation.goBack()} />
 
-      <GradientBackground
-        colors={
-          overallColor
-            ? [overallColor4, overallColor, overallColor2, overallColor3, overallColor4]
-            : [Colors.white, Colors.white, Colors.white]
-        }
+      <ScrollView
+        style={[styles.scrollView, { bottom: tabBarHeight + 12 }]}
+        contentContainerStyle={[styles.scrollContent, { paddingTop: 150 }]}
+        showsVerticalScrollIndicator={false}
       >
-        <CloseX xColor={overallColor4} onPress={() => navigation.goBack()} />
+        {/* <Text style={styles.title}>Detailed Results</Text> */}
 
-        <ScrollView
-          style={[styles.scrollView, {bottom: tabBarHeight + 12 }]}
-          contentContainerStyle={[styles.scrollContent, {paddingTop: 150 }]}
-          showsVerticalScrollIndicator={false}
-        >
-          {/* <Text style={styles.title}>Detailed Results</Text> */}
+        {Object.entries(results).map(([key, value]) => {
+          const info = vibrationMetricsInfo[key];
+          if (!info) return null;
 
-          {Object.entries(results).map(([key, value]) => {
-            const info = vibrationMetricsInfo[key];
-            if (!info) return null;
+          const isObject = value && typeof value === "object";
 
-            const isObject = value && typeof value === "object";
-            const rawScore = isObject && "score" in value ? value.score : value;
-            //console.log('rawScore:',rawScore)
-            //console.log('inforange:', info.range)
-            const status = getMetricStatus(rawScore, info.range);
+          const rawScore = isObject && "value" in value && "score" in value ? value.value : value;
+          //console.log('rawScore:',rawScore)
+          //console.log('inforange:', info.range)
+          const status = getMetricStatus(rawScore, info.range);
 
-            const displayValue =
-              isObject && typeof value.value === "string"
-                ? value.value
-                : rawScore?.toString() ?? "N/A";
-            const displayLabel = isObject && "label" in value ? value.label : null;
+          const displayValue =
+            isObject && typeof value.value === "string"
+              ? value.value.toFixed(2)
+              : formatValue(rawScore)?.toString() ?? "N/A";
+          const displayLabel = isObject && "label" in value ? value.label : null;
 
-            const isMissing = rawScore === null || rawScore === undefined || rawScore === 0;
-            const [min, max] = info.range;
-            const isInRange = !isMissing && rawScore >= min && rawScore <= max;
+          const isMissing = rawScore === null || rawScore === undefined || rawScore === 0;
+          const [min, max] = info.range;
+          const isInRange = !isMissing && rawScore >= min && rawScore <= max;
 
-            return (
-              <View key={key} style={styles.metricBox}>
-                <Text style={styles.metricLabel}>{info.label}</Text>
+          return (
+            <View key={key} style={styles.metricBox}>
+              <Text style={styles.metricLabel}>{info.label}</Text>
 
-                <Text style={styles.metricValue}>
-                  {isMissing ? "No data" : `${displayValue}${info.unit}`}
-                </Text>
+              <Text style={styles.metricValue}>
+                {isMissing ? "No data" : `${displayValue}${info.unit}`}
+              </Text>
 
-                {displayLabel && (
-                  <Text style={styles.metricLabelText}>Interpretation: {displayLabel}</Text>
-                )}
+              {displayLabel && (
+                <Text style={styles.metricLabelText}>Interpretation: {displayLabel}</Text>
+              )}
 
-                <Text style={[styles.metricStatus, status.style]}>
-                  {status.icon} {status.label}
-                </Text>
+              <Text style={[styles.metricStatus, status.style]}>
+                {status.icon} {status.label}
+              </Text>
 
-                <Text style={styles.metricExplanation}>{info.explanation}</Text>
-              </View>
-            );
-          })}
-        </ScrollView>
-      </GradientBackground>
-
+              <Text style={styles.metricExplanation}>{info.explanation}</Text>
+            </View>
+          );
+        })}
+      </ScrollView>
+    </GradientBackground>
   );
 };
 

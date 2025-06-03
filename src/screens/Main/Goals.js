@@ -1,14 +1,19 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import * as SQLite from "expo-sqlite";
 import { View, Text } from "react-native";
 import FastImage from "react-native-fast-image";
-import { GradientBackground, AddNoteModal } from "@components";
+import { GradientBackground, AddNoteModal, CustomSpiritualButton } from "@components";
 import { StickyNote, DatePickerStrip } from "@components";
 import { DeleteConfirmationModal } from "@components/DeleteConfirmationModal";
 import { CloseX } from "@/components";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 
-import { saveStickyNoteToDb, deleteStickyNoteByIdDb, getAllStickyNotes } from "@database";
+import {
+  saveStickyNoteToDb,
+  deleteStickyNoteByIdDb,
+  getAllStickyNotes,
+  updateStickyDb,
+} from "@database";
 import { styles } from "./Goals.styles";
 import { Colors } from "@constants";
 import uuid from "react-native-uuid";
@@ -20,23 +25,26 @@ export const Goals = () => {
   const [notes, setNotes] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
   const noteRefs = useRef({});
-  const zIndexCounterRef = useRef(1);
-  // const [selectedDate, setSelectedDate] = useState(format(new Date(), "yyyy-MM-dd")); // today
+
   const [selectedDate, setSelectedDate] = useState(); // today
   const [showDeleteModal, setShowDeleteModal] = useState({
     visible: false,
     deleteId: null,
   });
+  const [noteToEdit, setNoteToEdit] = useState(null);
 
-  useEffect(() => {
-    const loadNotes = async () => {
-      console.log("trying to get stickies");
-      const stickies = await getAllStickyNotes();
-      //   console.log("stickies returned:", stickies);
-      setNotes(stickies);
-    };
-    loadNotes();
-  }, []);
+  useFocusEffect(
+    useCallback(() => {
+      console.log("reloading");
+      const loadNotes = async () => {
+        console.log("trying to get stickies");
+        const stickies = await getAllStickyNotes();
+        //   console.log("stickies returned:", stickies);
+        setNotes(stickies);
+      };
+      loadNotes();
+    }, []), // eslint-disable-line react-hooks/exhaustive-deps
+  );
 
   const handleDeleteNote = async (id) => {
     setShowDeleteModal({ visible: true, deleteId: id });
@@ -52,7 +60,26 @@ export const Goals = () => {
       setNotes((prev) => prev.filter((note) => note.id !== id));
     }, 1600);
   };
+  const handleEdit = async (note) => {
+    setNoteToEdit(note);
+    setModalVisible(true);
+  };
+  const handleCloseModal = () => {
+    setModalVisible(false);
+    //  setNoteToEdit(null);
+  };
 
+  const handleUpdate = async (text, color) => {
+    console.log("saving updated note:", noteToEdit.id, text);
+    if (noteToEdit) {
+      await updateStickyDb(noteToEdit.id, text, color);
+      setNotes((prevNotes) =>
+        prevNotes.map((note) => (note.id === noteToEdit.id ? noteToEdit : note)),
+      );
+      setNoteToEdit(null);
+      return;
+    }
+  };
   const handleAddNote = async (text, color, textColor) => {
     if (!text) return;
     const newId = uuid.v4();
@@ -73,7 +100,7 @@ export const Goals = () => {
       textColor,
       done: false,
     };
-
+    console.log("awaiting save of:", sticky);
     await saveStickyNoteToDb(sticky);
     setNotes((prev) => [...prev, sticky]);
   };
@@ -86,6 +113,19 @@ export const Goals = () => {
           <Text style={styles.descriptionText}>
             Drag and rotate your sticky notes to place your daily intentions.
           </Text>
+          <View>
+            <CustomSpiritualButton
+              label="List View"
+              onPress={() =>
+                navigation.navigate("Tabs", {
+                  screen: "Tools",
+                  params: { screen: "GoalsByDayScreen" },
+                })
+              }
+              color={Colors.paleYellow}
+              textColor={Colors.textDark}
+            />
+          </View>
         </View>
         <View style={styles.notesArea}>
           <FastImage
@@ -114,8 +154,9 @@ export const Goals = () => {
                 text={note.text}
                 doneValue={note.done}
                 color={note.color || Colors.paleYellow} // fallback just in case
-                textColor={note.textColor || "white"}
+                textColor={note.textColor || Colors.darkColor}
                 onDelete={() => handleDeleteNote(note.id)}
+                onEdit={() => handleEdit(note)}
               />
             ))}
         </View>
@@ -152,8 +193,10 @@ export const Goals = () => {
 
       <AddNoteModal
         visible={modalVisible}
-        onClose={() => setModalVisible(false)}
+        onClose={() => handleCloseModal()}
         onSave={(text, color, textColor) => handleAddNote(text, color, textColor)}
+        onUpdate={(text, color, textColor) => handleUpdate(text, color, textColor)}
+        noteToEdit={noteToEdit}
       />
     </GradientBackground>
   );

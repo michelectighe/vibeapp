@@ -77,7 +77,6 @@ export const ResultsScreen = ({ navigation }) => {
   useEffect(() => {
     if (user) {
       try {
-        console.log("inside result screen");
         //if the user is logged in and a result ID was passed in, get the data and set it
         if (user.uid && resultId && resultId !== null && !oldResultsRef.current) {
           oldResultsRef.current = true;
@@ -103,9 +102,9 @@ export const ResultsScreen = ({ navigation }) => {
 
     const fetchData = async () => {
       try {
-        console.log("inside fetchData");
+        //   console.log("inside fetchData");
         const result = vibrationInfo;
-        console.log("results:", result);
+        //   console.log("results:", result);
         if (!result) return;
 
         setLabel(result.label);
@@ -146,26 +145,27 @@ export const ResultsScreen = ({ navigation }) => {
       timestamp: newTimeStamp,
       userId: user.uid,
       voiceFrequencyScore: normalizeMetricForStorage(
-        voiceFrequency ?? 0,
+        voiceFrequencyScore?.value || 0,
         voiceFrequencyScore?.score || 0,
       ),
-      heartRateScore: normalizeMetricForStorage(heartRate ?? 0, heartRateScore ?? 0),
-      motionScore: normalizeMetricForStorage(motion ?? 0, motionScore ?? 0),
-      environmentScore: normalizeMetricForStorage(environment ?? 0, environmentScore ?? 0),
+      heartRateScore: normalizeMetricForStorage(heartRateScore, heartRateScore),
+      motionScore: normalizeMetricForStorage(motionScore?.value || 0, motionScore?.score || 0),
+      environmentScore: environmentScore ?? 0,
       voiceStrengthScore: normalizeMetricForStorage(
-        voiceStrength ?? 0,
+        voiceStrengthScore?.value || 0,
         voiceStrengthScore?.score || 0,
       ),
       voiceClarityScore: normalizeMetricForStorage(
-        voiceClarity ?? 0,
+        voiceClarityScore?.value || 0,
         voiceClarityScore?.score || 0,
       ),
-      emotionScore: normalizeMetricForStorage(emotion ?? 0, emotionScore?.score || 0),
+      emotionScore: emotionScore ?? 0,
       overallVibrationScore: overallVibrationScore ?? 0,
       hawkinsScore: hawkinsScore ?? 0,
       chakraScores: chakraScores || {},
       journalId: "0",
     };
+    console.log("NEW RESULTS:", newResult);
     await saveResults(newResult, user.uid); // Firestore save
     setMyResults((prevResults) => [newResult, ...prevResults]);
   };

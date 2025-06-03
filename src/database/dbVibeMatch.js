@@ -225,7 +225,7 @@ export const saveCompletedMatchLink = async ({
       comparisonResults,
     );
     // ✅ Destructure inside the function
-    const { overallSummary, comparisons } = comparisonResults;
+    const { overallSummary, comparisons, sharedChakras, recipientChakras } = comparisonResults;
     
     const matchRef = doc(dbFs, "matchLinks", matchId);
     await updateDoc(matchRef, {
@@ -238,6 +238,8 @@ export const saveCompletedMatchLink = async ({
       comparisonResults: {
         overallSummary,
         comparisons,
+        sharedChakras,
+        recipientChakras
       },
     });
 

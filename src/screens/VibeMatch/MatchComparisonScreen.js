@@ -16,6 +16,7 @@ import { saveVibeMatchReceived, saveCompletedMatchLink } from "@/database";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { generateComparisonSummary } from "@utils/generateComparisonSummary";
 import { useUserProfile } from "@/context";
+import { use } from "react";
 
 export const MatchComparisonScreen = ({ route }) => {
   const { profile } = useUserProfile();
@@ -34,15 +35,21 @@ export const MatchComparisonScreen = ({ route }) => {
   const isSender = viewerRole === "sender";
 
   const [comparisons, setComparisons] = useState([]);
-  const [ chakraComparisons, setChakraComparisons] = useState([]);
   const [overallSummary, setOverallSummary] = useState("");
+  const [sharedChakras, setSharedChakras] = useState([]);
+  const [recipientChakras, setRecipientChakras] = useState([]);
 
   useEffect(() => {
     if (isSender && comparisonResults) {
       setOverallSummary(comparisonResults.overallSummary);
       setComparisons(comparisonResults.comparisons);
-      setChakraComparisons(comparisonResults.chakraComparisons);
+      setSharedChakras(comparisonResults.sharedChakras);
+      setRecipientChakras(comparisonResults.recipientChakras);
     } else if (myResult && sharedResult && matchId && shareName) {
+      setSharedChakras(sharedResult.chakraScores);
+      setRecipientChakras(JSON.parse(myResult.chakraScores));
+      console.log("MY CHAKRAS:", myResult.chakraScores);
+      console.log("THEIR CHAKRAS:", sharedResult.chakraScores);
       const saveMatch = async () => {
         const matchData = {
           matchId,
@@ -67,7 +74,9 @@ export const MatchComparisonScreen = ({ route }) => {
     comparisons.filter((item) => item.alignmentLevel === category);
 
   const onSave = async () => {
-    console.log('trying to save')
+    console.log("trying to save");
+    const sharedChakras = sharedResult.chakraScores;
+    const recipientChakras = myResult.chakraScores;
     await saveCompletedMatchLink({
       matchId,
       recipientUserId: myResult.userId,
@@ -76,6 +85,8 @@ export const MatchComparisonScreen = ({ route }) => {
       comparisonResults: {
         overallSummary,
         comparisons,
+        sharedChakras,
+        recipientChakras,
       },
     });
   };
@@ -99,6 +110,9 @@ export const MatchComparisonScreen = ({ route }) => {
     </>
   );
 
+  const CHAKRA_NAMES = ["root", "sacral", "solarPlexus", "heart", "throat", "thirdEye", "crown"];
+
+  console.log("chakra type:", typeof recipientChakras);
   return (
     <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}>
       <ScrollView
@@ -117,19 +131,26 @@ export const MatchComparisonScreen = ({ route }) => {
           "You're vibing on the same plane.",
         )}
 
-        <Text style={styles.sectionTitle}>Chakra Comparison</Text>
-        {chakraData.map((chakra) => {
-          const yourScore = myResult.chakraScores?.[chakra.id];
-          const theirScore = sharedResult.chakraScores?.[chakra.id];
-          return (
-            <ChakraComparisonCard
-              key={chakra.id}
-              chakra={chakra}
-              yourScore={yourScore}
-              theirScore={theirScore}
-            />
-          );
-        })}
+        {sharedChakras && recipientChakras && (
+          <>
+            <Text style={styles.sectionTitle}>Chakra Comparison</Text>
+
+            {chakraData.map((chakra) => {
+              const yourScore = recipientChakras?.[chakra.id];
+              const theirScore = sharedChakras?.[chakra.id];
+              console.log("your chakra:", yourScore);
+              console.log("their chakra:", theirScore);
+              return (
+                <ChakraComparisonCard
+                  key={chakra.id}
+                  chakra={chakra}
+                  yourScore={yourScore}
+                  theirScore={theirScore}
+                />
+              );
+            })}
+          </>
+        )}
         {!isSender && (
           <CustomSpiritualButton
             label="Save Match Results"

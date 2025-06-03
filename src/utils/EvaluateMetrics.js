@@ -132,30 +132,30 @@ export function evaluateEmotionalState(emotion) {
   };
 }
 
-export function evaluateMotion({ avgMagnitude }) {
-  let score = 20;
-  let label = "unsettled waves";
+// Accept stdDev (variation) as main argument
+export function evaluateMotion( motionStdDev ) {
+  console.log(motionStdDev)
+  let score = 100;
+  let label = "grounded & still";
 
-  if (avgMagnitude <= 1.0) {
-    score = 100;
-    label = "grounded & still";
-  } else if (avgMagnitude <= 1.5) {
+  if (motionStdDev > 0.06 && motionStdDev <= 0.1) {
     score = 80;
     label = "subtle flow";
-  } else if (avgMagnitude <= 2.0) {
+  } else if (motionStdDev > 0.1 && motionStdDev <= 0.15) {
     score = 60;
     label = "restless energy";
-  } else if (avgMagnitude <= 2.5) {
+  } else if (motionStdDev > 0.15) {
     score = 40;
     label = "active movement";
   }
 
   return {
-    value: avgMagnitude,
+    value: motionStdDev,
     score,
     label,
   };
 }
+
 
 export function evaluateEnvironment({ soundLevelDb, magnetometerValue, percentGood }) {
   let soundScore = 100 - soundLevelDb;

@@ -8,7 +8,7 @@ export const cardsTools = [
     icon: "leaf-outline",
     image: require("@assets/images/home/meditate.png"),
     screen: {
-      name: "InnerWork", // <- This is the tab name
+      name: "Tools", // <- This is the tab name
       params: { screen: "GuidedMeditationScreen" }, // <- This is the nested screen
     },
     textColor: Colors.textLight,
@@ -20,7 +20,7 @@ export const cardsTools = [
     icon: "musical-notes-outline",
     image: require("@assets/images/home/sounds.png"),
     screen: {
-      name: "InnerWork", // <- This is the tab name
+      name: "Tools", // <- This is the tab name
       params: { screen: "FrequenciesScreen" }, // <- This is the nested screen
     },
     textColor: Colors.textLight,
@@ -32,7 +32,7 @@ export const cardsTools = [
     icon: "create-outline",
     image: require("@assets/images/home/journal.png"),
     screen: {
-      name: "InnerWork", // <- This is the tab name
+      name: "Tools", // <- This is the tab name
       params: { screen: "JournalListScreen" }, // <- This is the nested screen
     },
     textColor: Colors.textLight,
@@ -44,7 +44,7 @@ export const cardsTools = [
     icon: "cloud-outline",
     image: require("@assets/images/home/breath.png"),
     screen: {
-      name: "InnerWork", // <- This is the tools stack name
+      name: "Tools", // <- This is the tools stack name
       params: { screen: "BreathWorksScreen" }, // <- This is the nested screen
     },
     textColor: Colors.textLight,
@@ -56,7 +56,7 @@ export const cardsTools = [
     //  icon: "cloud-outline",
     image: require("@assets/images/home/shadow.png"),
     screen: {
-      name: "InnerWork", // <- This is the tab name
+      name: "Tools", // <- This is the tab name
       params: { screen: "QuantumJournalScreen" }, // <- This is the nested screen
     },
     textColor: Colors.textLight,

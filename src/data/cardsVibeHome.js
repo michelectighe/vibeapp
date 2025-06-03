@@ -53,7 +53,7 @@ export const cardsVibeHome = [
     // icon: "leaf-outline",
     image: require("@assets/images/home/innerWork.png"),
     screen: {
-      name: "InnerWork", // <- This is the tools stack name
+      name: "tools", // <- This is the tools stack name
       params: { screen: "ToolsMainScreen" }, // <- This is the nested screen
     },
     textColor: Colors.textLight,

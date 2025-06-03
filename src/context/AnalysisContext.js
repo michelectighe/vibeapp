@@ -65,19 +65,16 @@ export const AnalysisProvider = ({ children }) => {
   }, [voiceFrequency]);
 
   const motionScore = useMemo(() => {
-    return motion != null ? evaluateMotion({ avgMagnitude: motion }) : null;
+    console.log('ANALYSIS MOTION:', motion)
+    return motion != null ? evaluateMotion(motion) : null;
   }, [motion]);
 
   const environmentScore = useMemo(() => {
-    if (sound != null && magnitude != null) {
-      return evaluateEnvironment({
-        soundLevelDb: 100 + sound,
-        magnetometerValue: magnitude,
-        percentGood: 100 + sound, // or however you're deriving it
-      }).overall;
+    if (environment) {
+      //   console.log("analysis context environment value:", environment);
+      return environment;
     }
-    return null;
-  }, [sound, magnitude]);
+  }, [environment]);
   const heartRateScore = useMemo(() => {
     if (heartRate.bpm == null) return null;
     const score = normalizeInverted(heartRate.bpm, 40, 180);
@@ -94,22 +91,34 @@ export const AnalysisProvider = ({ children }) => {
   }, [heartRate.rmssd]);
 
   useEffect(() => {
-    const scores = [
-      { score: voiceFrequency?.score, weight: 0.1 },
-      { score: voiceClarityScore?.score, weight: 0.1 },
-      { score: voiceStrengthScore?.score, weight: 0.1 },
-      { score: environmentScore?.score, weight: 0.15 },
-      { score: motionScore?.score, weight: 0.05 },
-      { score: heartRateScore?.score, weight: 0.2 },
-      { score: hrvScore?.score, weight: 0.1 },
-      { score: emotionScore?.score, weight: 0.2 },
-    ];
-    const { overallScore, hawkinsScore } = calculateOverallVibe(scores);
-    setOverallVibeScore(overallScore);
-    setHawkinsScore(hawkinsScore);
-    setVibrationInfo(getVibrationInfo(overallScore));
+    console.log('metrics:', voiceFrequencyScore, voiceClarityScore, voiceStrengthScore, environmentScore, motionScore, heartRateScore, hrvScore, emotionScore)
+    if ( true
+      // voiceFrequencyScore &&
+      // voiceClarityScore &&
+      // voiceStrengthScore &&
+      // environmentScore &&
+      // motionScore &&
+      // heartRateScore &&
+      // hrvScore &&
+      // emotionScore
+    ) {
+      const scores = [
+        { score: voiceFrequencyScore?.score, weight: 0.1 },
+        { score: voiceClarityScore?.score, weight: 0.1 },
+        { score: voiceStrengthScore?.score, weight: 0.1 },
+        { score: environmentScore?.score, weight: 0.15 },
+        { score: motionScore?.score, weight: 0.05 },
+        { score: heartRateScore?.score, weight: 0.2 },
+        { score: hrvScore?.score, weight: 0.1 },
+        { score: emotionScore?.score, weight: 0.2 },
+      ];
+      const { overallScore, hawkinsScore } = calculateOverallVibe(scores);
+      setOverallVibeScore(overallScore);
+      setHawkinsScore(hawkinsScore);
+      setVibrationInfo(getVibrationInfo(overallScore));
+    }
   }, [
-    voiceFrequency,
+    voiceFrequencyScore,
     voiceClarityScore,
     voiceStrengthScore,
     environmentScore,
@@ -120,18 +129,31 @@ export const AnalysisProvider = ({ children }) => {
   ]);
 
   useEffect(() => {
-    const chakra = calculateChakraScores({
-      motionScore: motionScore?.score,
-      emotionScore: emotionScore?.score,
-      hrvScore: hrvScore?.score,
-      voiceStrengthScore: voiceStrengthScore?.score,
-      heartRateScore: heartRateScore?.score,
-      environmentScore: environmentScore?.score,
-      voiceClarityScore: voiceClarityScore?.score,
-      voiceFrequencyScore: voiceFrequency?.score,
-      overallVibrationScore,
-    });
-    setChakraScores(chakra);
+    // only calculate chakras once all scores have been updated
+
+    if (
+      overallVibrationScore &&
+      emotionScore &&
+      motionScore &&
+      voiceStrengthScore &&
+      hrvScore &&
+      heartRateScore &&
+      voiceClarityScore &&
+      voiceFrequencyScore
+    ) {
+      const chakra = calculateChakraScores({
+        motionScore: motionScore?.score,
+        emotionScore: emotionScore?.score,
+        hrvScore: hrvScore?.score,
+        voiceStrengthScore: voiceStrengthScore?.score,
+        heartRateScore: heartRateScore?.score,
+        environmentScore: environmentScore?.score,
+        voiceClarityScore: voiceClarityScore?.score,
+        voiceFrequencyScore: voiceFrequencyScore?.score,
+        overallVibrationScore,
+      });
+      setChakraScores(chakra);
+    }
   }, [
     motionScore,
     emotionScore,
@@ -140,7 +162,7 @@ export const AnalysisProvider = ({ children }) => {
     heartRateScore,
     environmentScore,
     voiceClarityScore,
-    voiceFrequency,
+    voiceFrequencyScore,
     overallVibrationScore,
   ]);
 
@@ -176,7 +198,7 @@ export const AnalysisProvider = ({ children }) => {
         voiceFrequencyScore: parseMetric(result.voiceFrequencyScore),
         voiceStrengthScore: parseMetric(result.voiceStrengthScore),
         motionScore: parseMetric(result.motionScore),
-        environmentScore: parseMetric(result.environmentScore),
+        //     environmentScore: parseMetric(result.environmentScore),
       };
       setEmotions(cleanResult.emotionScore?.value);
       setHeartRate(cleanResult.heartRateScore);

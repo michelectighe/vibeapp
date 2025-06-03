@@ -1,5 +1,5 @@
 index,mid,display_name
-0,/m/09x0r,Speech
+0,/m/09x0r,""
 1,/m/0ytgt,"Child speech, kid speaking"
 2,/m/01h8n0,Conversation
 3,/m/02qldy,"Narration, monologue"
@@ -499,9 +499,9 @@ index,mid,display_name
 497,/m/0hdsk,Chirp tone
 498,/m/0c1dj,Sound effect
 499,/m/07pt_g0,Pulse
-500,/t/dd00125,"Inside, small room"
-501,/t/dd00126,"Inside, large room or hall"
-502,/t/dd00127,"Inside, public space"
+500,/t/dd00125,"small room"
+501,/t/dd00126,"large room or hall"
+502,/t/dd00127,"public space"
 503,/t/dd00128,"Outside, urban or manmade"
 504,/t/dd00129,"Outside, rural or natural"
 505,/m/01b9nn,Reverberation

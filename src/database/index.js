@@ -3,6 +3,8 @@ export {
   updateStickyNotePositionDb,
   deleteStickyNoteByIdDb,
   getAllStickyNotes,
+  updateStickyDoneDb,
+  updateStickyDb,
 } from "./dbStickyNote";
 export { initializeDatabase, dropTable, getDb } from "./dbInit";
 export {

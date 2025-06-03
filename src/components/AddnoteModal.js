@@ -1,5 +1,5 @@
 // components/AddNoteModal.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Modal,
   View,
@@ -12,23 +12,37 @@ import {
   Keyboard,
   Platform,
 } from "react-native";
-import { SCREEN_WIDTH,Colors, Fonts } from "@constants";
+import { SCREEN_WIDTH, Colors, Fonts } from "@constants";
 import { ChakraColorPicker, CustomSpiritualButton, KeyboardDone } from "@components";
 import { SCREEN_HEIGHT } from "@/utils";
 
-export const AddNoteModal = ({ visible, onClose, onSave }) => {
+export const AddNoteModal = ({ visible, onClose, onSave, onEdit, onUpdate, noteToEdit = null }) => {
   const [text, setText] = useState("");
   const [stickyColor, setStickyColor] = useState(Colors.paleYellow); // default
   const [stickyTextColor, setStickyTextColor] = useState(Colors.darkText); // Not undefined!
 
+  useEffect(() => {
+    if (noteToEdit) {
+          console.log("editing:", noteToEdit);
+      setText(noteToEdit.text);
+      setStickyColor(noteToEdit.stickyColor);
+      setStickyTextColor(noteToEdit.stickyColor);
+    }
+  }, [noteToEdit]);
+
   const handleSave = () => {
     if (!text.trim()) return;
-    //  console.log("Saving with color:", stickyColor, "textColor:", stickyTextColor);
-
-    onSave(text.trim(), stickyColor, stickyTextColor || Colors.textDark);
+    console.log('WHAT IS NOTETOEDIT:', noteToEdit)
+    if (noteToEdit) {
+          console.log("Saving with color:", stickyColor, "textColor:", stickyTextColor);
+      onUpdate(text.trim(), stickyColor, stickyTextColor || Colors.textDark);
+    } else {
+      onSave(text.trim(), stickyColor, stickyTextColor || Colors.textDark);
+    }
     setText("");
     setStickyColor(Colors.rootChakra); // optional reset
     setStickyTextColor("white");
+
     onClose();
   };
 
