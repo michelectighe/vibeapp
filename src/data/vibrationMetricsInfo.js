@@ -9,8 +9,8 @@ export const vibrationMetricsInfo = {
     label: "Voice Clarity",
     range: [20, 100],
     explanation:
-      "Measures the consistency of your vocal pitch. Higher scores reflect a more focused and steady voice, while lower scores may indicate scattered or emotional speech.",
-    unit: "%", // or use "pts" or "score" if you want a fake unit
+      "Measures the consistency of your vocal pitch. Lower scores reflect a more focused and steady voice, while higher scores may indicate scattered or emotional speech.",
+    unit: "",
   },
   voiceStrengthScore: {
     label: "Voice Strength",
@@ -19,14 +19,14 @@ export const vibrationMetricsInfo = {
       "Represents the loudness of your voice, measured in decibels (dB). Higher values indicate a stronger vocal presence. A typical speaking voice ranges from -20 dB to -10 dB, while -5 dB or higher reflects a powerful tone.",
     unit: "dB",
   },
-  rawBPM: {
+  bpmScore: {
     label: "Heart Rate",
     range: [60, 100],
     explanation:
       "Ideal resting heart rate for adults is 60–100 bpm. Deviations may reflect stress or fatigue.",
     unit: "bpm",
   },
-  rawHRV: {
+  hrvScore: {
     label: "Heart Rate Variability",
     range: [20, 80],
     explanation:
@@ -36,7 +36,7 @@ export const vibrationMetricsInfo = {
 
   motionScore: {
     label: "Motion / Stillness",
-    range: [0, 0.25],
+    range: [-1, 0.25],
     explanation:
       "Measures physical activity or restlessness(between 0 and 2.5 motion variation). Lower scores are more calm/meditative.",
     unit: "m/s²",

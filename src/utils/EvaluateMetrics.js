@@ -31,16 +31,15 @@ export function evaluateVoiceFrequency(frequencyHz) {
   };
 }
 
-const normalizeClarity = (clarityScore) => {
+const normalizeClarity = (voiceClarity) => {
   const min = 5;
   const max = 80;
-  const clamped = Math.max(min, Math.min(clarityScore, max));
+  const clamped = Math.max(min, Math.min(voiceClarity, max));
   return 100 - ((clamped - min) / (max - min)) * 100;
 };
 
-export function evaluateVoiceClarity(clarityScore) {
-  const roundedRaw = Math.round(clarityScore);
-  const score = Math.round(normalizeClarity(clarityScore));
+export function evaluateVoiceClarity(voiceClarity) {
+  const score = Math.round(normalizeClarity(voiceClarity));
   let label = "";
   if (score < 30) {
     label = "unclear (muffled or slurred)";
@@ -54,9 +53,8 @@ export function evaluateVoiceClarity(clarityScore) {
     label = "exceptionally clear and focused";
   }
   return {
-    value: score,
+    value: voiceClarity,
     score,
-    raw: roundedRaw,
     label,
   };
 }
@@ -134,7 +132,6 @@ export function evaluateEmotionalState(emotion) {
 
 // Accept stdDev (variation) as main argument
 export function evaluateMotion( motionStdDev ) {
-  console.log(motionStdDev)
   let score = 100;
   let label = "grounded & still";
 
@@ -205,3 +202,42 @@ export function evaluateEnvironment({ soundLevelDb, magnetometerValue, percentGo
     },
   };
 }
+
+export const evaluateEnvironmentScore = (environmentScore) => {
+  let label = "Poor location";
+  if (environmentScore >= 80) label = "Excellent location";
+  else if (environmentScore >= 60) label = "Good location";
+  else if (environmentScore >= 40) label = "Fair location";
+
+  return {
+    value: environmentScore,
+    score: environmentScore,
+    label,
+  };
+}
+
+import { hawkinsLevels } from "@data";
+
+export const evaluateHawkins = (hawkinsScore) => {
+  let hawkinsLabel = "";
+
+  // Find the matching level
+  let matchedLevel = hawkinsLevels[0];
+  for (let i = 0; i < hawkinsLevels.length; i++) {
+    if (hawkinsScore >= hawkinsLevels[i].level) {
+      matchedLevel = hawkinsLevels[i];
+    } else {
+      break; // levels are in ascending order, so break early
+    }
+  }
+
+  if (matchedLevel) {
+    hawkinsLabel = `${matchedLevel.state} - ${matchedLevel.emotion}`;
+  }
+
+  return {
+    value: hawkinsScore,
+    score: hawkinsScore,
+    label: hawkinsLabel,
+  };
+};

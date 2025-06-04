@@ -13,7 +13,8 @@ import {
   evaluateVoiceClarity,
   evaluateVoiceStrength,
   evaluateVoiceFrequency,
-  evaluateEnvironment,
+  evaluateEnvironmentScore,
+  evaluateHawkins,
 } from "@/utils";
 import { Colors } from "@/constants";
 
@@ -26,17 +27,15 @@ export const AnalysisProvider = ({ children }) => {
   const [emotion, setEmotions] = useState(null);
   const [motion, setMotion] = useState(null);
   const [environment, setEnvironment] = useState(null);
-  const [heartRate, setHeartRate] = useState({ bpm: null, sdnn: null, rmssd: null });
+  const [heartRate, setHeartRate] = useState({ bpm: null, rmssd: null });
   const [sound, setSound] = useState(null);
   const [magnitude, setMagnitude] = useState(null);
   const [vibrationInfo, setVibrationInfo] = useState(null);
-  const [rawHRV, setHRV] = useState(null);
-  const [rawBPM, setBPM] = useState(null);
   const [resultId, setResultId] = useState();
-  const [journalId, setJournalId] = useState();
+  const [journalId, setJournalId] = useState(0);
+  const [hawkins, setHawkins] = useState();
 
   const [overallVibrationScore, setOverallVibeScore] = useState(0);
-  const [hawkinsScore, setHawkinsScore] = useState(0);
   const [chakraScores, setChakraScores] = useState({
     root: -1,
     sacral: -1,
@@ -65,40 +64,51 @@ export const AnalysisProvider = ({ children }) => {
   }, [voiceFrequency]);
 
   const motionScore = useMemo(() => {
-    console.log('ANALYSIS MOTION:', motion)
     return motion != null ? evaluateMotion(motion) : null;
   }, [motion]);
 
   const environmentScore = useMemo(() => {
-    if (environment) {
-      //   console.log("analysis context environment value:", environment);
-      return environment;
-    }
+    return environment != null ? evaluateEnvironmentScore(environment) : null;
   }, [environment]);
-  const heartRateScore = useMemo(() => {
-    if (heartRate.bpm == null) return null;
-    const score = normalizeInverted(heartRate.bpm, 40, 180);
-    setBPM(Math.round(heartRate.bpm));
-    return { score: Math.round(score), bpm: heartRate.bpm };
+
+  const hawkinsScore = useMemo(() => {
+    return hawkins != null ? evaluateHawkins(hawkins) : null;
+  }, [hawkins]);
+
+  const bpmScore = useMemo(() => {
+    if (heartRate?.bpm == null) return null;
+    const raw = heartRate.bpm;
+    const score = normalizeInverted(raw, 40, 180);
+    return { score: Math.round(score), value: raw };
   }, [heartRate.bpm]);
 
   const hrvScore = useMemo(() => {
-    if (heartRate.rmssd == null) return null;
-    const raw = Math.round(heartRate.rmssd);
-    setHRV(raw);
+    if (heartRate?.rmssd == null) return null;
+    const raw = heartRate.rmssd;
     const score = normalizeInverted(raw, 10, 120);
-    return { score: Math.round(score), rmssd: raw };
+    return { score: Math.round(score), value: raw };
   }, [heartRate.rmssd]);
 
   useEffect(() => {
-    console.log('metrics:', voiceFrequencyScore, voiceClarityScore, voiceStrengthScore, environmentScore, motionScore, heartRateScore, hrvScore, emotionScore)
-    if ( true
+    // console.log(
+    //   "metrics for overallcalc:",
+    //   voiceFrequencyScore,
+    //   voiceClarityScore,
+    //   voiceStrengthScore,
+    //   environmentScore,
+    //   motionScore,
+    //   bpmScore,
+    //   hrvScore,
+    //   emotionScore,
+    // );
+    if (
+      true
       // voiceFrequencyScore &&
       // voiceClarityScore &&
       // voiceStrengthScore &&
       // environmentScore &&
       // motionScore &&
-      // heartRateScore &&
+      // bpmScore &&
       // hrvScore &&
       // emotionScore
     ) {
@@ -108,13 +118,20 @@ export const AnalysisProvider = ({ children }) => {
         { score: voiceStrengthScore?.score, weight: 0.1 },
         { score: environmentScore?.score, weight: 0.15 },
         { score: motionScore?.score, weight: 0.05 },
-        { score: heartRateScore?.score, weight: 0.2 },
+        { score: bpmScore?.score, weight: 0.2 },
         { score: hrvScore?.score, weight: 0.1 },
         { score: emotionScore?.score, weight: 0.2 },
       ];
-      const { overallScore, hawkinsScore } = calculateOverallVibe(scores);
+      // console.log("voiceFrequency:", voiceFrequencyScore?.score);
+      // console.log("voiceClarity:", voiceClarityScore?.score);
+      // console.log("voiceStrength:", voiceStrengthScore?.score);
+      // console.log("environment:", environmentScore?.score);
+      // console.log("mortion:", motionScore?.score);
+      // console.log("bpm:", bpmScore?.score);
+      // console.log("hrv:", hrvScore?.score);
+      const { overallScore, hawkins } = calculateOverallVibe(scores);
       setOverallVibeScore(overallScore);
-      setHawkinsScore(hawkinsScore);
+      setHawkins(hawkins);
       setVibrationInfo(getVibrationInfo(overallScore));
     }
   }, [
@@ -123,7 +140,7 @@ export const AnalysisProvider = ({ children }) => {
     voiceStrengthScore,
     environmentScore,
     motionScore,
-    heartRateScore,
+    bpmScore,
     hrvScore,
     emotionScore,
   ]);
@@ -137,7 +154,7 @@ export const AnalysisProvider = ({ children }) => {
       motionScore &&
       voiceStrengthScore &&
       hrvScore &&
-      heartRateScore &&
+      bpmScore &&
       voiceClarityScore &&
       voiceFrequencyScore
     ) {
@@ -146,7 +163,7 @@ export const AnalysisProvider = ({ children }) => {
         emotionScore: emotionScore?.score,
         hrvScore: hrvScore?.score,
         voiceStrengthScore: voiceStrengthScore?.score,
-        heartRateScore: heartRateScore?.score,
+        bpmScore: bpmScore?.score,
         environmentScore: environmentScore?.score,
         voiceClarityScore: voiceClarityScore?.score,
         voiceFrequencyScore: voiceFrequencyScore?.score,
@@ -159,7 +176,7 @@ export const AnalysisProvider = ({ children }) => {
     emotionScore,
     hrvScore,
     voiceStrengthScore,
-    heartRateScore,
+    bpmScore,
     environmentScore,
     voiceClarityScore,
     voiceFrequencyScore,
@@ -175,7 +192,7 @@ export const AnalysisProvider = ({ children }) => {
     setMagnitude(null);
     setEnvironment(null);
     setEmotions(null);
-    setHeartRate({ bpm: null, sdnn: null, rmssd: null });
+    setHeartRate({ bpm: null, rmssd: null });
     setChakraScores({
       root: -1,
       sacral: -1,
@@ -193,20 +210,21 @@ export const AnalysisProvider = ({ children }) => {
       const cleanResult = {
         ...result,
         emotionScore: parseMetric(result.emotionScore),
-        heartRateScore: parseMetric(result.heartRateScore),
+        bpmScore: parseMetric(result.bpmScore),
+        hrvScore: parseMetric(result.hrvScore),
         voiceClarityScore: parseMetric(result.voiceClarityScore),
         voiceFrequencyScore: parseMetric(result.voiceFrequencyScore),
         voiceStrengthScore: parseMetric(result.voiceStrengthScore),
         motionScore: parseMetric(result.motionScore),
-        //     environmentScore: parseMetric(result.environmentScore),
+        environmentScore: parseMetric(result.environmentScore),
       };
       setEmotions(cleanResult.emotionScore?.value);
-      setHeartRate(cleanResult.heartRateScore);
-      setVoiceClarity(cleanResult.voiceClarityScore?.raw);
-      setVoiceFrequency(cleanResult.voiceFrequencyScore?.raw);
+      setHeartRate({ bpm: cleanResult.bpmScore?.value, rmssd: cleanResult.hrvScore?.value });
+      setVoiceClarity(cleanResult.voiceClarityScore?.value);
+      setVoiceFrequency(cleanResult.voiceFrequencyScore?.value);
       setVoiceStrength(cleanResult.voiceStrengthScore?.value);
       setMotion(cleanResult.motionScore?.value);
-      setEnvironment(cleanResult.environmentScore);
+      setEnvironment(cleanResult.environmentScore.value);
       setChakraScores(cleanResult.chakraScores);
       setResultId(cleanResult.resultId);
       setJournalId(cleanResult.journalId);
@@ -242,10 +260,8 @@ export const AnalysisProvider = ({ children }) => {
         voiceStrengthScore,
         motionScore,
         environmentScore,
-        heartRateScore,
+        bpmScore,
         hrvScore,
-        rawHRV,
-        rawBPM,
         overallVibrationScore,
         hawkinsScore,
         chakraScores,

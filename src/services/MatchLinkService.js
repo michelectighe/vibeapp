@@ -22,34 +22,36 @@ export const createMatchLink = async (resultId, userId, displayName, shareAnonym
     }
 
     // Declare these values so you can use them
-    const sharedByResultId = resultId;
-    const sharedByUserId = userId;
+    const senderResultId = resultId;
+    const senderUserId = userId;
 
     // 1. Friendly ID version (used in links)
     await setDoc(doc(dbFs, "matchLinks", matchId), {
       matchId,
-      sharedByUserId,
-      sharedByUserName: nameToStore,
-      sharedByResultId,
+      senderUserId,
+      senderUserName: nameToStore,
+      recipientUserName: null,
+      senderResultId,
       recipientUserId: null,
       recipientResultId: null,
       completed: false,
       read: false,
       timestamp: new Date(),
+      forComparison: true,
       comparisonResults: {
         overallSummary: null,
         comparisons: null,
-        sharedChakras: null,
+        senderChakrasas: null,
         recipientChakras: null,
       },
     });
 
     // 2. ResultId-based version (used for Firestore rules) - we need this.  don't delete
-    await setDoc(doc(dbFs, "matchLinks", sharedByResultId), {
+    await setDoc(doc(dbFs, "matchLinks", senderResultId), {
       matchId,
-      sharedByUserId,
-      sharedByResultId,
-      sharedByUserName: nameToStore,
+      senderUserId,
+      senderResultId,
+      senderUserName: nameToStore,
       timestamp: new Date(),
     });
 

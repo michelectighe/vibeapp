@@ -4,15 +4,20 @@ import { FuzzyGlow } from "./FuzzyGlow";
 import { EdgeGlow } from "./EdgeGlow";
 import { Colors } from "@/constants";
 
-export const ChakraComparisonCard = ({ chakra, yourScore, theirScore }) => {
+export const ChakraComparisonCard = ({
+  chakra,
+  recipientScore,
+  senderScore,
+  recipientUserName,
+  senderUserName,
+}) => {
   const { width } = useWindowDimensions();
 
-  const yourGlowSize = (yourScore || 0) * 1.5 + 20;
-  const theirGlowSize = (theirScore || 0) * 1.5 + 20;
+  const yourGlowSize = (recipientScore || 0) * 1.5 + 20;
+  const theirGlowSize = (senderScore || 0) * 1.5 + 20;
 
   return (
     <View style={[styles.card, { width: width - 32 }]}>
-
       <View style={styles.leftGlow}>
         <FuzzyGlow glowSize={yourGlowSize} glowColor={chakra.color} />
       </View>
@@ -21,15 +26,15 @@ export const ChakraComparisonCard = ({ chakra, yourScore, theirScore }) => {
       </View>
       <View style={styles.textRow}>
         <View style={styles.half}>
-          <Text style={styles.label}>You</Text>
-          <Text style={styles.value}>{yourScore != null ? yourScore : "-"}</Text>
+          <Text style={styles.label}>{recipientUserName}</Text>
+          <Text style={styles.value}>{recipientScore != null ? recipientScore : "-"}</Text>
         </View>
         <View style={styles.center}>
           <Text style={styles.chakraName}>{chakra.name}</Text>
         </View>
         <View style={styles.half}>
-          <Text style={styles.label}>Them</Text>
-          <Text style={styles.value}>{theirScore != null ? theirScore : "-"}</Text>
+          <Text style={styles.label}>{senderUserName}</Text>
+          <Text style={styles.value}>{senderScore != null ? senderScore : "-"}</Text>
         </View>
       </View>
     </View>

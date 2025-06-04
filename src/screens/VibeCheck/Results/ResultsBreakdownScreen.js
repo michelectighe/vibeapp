@@ -31,8 +31,8 @@ const navigation = useNavigation();
     voiceStrengthScore,
     environmentScore,
     motionScore,
-    rawBPM,
-    rawHRV,
+    bpmScore,
+    hrvScore,
     emotionScore,
     overallVibrationScore,
     hawkinsScore,
@@ -45,10 +45,10 @@ const navigation = useNavigation();
     voiceStrengthScore,
     environmentScore,
     motionScore,
-    rawBPM,
-    rawHRV,
+    bpmScore,
+    hrvScore,
     emotionScore,
-    overallVibrationScore,
+//    overallVibrationScore,
   };
   
   useEffect(() => {
@@ -114,14 +114,12 @@ function formatValue(val) {
 
           const isObject = value && typeof value === "object";
 
-          const rawScore = isObject && "value" in value && "score" in value ? value.value : value;
-          //console.log('rawScore:',rawScore)
-          //console.log('inforange:', info.range)
+          const rawScore = isObject && "value" in value ? value.value : value;
           const status = getMetricStatus(rawScore, info.range);
 
           const displayValue =
             isObject && typeof value.value === "string"
-              ? value.value.toFixed(2)
+              ? value.value
               : formatValue(rawScore)?.toString() ?? "N/A";
           const displayLabel = isObject && "label" in value ? value.label : null;
 

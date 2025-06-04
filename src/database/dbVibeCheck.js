@@ -25,7 +25,8 @@ export const saveResultDb = async (result) => {
                 userId,
                 timestamp,
                 voiceFrequencyScore, 
-                heartRateScore,
+                bpmScore,
+                hrvScore,
                 motionScore, 
                 overallVibrationScore, 
                 hawkinsScore,
@@ -35,16 +36,17 @@ export const saveResultDb = async (result) => {
                 voiceClarityScore,
                 emotionScore,
                 journalId
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
       [
         result.resultId,
         result.userId,
         result.timestamp,
         JSON.stringify(result?.voiceFrequencyScore),
-        JSON.stringify(result.heartRateScore),
+        JSON.stringify(result.bpmScore),
+        JSON.stringify(result.hrvScore),
         JSON.stringify(result.motionScore),
         result.overallVibrationScore ?? 0,
-        result.hawkinsScore ?? 0,
+        JSON.stringify(result.hawkinsScore),
         JSON.stringify(result.chakraScores), // ✅ Store as JSON string
         JSON.stringify(result.environmentScore),
         JSON.stringify(result.voiceStrengthScore),
@@ -132,7 +134,7 @@ export const deleteResult = async (userId, resultId) => {
     const db = await getDb();
 
     await db.runAsync("DELETE FROM results WHERE resultId = ? AND userId = ?;", [resultId, userId]);
-    await db.runAsync("DELETE FROM matchesReceived WHERE myResultId = ? ;", [resultId]);
+    await db.runAsync("DELETE FROM matchesReceived WHERE recipientResultId = ? ;", [resultId]);
   } catch (e) {
     console.error("Error deleting result from SQLite:", e);
     return false;
@@ -154,11 +156,11 @@ export const deleteResult = async (userId, resultId) => {
 
 const deleteSharedLinksByUser = async (userId) => {
   try {
-    const q = query(collection(dbFs, "matcheLinks"), where("sharedByUserId", "==", userId));
+    const q = query(collection(dbFs, "matchLinks"), where("senderUserId", "==", userId));
     const querySnapshot = await getDocs(q);
 
     const deletePromises = querySnapshot.docs.map((docSnap) =>
-      deleteDoc(doc(dbFs, "matcheLinks", docSnap.id)),
+      deleteDoc(doc(dbFs, "matchLinks", docSnap.id)),
     );
 
     await Promise.all(deletePromises);
@@ -172,7 +174,7 @@ const deleteMatchesReceivedByUser = async (userId) => {
   try {
     const q = query(
       collection(dbFs, "users", userId, "matchesReceived"),
-      where("myUserId", "==", userId),
+      where("recipientUserId", "==", userId),
     );
     const querySnapshot = await getDocs(q);
 

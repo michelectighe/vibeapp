@@ -47,13 +47,13 @@ export const MatchListScreen = () => {
               style={styles.matchCard}
               onPress={() => handleSelectMatch(match)}
             >
-              <Text style={styles.name}>{match.theirName || "Unknown User"}</Text>
+              <Text style={styles.name}>{match.senderUserName || "Unknown User"}</Text>
               <Text style={styles.info}>Score: {match.overallMatch || "?"}</Text>
               <Text style={styles.info}>
                 Type:{" "}
-                {match.myUserId === match.theirUserId
+                {match.recipientUserId === match.senderUserId
                   ? "Self"
-                  : match.myUserId
+                  : match.recipientUserId
                   ? "Sent"
                   : "Received"}
               </Text>

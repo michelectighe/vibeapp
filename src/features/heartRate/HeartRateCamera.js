@@ -224,7 +224,10 @@ export const HeartRateCamera = ({ onStableReading }) => {
       const metrics = computeAverageMetrics() ?? {};
       //    //console.log("metrics:", metrics);
       setStable(true);
-      setHeartRate(metrics);
+            console.log("SETTING HEARRATE FROM CAMERA:", metrics.bpm);
+            console.log("SETTING RMSSD from CAMERA:", metrics.rmssd);
+            setHeartRate({ bpm: metrics.bpm, rmssd: metrics.rmssd });
+
       onStableReading(metrics); // pass something if you have it
       setFingerWarning("");
       Animated.timing(warningOpacity, {

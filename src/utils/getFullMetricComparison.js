@@ -8,8 +8,8 @@ const getScoreDescription = (score, metricKey) => {
   return meaning?.description || null;
 };
 
-const getAlignmentLevel = (myScore, theirScore) => {
-  const diff = Math.abs(myScore - theirScore);
+const getAlignmentLevel = (recipientScore, senderScore) => {
+  const diff = Math.abs(recipientScore - senderScore);
 
   if (diff <= 5) return "aligned";
   if (diff <= 15) return "slightlyDifferent";
@@ -17,23 +17,23 @@ const getAlignmentLevel = (myScore, theirScore) => {
   return "completelyUnaligned";
 };
 
-export const getFullMetricComparison = (myScore, theirScore, metricKey) => {
+export const getFullMetricComparison = (recipientScore, senderScore, metricKey) => {
   const metric = metricComparisonDescriptions[metricKey];
   if (!metric) return null;
 
-  const myDescription = getScoreDescription(myScore, metricKey);
-  const theirDescription = getScoreDescription(theirScore, metricKey);
+  const recipientDescription = getScoreDescription(recipientScore, metricKey);
+  const senderDescription = getScoreDescription(senderScore, metricKey);
 
-  const alignment = getAlignmentLevel(myScore, theirScore);
+  const alignment = getAlignmentLevel(recipientScore, senderScore);
   const comparisonText = metric.descriptions[alignment] || "No comparison available.";
 
   return {
     label: metric.label,
     alignmentLevel: alignment,
     comparisonText,
-    myScore,
-    theirScore,
-    myDescription,
-    theirDescription,
+    recipientScore,
+    senderScore,
+    recipientDescription,
+    senderDescription,
   };
 };

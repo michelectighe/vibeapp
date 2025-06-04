@@ -42,7 +42,7 @@ export const ResultsList = ({ results, onSelect }) => {
               </View>
               <TouchableOpacity style={styles.scoreButton} onPress={() => onSelect(item)}>
                 <Text style={[styles.score, { color: level.color3 }]}>
-                  {item.hawkinsScore.toFixed(0)}
+                  {item.hawkinsScore?.score.toFixed(0)}
                 </Text>
               </TouchableOpacity>
               <Text style={[styles.date, { color: level.color3 }]}>

@@ -14,7 +14,7 @@ const rawStyles = {
   },
   scrollContent: {
     paddingTop: 190, // this matches the height of your title/logo area
-//    paddingHorizontal: 20,
+    //    paddingHorizontal: 20,
     paddingBottom: 100,
   },
   divider: {
@@ -23,6 +23,11 @@ const rawStyles = {
     marginTop: 20,
     marginHorizontal: 16,
     borderRadius: 0.5,
+  },
+  newMatch: {
+    position: "absolute",
+    top: 50,
+    left: 10,
   },
 };
 

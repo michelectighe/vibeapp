@@ -4,7 +4,7 @@ export { AuthProvider, useAuth } from "./AuthContext";
 export { EnvironmentProvider, useEnvironment } from "./EnvironmentContext";
 export { ModelProvider, useModels } from "./ModelContext";
 export { MotionProvider, useMotion } from "./MotionContext";
-export { ThemeProvider } from "./ThemeContext";
 export { UserProfileProvider, useUserProfile, updateUserData } from "./UserProfileContext";
-export { MyResultsProvider } from "./MyResultsContext";
+export { MyResultsProvider, } from "./MyResultsContext";
+export { NotificationProvider, useNotification } from "./NotificationContext";
 

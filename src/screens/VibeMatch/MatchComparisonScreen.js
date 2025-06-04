@@ -11,72 +11,84 @@ import {
 } from "@components";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./MatchComparisonScreen.styles";
+import { doc, updateDoc } from "firebase/firestore";
+import { dbFs } from "@/config/firebaseConfig";
 import { chakraData } from "@/data";
 import { saveVibeMatchReceived, saveCompletedMatchLink } from "@/database";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { generateComparisonSummary } from "@utils/generateComparisonSummary";
 import { useUserProfile } from "@/context";
-import { use } from "react";
+import { parseMetric } from "@/utils";
 
 export const MatchComparisonScreen = ({ route }) => {
   const { profile } = useUserProfile();
   useAmbientControlForScreen(true);
   const {
     myResult,
-    sharedResult,
-    shareName,
+    senderResult,
     matchId,
     viewerRole,
     comparisonResults,
-    myName,
-    theirName,
+    recipientUserName,
+    senderUserName,
   } = route.params;
   const tabBarHeight = useBottomTabBarHeight();
   const isSender = viewerRole === "sender";
 
   const [comparisons, setComparisons] = useState([]);
   const [overallSummary, setOverallSummary] = useState("");
-  const [sharedChakras, setSharedChakras] = useState([]);
-  const [recipientChakras, setRecipientChakras] = useState([]);
+  const [senderChakrasas, setsenderChakrasas] = useState();
+  const [recipientChakras, setRecipientChakras] = useState();
+  const [isDirty, setIsDirty] = useState(true);
 
   useEffect(() => {
     if (isSender && comparisonResults) {
       setOverallSummary(comparisonResults.overallSummary);
       setComparisons(comparisonResults.comparisons);
-      setSharedChakras(comparisonResults.sharedChakras);
+      setsenderChakrasas(comparisonResults.senderChakrasas);
       setRecipientChakras(comparisonResults.recipientChakras);
-    } else if (myResult && sharedResult && matchId && shareName) {
-      setSharedChakras(sharedResult.chakraScores);
-      setRecipientChakras(JSON.parse(myResult.chakraScores));
-      console.log("MY CHAKRAS:", myResult.chakraScores);
-      console.log("THEIR CHAKRAS:", sharedResult.chakraScores);
+
+      const updateRead = async () => {
+        console.log("update read for match:", matchId);
+        if (!matchId) return;
+        const matchRef = doc(dbFs, "matchLinks", matchId);
+        await updateDoc(matchRef, {
+          read: true,
+        });
+        console.log("read updated");
+      };
+      updateRead();
+    } else if (myResult && senderResult && matchId && senderUserName) {
+      setsenderChakrasas(senderResult.chakraScores);
+      if (myResult.chakraScores) setRecipientChakras(JSON.parse(myResult.chakraScores));
       const saveMatch = async () => {
         const matchData = {
           matchId,
-          myUserId: myResult.userId,
-          theirUserId: sharedResult.userId,
-          myResultId: myResult.resultId,
-          theirResultId: sharedResult.resultId,
-          theirName: shareName,
+          recipientUserId: myResult.userId,
+          senderUserId: senderResult.userId,
+          recipientResultId: myResult.resultId,
+          senderResultId: senderResult.resultId,
+          senderUserName: senderUserName,
+          recipientUserName: recipientUserName,
           timestamp: Date.now(),
         };
 
-        await saveVibeMatchReceived(sharedResult, matchData);
-        const result = generateComparisonSummary(myResult, sharedResult);
+        await saveVibeMatchReceived(senderResult, matchData);
+        const result = generateComparisonSummary(myResult, senderResult);
         setOverallSummary(result.overallSummary);
         setComparisons(result.comparisons);
       };
       saveMatch();
     }
-  }, [myResult, sharedResult, matchId, shareName]);
+  }, [myResult, senderResult, matchId, senderUserName]);
 
   const groupByCategory = (category) =>
     comparisons.filter((item) => item.alignmentLevel === category);
 
   const onSave = async () => {
     console.log("trying to save");
-    const sharedChakras = sharedResult.chakraScores;
-    const recipientChakras = myResult.chakraScores;
+    const senderChakrasas = senderResult.chakraScores;
+    const recipientChakras = parseMetric(myResult.chakraScores);
     await saveCompletedMatchLink({
       matchId,
       recipientUserId: myResult.userId,
@@ -85,10 +97,11 @@ export const MatchComparisonScreen = ({ route }) => {
       comparisonResults: {
         overallSummary,
         comparisons,
-        sharedChakras,
+        senderChakrasas,
         recipientChakras,
       },
     });
+    setIsDirty(false);
   };
 
   const renderSection = (title, category, emptyText) => (
@@ -101,9 +114,11 @@ export const MatchComparisonScreen = ({ route }) => {
           <ComparisonCard
             key={item.key || item.label}
             label={item.label}
-            myVal={`${item.myDescription} (${item.myScore})`}
-            theirVal={`${item.theirDescription} (${item.theirScore})`}
+            recipientVal={`${item.recipientDescription} (${item.recipientScore})`}
+            senderVal={`${item.senderDescription} (${item.senderScore})`}
             description={item.comparisonText}
+            recipientUserName={recipientUserName}
+            senderUserName={senderUserName}
           />
         ))
       )}
@@ -120,7 +135,9 @@ export const MatchComparisonScreen = ({ route }) => {
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
       >
-        <Text style={styles.title}>You and {shareName}</Text>
+        <Text style={styles.title}>
+          {recipientUserName} and {senderUserName}
+        </Text>
         {overallSummary ? <Text style={styles.subtitle}>{overallSummary}</Text> : null}
         {renderSection("Completely Aligned", "aligned", "No perfect matches.")}
         {renderSection("Slight Differences", "slightlyDifferent", "Nothing mildly different.")}
@@ -131,21 +148,23 @@ export const MatchComparisonScreen = ({ route }) => {
           "You're vibing on the same plane.",
         )}
 
-        {sharedChakras && recipientChakras && (
+        {senderChakrasas && recipientChakras && (
           <>
             <Text style={styles.sectionTitle}>Chakra Comparison</Text>
 
             {chakraData.map((chakra) => {
-              const yourScore = recipientChakras?.[chakra.id];
-              const theirScore = sharedChakras?.[chakra.id];
-              console.log("your chakra:", yourScore);
-              console.log("their chakra:", theirScore);
+              const recipientScore = recipientChakras?.[chakra.id];
+              const senderScore = senderChakrasas?.[chakra.id];
+              console.log("your chakra:", recipientScore);
+              console.log("their chakra:", senderScore);
               return (
                 <ChakraComparisonCard
                   key={chakra.id}
                   chakra={chakra}
-                  yourScore={yourScore}
-                  theirScore={theirScore}
+                  recipientScore={recipientScore}
+                  senderScore={senderScore}
+                  recipientUserName={recipientUserName}
+                  senderUserName={senderUserName}
                 />
               );
             })}
@@ -155,6 +174,7 @@ export const MatchComparisonScreen = ({ route }) => {
           <CustomSpiritualButton
             label="Save Match Results"
             onPress={onSave}
+            isDirty={isDirty}
             style={{ marginTop: 24 }}
           />
         )}

@@ -42,7 +42,6 @@ export const MotionProvider = ({ children }) => {
     if (!realtimeStdDev) return;
     const evaluation = evaluateMotion(realtimeStdDev);
     setMotionEval(evaluation);
-    console.log("EVALUATION:", evaluation);
   }, [realtimeStdDev]);
 
   useEffect(() => {

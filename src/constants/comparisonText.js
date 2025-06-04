@@ -4,7 +4,7 @@ export const comparisonText = {
     medium: "You're emotionally balanced but could use a boost.",
     high: "You're in a great emotional space!",
   },
-  heartRateScore: {
+  bpmScore: {
     low: "Your heart rate suggests deep rest or low activity.",
     medium: "Your heart rate is within a calm, active range.",
     high: "Elevated heart rate—possibly from stress or high energy.",

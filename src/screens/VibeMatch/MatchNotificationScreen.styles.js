@@ -1,13 +1,21 @@
 // MatchNotificationsScreen.styles.js
 import { StyleSheet } from "react-native";
 import { Colors, Fonts } from "@/constants";
+import { SCREEN_WIDTH } from "@/utils";
 
 export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 16,
-    paddingTop: 20,
-    //backgroundColor: Colors.surface,
+  scrollView: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    zIndex: 1,
+  },
+  scrollContent: {
+    paddingTop: 190, // this matches the height of your title/logo area
+    //    paddingHorizontal: 20,
+    paddingBottom: 100,
   },
   title: {
     fontSize: 24,
@@ -16,6 +24,13 @@ export const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: 20,
   },
+  matchView: {
+    width: SCREEN_WIDTH * 0.9,
+    backgroundColor: Colors.surface,
+    alignItems: "center",
+    alignSelf: "center",
+    borderRadius: 20,
+  },
   sectionTitle: {
     fontFamily: Fonts.medium,
     fontSize: 20,
@@ -23,8 +38,8 @@ export const styles = StyleSheet.create({
     marginTop: 16,
     marginBottom: 8,
   },
-  card: {
-    backgroundColor: Colors.cardBg,
+  matchCard: {
+    backgroundColor: Colors.gradient1,
     borderRadius: 16,
     padding: 14,
     marginBottom: 12,
@@ -33,11 +48,17 @@ export const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
+    width: SCREEN_WIDTH * 0.8,
   },
-  cardText: {
+  cardTitle: {
     fontFamily: Fonts.regular,
     fontSize: 16,
-    color: Colors.textDark,
+    color: Colors.textLight,
+  },
+  cardStatus: {
+    fontFamily: Fonts.regular,
+    fontSize: 16,
+    color: Colors.textLight,
   },
   emptyText: {
     fontFamily: Fonts.regular,

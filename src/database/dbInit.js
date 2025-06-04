@@ -10,7 +10,7 @@ export const getDb = async () => {
 
 export const initializeDatabase = async () => {
   const db = await getDb();
-//  await dropAllTables();
+ //   await dropAllTables();
   try {
     await db.execAsync(`PRAGMA foreign_keys=ON;`);
 
@@ -20,10 +20,11 @@ export const initializeDatabase = async () => {
         userId TEXT,
         timestamp DATETIME,
         voiceFrequencyScore TEXT,
-        heartRateScore TEXT,
+        bpmScore TEXT,
+        hrvScore TEXT,
         motionScore TEXT,
         overallVibrationScore REAL,
-        hawkinsScore REAL,
+        hawkinsScore TEXT,
         chakraScores TEXT,
         environmentScore TEXT,
         voiceStrengthScore TEXT,
@@ -41,10 +42,11 @@ export const initializeDatabase = async () => {
         userId TEXT,
         timestamp DATETIME,
         voiceFrequencyScore TEXT,
-        heartRateScore TEXT,
+        bpmScore TEXT,
+        hrvScore TEXT,
         motionScore TEXT,
         overallVibrationScore REAL,
-        hawkinsScore REAL,
+        hawkinsScore TEXT,
         chakraScores TEXT,
         environmentScore TEXT,
         voiceStrengthScore TEXT,
@@ -56,26 +58,28 @@ export const initializeDatabase = async () => {
     await db.execAsync(`
       CREATE TABLE IF NOT EXISTS matchesReceived (
         matchId TEXT,
-        myUserId TEXT,
-        theirUserId TEXT,
-        myResultId TEXT,
-        theirResultId TEXT,
-        theirName TEXT,
+        recipientUserId TEXT,
+        senderUserId TEXT,
+        recipientResultId TEXT,
+        senderResultId TEXT,
+        senderUserName TEXT,
+        recipientUserName TEXT,
         timestamp DATETIME,
-        UNIQUE (matchId, myResultId, theirResultId)
+        UNIQUE (matchId, recipientResultId, senderResultId)
       );
     `);
 
     await db.execAsync(`
       CREATE TABLE IF NOT EXISTS matchesSent (
         matchId TEXT,
-        myUserId TEXT,
-        theirUserId TEXT,
-        myResultId TEXT,
-        theirResultId TEXT,
-        theirName TEXT,
+        recipientUserId TEXT,
+        senderUserId TEXT,
+        recipientResultId TEXT,
+        senderResultId TEXT,
+        senderUserName TEXT,
+        recipientUserName TEXT,
         timestamp DATETIME,
-        UNIQUE (matchId, myResultId, theirResultId)
+        UNIQUE (matchId, recipientResultId, senderResultId)
       );
     `);
 
@@ -112,12 +116,12 @@ export const initializeDatabase = async () => {
 export const dropAllTables = async () => {
   const db = await getDb();
   const tables = [
-    "results",
+    //   "results",
     "matchResultsReceived",
     "matchesReceived",
     "matchesSent",
-    "sticky_notes",
-    "journalEntries",
+    //   "sticky_notes",
+    //   "journalEntries",
   ];
   for (const table of tables) {
     await db.execAsync(`DROP TABLE IF EXISTS ${table};`);

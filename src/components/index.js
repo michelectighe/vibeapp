@@ -25,7 +25,7 @@ export { GradientBackground } from "./GradientBackground";
 export { HomeButton } from "./HomeButton";
 export { Card } from "./Card";
 export { JournalPromptCard } from "./JournalPromptCard";
-
+export { Badge } from "./Badge";
 export { ModalTrigger } from "./ModalTrigger";
 export { ProfileAvatar } from "./ProfileAvatar";
 export { ProgressDots } from "./ProgressDots";

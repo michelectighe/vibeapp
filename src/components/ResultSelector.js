@@ -1,12 +1,12 @@
-import React from "react";
+import React, {useState} from "react";
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { vibrationLevels } from "@data";
 import { Fonts, Colors } from "@constants";
-import { hexToRgba, scaledStyle } from "@utils";
+import { hexToRgba, scaledStyle, parseMetric } from "@utils";
 
 export const ResultSelector = ({ results, onSelect, onShare, onTrash, showIcons = true }) => {
-//  console.log('results in resultselect:', results)
+  console.log('results in resultselect:', results)
   const formatDate = (timestamp) => {
     if (!timestamp?.toDate) return "";
     return timestamp.toDate().toLocaleDateString("en-US", {
@@ -26,6 +26,7 @@ export const ResultSelector = ({ results, onSelect, onShare, onTrash, showIcons 
   return (
     <View>
       {results.map((item) => {
+        const hawkins = parseMetric(item.hawkinsScore);
         const level = getVibrationLevel(item.overallVibrationScore);
         // const levelColor = hexToRgba(level.color3, 0.7);
 
@@ -46,7 +47,7 @@ export const ResultSelector = ({ results, onSelect, onShare, onTrash, showIcons 
               </View>
               <TouchableOpacity style={styles.scoreButton} onPress={() => onSelect(item)}>
                 <Text style={[styles.score, { color: level.color3 }]}>
-                  {item.hawkinsScore.toFixed(0)}
+                  {hawkins.score}
                 </Text>
               </TouchableOpacity>
               {showIcons && (

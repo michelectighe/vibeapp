@@ -17,7 +17,7 @@ import {
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
-export const getMatchResultById = async (matchId, theirUserId, resultId) => {
+export const getMatchResultById = async (matchId, senderUserId, resultId) => {
   try {
     // console.log("getting match result: ", matchId);
     // console.log("for userid:", userId);
@@ -26,7 +26,7 @@ export const getMatchResultById = async (matchId, theirUserId, resultId) => {
 
     const result = await db.getAllAsync(
       `SELECT * FROM matchResultsReceived WHERE matchId = ? AND userId = ?  AND resultId = ? ORDER BY timestamp DESC LIMIT 1;`,
-      [matchId, theirUserId, resultId],
+      [matchId, senderUserId, resultId],
     );
     return result?.[0] || null;
   } catch (error) {
@@ -34,9 +34,9 @@ export const getMatchResultById = async (matchId, theirUserId, resultId) => {
     return null;
   }
 };
-export const saveVibeMatchReceived = async (sharedResult, matchData) => {
+export const saveVibeMatchReceived = async (senderResult, matchData) => {
   try {
-    console.log("saving vibematchreceived", sharedResult);
+    console.log("saving vibematchreceived", senderResult);
     const db = await getDb();
     await db.runAsync(
       ` INSERT OR IGNORE INTO matchResultsReceived ( 
@@ -45,7 +45,8 @@ export const saveVibeMatchReceived = async (sharedResult, matchData) => {
                 userId,
                 timestamp,
                 voiceFrequencyScore, 
-                heartRateScore,
+                bpmScore,
+                hrvScore,
                 motionScore, 
                 overallVibrationScore, 
                 hawkinsScore,
@@ -54,43 +55,46 @@ export const saveVibeMatchReceived = async (sharedResult, matchData) => {
                 voiceStrengthScore,
                 voiceClarityScore,
                 emotionScore
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
       [
         matchData.matchId,
-        sharedResult.resultId,
-        sharedResult.userId,
-        sharedResult.timestamp,
-        JSON.stringify(sharedResult.voiceFrequencyScore),
-        JSON.stringify(sharedResult.heartRateScore),
-        JSON.stringify(sharedResult.motionScore),
-        sharedResult.overallVibrationScore ?? 0,
-        sharedResult.hawkinsScore ?? 0,
-        JSON.stringify(sharedResult.chakraScores), // ✅ Store as JSON string
-        JSON.stringify(sharedResult.environmentScore),
-        JSON.stringify(sharedResult.voiceStrengthScore),
-        JSON.stringify(sharedResult.voiceClarityScore),
-        JSON.stringify(sharedResult.emotionScore),
+        senderResult.resultId,
+        senderResult.userId,
+        senderResult.timestamp,
+        JSON.stringify(senderResult.voiceFrequencyScore),
+        JSON.stringify(senderResult.bpmScore),
+        JSON.stringify(senderResult.hrvScore),
+        JSON.stringify(senderResult.motionScore),
+        senderResult.overallVibrationScore ?? 0,
+        JSON.stringify(senderResult.hawkinsScore),
+        JSON.stringify(senderResult.chakraScores), // ✅ Store as JSON string
+        JSON.stringify(senderResult.environmentScore),
+        JSON.stringify(senderResult.voiceStrengthScore),
+        JSON.stringify(senderResult.voiceClarityScore),
+        JSON.stringify(senderResult.emotionScore),
       ],
     );
     await db.runAsync(
       `
   INSERT OR IGNORE INTO matchesReceived (
-    matchId, myUserId, theirUserId, myResultId, theirResultId, theirName, timestamp
-  ) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+    matchId, recipientUserId, senderUserId, recipientResultId, senderResultId, senderUserName, recipientUserName, timestamp
+  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
       [
         matchData.matchId,
-        matchData.myUserId,
-        matchData.theirUserId,
-        matchData.myResultId,
-        matchData.theirResultId,
-        matchData.theirName,
+        matchData.recipientUserId,
+        matchData.senderUserId,
+        matchData.recipientResultId,
+        matchData.senderResultId,
+        matchData.senderUserName,
+        matchData.recipientUserName,
+        matchData.timestamp,
       ],
     );
 
     // 2. ResultId-based version (used for Firestore rules)
 
     await setDoc(
-      doc(dbFs, "users", matchData.myUserId, "matchesReceived", matchData.matchId),
+      doc(dbFs, "users", matchData.recipientUserId, "matchesReceived", matchData.matchId),
       matchData,
     );
   } catch (error) {
@@ -130,7 +134,7 @@ export const getAllMatchesForUserFs = async () => {
 
   const uid = user.uid;
 
-  const sentQuery = query(collection(dbFs, "matchLinks"), where("sharedByUserId", "==", uid));
+  const sentQuery = query(collection(dbFs, "matchLinks"), where("senderUserId", "==", uid));
   const receivedQuery = query(collection(dbFs, "users", uid, "matchesReceived"));
 
   const [sentSnap, receivedSnap] = await Promise.all([getDocs(sentQuery), getDocs(receivedQuery)]);
@@ -145,7 +149,7 @@ export const getAllMatchesForUserFs = async () => {
   return allMatches;
 };
 
-export const getSharedResult = async (userId, matchId) => {
+export const getsenderResult = async (userId, matchId) => {
   try {
     const localRef = await getLocalMatchMeta(matchId);
     console.log("what is LOCALREF:", localRef);
@@ -153,17 +157,17 @@ export const getSharedResult = async (userId, matchId) => {
       console.log("got their match record:", localRef);
       if (localRef && localRef) {
         // see if there is a loal match record
-        const sharedResult = await getMatchResultById(
+        const senderResult = await getMatchResultById(
           matchId,
-          localRef.theirUserId,
-          localRef.theirResultId,
+          localRef.senderUserId,
+          localRef.senderResultId,
           userId,
         ); // if there is, get the local results (if they exist)
 
-        if (sharedResult) {
-          const sharedName = localRef?.theirName || "Someone";
+        if (senderResult) {
+          const senderUserName = localRef?.senderUserName || "Someone";
           //console.log("[Cache Hit]: Found local match");
-          return sharedResult, sharedName;
+          return senderResult, senderUserName;
         }
       }
     }
@@ -178,16 +182,16 @@ export const getSharedResult = async (userId, matchId) => {
     }
     const matchData = matchSnap.data();
     //   console.log('MATCH DATA FROM FS:', matchData)
-    const sharedResultRef = doc(
+    const senderResultRef = doc(
       dbFs,
       "users",
-      matchData.sharedByUserId,
+      matchData.senderUserId,
       "results",
-      matchData.sharedByResultId,
+      matchData.senderResultId,
     );
-    const sharedResultSnap = await getDoc(sharedResultRef);
+    const senderResultSnap = await getDoc(senderResultRef);
 
-    if (sharedResultSnap.exists()) {
+    if (senderResultSnap.exists()) {
       // Add the viewer's UID and timestamp to the match link
       const viewerId = userId || "anonymous";
       await updateDoc(doc(dbFs, "matchLinks", matchId), {
@@ -196,10 +200,10 @@ export const getSharedResult = async (userId, matchId) => {
           timestamp: new Date().toISOString(),
         }),
       });
-      const sharedResult = sharedResultSnap.data();
-      //          console.log("SHARED RESULT:", sharedResult);
-      const sharedName = matchData.sharedByUserName;
-      return [{ sharedResult }, { sharedName }];
+      const senderResult = senderResultSnap.data();
+      //          console.log("SHARED RESULT:", senderResult);
+      const senderUserName = matchData.senderUserName;
+      return [{ senderResult }, { senderUserName }];
     } else return null;
 
     console.log("[Firestore Fetch]: Match not found locally, fetched from server");
@@ -225,7 +229,7 @@ export const saveCompletedMatchLink = async ({
       comparisonResults,
     );
     // ✅ Destructure inside the function
-    const { overallSummary, comparisons, sharedChakras, recipientChakras } = comparisonResults;
+    const { overallSummary, comparisons, senderChakrasas, recipientChakras } = comparisonResults;
     
     const matchRef = doc(dbFs, "matchLinks", matchId);
     await updateDoc(matchRef, {
@@ -238,8 +242,8 @@ export const saveCompletedMatchLink = async ({
       comparisonResults: {
         overallSummary,
         comparisons,
-        sharedChakras,
-        recipientChakras
+        senderChakrasas,
+        recipientChakras,
       },
     });
 
@@ -251,7 +255,7 @@ export const saveCompletedMatchLink = async ({
 
 // export const getComparisonData = (matchId) => {
 
-//   const { sharedByUserName, recipientUserName, comparisonResults } = matchLinkDoc.data();
+//   const { senderUserName, recipientUserName, comparisonResults } = matchLinkDoc.data();
 
 // }
 

@@ -22,6 +22,8 @@ export {
   evaluateEmotionalState,
   evaluateMotion,
   evaluateEnvironment,
+  evaluateHawkins,
+  evaluateEnvironmentScore,
 } from "./evaluateMetrics";
 
 export { getFriendlyError } from "./friendlyErrors";
@@ -53,7 +55,6 @@ export { lightenHexColor } from "./lightenHexColor.js";
 
 export { analyzePeacefulness } from "./analyzePeacefulness";
 export { loadSoundClassLabels } from "./loadSoundClassLabels";
-
 
 // clean up
 

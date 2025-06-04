@@ -1,8 +1,9 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Fonts, Colors } from "@/constants";
+import { Badge } from "./Badge";
 
-export const HomeHeaderCard = ({ name = "friend" }) => {
+export const HomeHeaderCard = ({ name = "friend" , newMatchesCount = 0}) => {
 
 const getGreeting = () => {
   const hour = new Date().getHours();
@@ -15,7 +16,10 @@ const getGreeting = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.greeting}>{getGreeting()}, {name}</Text>
+      <Badge value={newMatchesCount} />
+      <Text style={styles.greeting}>
+        {getGreeting()}, {name}
+      </Text>
       <Text style={styles.subtitle}>Your vibe today is just a tap away.</Text>
     </View>
   );

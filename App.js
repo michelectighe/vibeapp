@@ -19,6 +19,7 @@ import {
   AuthProvider,
   AnalysisProvider,
   MyResultsProvider,
+  NotificationProvider,
 } from "@context";
 import { MusicManager } from "@utils";
 import { SplashScreen, WelcomeScreen, ChakraDetailModal, GoodNewsScreen } from "@screens";
@@ -60,15 +61,6 @@ const AppInner = () => {
   const [checkForLink, setCheckForLink] = useState(false);
 
   const navigationRef = useNavigationContainerRef();
-
-  // useEffect(() => {
-  //   const unsubscribe = navigationRef.addListener("state", () => {
-  //     const currentRoute = navigationRef.getCurrentRoute();
-  //     console.log("Navigated to:", currentRoute?.name);
-  //   });
-
-  //   return unsubscribe;
-  // }, []);
 
   useEffect(() => {
     const init = async () => {
@@ -137,7 +129,9 @@ export const App = () => {
         <AuthProvider>
           <UserProfileProvider>
             <MyResultsProvider>
-              <AppInner />
+              <NotificationProvider>
+                <AppInner />
+              </NotificationProvider>
             </MyResultsProvider>
           </UserProfileProvider>
         </AuthProvider>

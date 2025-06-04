@@ -102,7 +102,7 @@
 - [x] Add 2–3 free meditation MP3 files
 - [x] Ensure background music doesn’t conflict with analysis
 - [x] Confirm play/stop logic and styling in Meditation screen
-- [ ] Polish Energy Cleanse Screen
+- [x] Polish Energy Cleanse Screen
 - [x] Make modal breathing screen for Energy Cleanse
 
 ### 11. App Flow Testing
@@ -125,11 +125,14 @@
 
 ### 13. Optional (if time permits)
 
-- [ ] Deep linking: `vibekey://compare?id=...`
+- [x] Deep linking: `vibekey://compare?id=...`
 - [x] Glossary or “What’s this?” tooltips for new users
 - [x] Haptics
 
 ### 14. TEST TEST TEST
+- [ ] Move details on heartrate screen
+- [ ] test on different sizes
+- [ ] test on android
 
 ## 🛠️ App Store Prep
 

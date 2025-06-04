@@ -14,7 +14,7 @@ export const metricComparisonDescriptions = {
       { min: 76, max: 100, description: "centered and emotionally balanced" },
     ],
   },
-  heartRateScore: {
+  bpmScore: {
     label: "Heart Rate",
     descriptions: {
       aligned: "Your heart rates are nearly identical — a strong physiological match.",
@@ -120,7 +120,7 @@ export const metricComparisonDescriptions = {
       { min: 300, max: 399, description: "willingness or acceptance — open and evolving" },
       { min: 400, max: 499, description: "reason or understanding — intellectually aware" },
       { min: 500, max: 599, description: "love or joy — heart-centered and high vibration" },
-      { min: 600, max: 799, description: "peace or bliss — deeply spiritual awareness" },
+      { min: 600, max: 799, description: "peace or bliss — deep spiritual awareness" },
       { min: 800, max: 1000, description: "enlightenment — transcendent vibrational state" },
     ],
   },

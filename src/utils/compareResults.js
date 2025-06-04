@@ -1,5 +1,5 @@
 // utils/compareResults.js
-export const compareResults = (myResult, sharedResult) => {
+export const compareResults = (myResult, senderResult) => {
   const fieldsToCompare = [
     "emotionScore",
     "heartRateScore",
@@ -15,15 +15,15 @@ export const compareResults = (myResult, sharedResult) => {
   const differences = [];
 
   fieldsToCompare.forEach((key) => {
-    const myVal = myResult[key];
-    const theirVal = sharedResult[key];
-    if (myVal != null && theirVal != null) {
-      const diff = Math.abs(myVal - theirVal);
+    const recipientVal = myResult[key];
+    const senderVal = senderResult[key];
+    if (recipientVal != null && senderVal != null) {
+      const diff = Math.abs(recipientVal - senderVal);
       const threshold = 10;
       if (diff < threshold) {
-        similarities.push({ key, myVal, theirVal });
+        similarities.push({ key, recipientVal, senderVal });
       } else {
-        differences.push({ key, myVal, theirVal });
+        differences.push({ key, recipientVal, senderVal });
       }
     }
   });

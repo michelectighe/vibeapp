@@ -2,11 +2,14 @@
 export const parseMetric = (val) => {
   if (typeof val === "string") {
     try {
+      console.log('ParseReturn:', JSON.parse(val))
       return JSON.parse(val);
     } catch {
+              console.log("ParseReturn:", null);
       return null;
     }
   }
+        console.log("ParseReturn:", val);
   return val;
 };
 
@@ -67,7 +70,7 @@ export const calculateOverallVibe = (scores) => {
 
   return {
     overallScore: Math.round(clamped),
-    hawkinsScore: Math.round(hawkins),
+    hawkins: Math.round(hawkins),
   };
 };
 

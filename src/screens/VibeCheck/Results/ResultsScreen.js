@@ -18,6 +18,7 @@ import { getResultById, saveResults } from "@database";
 import { hexToRgba } from "@/utils";
 import { MyResultsContext } from "@/context/MyResultsContext";
 import { getMatchId, getCreateShare, normalizeMetricForStorage } from "@/utils";
+import { hawkinsLevels } from "@data";
 
 Text.defaultProps = Text.defaultProps || {};
 Text.defaultProps.allowFontScaling = false;
@@ -42,6 +43,7 @@ export const ResultsScreen = ({ navigation }) => {
   const [dataReady, setDataReady] = useState(false);
   const [oldResults, setOldResults] = useState(false);
   const [matchLinkActive, setMatchLinkActive] = useState(false);
+  const [hawkinsDescription, setHawkinsDescription] = useState(null);
 
   const oldResultsRef = useRef(false);
   const infoImage = require("@assets/images/info.webp");
@@ -63,7 +65,8 @@ export const ResultsScreen = ({ navigation }) => {
     chakraScores,
     vibrationInfo,
     heartRate,
-    heartRateScore,
+    bpmScore,
+    hrvScore,
     setResult,
     resetAnalysis,
     hawkinsScore,
@@ -116,9 +119,11 @@ export const ResultsScreen = ({ navigation }) => {
         setViewColor(hexToRgba(result.color));
         setImage(result.image);
         setDataReady(true);
+        if (hawkinsScore?.score) {
+          getHawkinsDescription(hawkinsScore.score);
+        }
         //save to db if the data is new
         if (!oldResultsRef.current && user) {
-          console.log("going to save");
           await saveResultsToDB();
           //console.log("try to save because NOT old score?????");
           oldResultsRef.current = true; // set to make sure it doesn't try to save again
@@ -132,7 +137,7 @@ export const ResultsScreen = ({ navigation }) => {
     return () => {
       isMounted = false;
     };
-  }, [overallVibrationScore, vibrationInfo, chakraScores, user, resultId]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [overallVibrationScore, vibrationInfo, chakraScores, user, resultId, hawkinsScore]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const saveResultsToDB = async () => {
     console.log("insaveresultstodb");
@@ -148,9 +153,13 @@ export const ResultsScreen = ({ navigation }) => {
         voiceFrequencyScore?.value || 0,
         voiceFrequencyScore?.score || 0,
       ),
-      heartRateScore: normalizeMetricForStorage(heartRateScore, heartRateScore),
+      bpmScore: normalizeMetricForStorage(bpmScore?.value || 0, bpmScore?.score || 0),
+      hrvScore: normalizeMetricForStorage(hrvScore?.value || 0, hrvScore?.score || 0),
       motionScore: normalizeMetricForStorage(motionScore?.value || 0, motionScore?.score || 0),
-      environmentScore: environmentScore ?? 0,
+      environmentScore: normalizeMetricForStorage(
+        environmentScore?.value || 0,
+        environmentScore?.score || 0,
+      ),
       voiceStrengthScore: normalizeMetricForStorage(
         voiceStrengthScore?.value || 0,
         voiceStrengthScore?.score || 0,
@@ -159,9 +168,9 @@ export const ResultsScreen = ({ navigation }) => {
         voiceClarityScore?.value || 0,
         voiceClarityScore?.score || 0,
       ),
-      emotionScore: emotionScore ?? 0,
+      emotionScore: normalizeMetricForStorage(emotionScore?.value || 0, emotionScore?.score || 0),
       overallVibrationScore: overallVibrationScore ?? 0,
-      hawkinsScore: hawkinsScore ?? 0,
+      hawkinsScore: normalizeMetricForStorage(hawkinsScore?.value || 0, hawkinsScore?.score || 0),
       chakraScores: chakraScores || {},
       journalId: "0",
     };
@@ -205,6 +214,22 @@ export const ResultsScreen = ({ navigation }) => {
     }
   };
 
+  const getHawkinsDescription = (hawkinsScore) => {
+    // Find the matching level
+    let matchedLevel = hawkinsLevels[0];
+    for (let i = 0; i < hawkinsLevels.length; i++) {
+      if (hawkinsScore >= hawkinsLevels[i].level) {
+        matchedLevel = hawkinsLevels[i];
+      } else {
+        break; // levels are in ascending order, so break early
+      }
+    }
+    console.log("MATCHED LEVEL:", matchedLevel.description);
+    if (matchedLevel) {
+      setHawkinsDescription(matchedLevel.description);
+    }
+  };
+
   // 👇 Prevent UI rendering until all required data is ready
   if (!dataReady || !overallLabel || !overallDescription || !overallImage || !overallColor) {
     return (
@@ -234,9 +259,7 @@ export const ResultsScreen = ({ navigation }) => {
               }}
             />
             <View style={styles.titleWrapper}>
-              <Text style={[styles.score, { color: overallColor4 }]}>
-                {hawkinsScore.toFixed(0)}
-              </Text>
+              <Text style={[styles.score, { color: overallColor4 }]}>{hawkinsScore.score}</Text>
               <Text
                 style={[styles.label, { color: overallColor4, textShadowColor: overallColor4 }]}
               >
@@ -252,6 +275,11 @@ export const ResultsScreen = ({ navigation }) => {
               onPress={() => navigation.navigate("ResultDetails")}
             />
             <View style={[styles.descriptionBox, { backgroundColor: viewColor }]}>
+              {hawkinsDescription && (
+                <Text style={[styles.descriptionText, { color: overallColor2 }]}>
+                  {hawkinsDescription}
+                </Text>
+              )}
               <Text style={[styles.descriptionText, { color: overallColor2 }]}>
                 {overallDescription}
               </Text>

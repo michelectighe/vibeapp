@@ -58,16 +58,16 @@ export const truncateCollection = async (collectionName) => {
 
 //     }
 
-//     function isMatchLinkValid(sharedByUserId, sharedByResultId) {
+//     function isMatchLinkValid(senderUserId, senderResultId) {
 //       // Search for any matchLinks doc that matches both the user and result ID
 //       // You are storing matchLinks with matchId as the doc ID
 //       // So we have to assume resultId is inside the data, not the key
 
 //       // 🔥 NOTE: Firestore security rules can't search documents by fields —
 //       // so we MUST use resultId as the document ID in /matchLinks/{resultId}
-//       return exists(/databases/$(database)/documents/matchLinks/$(sharedByResultId)) &&
-//              get(/databases/$(database)/documents/matchLinks/$(sharedByResultId)).data.sharedByUserId == sharedByUserId &&
-//              get(/databases/$(database)/documents/matchLinks/$(sharedByResultId)).data.sharedByResultId == sharedByResultId;
+//       return exists(/databases/$(database)/documents/matchLinks/$(senderResultId)) &&
+//              get(/databases/$(database)/documents/matchLinks/$(senderResultId)).data.senderUserId == senderUserId &&
+//              get(/databases/$(database)/documents/matchLinks/$(senderResultId)).data.senderResultId == senderResultId;
 //     }
 //   }
 // }

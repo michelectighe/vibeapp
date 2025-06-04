@@ -2,15 +2,16 @@ import React, { useRef, useCallback, useEffect, useState, useContext } from "rea
 import * as Animatable from "react-native-animatable";
 import { Animated, View, Text, ScrollView } from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import { useNotification } from "@context";
+import { MyResultsContext } from "@/context/MyResultsContext";
 import { getAuth } from "firebase/auth";
 import { useUserProfile } from "@context";
 import { Colors } from "@constants";
-import { GradientBackground, HomeHeaderCard, SectionWithCards } from "@components";
+import { GradientBackground, HomeHeaderCard, SectionWithCards, Badge } from "@components";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./VibeKeyHome.styles";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { globalStyles } from "@styles";
-import { MyResultsContext } from "@/context/MyResultsContext";
 import { getTodayGoodNews } from "@/utils";
 import {
   cardsTools,
@@ -25,6 +26,8 @@ import { CustomSpiritualButton } from "@/components";
 
 export const VibeKeyHome = ({ onReady }) => {
   const { resetAnalysis } = useAnalysis();
+  const { newMatchesCount } = useNotification();
+  // Now use this for badges, notifications, etc!
   const auth = getAuth();
   const user = auth.currentUser;
   const { myResults } = useContext(MyResultsContext);
@@ -114,7 +117,7 @@ export const VibeKeyHome = ({ onReady }) => {
           c.id === "recent-results"
             ? {
                 ...c,
-                subtitle: `Score: ${latest.hawkinsScore} on ${new Date(
+                subtitle: `Score: ${latest.hawkinsScore.score} on ${new Date(
                   latest.timestamp,
                 ).toLocaleDateString()}`,
                 resultId: latest.resultId,
@@ -208,7 +211,7 @@ export const VibeKeyHome = ({ onReady }) => {
           c.id === "recent-results" && latest
             ? {
                 ...c,
-                subtitle: `Score: ${latest.hawkinsScore} on ${new Date(
+                subtitle: `Score: ${latest.hawkinsScore.score} on ${new Date(
                   latest.timestamp,
                 ).toLocaleDateString()}`,
                 resultId: latest.resultId,
@@ -234,20 +237,13 @@ export const VibeKeyHome = ({ onReady }) => {
         <Text>Loading...</Text>
       ) : (
         <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}>
+        
           <ScrollView
             style={[styles.scrollView, { bottom: tabBarHeight + 12 }]}
             contentContainerStyle={[styles.scrollContent, { paddingTop: 100 }]}
             showsVerticalScrollIndicator={false}
           >
-            <HomeHeaderCard name={profile?.displayName || "friend"} />
-            <CustomSpiritualButton
-              label="Match Notifications"
-              onPress={() =>
-                navigation.navigate("VibeMatch", { screen: "MatchNotificationScreen" })
-              }
-              color={Colors.buttonBackground}
-              textColor={Colors.textDark}
-            />
+            <HomeHeaderCard name={profile?.displayName || "friend"} newMatchesCount={newMatchesCount}/>
             {sections.map((section, index) => (
               <Animatable.View key={section.title} animation="fadeInUp" delay={index * 100}>
                 <SectionWithCards

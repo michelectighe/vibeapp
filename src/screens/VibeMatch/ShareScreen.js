@@ -68,7 +68,6 @@ export const ShareScreen = () => {
   }, [authLoading, loading, user, isPremium, myResults]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleTakeTest = () => {
-    console.log("TAKE TEWST");
     setCreateShare();
     navigation.navigate("VibeCheck", { screen: "VibecheckScreen" });
   };
@@ -157,7 +156,6 @@ export const ShareScreen = () => {
                   <CustomSpiritualButton
                     label="Do a New Vibe Check"
                     onPress={() => {
-                      console.log("TAKE TEWST");
                       setCreateShare();
                       navigation.navigate("VibeCheck", { screen: "VibecheckScreen" });
                     }}

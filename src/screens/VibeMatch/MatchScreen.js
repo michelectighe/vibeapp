@@ -12,7 +12,7 @@ import { styles } from "./MatchScreen.styles";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { MyResultsContext } from "@/context/MyResultsContext";
 import { SplashScreen } from "../Main";
-import { getSharedResult } from "@/database";
+import { getsenderResult } from "@/database";
 import { getMatchId, clearMatchId } from "@/utils";
 
 //setLogLevel("debug");
@@ -25,9 +25,9 @@ export const MatchScreen = ({ route }) => {
   const navigation = useNavigation();
   const [matchId, setLocalMatchId] = useState(null);
   const [loadingShared, setLoadingShared] = useState(true);
-  const [sharedResult, setSharedResult] = useState(null);
+  const [senderResult, setsenderResult] = useState(null);
   const [matchFound, setMatchFound] = useState(false);
-  const [shareName, setSharedName] = useState("Someone");
+  const [senderUserName, setsenderUserName] = useState("Someone");
   const [noResults, setNoResults] = useState(true);
   const tabBarHeight = useBottomTabBarHeight();
   useEffect(() => {
@@ -38,16 +38,17 @@ export const MatchScreen = ({ route }) => {
     if (!matchId) return;
     //  console.log("user", user);
     if (!user) return;
-    const fetchSharedResult = async () => {
+    const fetchsenderResult = async () => {
       console.log("match:", matchId);
       if (!matchId) return;
-      const sharedData = await getSharedResult(user?.uid, matchId);
+      const sharedData = await getsenderResult(user?.uid, matchId);
       // console.log("SHARED DATA BACK:", sharedData);
       if (sharedData) {
         // same user don't save
-        if (sharedData[0].sharedResult.userId !== user.uid) {
-          setSharedName(sharedData[1].sharedName);
-          setSharedResult(sharedData[0].sharedResult);
+        console.log('SENDER:', sharedData)
+        if (sharedData[0].senderResult.userId !== user.uid) {
+          setsenderUserName(sharedData[1].senderUserName);
+          setsenderResult(sharedData[0].senderResult);
           setMatchFound(true);
         } else {
           clearMatchId();
@@ -57,9 +58,9 @@ export const MatchScreen = ({ route }) => {
         clearMatchId();
       }
       setLoadingShared(false);
-      console.log('got here')
+      console.log("got here");
     };
-    fetchSharedResult();
+    fetchsenderResult();
   }, [matchId, user]);
 
   useEffect(() => {
@@ -69,7 +70,7 @@ export const MatchScreen = ({ route }) => {
     }
   }, [myResults]);
 
-  // console.log("shared:", sharedResult);
+  // console.log("shared:", senderResult);
   // console.log("loadingShared", loadingShared);
   // console.log("loading", loading);
   if (loading || loadingShared || !user) {
@@ -83,7 +84,7 @@ export const MatchScreen = ({ route }) => {
         {matchFound && (
           <View>
             <Text style={styles.title}>
-              {`${shareName} wants to match. Let's see if your vibes are in sync.`}
+              {`${senderUserName} wants to match. Let's see if your vibes are in sync.`}
             </Text>
           </View>
         )}
@@ -109,8 +110,9 @@ export const MatchScreen = ({ route }) => {
                 clearMatchId();
                 navigation.navigate("MatchComparisonScreen", {
                   myResult: selected,
-                  sharedResult,
-                  shareName,
+                  senderResult,
+                  senderUserName: senderUserName,
+                  recipientUserName: user.displayName,
                   matchId,
                 });
               }}

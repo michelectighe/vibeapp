@@ -3,18 +3,25 @@ import { View, Text, StyleSheet } from "react-native";
 import { Colors, Fonts } from "@/constants";
 
 
-export const ComparisonCard = ({ label, myVal, theirVal, description }) => {
+export const ComparisonCard = ({
+  label,
+  recipientVal,
+  senderVal,
+  description,
+  recipientUserName,
+  senderUserName,
+}) => {
   return (
     <View style={styles.card}>
       <Text style={styles.label}>{label}</Text>
       <View style={styles.row}>
         <View style={styles.side}>
-          <Text style={styles.sideLabel}>You</Text>
-          <Text style={styles.value}>{myVal}</Text>
+          <Text style={styles.sideLabel}>{recipientUserName}</Text>
+          <Text style={styles.value}>{recipientVal}</Text>
         </View>
         <View style={styles.side}>
-          <Text style={styles.sideLabel}>Them</Text>
-          <Text style={styles.value}>{theirVal}</Text>
+          <Text style={styles.sideLabel}>{senderUserName}</Text>
+          <Text style={styles.value}>{senderVal}</Text>
         </View>
       </View>
       <Text style={styles.description}>{description}</Text>

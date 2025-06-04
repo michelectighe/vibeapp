@@ -20,7 +20,7 @@ export {
   getLocalMatchMeta,
   deleteVibeMatchResult,
   getAllMatchesForUserFs,
-  getSharedResult,
+  getsenderResult,
   saveCompletedMatchLink,
 } from "./dbVibeMatch";
 export { truncateLocalTable, execAsync } from "./database";

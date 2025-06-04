@@ -23,7 +23,7 @@ const rawStyles = {
     textAlign: "center",
   },
   label: {
-    fontSize: SCREEN_HEIGHT * 0.06,
+    fontSize: SCREEN_HEIGHT * 0.05,
     color: Colors.white,
     textAlign: "center",
     textShadowRadius: 2,

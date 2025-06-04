@@ -16,7 +16,7 @@ export const metricRanges = {
   voiceStrengthScore: { min: 0, max: 100 },
   environmentScore: { min: 0, max: 100 },
   motionScore: { min: 0, max: 100 },
-  heartRateScore: { min: 0, max: 100 },
+  bpmScore: { min: 0, max: 100 },
   hrvScore: { min: 0, max: 100 }, 
   emotionScore: { min: 0, max: 100 },
   overallVibrationScore: { min: 0, max: 100 },
