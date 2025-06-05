@@ -67,3 +67,5 @@ export { DatePickerStrip } from "./DatePicker";
 export { HawkinsLevelExpandable } from "./HawkinsLevelExpandable";
 
 export { DeepLinkHandler } from "./DeepLinkHandler";
+
+export { EmotionPromptOverlay } from "./EmotionPromptOverlay";

@@ -79,3 +79,5 @@ export {
   calculateChakraScores,
   calculateOverallVibe,
 } from "./analysisContextHelpers";
+
+export { analyzeVoiceClarity } from "./analyzeVoiceClarity";

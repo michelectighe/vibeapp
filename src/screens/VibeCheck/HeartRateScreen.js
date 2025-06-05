@@ -171,11 +171,11 @@ function HeartRateScreenInner() {
                 <View style={styles.leftColumn}>
                   <View style={styles.largeCard}>
                     <Text style={styles.iconLabel}>🎧 Background Sound</Text>
-                    <Text style={[styles.iconValue, { height: "25%" }]}>{soundLabel}</Text>
+                    <Text style={[styles.iconValue, { height: "15%" }]}>{soundLabel}</Text>
                     <View style={styles.divider} />
                     <Text style={[styles.iconValue, { opacity: 0.75 }]}>Detected Tones</Text>
                     {topSoundLabels.map((label, i) => (
-                      <Text key={i} style={styles.iconSubValue}>
+                      <Text key={i} style={[styles.iconSubValue,{}]}>
                         {label}
                       </Text>
                     ))}
@@ -183,25 +183,25 @@ function HeartRateScreenInner() {
                 </View>
 
                 <View style={styles.rightColumn}>
-                  <View style={[styles.iconItem, { height: "40%" }]}>
+                  <View style={[styles.iconItem, { height: "38%" }]}>
                     <Text style={styles.iconLabel}>📡 Magnetic Field</Text>
                     <Text style={styles.iconValue}>{magLabel}</Text>
                     <Text style={styles.iconSubValue}>{magValue.toFixed(1)} µT</Text>
                   </View>
-                  <View style={[styles.iconItem, { height: "30%" }]}>
+                  <View style={[styles.iconItem, { height: "45.5%" }]}>
                     <Text style={styles.iconLabel}>🧘 Your Motion</Text>
                     <Text style={styles.iconValue} numberOfLines={2}>
                       {motionLabel}
                     </Text>
                     {isFidgeting && <Text style={styles.shaky}>shaky</Text>}
                   </View>
-                  <View style={[styles.iconItem, { height: "31%" }]}>
-                    <Text style={styles.iconLabel}>📍 Location Vibe</Text>
-                    <Text style={styles.iconValue} numberOfLines={2}>
-                      {spaceLabel}
-                    </Text>
-                  </View>
                 </View>
+              </View>
+              <View style={[styles.iconItem, {flexDirection: "row",gap: 11, height: "13%", marginTop: "-9%" }]}>
+                <Text style={[styles.iconLabel, {marginTop: 1}]}>📍 Location Vibe</Text>
+                <Text style={styles.iconValue} numberOfLines={2}>
+                  {spaceLabel}
+                </Text>
               </View>
             </Animated.View>
           )

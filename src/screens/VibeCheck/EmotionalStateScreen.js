@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback, useMemo, useState, useRef } from "react";
-import { View, Animated, Text } from "react-native";
+import { View, Animated, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Camera, useCameraDevice, useFrameProcessor /*face*/ } from "react-native-vision-camera";
 import { initMedia, createRefChecker, cleanupMedia } from "@utils";
 import { useResizePlugin } from "vision-camera-resize-plugin";
@@ -9,6 +9,8 @@ import AudioRecord from "react-native-audio-record";
 import { Worklets } from "react-native-worklets-core";
 import { useVoiceRecording } from "@features/voiceAnalysis/VoiceRecording";
 import { useFaceDetector } from "react-native-vision-camera-face-detector";
+import { BlurView } from "@react-native-community/blur";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 import {
   FuzzyRectangleGlow,
   GradientBackground,
@@ -20,14 +22,15 @@ import { Fonts, Colors } from "@constants";
 import { useAmbientControlForScreen, useVibeCheckNavigation } from "@hooks";
 import { styles } from "./EmotionalStateScreen.styles";
 import { hexToRgba } from "@/utils";
+import { EmotionPromptOverlay } from "@/components";
 
-const phrases = [
-  "Try not to look suspicious",
-  "Imagine you're on a cooking show",
-  "Talk like you're negotiating a raise",
-  "Pretend you're telling a dog it's adopted",
-  "Say it like a villain monologue",
-];
+// const phrases = [
+//   "Try not to look suspicious",
+//   "Imagine you're on a cooking show",
+//   "Talk like you're negotiating a raise",
+//   "Pretend you're telling a dog it's adopted",
+//   "Say it like a villain monologue",
+// ];
 
 const EMOTIONS = [
   "neutral",
@@ -46,14 +49,7 @@ export const EmotionalStateScreen = () => {
   const navigation = useNavigation();
   const device = useCameraDevice("front");
   const isFocused = useIsFocused();
-  const continueOpacity = useRef(new Animated.Value(0)).current;
-  useEffect(() => {
-    Animated.timing(continueOpacity, {
-      toValue: 0.8,
-      duration: 3000,
-      useNativeDriver: true,
-    }).start();
-  }, []);
+
   const selectedFormat = useMemo(() => {
     try {
       if (!device?.formats?.length) return undefined;
@@ -79,6 +75,7 @@ export const EmotionalStateScreen = () => {
   const { setEmotions, setVoiceStrength, setVoiceFrequency, setVoiceClarity } = useAnalysis();
   const [emotion, setEmotion] = useState("Analyzing...");
   const [isAudioRecording, setIsAudioRecording] = useState(false);
+  const [isRecording, setIsRecording] = useState(false);
   const [emotionLog, setEmotionLog] = useState([]);
   const [cameraReady, setCameraReady] = useState(false);
   const emotionLogRef = useRef(emotionLog);
@@ -90,7 +87,7 @@ export const EmotionalStateScreen = () => {
   }).current;
 
   const { detectFaces } = useFaceDetector(faceDetectionOptions);
-  const [currentPhrase, setCurrentPhrase] = useState("Talk like you're negotiating a raise");
+  const [currentPhrase, setCurrentPhrase] = useState();
   // Initialize camera & Sound
   useFocusEffect(
     useCallback(() => {
@@ -112,7 +109,7 @@ export const EmotionalStateScreen = () => {
             "audio",
           );
           setTimeout(async () => {
-            await startRecording();
+            //    await startRecording();
             ////console.log("🎙️ Audio recording started after delay");
           }, 500);
 
@@ -129,6 +126,15 @@ export const EmotionalStateScreen = () => {
       };
     }, [device, cameraReady]), // eslint-disable-line react-hooks/exhaustive-deps
   );
+
+  const [cachedDevice, setCachedDevice] = useState();
+  const [cachedFormat, setCachedFormat] = useState();
+
+  useEffect(() => {
+    if (device && !cachedDevice) setCachedDevice(device);
+    // Same for format
+    if (selectedFormat && !cachedFormat) setCachedFormat(selectedFormat);
+  }, [device, selectedFormat]);
 
   useFocusEffect(
     useCallback(() => {
@@ -193,10 +199,7 @@ export const EmotionalStateScreen = () => {
       };
     }, [setEmotions]),
   );
-  useEffect(() => {
-    const randomIndex = Math.floor(Math.random() * phrases.length);
-    setCurrentPhrase(phrases[randomIndex]);
-  }, []);
+
   useEffect(() => {
     try {
       emotionLogRef.current = emotionLog;
@@ -227,11 +230,12 @@ export const EmotionalStateScreen = () => {
 
   const manualStop = () => {
     stopRecording();
-    goToNextScreen();
+    //   goToNextScreen();
   };
   let audioSub = null;
   const startRecording = async () => {
     try {
+      setIsRecording(true);
       setIsAudioRecording(true);
       audioBuffer.current = [];
 
@@ -250,6 +254,7 @@ export const EmotionalStateScreen = () => {
 
   const stopRecording = async () => {
     try {
+      setIsRecording(false);
       if (!isAudioRecording) return; //leave if it's already stopped
 
       clearTimeout(stopTimeoutRef.current); // ✅ clear timeout
@@ -292,7 +297,7 @@ export const EmotionalStateScreen = () => {
   const emotionProcessor = useFrameProcessor(
     (frame) => {
       "worklet";
-
+      if (!isRecording) return;
       if (!isRefActive(frameProcessorEmotionActiveRef.current)) return;
       if (!emotionModel) {
         ////console.log("⛔️ Frame skipped - model not loaded");
@@ -316,10 +321,6 @@ export const EmotionalStateScreen = () => {
         let cropHeight = faces[0].bounds.height;
         let cropX = faces[0].bounds.x;
         let cropY = faces[0].bounds.y;
-        // let cropWidth = MODEL_INPUT;
-        // let cropHeight = MODEL_INPUT;
-        // let cropX = frame.width / 2 - MODEL_INPUT / 2;
-        // let cropY = frame.height / 2 + MODEL_INPUT / 2;
 
         // Ensure crop values are within frame bounds
         if (cropX > frame.width || cropY > frame.height) {
@@ -389,89 +390,55 @@ export const EmotionalStateScreen = () => {
     },
     [emotionModel],
   );
+  const blankFrameProcessor = useFrameProcessor(() => {}, []);
+
+  //console.log("DEVICE", device, "SELECTEDFORMAT", selectedFormat, "isRecording", isRecording);
 
   return (
-    <GradientBackground
-      colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}
-      logo={false}
-    >
-      <SectionLayout
-        topFlex={1}
-        middleFlex={0}
-        bottomFlex={0}
-        safe={false}
-        topContent={
-          <>
-            <Animated.View style={[styles.continueContainer, { opacity: continueOpacity }]}>
-              {device ? (
-                selectedFormat ? (
-                  // Render camera preview
-                  <View style={styles.glowWrapper}>
-                    <FuzzyRectangleGlow
-                      width={250}
-                      height={300}
-                      glowColor={Colors.white}
-                      style={{
-                        top: "50%",
-                        left: "50%",
-                        pulse: true,
-                        transform: [
-                          { translateX: -225 }, // (250 + 200) / 2
-                          { translateY: -250 }, // (300 + 200) / 2
-                        ],
-                      }}
-                    />
-                    <SparkleOverlay width={250} height={300} />
-                    <View style={styles.cameraContainer}>
-                      {/* Camera view */}
-                      <View style={styles.cameraView}>
-                        {device && selectedFormat && isFocused && (
-                          <Camera
-                            key={isFocused ? "active" : "inactive"}
-                            ref={cameraEmotionRef}
-                            style={styles.cameraStyle}
-                            device={isFocused && device}
-                            isActive={isFocused} //isFocused mct
-                            onInitialized={() => {
-                              setCameraReady(true);
-                            }}
-                            format={selectedFormat}
-                            audio={false}
-                            frameProcessor={emotionModel && emotionProcessor}
-                            frameProcessorFps={1}
-                            fps={15}
-                            pixelFormat="yuv"
-                          />
-                        )}
-                      </View>
-                    </View>
-                  </View>
-                ) : (
-                  <Text>No supported camera format found</Text>
-                )
-              ) : (
-                <Text>Camera not ready</Text>
-              )}
+    <View>
+      {cachedDevice ? (
+        cachedFormat ? (
+          // Render camera preview
+          <View style={styles.cameraView}>
+            <Camera
+              style={StyleSheet.absoluteFill}
+              zoom={0}
+              ref={cameraEmotionRef}
+              device={cachedDevice}
+              isActive={isFocused}
+              onInitialized={() => {
+                setCameraReady(true);
+              }}
+              format={cachedFormat}
+              audio={false}
+              frameProcessor={emotionModel && emotionProcessor}
+              frameProcessorFps={1}
+              fps={15}
+              pixelFormat="yuv"
+            />
+          </View>
+        ) : (
+          <Text>No supported camera format found</Text>
+        )
+      ) : (
+        <Text>Camera not ready</Text>
+      )}
+      <View style={styles.recordButtonContainer}>
+        {!isRecording ? (
+          <TouchableOpacity onPress={startRecording}>
+            <MaterialCommunityIcons name="record-circle" size={72} color="#E53935" />
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity onPress={manualStop}>
+            <MaterialCommunityIcons name="stop-circle" size={72} color="#E53935" />
+          </TouchableOpacity>
+        )}
+      </View>
+      {/* Top blurred instructions */}
 
-              <View style={styles.textContainer}>
-                {/* <Text style={styles.prompt}>Let your voice flow</Text> */}
-                <Text style={styles.promptText}>Say this phrase:</Text>
-                <View style={[styles.phraseBox, { backgroundColor: hexToRgba(Colors.textDark) }]}>
-                  <Text style={styles.phraseText}>{currentPhrase}</Text>
-                </View>
-
-                <CustomSpiritualButton
-                  label={isAudioRecording ? "Continue" : "Start Recording"}
-                  onPress={isAudioRecording ? manualStop : startRecording}
-                  color={hexToRgba(Colors.textDark)}
-                  textColor={Colors.textLight}
-                />
-              </View>
-              {/* <Text style={styles.statusText}>Facial Emotion: {emotion || "Analyzing..."}</Text> */}
-            </Animated.View>
-          </>
-        }
-      />
-    </GradientBackground>
+      <EmotionPromptOverlay />
+      <Text style={styles.statusText}>Facial Emotion: {emotion || "Analyzing..."}</Text>
+      {/* </Animated.View> */}
+    </View>
   );
 };

@@ -40,7 +40,7 @@ const rawStyles = {
     fontSize: 18,
     // fontWeight: "600",
     color: Colors.textDark,
-    marginBottom: 16,
+    marginBottom: 12,
     textAlign: "center",
     FontFamily: Fonts.body,
   },
@@ -78,15 +78,15 @@ const rawStyles = {
   // New styles to add in HeartRateScreen.styles.js
   sideBySide: {
     flexDirection: "row",
-    justifyContent: "space-between",
+ //   justifyContent: "space-between",
     width: "100%",
     gap: 10,
 
     //    backgroundColor: "red",
   },
-
   leftColumn: {
     flex: 1,
+    height: "100%",
   },
   divider: {
     height: 1,
@@ -97,14 +97,14 @@ const rawStyles = {
     borderRadius: 0.5,
   },
   rightColumn: {
-    height: "85%",
+    height: "98%",
     flex: 1,
-    justifyContent: "space-between",
+//    justifyContent: "space-between",
     gap: 12,
   },
 
   largeCard: {
-    height: "93%", // Taller card for background sound
+    height: "86%", // Taller card for background sound
     backgroundColor: "rgba(255,255,255,0.8)",
     padding: 12,
     borderRadius: 12,
@@ -117,7 +117,7 @@ const rawStyles = {
 
   iconItem: {
     width: "100%",
-    height: "34.5%",
+ //   height: "34.5%",
     backgroundColor: "rgba(255,255,255,0.8)",
     padding: 12,
     borderRadius: 12,
