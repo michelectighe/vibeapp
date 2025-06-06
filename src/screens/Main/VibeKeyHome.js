@@ -12,7 +12,7 @@ import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./VibeKeyHome.styles";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { globalStyles } from "@styles";
-import { getTodayGoodNews } from "@/utils";
+import { getTodayGoodNews, parseMetric } from "@/utils";
 import {
   cardsTools,
   cardsVibeCheck,
@@ -48,15 +48,6 @@ export const VibeKeyHome = ({ onReady }) => {
       return null;
     }
   };
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      //console.log("telling app.js we are ready");
-      onReady?.(); // <- Only calls it if defined
-      // ✅ this sets state in App.js!
-    }, 300);
-    return () => clearTimeout(timeout);
-  }, []);
 
   useEffect(() => {
     (async () => {
@@ -211,7 +202,7 @@ export const VibeKeyHome = ({ onReady }) => {
           c.id === "recent-results" && latest
             ? {
                 ...c,
-                subtitle: `Score: ${latest.hawkinsScore.score} on ${new Date(
+                subtitle: `Score: ${parseMetric(latest.hawkinsScore).score} on ${new Date(
                   latest.timestamp,
                 ).toLocaleDateString()}`,
                 resultId: latest.resultId,

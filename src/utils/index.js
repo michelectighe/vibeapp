@@ -17,7 +17,7 @@ export { SCREEN_WIDTH, SCREEN_HEIGHT } from "./dimensions";
 
 export {
   evaluateVoiceFrequency,
-  evaluateVoiceClarity,
+  evaluatevoiceEmotion,
   evaluateVoiceStrength,
   evaluateEmotionalState,
   evaluateMotion,
@@ -72,7 +72,7 @@ export {
   clearCreateShare,
 } from "./matchLinkStore";
 
-export { normalizeMetricForStorage } from "./normalizeMetricsForSaing";
+export { normalizeMetricForStorage } from "./normalizeMetricsForStorage";
 export {
   parseMetric,
   normalizeInverted,
@@ -80,4 +80,4 @@ export {
   calculateOverallVibe,
 } from "./analysisContextHelpers";
 
-export { analyzeVoiceClarity } from "./analyzeVoiceClarity";
+export { analyzeVoiceEmotion } from "./analyzeVoiceEmotion";

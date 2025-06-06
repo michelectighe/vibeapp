@@ -67,7 +67,7 @@ export const EmotionalStateScreen = () => {
   const MODEL_INPUT = 48;
   const isGrayScale = true;
   const { emotionModel } = useModels();
-  const { setEmotions, setVoiceStrength, setVoiceFrequency, setVoiceClarity } = useAnalysis();
+  const { setEmotions, setVoiceStrength, setVoiceFrequency, setVoiceEmotion } = useAnalysis();
   const [emotion, setEmotion] = useState("Analyzing...");
   const [isAudioRecording, setIsAudioRecording] = useState(false);
   const [emotionLog, setEmotionLog] = useState([]);
@@ -200,7 +200,7 @@ export const EmotionalStateScreen = () => {
   useEffect(() => {
     try {
       if (!emotionModel) {
-      ////console.log("model isn't loaded");
+        ////console.log("model isn't loaded");
       }
       // if (!__DEV__) {
       //   crashlytics().log(
@@ -226,7 +226,7 @@ export const EmotionalStateScreen = () => {
       setIsAudioRecording(true);
       audioBuffer.current = [];
 
-      audioSub = AudioRecord.on('data', (data) => {
+      audioSub = AudioRecord.on("data", (data) => {
         audioBuffer.current.push(data);
       });
 
@@ -253,13 +253,12 @@ export const EmotionalStateScreen = () => {
       }
       setIsAudioRecording(false);
 
-
       if (audioBuffer.current.length > 0) {
         await analyzeVoiceFromAudioUri(audioBuffer.current);
       } else {
         setVoiceFrequency(null);
         setVoiceStrength(null);
-        setVoiceClarity(null);
+        setVoiceEmotion(null);
       }
       cameraEmotionRef.current = null;
     } catch (error) {

@@ -59,19 +59,19 @@ export const metricComparisonDescriptions = {
       { min: 76, max: 100, description: "high frequency — vibrant and alert" },
     ],
   },
-  voiceClarityScore: {
-    label: "Voice Clarity",
+  voiceEmotionScore: {
+    label: "Vocal Emotion",
     descriptions: {
-      aligned: "Both voices are similarly clear or muffled.",
-      slightlyDifferent: "A slight difference in voice clarity.",
-      moderatelyDifferent: "Moderate gap in vocal articulation.",
-      completelyUnaligned: "One voice is clear, the other quite muffled — a major contrast.",
+      aligned: "Both voices display similar emotions.",
+      slightlyDifferent: "A slight difference in emotional state.",
+      moderatelyDifferent: "Moderate gap in vocal emotion.",
+      completelyUnaligned: "Voices show very contrasting emotional states.",
     },
     scoreMeanings: [
-      { min: 0, max: 25, description: "very muffled or unclear" },
-      { min: 26, max: 50, description: "somewhat unclear" },
-      { min: 51, max: 75, description: "fairly clear" },
-      { min: 76, max: 100, description: "very articulate and clear" },
+      { min: 0, max: 25, description: "sad" },
+      { min: 26, max: 50, description: "angry" },
+      { min: 51, max: 75, description: "happy" },
+      { min: 76, max: 100, description: "joyful" },
     ],
   },
   voiceStrengthScore: {

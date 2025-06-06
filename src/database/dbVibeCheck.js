@@ -33,7 +33,7 @@ export const saveResultDb = async (result) => {
                 chakraScores,
                 environmentScore,
                 voiceStrengthScore,
-                voiceClarityScore,
+                voiceEmotionScore,
                 emotionScore,
                 journalId
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
@@ -50,7 +50,7 @@ export const saveResultDb = async (result) => {
         JSON.stringify(result.chakraScores), // ✅ Store as JSON string
         JSON.stringify(result.environmentScore),
         JSON.stringify(result.voiceStrengthScore),
-        JSON.stringify(result.voiceClarityScore),
+        JSON.stringify(result.voiceEmotionScore),
         JSON.stringify(result.emotionScore),
         result.journalId ?? 0,
       ],

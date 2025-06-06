@@ -10,7 +10,7 @@ export const getDb = async () => {
 
 export const initializeDatabase = async () => {
   const db = await getDb();
- //   await dropAllTables();
+//    await dropAllTables();
   try {
     await db.execAsync(`PRAGMA foreign_keys=ON;`);
 
@@ -28,7 +28,7 @@ export const initializeDatabase = async () => {
         chakraScores TEXT,
         environmentScore TEXT,
         voiceStrengthScore TEXT,
-        voiceClarityScore TEXT,
+        voiceEmotionScore TEXT,
         emotionScore TEXT,
         journalId TEXT
         -- FOREIGN KEY (journalId) REFERENCES journalEntries(id)
@@ -50,7 +50,7 @@ export const initializeDatabase = async () => {
         chakraScores TEXT,
         environmentScore TEXT,
         voiceStrengthScore TEXT,
-        voiceClarityScore TEXT,
+        voiceEmotionScore TEXT,
         emotionScore TEXT
       );
     `);
@@ -116,7 +116,7 @@ export const initializeDatabase = async () => {
 export const dropAllTables = async () => {
   const db = await getDb();
   const tables = [
-    //   "results",
+       "results",
     "matchResultsReceived",
     "matchesReceived",
     "matchesSent",

@@ -10,7 +10,7 @@ import {
 import {
   evaluateEmotionalState,
   evaluateMotion,
-  evaluateVoiceClarity,
+  evaluatevoiceEmotion,
   evaluateVoiceStrength,
   evaluateVoiceFrequency,
   evaluateEnvironmentScore,
@@ -22,7 +22,7 @@ const AnalysisContext = createContext();
 
 export const AnalysisProvider = ({ children }) => {
   const [voiceFrequency, setVoiceFrequency] = useState(null);
-  const [voiceClarity, setVoiceClarity] = useState(null);
+  const [voiceEmotion, setVoiceEmotion] = useState(null);
   const [voiceStrength, setVoiceStrength] = useState(null);
   const [emotion, setEmotions] = useState(null);
   const [motion, setMotion] = useState(null);
@@ -46,14 +46,14 @@ export const AnalysisProvider = ({ children }) => {
     crown: -1,
   });
 
-  const normalize = (value, min, max) => ((value - min) / (max - min)) * 100;
   const emotionScore = useMemo(() => {
+    console.log('change in emotion score')
     return emotion != null ? evaluateEmotionalState(emotion) : null;
   }, [emotion]);
 
-  const voiceClarityScore = useMemo(() => {
-    return voiceClarity != null ? evaluateVoiceClarity(voiceClarity) : null;
-  }, [voiceClarity]);
+  const voiceEmotionScore = useMemo(() => {
+    return voiceEmotion != null ? evaluatevoiceEmotion(voiceEmotion) : null;
+  }, [voiceEmotion]);
 
   const voiceStrengthScore = useMemo(() => {
     return voiceStrength != null ? evaluateVoiceStrength(voiceStrength) : null;
@@ -90,45 +90,33 @@ export const AnalysisProvider = ({ children }) => {
   }, [heartRate.rmssd]);
 
   useEffect(() => {
-    // console.log(
-    //   "metrics for overallcalc:",
-    //   voiceFrequencyScore,
-    //   voiceClarityScore,
-    //   voiceStrengthScore,
-    //   environmentScore,
-    //   motionScore,
-    //   bpmScore,
-    //   hrvScore,
-    //   emotionScore,
-    // );
     if (
-      true
-      // voiceFrequencyScore &&
-      // voiceClarityScore &&
-      // voiceStrengthScore &&
-      // environmentScore &&
-      // motionScore &&
-      // bpmScore &&
-      // hrvScore &&
-      // emotionScore
+      voiceFrequencyScore &&
+      // voiceEmotionScore &&
+      voiceStrengthScore &&
+      environmentScore &&
+      motionScore &&
+      bpmScore &&
+      hrvScore &&
+      emotionScore
     ) {
       const scores = [
         { score: voiceFrequencyScore?.score, weight: 0.1 },
-        { score: voiceClarityScore?.score, weight: 0.1 },
-        { score: voiceStrengthScore?.score, weight: 0.1 },
+      //  { score: voiceEmotionScore?.score, weight: 0.1 },
+        { score: voiceStrengthScore?.score, weight: 0.15 },
         { score: environmentScore?.score, weight: 0.15 },
-        { score: motionScore?.score, weight: 0.05 },
+        { score: motionScore?.score, weight: 0.1 },
         { score: bpmScore?.score, weight: 0.2 },
         { score: hrvScore?.score, weight: 0.1 },
         { score: emotionScore?.score, weight: 0.2 },
       ];
-      // console.log("voiceFrequency:", voiceFrequencyScore?.score);
-      // console.log("voiceClarity:", voiceClarityScore?.score);
-      // console.log("voiceStrength:", voiceStrengthScore?.score);
-      // console.log("environment:", environmentScore?.score);
-      // console.log("mortion:", motionScore?.score);
-      // console.log("bpm:", bpmScore?.score);
-      // console.log("hrv:", hrvScore?.score);
+          console.log("voiceFrequency:", voiceFrequencyScore?.score);
+          console.log("voiceStrength:", voiceStrengthScore?.score);
+          console.log("environment:", environmentScore?.score);
+          console.log("motion:", motionScore?.score);
+          console.log("bpm:", bpmScore?.score);
+          console.log("hrv:", hrvScore?.score);
+          console.log("emotion:", emotionScore?.value);
       const { overallScore, hawkins } = calculateOverallVibe(scores);
       setOverallVibeScore(overallScore);
       setHawkins(hawkins);
@@ -136,7 +124,7 @@ export const AnalysisProvider = ({ children }) => {
     }
   }, [
     voiceFrequencyScore,
-    voiceClarityScore,
+    voiceEmotionScore,
     voiceStrengthScore,
     environmentScore,
     motionScore,
@@ -155,7 +143,7 @@ export const AnalysisProvider = ({ children }) => {
       voiceStrengthScore &&
       hrvScore &&
       bpmScore &&
-      voiceClarityScore &&
+     // voiceEmotionScore &&
       voiceFrequencyScore
     ) {
       const chakra = calculateChakraScores({
@@ -165,7 +153,7 @@ export const AnalysisProvider = ({ children }) => {
         voiceStrengthScore: voiceStrengthScore?.score,
         bpmScore: bpmScore?.score,
         environmentScore: environmentScore?.score,
-        voiceClarityScore: voiceClarityScore?.score,
+      //  voiceEmotionScore: voiceEmotionScore?.score,
         voiceFrequencyScore: voiceFrequencyScore?.score,
         overallVibrationScore,
       });
@@ -178,14 +166,14 @@ export const AnalysisProvider = ({ children }) => {
     voiceStrengthScore,
     bpmScore,
     environmentScore,
-    voiceClarityScore,
+    voiceEmotionScore,
     voiceFrequencyScore,
     overallVibrationScore,
   ]);
 
   const resetAnalysis = () => {
     setVoiceFrequency(null);
-    setVoiceClarity(null);
+    setVoiceEmotion(null);
     setVoiceStrength(null);
     setMotion(null);
     setSound(null);
@@ -212,7 +200,7 @@ export const AnalysisProvider = ({ children }) => {
         emotionScore: parseMetric(result.emotionScore),
         bpmScore: parseMetric(result.bpmScore),
         hrvScore: parseMetric(result.hrvScore),
-        voiceClarityScore: parseMetric(result.voiceClarityScore),
+     //   voiceEmotionScore: parseMetric(result.voiceEmotionScore),
         voiceFrequencyScore: parseMetric(result.voiceFrequencyScore),
         voiceStrengthScore: parseMetric(result.voiceStrengthScore),
         motionScore: parseMetric(result.motionScore),
@@ -220,7 +208,7 @@ export const AnalysisProvider = ({ children }) => {
       };
       setEmotions(cleanResult.emotionScore?.value);
       setHeartRate({ bpm: cleanResult.bpmScore?.value, rmssd: cleanResult.hrvScore?.value });
-      setVoiceClarity(cleanResult.voiceClarityScore?.value);
+    //  setVoiceEmotion(cleanResult.voiceEmotionScore?.value);
       setVoiceFrequency(cleanResult.voiceFrequencyScore?.value);
       setVoiceStrength(cleanResult.voiceStrengthScore?.value);
       setMotion(cleanResult.motionScore?.value);
@@ -238,8 +226,8 @@ export const AnalysisProvider = ({ children }) => {
       value={{
         voiceFrequency,
         setVoiceFrequency,
-        voiceClarity,
-        setVoiceClarity,
+        voiceEmotion,
+        setVoiceEmotion,
         voiceStrength,
         setVoiceStrength,
         emotion,
@@ -256,7 +244,7 @@ export const AnalysisProvider = ({ children }) => {
         setHeartRate,
         emotionScore,
         voiceFrequencyScore,
-        voiceClarityScore,
+        voiceEmotionScore,
         voiceStrengthScore,
         motionScore,
         environmentScore,

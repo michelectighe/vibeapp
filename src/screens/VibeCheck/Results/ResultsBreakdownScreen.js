@@ -27,7 +27,7 @@ const navigation = useNavigation();
 
   const {
     voiceFrequencyScore,
-    voiceClarityScore,
+    voiceEmotionScore,
     voiceStrengthScore,
     environmentScore,
     motionScore,
@@ -41,14 +41,14 @@ const navigation = useNavigation();
   const results = {
     hawkinsScore,
     voiceFrequencyScore,
-    voiceClarityScore,
+   // voiceEmotionScore,
     voiceStrengthScore,
     environmentScore,
     motionScore,
     bpmScore,
     hrvScore,
     emotionScore,
-//    overallVibrationScore,
+    //    overallVibrationScore,
   };
   
   useEffect(() => {

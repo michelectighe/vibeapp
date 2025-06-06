@@ -1,13 +1,26 @@
-import RNFS from "react-native-fs";
 import { toByteArray } from "base64-js";
 import { fft } from "fft-js";
 import { useAnalysis } from "@context";
-import { analyzeVoiceClarity } from "@/utils";
 import { useModels } from "@/context";
+import { Buffer } from "buffer";
+
+// Helper: decode base64 audio to Float32Array PCM
+const decodeToFloat32 = (base64Chunks, requiredLength = 15600) => {
+  const fullBase64 = base64Chunks.join("");
+  const buffer = Buffer.from(fullBase64, "base64");
+  const sampleCount = Math.floor(buffer.length / 2);
+  const floatArray = new Float32Array(requiredLength);
+  for (let i = 0; i < Math.min(sampleCount, requiredLength); i++) {
+    const sample = buffer.readInt16LE(i * 2);
+    floatArray[i] = sample / 32768;
+  }
+  return floatArray;
+};
 
 export const useVoiceRecording = () => {
   const { soundModel, sounds } = useModels();
-  const { setVoiceFrequency, setVoiceStrength, setVoiceClarity } = useAnalysis();
+  const { setVoiceFrequency, setVoiceStrength, setVoiceEmotion } = useAnalysis();
+
   const analyzeVoiceFromAudioUri = async (base64Chunks = []) => {
     try {
       if (!base64Chunks.length) throw new Error("No audio data provided.");
@@ -19,99 +32,115 @@ export const useVoiceRecording = () => {
 
   const analyzeFrequency = async (base64Chunks) => {
     try {
-      // Combine all chunks into one base64 string
-      const fullBase64 = base64Chunks.join("");
+      // Decode all chunks to PCM
+      const audioFloatArray = decodeToFloat32(base64Chunks, base64Chunks.length * 7800); // tune requiredLength if needed
 
-      // Convert to byte array
-      let audioByteArray = toByteArray(fullBase64);
+      const sampleRate = 15600; // Match your model's required rate
+      const chunkSize = sampleRate; // 1 second per chunk
+      const stepSize = chunkSize; // non-overlapping
 
-      if (audioByteArray.length < 10000) {
-        const repeatFactor = Math.ceil(10000 / audioByteArray.length);
-        const repeatedAudioByteArray = new Uint8Array(audioByteArray.length * repeatFactor);
-        for (let i = 0; i < repeatFactor; i++) {
-          repeatedAudioByteArray.set(audioByteArray, i * audioByteArray.length);
-        }
-        audioByteArray = repeatedAudioByteArray;
-      }
+      const voiceLoudness = [];
+      const voiceFrequencies = [];
+      let foundVoice = false;
 
-      const audioFloatArray = new Float32Array(audioByteArray.length);
-      for (let i = 0; i < audioByteArray.length; i++) {
-        audioFloatArray[i] = (audioByteArray[i] - 128) / 128.0;
-      }
+      for (let offset = 0; offset + chunkSize <= audioFloatArray.length; offset += stepSize) {
+        const chunk = audioFloatArray.slice(offset, offset + chunkSize);
 
-      const fftSize = 1024;
-      const stepSize = 512;
-      const sampleRate = 44100;
+        // Run your model on this chunk
+        const modelOutput = await soundModel.run([chunk]);
+        const outputArray = Array.from(modelOutput[0]);
 
-      const loudnessArray = [];
-      const clarityArray = [];
-      const frequencyArray = [];
+const allScores = outputArray.map((score, i) => ({
+  label: sounds[i]?.display_name,
+  type: sounds[i]?.type,
+  score,
+  classification: sounds[i]?.category,
+}));
+console.log(
+  "All scores for this chunk:",
+  allScores.filter((x) => x.score > 0),
+);
 
-      for (let offset = 0; offset + fftSize < audioFloatArray.length; offset += stepSize) {
-        const fftInput = audioFloatArray.slice(offset, offset + fftSize);
 
-        const rms = Math.sqrt(fftInput.reduce((sum, v) => sum + v * v, 0) / fftInput.length);
-        const loudness = 20 * Math.log10(rms * 0.4 + 1e-10);
-        //const loudness = 20 * Math.log10(rms + 1e-10);
+const voiceLabelsAndScores = outputArray
+  .map((score, i) => ({
+    classification: sounds[i]?.classification, // sadness, talking, etc.
+    label: sounds[i]?.display_name,
+    score,
+    type: sounds[i]?.type,
+  }))
+  .filter((item) => item.type === "voice" && item.score > 0.01);
 
-        loudnessArray.push(loudness);
+//console.log('from model:', voiceLabelsAndScores)
 
-        for (let i = 0; i < fftSize; i++) {
-          fftInput[i] *= 0.54 - 0.46 * Math.cos((2 * Math.PI * i) / (fftSize - 1));
-        }
-
-        const fftResult = fft(fftInput);
-        const magnitudes = fftResult.map((bin) => Math.sqrt(bin[0] ** 2 + bin[1] ** 2));
-
-        const lowerBound = 85;
-        const upperBound = 255;
-        let weightedSum = 0;
-        let totalMag = 0;
-
-        for (let i = 1; i < magnitudes.length / 2; i++) {
-          const freq = (i * sampleRate) / fftSize;
-          if (freq >= lowerBound && freq <= upperBound) {
-            const mag = magnitudes[i];
-            weightedSum += freq * mag;
-            totalMag += mag;
+        // Detect "voice" using your sounds file
+        let isVoice = false;
+        for (let i = 0; i < outputArray.length; i++) {
+          if (
+            sounds[i]?.type === "voice" &&
+            outputArray[i] > 0.0 // set your detection threshold here
+          ) {
+        //    console.log("score:", sounds[i].label, outputArray[i]);
+            isVoice = true;
+            foundVoice = true;
+            break;
           }
         }
 
-        const avgFreq = totalMag > 0 ? weightedSum / totalMag : 0;
-        frequencyArray.push(avgFreq);
+        if (!isVoice) continue; // skip this chunk if not voice
 
-        const meanFreq = avgFreq;
-        let weightedVariance = 0;
-        let totalMagnitude = 0;
+        // Now do loudness/frequency *only* for this voice chunk:
+        // Loudness (RMS in dB)
+        const rms = Math.sqrt(chunk.reduce((sum, v) => sum + v * v, 0) / chunk.length);
+        const loudness = 20 * Math.log10(rms + 1e-10);
+        voiceLoudness.push(loudness);
 
-        for (let i = 1; i < 100; i++) {
-          const freq = (i * sampleRate) / fftSize;
-          const mag = magnitudes[i];
-          const diff = freq - meanFreq;
-
-          weightedVariance += diff * diff * mag;
-          totalMagnitude += mag;
+        // Frequency (use FFT)
+        const fftSize = 1024;
+        for (let windowOffset = 0; windowOffset + fftSize < chunk.length; windowOffset += 512) {
+          const fftInput = chunk.slice(windowOffset, windowOffset + fftSize);
+          // Apply Hann window
+          for (let i = 0; i < fftSize; i++) {
+            fftInput[i] *= 0.54 - 0.46 * Math.cos((2 * Math.PI * i) / (fftSize - 1));
+          }
+          const fftResult = fft(fftInput);
+          const magnitudes = fftResult.map((bin) => Math.sqrt(bin[0] ** 2 + bin[1] ** 2));
+          const lowerBound = 85,
+            upperBound = 255;
+          let weightedSum = 0,
+            totalMag = 0;
+          for (let i = 1; i < magnitudes.length / 2; i++) {
+            const freq = (i * sampleRate) / fftSize;
+            if (freq >= lowerBound && freq <= upperBound) {
+              const mag = magnitudes[i];
+              weightedSum += freq * mag;
+              totalMag += mag;
+            }
+          }
+          const avgFreq = totalMag > 0 ? weightedSum / totalMag : 0;
+          voiceFrequencies.push(avgFreq);
         }
-
-        const variance = totalMagnitude > 0 ? weightedVariance / totalMagnitude : 0;
-
-        const clarity = Math.log10(variance + 1) * 10;
-        clarityArray.push(clarity);
       }
 
-      const avgLoudness = loudnessArray.reduce((a, b) => a + b, 0) / loudnessArray.length;
-      const avgClarity = clarityArray.reduce((a, b) => a + b, 0) / clarityArray.length;
-      const avgFrequency = frequencyArray.reduce((a, b) => a + b, 0) / frequencyArray.length;
-      // ////console.log("averageLoudness:", avgLoudness.toFixed(2));
-      // ////console.log("averageVoiceClarity:", avgClarity.toFixed(2));
-      // ////console.log("averageFrequency:", avgFrequency.toFixed());
-      setVoiceStrength(avgLoudness.toFixed(2));
-      console.log("SETTING VOICE STRENGTH", avgLoudness);
-     // setVoiceClarity(avgClarity.toFixed(2));
-     const voicerClarityWithModel = await analyzeVoiceClarity(base64Chunks, soundModel, sounds);
-     setVoiceClarity(voicerClarityWithModel);
-           console.log("SETTING VOICE CLARITY", voicerClarityWithModel);
-      setVoiceFrequency(avgFrequency.toFixed(2));
+      // Only report if voice was detected
+      const avgVoiceLoudness = voiceLoudness.length
+        ? voiceLoudness.reduce((a, b) => a + b, 0) / voiceLoudness.length
+        : null;
+      const avgVoiceFrequency = voiceFrequencies.length
+        ? voiceFrequencies.reduce((a, b) => a + b, 0) / voiceFrequencies.length
+        : null;
+
+      const voiceStrengthToSet = avgVoiceLoudness !== null ? avgVoiceLoudness.toFixed(2) : null;
+      const voiceFrequencyToSet = avgVoiceFrequency !== null ? avgVoiceFrequency.toFixed(2) : null;
+      console.log("VOICESTRENGTH TO SET", voiceStrengthToSet);
+      console.log("VOICE FREQUENCY TO SET", voiceFrequencyToSet);
+      setVoiceStrength(voiceStrengthToSet);
+      setVoiceFrequency(voiceFrequencyToSet);
+
+      // Still want overall emotion analysis? You can run your emotion function on all chunks or just the ones with voice
+      // (up to you!)
+      //   const emotionResult = await analyzeVoiceEmotion(base64Chunks, soundModel, sounds);
+      //   setVoiceEmotion(emotionResult);
     } catch (error) {
       console.error("Error in analyzeFrequency:", error);
     }

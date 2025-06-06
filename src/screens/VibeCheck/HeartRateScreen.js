@@ -75,11 +75,15 @@ function HeartRateScreenInner() {
   );
 
   useEffect(() => {
-    if (stable && averageMagnitude && averageEnvironment) {
-      setSound(averageSound);
-      setMagnitude(averageMagnitude);
-      setEnvironment(averageEnvironment);
-      setMotion(sessionStdDev);
+    if (stable) {
+      if (averageMagnitude) setMagnitude(averageMagnitude);
+      else setMagnitude("skipped");
+      if (averageEnvironment) setEnvironment(averageEnvironment);
+      else setEnvironment("skipped");
+      if (averageSound) setSound(averageSound);
+      else setSound("skipped");
+      if (sessionStdDev) setMotion(sessionStdDev);
+      else setMotion("skipped");
     }
   }, [stable, averageSound, averageMagnitude, sessionStdDev, averageEnvironment]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -171,11 +175,15 @@ function HeartRateScreenInner() {
                 <View style={styles.leftColumn}>
                   <View style={styles.largeCard}>
                     <Text style={styles.iconLabel}>🎧 Background Sound</Text>
-                    <Text style={[styles.iconValue, { height: "15%" }]}>{soundLabel}</Text>
+                    <Text style={[styles.iconValue, { height: "15%" }]}>
+                      {""}
+                      {soundLabel}
+                    </Text>
                     <View style={styles.divider} />
                     <Text style={[styles.iconValue, { opacity: 0.75 }]}>Detected Tones</Text>
                     {topSoundLabels.map((label, i) => (
-                      <Text key={i} style={[styles.iconSubValue,{}]}>
+                      <Text key={i} style={[styles.iconSubValue, {}]}>
+                        {""}
                         {label}
                       </Text>
                     ))}
@@ -185,22 +193,34 @@ function HeartRateScreenInner() {
                 <View style={styles.rightColumn}>
                   <View style={[styles.iconItem, { height: "38%" }]}>
                     <Text style={styles.iconLabel}>📡 Magnetic Field</Text>
-                    <Text style={styles.iconValue}>{magLabel}</Text>
-                    <Text style={styles.iconSubValue}>{magValue.toFixed(1)} µT</Text>
+                    <Text style={styles.iconValue}>
+                      {""}
+                      {magLabel}
+                    </Text>
+                    <Text style={styles.iconSubValue}>
+                      {""}
+                      {magValue.toFixed(1)} µT
+                    </Text>
                   </View>
                   <View style={[styles.iconItem, { height: "45.5%" }]}>
                     <Text style={styles.iconLabel}>🧘 Your Motion</Text>
                     <Text style={styles.iconValue} numberOfLines={2}>
+                      {""}
                       {motionLabel}
                     </Text>
                     {isFidgeting && <Text style={styles.shaky}>shaky</Text>}
                   </View>
                 </View>
               </View>
-              <View style={[styles.iconItem, {flexDirection: "row",gap: 11, height: "13%", marginTop: "-9%" }]}>
-                <Text style={[styles.iconLabel, {marginTop: 1}]}>📍 Location Vibe</Text>
+              <View
+                style={[
+                  styles.iconItem,
+                  { flexDirection: "row", gap: 11, height: "13%", marginTop: "-9%" },
+                ]}
+              >
+                <Text style={[styles.iconLabel, { marginTop: 1 }]}>📍 Location Vibe</Text>
                 <Text style={styles.iconValue} numberOfLines={2}>
-                  {spaceLabel}
+                  {""} {spaceLabel}
                 </Text>
               </View>
             </Animated.View>

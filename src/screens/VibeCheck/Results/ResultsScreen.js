@@ -49,22 +49,15 @@ export const ResultsScreen = ({ navigation }) => {
   const infoImage = require("@assets/images/info.webp");
 
   const {
-    voiceFrequency,
-    voiceClarity,
-    voiceStrength,
     voiceFrequencyScore,
-    voiceClarityScore,
+    voiceEmotionScore,
     voiceStrengthScore,
-    environment,
     environmentScore,
-    motion,
     motionScore,
-    emotion,
     emotionScore,
     overallVibrationScore,
     chakraScores,
     vibrationInfo,
-    heartRate,
     bpmScore,
     hrvScore,
     setResult,
@@ -141,6 +134,8 @@ export const ResultsScreen = ({ navigation }) => {
 
   const saveResultsToDB = async () => {
     console.log("insaveresultstodb");
+    console.log("emotion score coming in to results:", emotionScore);
+
     setSaving(true);
     const newResultId = uuid.v4();
     const newTimeStamp = new Date().toISOString();
@@ -164,9 +159,9 @@ export const ResultsScreen = ({ navigation }) => {
         voiceStrengthScore?.value || 0,
         voiceStrengthScore?.score || 0,
       ),
-      voiceClarityScore: normalizeMetricForStorage(
-        voiceClarityScore?.value || 0,
-        voiceClarityScore?.score || 0,
+      voiceEmotionScore: normalizeMetricForStorage(
+        voiceEmotionScore?.value || 0,
+        voiceEmotionScore?.score || 0,
       ),
       emotionScore: normalizeMetricForStorage(emotionScore?.value || 0, emotionScore?.score || 0),
       overallVibrationScore: overallVibrationScore ?? 0,

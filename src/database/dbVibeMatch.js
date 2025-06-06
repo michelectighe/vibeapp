@@ -53,7 +53,7 @@ export const saveVibeMatchReceived = async (senderResult, matchData) => {
                 chakraScores,
                 environmentScore,
                 voiceStrengthScore,
-                voiceClarityScore,
+                voiceEmotionScore,
                 emotionScore
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);`,
       [
@@ -70,7 +70,7 @@ export const saveVibeMatchReceived = async (senderResult, matchData) => {
         JSON.stringify(senderResult.chakraScores), // ✅ Store as JSON string
         JSON.stringify(senderResult.environmentScore),
         JSON.stringify(senderResult.voiceStrengthScore),
-        JSON.stringify(senderResult.voiceClarityScore),
+        JSON.stringify(senderResult.voiceEmotionScore),
         JSON.stringify(senderResult.emotionScore),
       ],
     );

@@ -1,6 +1,13 @@
 // utils/evaluateMetrics.js
 
 export function evaluateVoiceFrequency(frequencyHz) {
+  if (frequencyHz === "skipped") {
+    return {
+      value: "skipped",
+      score: -1,
+      label: "skipped",
+    };
+  };
   let score = 0;
   let label = "";
   const rounded = Math.round(frequencyHz);
@@ -24,22 +31,21 @@ export function evaluateVoiceFrequency(frequencyHz) {
     label = "very high (strained or anxious)";
   }
   return {
-    value: rounded,
-    raw: frequencyHz,
+    value: frequencyHz,
     score,
     label,
   };
 }
 
-const normalizeClarity = (voiceClarity) => {
+const normalizeClarity = (voiceEmotion) => {
   const min = 5;
   const max = 80;
-  const clamped = Math.max(min, Math.min(voiceClarity, max));
+  const clamped = Math.max(min, Math.min(voiceEmotion, max));
   return 100 - ((clamped - min) / (max - min)) * 100;
 };
 
-export function evaluateVoiceClarity(voiceClarity) {
-  const score = Math.round(normalizeClarity(voiceClarity));
+export function evaluatevoiceEmotion(voiceEmotion) {
+  const score = Math.round(normalizeClarity(voiceEmotion));
   let label = "";
   if (score < 30) {
     label = "unclear (muffled or slurred)";
@@ -53,7 +59,7 @@ export function evaluateVoiceClarity(voiceClarity) {
     label = "exceptionally clear and focused";
   }
   return {
-    value: voiceClarity,
+    value: voiceEmotion,
     score,
     label,
   };
@@ -67,6 +73,13 @@ const normalizeLoudness = (loudnessDb) => {
 };
 
 export function evaluateVoiceStrength(strengthScore) {
+  if (strengthScore === "skipped") {
+    return {
+      value: "skipped",
+      score: -1,
+      label: "skipped",
+    };
+  }
   const score = Math.round(normalizeLoudness(strengthScore));
   const rounded = Math.round(strengthScore);
   let label = "";
@@ -82,21 +95,23 @@ export function evaluateVoiceStrength(strengthScore) {
     label = "powerful and grounded";
   }
   return {
-    value: rounded,
+    value: strengthScore,
     score,
     label,
   };
 }
 
 export function evaluateEmotionalState(emotion) {
-  let score = 60;
-  let label = "undefined";
-  let description = "Emotion is unclear or mixed.";
+//default to
+  let score = 50;
+  let label = "neutral";
+  let description = "You seem emotionally neutral";
 
   if (typeof emotion === "number") {
     const lookup = {
       100: ["joyful", "You radiate happiness and warmth."],
-      70: ["balanced", "You seem emotionally stable and calm."],
+      50: ["neutral", "You seem emotionally neutral"],
+      60: ["balanced", "You seem emotionally balanced."],
       40: ["downcast", "You seem to be feeling sadness or fatigue."],
       30: ["agitated", "You seem frustrated or tense."],
       80: ["alert", "There’s a sense of excitement or curiosity."],
@@ -109,8 +124,9 @@ export function evaluateEmotionalState(emotion) {
   } else if (typeof emotion === "string") {
     const map = {
       happiness: [100, "joyful", "You radiate happiness and warmth."],
-      neutral: [70, "balanced", "You seem emotionally stable and calm."],
+      balanced: [60, "balanced", "You seem emotionally stable and calm."],
       sadness: [40, "downcast", "You seem to carry sadness or fatigue."],
+      neutral: [50, "neutral", "You seem emotionally neutral"],
       anger: [30, "agitated", "You seem frustrated or tense."],
       surprise: [80, "alert", "There’s a sense of excitement or curiosity."],
       fear: [35, "anxious", "You seem nervous or worried."],
@@ -132,6 +148,14 @@ export function evaluateEmotionalState(emotion) {
 
 // Accept stdDev (variation) as main argument
 export function evaluateMotion( motionStdDev ) {
+  if (motionStdDev === "skipped") {
+    return {
+      value: "skipped",
+      score: -1,
+      label: "skipped",
+    };
+  }
+ // console.log('motion:', motionStdDev)
   let score = 100;
   let label = "grounded & still";
 
@@ -204,6 +228,13 @@ export function evaluateEnvironment({ soundLevelDb, magnetometerValue, percentGo
 }
 
 export const evaluateEnvironmentScore = (environmentScore) => {
+  if (environmentScore === "skipped") {
+    return {
+      value: "skipped",
+      score: -1,
+      label: "skipped",
+    };
+  }
   let label = "Poor location";
   if (environmentScore >= 80) label = "Excellent location";
   else if (environmentScore >= 60) label = "Good location";

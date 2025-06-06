@@ -6,7 +6,7 @@ export const compareResults = (myResult, senderResult) => {
     "hrvScore",
     "motionScore",
     "voiceFrequencyScore",
-    "voiceClarityScore",
+    "voiceEmotionScore",
     "voiceStrengthScore",
     "environmentScore",
   ];

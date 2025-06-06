@@ -6,7 +6,7 @@ export const generateComparisonSummary = (myResult, senderResult) => {
     "heartRateScore",
     "motionScore",
     "voiceFrequencyScore",
-    "voiceClarityScore",
+    "voiceEmotionScore",
     "voiceStrengthScore",
     "environmentScore",
   ];

@@ -64,6 +64,7 @@ export const EmotionalStateScreen = () => {
 
   const frameProcessorEmotionActiveRef = useRef(false);
   const isRefActive = createRefChecker();
+  const isRecordingRef = useRef(false);
   const cameraEmotionRef = useRef(null);
   const audioBuffer = useRef([]);
   const stopTimeoutRef = useRef(null);
@@ -72,7 +73,7 @@ export const EmotionalStateScreen = () => {
   const MODEL_INPUT = 48;
   const isGrayScale = true;
   const { emotionModel } = useModels();
-  const { setEmotions, setVoiceStrength, setVoiceFrequency, setVoiceClarity } = useAnalysis();
+  const { setEmotions, setVoiceStrength, setVoiceFrequency, setVoiceEmotion } = useAnalysis();
   const [emotion, setEmotion] = useState("Analyzing...");
   const [isAudioRecording, setIsAudioRecording] = useState(false);
   const [isRecording, setIsRecording] = useState(false);
@@ -109,7 +110,8 @@ export const EmotionalStateScreen = () => {
             "audio",
           );
           setTimeout(async () => {
-            //    await startRecording();
+            isRecordingRef.current = true;
+               await startRecording();
             ////console.log("🎙️ Audio recording started after delay");
           }, 500);
 
@@ -180,6 +182,7 @@ export const EmotionalStateScreen = () => {
       return () => {
         try {
           const log = emotionLogRef.current;
+          console.log("emotionlog:", log);
           if (log.length > 0) {
             const emotionCounts = log.reduce((acc, emotion) => {
               acc[emotion] = (acc[emotion] || 0) + 1;
@@ -189,9 +192,10 @@ export const EmotionalStateScreen = () => {
               emotionCounts[a] > emotionCounts[b] ? a : b,
             );
             ////console.log("Setting overall emotional state:", mostCommonEmotion);
-            setEmotions(mostCommonEmotion);
+            if (mostCommonEmotion) setEmotions(mostCommonEmotion);
+            else setEmotions("skipped");
           } else {
-            setEmotions(null);
+            setEmotions("skipped");
           }
         } catch (error) {
           console.error("Error in setEmotions useFocus:", error);
@@ -228,14 +232,15 @@ export const EmotionalStateScreen = () => {
     }
   });
 
-  const manualStop = () => {
-    stopRecording();
-    //   goToNextScreen();
+  const manualStop = async () => {
+    await stopRecording();
+    goToNextScreen();
   };
   let audioSub = null;
   const startRecording = async () => {
     try {
       setIsRecording(true);
+      isRecordingRef.current = true;
       setIsAudioRecording(true);
       audioBuffer.current = [];
 
@@ -255,6 +260,7 @@ export const EmotionalStateScreen = () => {
   const stopRecording = async () => {
     try {
       setIsRecording(false);
+      isRecordingRef.current = false;
       if (!isAudioRecording) return; //leave if it's already stopped
 
       clearTimeout(stopTimeoutRef.current); // ✅ clear timeout
@@ -270,11 +276,12 @@ export const EmotionalStateScreen = () => {
       if (audioBuffer.current.length > 0) {
         await analyzeVoiceFromAudioUri(audioBuffer.current);
       } else {
-        setVoiceFrequency(null);
-        setVoiceStrength(null);
-        setVoiceClarity(null);
+        setVoiceFrequency("skipped");
+        setVoiceStrength("skipped");
+        setVoiceEmotion("skipped");
       }
       cameraEmotionRef.current = null;
+      goToNextScreen();
     } catch (error) {
       console.error("Stop Recording Error:", error);
     }
@@ -297,13 +304,21 @@ export const EmotionalStateScreen = () => {
   const emotionProcessor = useFrameProcessor(
     (frame) => {
       "worklet";
-      if (!isRecording) return;
-      if (!isRefActive(frameProcessorEmotionActiveRef.current)) return;
+
+      if (!isRecordingRef.current) {
+        console.log("⛔️ Frame skipped - NOT RECORDING", isRecordingRef.current);
+        return;
+      }
+      if (!isRefActive(frameProcessorEmotionActiveRef.current)) {
+        console.log("⛔️ Frame skipped - PROCESSOR REF FALSE");
+        return;
+      }
       if (!emotionModel) {
-        ////console.log("⛔️ Frame skipped - model not loaded");
+        console.log("⛔️ Frame skipped - model not loaded");
         return;
       }
       try {
+     //   console.log("processing the frame");
         let faces;
         try {
           faces = detectFaces(frame);
@@ -339,7 +354,7 @@ export const EmotionalStateScreen = () => {
             dataType: "float32",
           });
         } catch (e) {
-          ////console.log("error in resize:", e);
+          console.error("error in resize:", e);
         }
 
         const floatArray =
@@ -357,11 +372,11 @@ export const EmotionalStateScreen = () => {
             }
           }
         } catch (e) {
-          ////console.log("error in grayscale:", e);
+          console.error("error in grayscale:", e);
         }
 
         if (!emotionModel || !grayscale) {
-          ////console.log("model is unavailable:", model);
+          console.log("model is unavailable:", emotionModel);
           return;
         }
         let output;
@@ -369,7 +384,7 @@ export const EmotionalStateScreen = () => {
           output = emotionModel.runSync([grayscale])[0];
           if (!output || output.length === 0) return;
         } catch (e) {
-          ////console.log("❌ Model runSync error:", e);
+          console.error("❌ Model runSync error:", e);
           return;
         }
 
@@ -385,17 +400,20 @@ export const EmotionalStateScreen = () => {
 
         runOnJSEmotion(maxIdx);
       } catch (e) {
-        ////console.log("Error in emotionProcessor", e);
+        console.error("Error in emotionProcessor", e);
       }
     },
     [emotionModel],
   );
-  const blankFrameProcessor = useFrameProcessor(() => {}, []);
+  const blankFrameProcessor = useFrameProcessor(() => {
+    "worklet";
+  }, []);
 
   //console.log("DEVICE", device, "SELECTEDFORMAT", selectedFormat, "isRecording", isRecording);
 
   return (
     <View>
+      <EmotionPromptOverlay />
       {cachedDevice ? (
         cachedFormat ? (
           // Render camera preview
@@ -423,20 +441,22 @@ export const EmotionalStateScreen = () => {
       ) : (
         <Text>Camera not ready</Text>
       )}
-      <View style={styles.recordButtonContainer}>
-        {!isRecording ? (
-          <TouchableOpacity onPress={startRecording}>
-            <MaterialCommunityIcons name="record-circle" size={72} color="#E53935" />
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity onPress={manualStop}>
-            <MaterialCommunityIcons name="stop-circle" size={72} color="#E53935" />
-          </TouchableOpacity>
-        )}
-      </View>
       {/* Top blurred instructions */}
 
-      <EmotionPromptOverlay />
+      <View style={styles.bottomOverlay}>
+        <BlurView style={StyleSheet.absoluteFill} blurType="light" blurAmount={16} />
+        <View style={styles.recordButtonContainer}>
+          {!isRecording ? (
+            <TouchableOpacity onPress={startRecording}>
+              <MaterialCommunityIcons name="record-circle" size={72} color="#E53935" />
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity onPress={manualStop}>
+              <MaterialCommunityIcons name="stop-circle" size={72} color="#E53935" />
+            </TouchableOpacity>
+          )}
+        </View>
+      </View>
       <Text style={styles.statusText}>Facial Emotion: {emotion || "Analyzing..."}</Text>
       {/* </Animated.View> */}
     </View>

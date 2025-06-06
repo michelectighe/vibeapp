@@ -224,8 +224,8 @@ export const HeartRateCamera = ({ onStableReading }) => {
       const metrics = computeAverageMetrics() ?? {};
       //    //console.log("metrics:", metrics);
       setStable(true);
-            console.log("SETTING HEARRATE FROM CAMERA:", metrics.bpm);
-            console.log("SETTING RMSSD from CAMERA:", metrics.rmssd);
+       //     console.log("SETTING HEARRATE FROM CAMERA:", metrics.bpm);
+       //     console.log("SETTING RMSSD from CAMERA:", metrics.rmssd);
             setHeartRate({ bpm: metrics.bpm, rmssd: metrics.rmssd });
 
       onStableReading(metrics); // pass something if you have it
@@ -246,7 +246,7 @@ export const HeartRateCamera = ({ onStableReading }) => {
   return (
     <View style={styles.container}>
       {/* Circular Camera View */}
-      // Updated top part of HeartRateScreen (visual polish)
+
       <Animated.View style={[styles.cameraWrapper, { opacity: cameraOpacity }]}>
         {device && !stable && (
           <View style={styles.cameraRing}>
@@ -298,7 +298,10 @@ export const HeartRateCamera = ({ onStableReading }) => {
         </View>
       )}
       <Animated.View style={[styles.warningWrapper, { opacity: warningOpacity }]}>
-        <Text style={styles.warningText}>{fingerWarning || " "}</Text>
+        <Text style={styles.warningText}>
+          {""}
+          {fingerWarning || " "}
+        </Text>
       </Animated.View>
     </View>
   );

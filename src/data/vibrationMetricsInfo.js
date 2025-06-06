@@ -5,11 +5,11 @@ export const vibrationMetricsInfo = {
     explanation: "A balanced vocal pitch suggests emotional harmony. Ideal range is 85–255 Hz.",
     unit: "Hz",
   },
-  voiceClarityScore: {
-    label: "Voice Clarity",
+  voiceEmotionScore: {
+    label: "Vocal Emotion",
     range: [20, 100],
     explanation:
-      "Measures the consistency of your vocal pitch. Lower scores reflect a more focused and steady voice, while higher scores may indicate scattered or emotional speech.",
+      "Measures emotional tone of your voice. Lower scores may be a reflection of anger or sadness, while higher scores indicate happiness.",
     unit: "",
   },
   voiceStrengthScore: {

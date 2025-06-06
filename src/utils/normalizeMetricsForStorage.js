@@ -1,6 +1,6 @@
 export const normalizeMetricForStorage = (raw, score = null) => {
   if (raw == null) return null;
-
+console.log('normalize raw:', raw)
   const result = {
     score: score ?? (typeof raw === "object" && "score" in raw ? raw.score : raw),
   };
@@ -12,6 +12,6 @@ export const normalizeMetricForStorage = (raw, score = null) => {
   } else {
     result.value = raw || 0;
   }
-
+console.log('normalize return:', result)
   return result || 0;
 };

@@ -2,9 +2,12 @@ import RNFS from "react-native-fs";
 import { toByteArray } from "base64-js";
 import { fft } from "fft-js";
 import { useAnalysis } from "@context";
+import { analyzeVoiceEmotion } from "@/utils";
+import { useModels } from "@/context";
 
 export const useVoiceRecording = () => {
-  const { setVoiceFrequency, setVoiceStrength, setVoiceClarity } = useAnalysis();
+  const { soundModel, sounds } = useModels();
+  const { setVoiceFrequency, setVoiceStrength, setVoiceEmotion } = useAnalysis();
   const analyzeVoiceFromAudioUri = async (base64Chunks = []) => {
     try {
       if (!base64Chunks.length) throw new Error("No audio data provided.");
@@ -13,7 +16,6 @@ export const useVoiceRecording = () => {
       console.error("Voice analysis from audio failed:", err);
     }
   };
-
 
   const analyzeFrequency = async (base64Chunks) => {
     try {
@@ -42,7 +44,6 @@ export const useVoiceRecording = () => {
       const sampleRate = 44100;
 
       const loudnessArray = [];
-      const clarityArray = [];
       const frequencyArray = [];
 
       for (let offset = 0; offset + fftSize < audioFloatArray.length; offset += stepSize) {
@@ -77,49 +78,15 @@ export const useVoiceRecording = () => {
 
         const avgFreq = totalMag > 0 ? weightedSum / totalMag : 0;
         frequencyArray.push(avgFreq);
-
-        const meanFreq = avgFreq;
-        let weightedVariance = 0;
-        let totalMagnitude = 0;
-
-
-        const clarityLower = 400;
-        const clarityUpper = 2000;
-        for (let i = 1; i < magnitudes.length / 2; i++) {
-          const freq = (i * sampleRate) / fftSize;
-          if (freq >= clarityLower && freq <= clarityUpper) {
-            const mag = magnitudes[i];
-            const diff = freq - meanFreq;
-
-            weightedVariance += diff * diff * mag;
-            totalMagnitude += mag;
-          }
-        }
-        const variance = totalMagnitude > 0 ? weightedVariance / totalMagnitude : 0;
-
-        // const clarity = Math.log10(variance + 1) * 10;
-        const gm = Math.exp(
-          magnitudes.slice(1, 100).reduce((sum, m) => sum + Math.log(m + 1e-8), 0) / 99,
-        );
-        const am = magnitudes.slice(1, 100).reduce((sum, m) => sum + m, 0) / 99;
-        const flatness = gm / (am + 1e-8);
-
-        const clarity = Math.max(0, (1 - flatness) * 140 - 20);
-        clarityArray.push(clarity);
       }
 
       const avgLoudness = loudnessArray.reduce((a, b) => a + b, 0) / loudnessArray.length;
-      const avgClarity = clarityArray.reduce((a, b) => a + b, 0) / clarityArray.length;
       const avgFrequency = frequencyArray.reduce((a, b) => a + b, 0) / frequencyArray.length;
-      // ////console.log("averageLoudness:", avgLoudness.toFixed(2));
-      // ////console.log("averageVoiceClarity:", avgClarity.toFixed(2));
-      // ////console.log("averageFrequency:", avgFrequency.toFixed());
+      if (avgLoudness)
       setVoiceStrength(avgLoudness.toFixed(2));
-      console.log('SETTING VOICE STRENGTH', avgLoudness)
-      setVoiceClarity(avgClarity.toFixed(2));
-       console.log("SETTING VOICE CLARITY", avgClarity);
-       setVoiceFrequency(avgFrequency.toFixed(2));
-       console.log("SETTING VOICE FREQUENCY", avgFrequency);
+      const voicerClarityWithModel = await analyzeVoiceEmotion(base64Chunks, soundModel, sounds);
+      setVoiceEmotion(voicerClarityWithModel);
+      setVoiceFrequency(avgFrequency.toFixed(2));
     } catch (error) {
       console.error("Error in analyzeFrequency:", error);
     }

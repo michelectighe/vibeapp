@@ -15,6 +15,7 @@ export const loadSoundClassLabels = async () => {
        label: entry.display_name,
        category: entry.classification,
        display_name: entry.display_name,
+       type: entry.type,
      }));
 
     return fullEntries;

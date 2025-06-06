@@ -2,14 +2,14 @@
 export const parseMetric = (val) => {
   if (typeof val === "string") {
     try {
-      console.log('ParseReturn:', JSON.parse(val))
+      console.log("ParseReturn:", JSON.parse(val));
       return JSON.parse(val);
     } catch {
-              console.log("ParseReturn:", null);
+      console.log("ParseReturn:", null);
       return null;
     }
   }
-        console.log("ParseReturn:", val);
+  //       console.log("ParseReturn:", val);
   return val;
 };
 
@@ -27,7 +27,7 @@ export const calculateChakraScores = ({
   voiceStrengthScore,
   heartRateScore,
   environmentScore,
-  voiceClarityScore,
+  //  voiceEmotionScore,
   voiceFrequencyScore,
   overallVibrationScore,
 }) => {
@@ -43,7 +43,7 @@ export const calculateChakraScores = ({
     sacral: typeof emotionScore === "number" ? Math.round(emotionScore) : 0,
     solarPlexus: safeAvg(hrvScore, voiceStrengthScore),
     heart: safeAvg(heartRateScore, environmentScore),
-    throat: typeof voiceClarityScore === "number" ? Math.round(voiceClarityScore) : 0,
+    throat: typeof voiceStrengthScore === "number" ? Math.round(voiceStrengthScore) : 0,
     thirdEye: typeof voiceFrequencyScore === "number" ? Math.round(voiceFrequencyScore) : 0,
     crown: typeof overallVibrationScore === "number" ? Math.round(overallVibrationScore) : 0,
   };
@@ -51,16 +51,17 @@ export const calculateChakraScores = ({
 
 // utils/calculateOverallVibe.js
 export const calculateOverallVibe = (scores) => {
+  console.log("scores in calc:", scores);
   const totalWeight = scores.reduce(
-    (sum, { score, weight }) => sum + (score != null ? weight : 0),
-    0
+    (sum, { score, weight }) => sum + (score != -1 ? weight : 0),
+    0,
   );
-
+  console.log("totalWeight:", totalWeight);
   const weightedSum = scores.reduce(
-    (sum, { score, weight }) => sum + (score != null ? score * weight : 0),
-    0
+    (sum, { score, weight }) => sum + (score != -1 ? score * weight : 0),
+    0,
   );
-
+  console.log("weightedsum", weightedSum);
   const averageScore = totalWeight > 0 ? weightedSum / totalWeight : 0;
   const clamped = Math.max(0, Math.min(averageScore, 100)); // just in case
 

@@ -7,7 +7,7 @@ export const analyzePeacefulness = async (floatArray, model, sounds) => {
 
     const output = await model.run([floatArray]);
     const outputArray = Array.from(output[0]);
-
+//console.log('outputArray:', outputArray)
     const topPredictions = outputArray
       .map((score, i) => ({
         label: sounds[i]?.label,

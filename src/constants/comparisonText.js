@@ -24,7 +24,7 @@ export const comparisonText = {
     medium: "Your voice is in a balanced pitch range.",
     high: "Higher frequency—energetic, possibly excited or anxious.",
   },
-  voiceClarityScore: {
+  voiceEmotionScore: {
     low: "Your voice clarity is low—may reflect tension or fatigue.",
     medium: "Moderate clarity—you're communicating steadily.",
     high: "Very clear voice—confident and calm.",
