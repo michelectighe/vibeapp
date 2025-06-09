@@ -6,6 +6,7 @@ import { SCREEN_WIDTH, SCREEN_HEIGHT, hexToRgba } from "@/utils";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { BlurView } from "@react-native-community/blur";
 import { CardGradient } from "./CardGradient";
+import { GlowingDivider } from "./GlowingDivider";
 
 
 export const HomeHeaderCard = ({ name = "friend" }) => {
@@ -21,12 +22,11 @@ export const HomeHeaderCard = ({ name = "friend" }) => {
   return (
     // <CardGradient>
     <View style={[styles.container, { backgroundColor: "transparent", height: 70,  }]}>
-      <View style={styles.divider} />
       <Text style={styles.greeting}>
         {getGreeting()}, {name}
       </Text>
       {/* <Text style={styles.subtitle}>Your vibe today is just a tap away.</Text> */}
-      <View style={styles.divider} />
+     <GlowingDivider width={SCREEN_WIDTH*.6} height={1} />
     </View>
     // </CardGradient>
   );

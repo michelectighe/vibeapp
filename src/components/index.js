@@ -54,9 +54,11 @@ export { SectionTools } from "./SectionTools";
 export { SectionAwareness } from "./SectionAwareness";
 export { CardMotivationalMirror } from "./CardMotivationalMirror";
 export { CardGradient } from "./CardGradient";
+export { CardVibeMatch } from "./CardVibeMatch";
 
 export { TabBarIcon } from "./TabBarIcon";
 
+export { GlowingDivider } from "./GlowingDivider";
 export { ChakraCard } from "./ChakraCard";
 export { CardTools } from "./CardTools";
 

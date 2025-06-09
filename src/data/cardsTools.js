@@ -76,6 +76,7 @@ export const cardsTools = [
     },
     bgColor: Colors.cardBackground,
     textColor: Colors.cardText,
+    cloudAnim: true,
   },
 
   // {

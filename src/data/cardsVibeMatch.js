@@ -13,6 +13,7 @@ export const cardsVibeMatch = [
     },
     bgColor: Colors.cardBackground,
     textColor: Colors.cardText,
+    divider: true,
   },
 
   {

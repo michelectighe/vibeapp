@@ -5,22 +5,21 @@ import { Colors, Fonts } from "@/constants";
 import { useNavigation } from "@react-navigation/native";
 import { SCREEN_WIDTH, SCREEN_HEIGHT, parseMetric } from "@/utils";
 import { CardGradient } from "./CardGradient";
+import { GlowingDivider } from "./GlowingDivider";
 
-
-
-export const SectionVibeCheck = ({latestResult = null}) => {
+export const SectionVibeCheck = ({ latestResult = null }) => {
   //  console.log(latestResult)
-   const navigation = useNavigation();
-   const [imageError, setImageError] = useState(false);
-   const [latestResultDsiplay, setLatestResult] = useState(null);
-   const [latestResultId, setLatestResultId] = useState(null);
-   const image = require("@assets/images/home/vibe.png");
+  const navigation = useNavigation();
+  const [imageError, setImageError] = useState(false);
+  const [latestResultDsiplay, setLatestResult] = useState(null);
+  const [latestResultId, setLatestResultId] = useState(null);
+  const image = require("@assets/images/home/vibe.png");
 
-   useEffect(() => {
+  useEffect(() => {
     if (latestResult) {
-      const result =  `Latest Result: ${parseMetric(latestResult.hawkinsScore).score} on ${new Date(
+      const result = `Latest Result: ${parseMetric(latestResult.hawkinsScore).score} on ${new Date(
         latestResult.timestamp,
-        ).toLocaleDateString()}`;
+      ).toLocaleDateString()}`;
       const resultId = latestResult.resultId;
       setLatestResult(result);
       setLatestResultId(resultId);
@@ -39,7 +38,7 @@ export const SectionVibeCheck = ({latestResult = null}) => {
 
   return (
     <View style={styles.sectionContainer}>
-      <CardGradient>
+      <CardGradient style={styles.gradient}>
         <TouchableOpacity onPress={startVibeCheck} style={styles.cardWrapper}>
           <View style={[styles.card]}>
             <View style={[styles.textCard, { backgroundColor: "transparent" }]}>
@@ -66,13 +65,16 @@ export const SectionVibeCheck = ({latestResult = null}) => {
         </TouchableOpacity>
         {latestResultDsiplay && (
           <TouchableOpacity onPress={goToLatestResult}>
-            <View style={styles.results}>
-              <Text style={styles.resultsText}>{latestResultDsiplay}</Text>
+            <View style={styles.resultsGlowWrapper}>
+              <View style={styles.resultsGlow} />
+              <View style={styles.results}>
+                <Text style={styles.resultsText}>{latestResultDsiplay}</Text>
+              </View>
             </View>
           </TouchableOpacity>
         )}
       </CardGradient>
-      <View style={styles.divider} />
+      <GlowingDivider width={SCREEN_WIDTH} height={1} />
     </View>
   );
 };
@@ -92,6 +94,11 @@ const styles = StyleSheet.create({
     elevation: 3,
     background: "transparent",
     width: SCREEN_WIDTH * 0.9,
+  },
+  gradient: {
+    borderWidth: 0.7,
+    borderColor: Colors.white,
+    marginBottom: 20,
   },
   card: {
     height: SCREEN_HEIGHT * 0.2,
@@ -135,16 +142,24 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   results: {
-    backgroundColor: "rgba(255,255,255,0.25)", //"#e0e0e0", //"#a0a0a0",
-    borderWidth: 0.5,
-    borderColor: "#ddd",
+    backgroundColor: "rgba(255,255,255,0.1)",
+    borderWidth: 1,
+    borderColor: "#ffffffcc",
     width: "90%",
     alignSelf: "center",
     borderRadius: 16,
-    marginBottom: 5,
+    marginBottom: 15,
     paddingVertical: 4,
     paddingHorizontal: 10,
+
+    // ✨ Glowing effect
+    shadowColor: "#ffffff",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.7,
+    shadowRadius: 12,
+    elevation: 6, // Android fallback
   },
+
   resultsText: {
     textAlign: "center",
     padding: 10,
@@ -159,5 +174,35 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginHorizontal: 16,
     borderRadius: 0.5,
+  },
+  resultsGlowWrapper: {
+    position: "relative",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 15,
+  },
+
+  resultsGlow: {
+    position: "absolute",
+    width: "90%",
+    height: 60,
+    borderRadius: 16,
+    backgroundColor: "rgba(255, 255, 255, 0.35)",
+    shadowColor: "#fff",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.9,
+    shadowRadius: 18,
+    elevation: 10,
+    zIndex: 0,
+  },
+  results: {
+    backgroundColor: "rgba(255,255,255,0.25)",
+    borderWidth: 0.5,
+    borderColor: "#ddd",
+    width: "90%",
+    borderRadius: 16,
+    paddingVertical: 4,
+    paddingHorizontal: 10,
+    zIndex: 1,
   },
 });

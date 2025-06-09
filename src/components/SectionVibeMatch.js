@@ -1,15 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Animated, View, Text, StyleSheet } from "react-native";
-import { Card } from "@/components";
+import { CardVibeMatch } from "@/components";
 import { Colors } from "@/constants";
 import { useNavigation } from "@react-navigation/native";
 import { SCREEN_WIDTH, parseMetric } from "@/utils";
-import {
-  cardsVibeMatch,
-} from "@/data";
+import { GlowingDivider } from "./GlowingDivider";
+import { cardsVibeMatch } from "@/data";
 
 const CARD_WIDTH = SCREEN_WIDTH * 0.9;
-const SIDE_PADDING = (SCREEN_WIDTH - CARD_WIDTH) / 2;
+const SIDE_PADDING = (SCREEN_WIDTH - CARD_WIDTH) / 2 + 5;
 
 export const SectionVibeMatch = () => {
  const [cards, setCards] = useState(null);
@@ -23,61 +22,56 @@ setCards(cardsVibeMatch);
   const navigation = useNavigation();
   return (
     <View style={styles.sectionContainer}>
-     { cards && (
-             <Animated.ScrollView
-               horizontal
-               snapToInterval={CARD_WIDTH + 12}
-               decelerationRate="fast"
-               showsHorizontalScrollIndicator={false}
-               contentContainerStyle={{ paddingHorizontal: SIDE_PADDING }}
-               //   onScroll={/* scrollX tracking if needed */}
-               scrollEventThrottle={16}
-             >
-               {cards.map((card, index) => {
-                 return (
-                   <View
-                     key={card.id || index}
-                     style={{
-                       width: CARD_WIDTH ,
-                       marginRight: 12,
-                     }}
-                   >
-                     <Card
-                       title={card.title}
-                       subtitle={card.subtitle}
-                       image={card.image}
-                       textColor={card.textColor || Colors.white}
-                       bgColor={card.bgColor}
-                       onPress={() => {
-                         if (card.screen) {
-                           navigation.navigate(card.screen.name, card.screen.params);
-                         } else if (card.onPress) {
-                           card.onPress();
-                         }
-                       }}
-                       isCompact={false}
-                       isSquished={card.isSquished}
-                     />
-                   </View>
-                 );
-               })}
-             </Animated.ScrollView>
-     )}
+      {cards && (
+        <View style={styles.matchRow}>
+          {cards.map((card, index) => {
+            return (
+              <View
+                key={card.id || index}
+                style={{
+                  width: CARD_WIDTH / 2,
+                  // marginRight: 12,
+                  marginLeft: 14,
+                }}
+              >
+                <CardVibeMatch
+                  title={card.title}
+                  subtitle={card.subtitle}
+                  image={card.image}
+                  textColor={card.textColor || Colors.white}
+                  bgColor={card.bgColor}
+                  onPress={() => {
+                    if (card.screen) {
+                      navigation.navigate(card.screen.name, card.screen.params);
+                    } else if (card.onPress) {
+                      card.onPress();
+                    }
+                  }}
+                  isCompact={false}
+                  isSquished={card.isSquished}
+                  divider={card.divider}
+                />
+              </View>
+            );
+          })}
+        </View>
+      )}
       {/* Divider always shown */}
-      <View style={styles.divider} />
-            
+      <GlowingDivider width={SCREEN_WIDTH} height={1} />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   sectionContainer: {
+    alignContent: "center",
     marginBottom: 32,
+    justifyContent: "space-between",
   },
-  cardSpacing: {
-    width: SCREEN_WIDTH * 0.9,
-    marginLeft: 16,
-    marginRight: 8,
+  matchRow: {
+    alignContent: "center",
+    flexDirection: "row",
+    marginBottom: 20,
   },
   divider: {
     height: 1,

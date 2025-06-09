@@ -4,6 +4,7 @@ import { Card , CardMotivationalMirror} from "@/components";
 import { Colors } from "@/constants";
 import { useNavigation } from "@react-navigation/native";
 import { SCREEN_WIDTH, parseMetric } from "@/utils";
+import { GlowingDivider } from "./GlowingDivider";
 import {
   cardsTools,
 } from "@/data";
@@ -58,6 +59,7 @@ setCards(cardsTools);
                   isCompact={true}
                   isSquished={card.isSquished}
                   pulseSub={card.pulseSub}
+                  cloudAnim={card.cloudAnim}
                 />
               </View>
             );
@@ -65,7 +67,7 @@ setCards(cardsTools);
         </Animated.ScrollView>
       )}
       {/* Divider always shown */}
-      <View style={styles.divider} />
+      <GlowingDivider width= {SCREEN_WIDTH} height= {1}/>
     </View>
   );
 };

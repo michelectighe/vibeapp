@@ -51,6 +51,9 @@ const image = require("@assets/images/home/mirror1.png");
     };
   });
 
+//transform: [{ rotateY }, { scale: interpolate(rotation.value, [0, 90, 180], [1, 1.05, 1]) }];
+
+
   return (
     <View>
       <View style={styles.titleWrapper}>

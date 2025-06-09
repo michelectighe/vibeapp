@@ -129,6 +129,7 @@
 - [ ] Get subscription set up correctly on each screen that needs it
 - [ ] Offline usage - store userId locally so they can get local results
 - [ ] update firestore when back online
+- [ ] get it working on android
 
 ### 13. Optional (if time permits)
 

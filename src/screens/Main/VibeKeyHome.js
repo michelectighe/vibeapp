@@ -85,7 +85,6 @@ export const VibeKeyHome = () => {
             <SectionVibeCheck latestResult={myResults[0]} />
             <SectionTools />
             <SectionVibeMatch />
-            <CardMotivationalMirror />
             <SectionAwareness />
           </ScrollView>
 
