@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ScrollView } from "react-native";
+import { View, Text, ScrollView, ActivityIndicator } from "react-native";
 import { useAnalysis } from "@context";
 import { CustomSpiritualButton, CloseX } from "@components";
 import { useAmbientControlForScreen } from "@hooks";
@@ -51,13 +51,19 @@ export const ResultDetailScreen = ({ navigation }) => {
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  if (!overallColor) {
+    return (
+      <GradientBackground>
+        <View style={[globalStyles.centered, { flex: 1 }]}>
+          <ActivityIndicator size="large" color={Colors.primary} />
+        </View>
+      </GradientBackground>
+    );
+  }
+
   return (
     <GradientBackground
-      colors={
-        overallColor
-          ? [overallColor4, overallColor, overallColor2, overallColor3, overallColor4]
-          : [Colors.white, Colors.white, Colors.white]
-      }
+      colors={[overallColor4, overallColor, overallColor2, overallColor3, overallColor4]}
     >
       <View style={styles.root}>
         <CloseX xColor={overallColor4} onPress={() => navigation.goBack()} />

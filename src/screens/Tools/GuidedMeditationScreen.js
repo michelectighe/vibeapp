@@ -25,7 +25,7 @@ export const GuidedMeditationScreen = () => {
   };
 
   return (
-    <GradientBackground colors={[Colors.gradient1Tools, Colors.gradient2Tools, Colors.gradient1Tools]}>
+    <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient1]}>
       {/* <GestureDetector gesture={swipeGesture}> */}
       {/* //  <View style={globalStyles.container}> */}
       <View style={styles.titleWrapper}>

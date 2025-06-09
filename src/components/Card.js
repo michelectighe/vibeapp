@@ -13,26 +13,24 @@ export const Card = ({
   textColor,
   isCompact = false,
   isSquished = false,
-  bgColor = Colors.surface,
+  bgColor = Colors.cardBackground,
   pulse = false,
-  isNews = false,
+  pulseSub = false,
 }) => {
   const pulseAnim = useRef(new Animated.Value(1)).current;
   const [imageError, setImageError] = useState(false);
-  //console.log("title:", title);
-  //console.log("isNews:", isNews);
   useEffect(() => {
-    if (pulse) {
+    if (pulse || pulseSub) {
       Animated.loop(
         Animated.sequence([
           Animated.timing(pulseAnim, {
-            toValue: 1.02,
-            duration: 1000,
+            toValue: 1.05,
+            duration: 1500,
             useNativeDriver: true,
           }),
           Animated.timing(pulseAnim, {
             toValue: 1,
-            duration: 1000,
+            duration: 1500,
             useNativeDriver: true,
           }),
         ]),
@@ -44,7 +42,7 @@ export const Card = ({
 
   return (
     <View>
-      {image && !isNews && (
+      {image && (
         <View style={styles.titleWrapper}>
           <Text style={[styles.title, { color: textColor, fontSize: isCompact ? 16 : 18 }]}>
             {title}
@@ -56,83 +54,65 @@ export const Card = ({
           <View
             style={[
               styles.card,
-              { height: isSquished ? SCREEN_HEIGHT * 0.1 : SCREEN_HEIGHT * 0.2 },
+              {
+                height: isSquished ? SCREEN_HEIGHT * 0.05 : SCREEN_HEIGHT * 0.2,
+                marginTop: isSquished ? 10 : 0,
+              },
             ]}
           >
-            {image && !isNews && (
+            {image && (
               <FastImage
                 style={[StyleSheet.absoluteFill, styles.image]}
                 source={image}
                 resizeMode={FastImage.resizeMode.cover}
               />
             )}
-            {isNews && (
-              <View style={[styles.newsCard, { backgroundColor: bgColor }]}>
-                <View style={styles.newsTextBlock}>
-                  <Text style={[styles.titleNoImage, { color: textColor }]} numberOfLines={2}>
-                    {title}
-                  </Text>
-                  <Text style={[styles.subTitleNoImage, { color: textColor }]} numberOfLines={2}>
-                    {subtitle}
-                  </Text>
-                </View>
 
-                {image && !imageError && (
-                  <FastImage
-                    key={image}
-                    source={image}
-                    style={styles.newsImageRight}
-                    resizeMode={FastImage.resizeMode.cover}
-                    onError={() => setImageError(true)} // ✅ handle failure
-                  />
-                )}
-              </View>
-            )}
-
-            {!image && !isNews && (
+            {!image && (
               <View style={[styles.noImage, { backgroundColor: bgColor }]}>
                 <Text style={[styles.titleNoImage, { color: textColor }]}>{title}</Text>
-                <Text
-                  style={[
-                    styles.subTitleNoImage,
-                    { color: textColor, fontSize: isCompact ? 14 : 14 },
-                  ]}
-                >
-                  {subtitle}
-                </Text>
+                {subtitle && (
+                  <Text style={[styles.subTitleNoImage, { color: textColor, fontSize: 14 }]}>
+                    {subtitle}
+                  </Text>
+                )}
               </View>
             )}
           </View>
         </TouchableOpacity>
       </Animated.View>
-      {image && !isNews && (
-        <Text style={[styles.subTitle, { color: textColor, fontSize: isCompact ? 14 : 14 }]}>
-          {subtitle}
-        </Text>
-      )}
+      <Animated.View style={pulseSub ? { transform: [{ scale: pulseAnim }] } : null}>
+        {image && (
+          <Text style={[styles.subTitle, { color: textColor, fontSize: isCompact ? 14 : 14 }]}>
+            {subtitle}
+          </Text>
+        )}
+      </Animated.View>
     </View>
   );
 };
 
 const rawStyles = {
   cardWrapper: {
-    borderRadius: 20,
+    borderRadius: 16,
     overflow: "hidden",
     shadowColor: Colors.black,
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
     background: "transparent",
+    borderWidth: 1,
+    borderColor: "white",
   },
 
   image: {
-    borderRadius: 20,
+    borderRadius: 16,
     backgroundColor: "transparent",
     opacity: 1,
   },
 
   noImage: {
-    borderRadius: 20,
+    borderRadius: 16,
     opacity: 0.8,
     flex: 1,
     width: "100%",
@@ -142,7 +122,7 @@ const rawStyles = {
     alignItems: "center",
   },
   card: {
-    borderRadius: 20,
+    borderRadius: 16,
     overflow: "hidden",
     justifyContent: "center",
     alignItems: "center",
@@ -150,15 +130,7 @@ const rawStyles = {
   },
 
   backgroundImage: {
-    borderRadius: 20,
-  },
-  overlay: {
-    position: "absolute",
-    left: 1,
-    backgroundColor: "transparent",
-    padding: 12,
-    width: "100%",
-    // zindex: -1
+    borderRadius: 16,
   },
   titleWrapper: {
     marginTop: 0,
@@ -168,7 +140,7 @@ const rawStyles = {
   },
   title: {
     fontSize: 20,
-    fontWeight: "500",
+    fontWeight: "300",
     fontFamily: Fonts.body,
     marginLeft: 10,
     marginBottom: 0,
@@ -176,13 +148,13 @@ const rawStyles = {
   },
   subTitle: {
     textAlign: "center",
-    fontWeight: "500",
+    fontWeight: "300",
     fontFamily: Fonts.body,
     marginTop: 5,
   },
   titleNoImage: {
-    fontSize: 16,
-    fontWeight: "700",
+    fontSize: 18,
+    fontWeight: "400",
     fontFamily: Fonts.body,
     alignItems: "center",
     textAlign: "center",
@@ -193,25 +165,12 @@ const rawStyles = {
     fontWeight: "500",
     textAlign: "center",
   },
-  newsCard: {
-    flexDirection: "row",
-    borderRadius: 20,
-    padding: 12,
-    alignItems: "center",
-    justifyContent: "space-between",
-    height: "100%",
-  },
+
 
   newsTextBlock: {
     flex: 1,
     paddingRight: 10,
     justifyContent: "center",
-  },
-
-  newsImageRight: {
-    width: "35%",
-    height: "90%",
-    borderRadius: 12,
   },
 };
 

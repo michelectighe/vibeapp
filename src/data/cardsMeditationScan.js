@@ -1,7 +1,6 @@
 // src/data/toolsCards.js
 import { Colors } from "@constants";
 export const cardsMeditationScan = [
-
   {
     id: "med-space",
     title: "Meditation Scan",
@@ -12,7 +11,7 @@ export const cardsMeditationScan = [
       name: "Scan", // <- This is the tab name
       params: { screen: "MeditationSpaceScreen" }, // <- This is the nested screen
     },
-    textColor: Colors.textLight,
+    bgColor: Colors.cardBackground,
+    textColor: Colors.cardText,
   },
- 
 ];

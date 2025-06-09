@@ -21,7 +21,7 @@ export const analyzePeacefulness = async (floatArray, model, sounds) => {
           label &&
           displayName &&
           !label.toLowerCase().includes("unknown") &&
-          !displayName.toLowerCase().includes("unknown"),
+          !displayName.toLowerCase().includes("speech"),
       )
       .sort((a, b) => b.score - a.score) // Sort by highest score first
       .slice(0, 7); // Top 7

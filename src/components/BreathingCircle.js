@@ -5,7 +5,7 @@ import { FuzzyGlow } from "./FuzzyGlow";
 
 const { width } = Dimensions.get("window");
 
-export const BreathingCircle = ({ pattern, fuzzyColor, textColor }) => {
+export const BreathingCircle = ({ pattern, fuzzyColor = "white", textColor = Colors.buttonText }) => {
   const [phase, setPhase] = useState("Inhale");
   const phaseRef = useRef("Inhale");
   const phaseColors = {
@@ -22,7 +22,7 @@ export const BreathingCircle = ({ pattern, fuzzyColor, textColor }) => {
     setPhase(nextPhase);
     phaseRef.current = nextPhase;
 
-    setCounter(0);
+    setCounter(1);
     if (nextPhase === "Inhale" || nextPhase === "Exhale") {
       Animated.timing(scaleAnim, {
         toValue: scaleTo,
@@ -31,7 +31,7 @@ export const BreathingCircle = ({ pattern, fuzzyColor, textColor }) => {
         useNativeDriver: true,
       }).start();
     }
-    let t = 0;
+    let t = 1;
     setCounter(t);
 
     const interval = setInterval(() => {

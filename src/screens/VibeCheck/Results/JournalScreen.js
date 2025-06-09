@@ -140,7 +140,7 @@ export const JournalScreen = () => {
   // 👇 Prevent UI rendering until all required data is ready
   if (!overallColor) {
     return (
-      <GradientBackground colors={[Colors.white, Colors.white, Colors.white]}>
+      <GradientBackground>
         <View style={[globalStyles.centered, { flex: 1 }]}>
           <ActivityIndicator size="large" color={Colors.primary} />
         </View>

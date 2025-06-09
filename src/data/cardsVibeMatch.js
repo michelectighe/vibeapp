@@ -11,7 +11,8 @@ export const cardsVibeMatch = [
       name: "VibeMatch", // <- This is the tab name
       params: { screen: "ShareScreen" }, // <- This is the nested screen
     },
-    textColor: Colors.textLight,
+    bgColor: Colors.cardBackground,
+    textColor: Colors.cardText,
   },
 
   {
@@ -24,6 +25,7 @@ export const cardsVibeMatch = [
       name: "VibeMatch", // <- This is the tab name
       params: { screen: "MatchListScreen" }, // <- This is the nested screen
     },
-    textColor: Colors.textLight,
+    bgColor: Colors.cardBackground,
+    textColor: Colors.cardText,
   },
 ];

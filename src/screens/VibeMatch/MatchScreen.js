@@ -101,8 +101,8 @@ export const MatchScreen = ({ route }) => {
             <CustomSpiritualButton
               label="Do a New Vibe Check"
               onPress={() => navigation.navigate("VibeCheck", { screen: "VibecheckScreen" })}
-              color={Colors.surface}
-              textColor={Colors.textDark}
+              color={Colors.buttonBackground}
+              textColor={Colors.buttonText}
             />
             <ResultSelector
               results={myResults ?? []}

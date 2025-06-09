@@ -17,7 +17,7 @@ export const BreathingPatternSelector = ({ patterns, selectedId, onSelect }) => 
             style={[styles.card, isSelected && styles.selectedCard]}
             onPress={() => onSelect(item)}
           >
-            <Text style={styles.name}>{item.name}</Text>
+            <Text style={styles.name}>{item.title}</Text>
             <Text style={styles.timing}>
               {item.inhale}-{item.hold1}-{item.exhale}
               {item.hold2 ? `-${item.hold2}` : ""}
@@ -49,17 +49,18 @@ const styles = StyleSheet.create({
 
   selectedCard: {
     borderWidth: 2,
-    borderColor: Colors.mediumText,
+    borderColor: Colors.cardText,
   },
   name: {
     fontSize: 16,
+    marginBottom: 10,
     fontWeight: "bold",
     textAlign: "center",
-    color: Colors.textDark,
+    color: Colors.cardText,
   },
   timing: {
     fontSize: 14,
     marginTop: 4,
-    color: Colors.textDark,
+    color: Colors.cardText,
   },
 });

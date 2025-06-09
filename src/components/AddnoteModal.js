@@ -68,7 +68,7 @@ export const AddNoteModal = ({ visible, onClose, onSave, onEdit, onUpdate, noteT
                 <CustomSpiritualButton
                   label="Cancel"
                   onPress={onClose}
-                  color={Colors.surface}
+                  color={Colors.buttonBackground}
                   textColor={Colors.buttonText}
                 />
               </View>
@@ -76,7 +76,7 @@ export const AddNoteModal = ({ visible, onClose, onSave, onEdit, onUpdate, noteT
                 <CustomSpiritualButton
                   label="Save"
                   onPress={handleSave}
-                  color={Colors.surface}
+                  color={Colors.buttonBackground}
                   textColor={Colors.buttonText}
                 />
               </View>

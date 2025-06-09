@@ -127,12 +127,7 @@ export const ShareScreen = () => {
   return (
     <>
       <GradientBackground
-        colors={[
-          Colors.gradient1Match,
-          Colors.gradient2Match,
-          Colors.gradient3Match,
-          Colors.gradient1Match,
-        ]}
+        colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3, Colors.gradient1]}
       >
         <SectionLayout
           topFlex={1}
@@ -152,17 +147,16 @@ export const ShareScreen = () => {
                 contentContainerStyle={styles.scrollContent}
                 showsVerticalScrollIndicator={false}
               >
-   
-                  <CustomSpiritualButton
-                    label="Do a New Vibe Check"
-                    onPress={() => {
-                      setCreateShare();
-                      navigation.navigate("VibeCheck", { screen: "VibecheckScreen" });
-                    }}
-                    color={Colors.surface}
-                    textColor={Colors.textDark}
-                  />
-  
+                <CustomSpiritualButton
+                  label="Do a New Vibe Check"
+                  onPress={() => {
+                    setCreateShare();
+                    navigation.navigate("VibeCheck", { screen: "VibecheckScreen" });
+                  }}
+                  color={Colors.buttonBackground}
+                  textColor={Colors.buttonText}
+                />
+
                 {!noResults && (
                   <ResultSelector
                     results={myResults}

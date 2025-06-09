@@ -177,11 +177,10 @@ export const getsenderResult = async (userId, matchId) => {
     const matchSnap = await getDoc(matchRef);
     if (!matchSnap.exists()) {
       console.warn("Invalid match ID");
-      //   setLoadingShared(false);
       return;
     }
     const matchData = matchSnap.data();
-    //   console.log('MATCH DATA FROM FS:', matchData)
+     console.log("MATCH DATA FROM FS:", userId, matchData.senderResultId, matchData.senderUserId);
     const senderResultRef = doc(
       dbFs,
       "users",

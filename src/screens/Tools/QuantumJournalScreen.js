@@ -153,14 +153,14 @@ export const QuantumJournalScreen = () => {
                   isDirty={isDirty}
                   label="Save Entry"
                   onPress={handleSave}
-                  color={Colors.surface}
-                  textColor={Colors.textDark}
+                  color={Colors.buttonBackground}
+                  textColor={Colors.buttonText}
                 />
                 <CustomSpiritualButton
                   label="New Prompt"
                   onPress={handleNewPrompt}
-                  color={Colors.surface}
-                  textColor={Colors.textDark}
+                  color={Colors.buttonBackground}
+                  textColor={Colors.buttonText}
                 />
               </View>
               <Text style={[styles.bottomNote, { color: Colors.textLight }]}>

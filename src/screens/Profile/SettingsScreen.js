@@ -41,21 +41,21 @@ export const SettingsScreen = ({ navigation }) => {
                 label="Create Account"
                 onPress={() => navigation.navigate("SignUpScreen")}
                 color={Colors.buttonBackground}
-                textColor={Colors.textDark}
+                textColor={Colors.buttonText}
               />
             )}
             <CustomSpiritualButton
               label="Update Profile"
               onPress={() => navigation.navigate("UpdateProfileScreen")}
               color={Colors.buttonBackground}
-              textColor={Colors.textDark}
+              textColor={Colors.buttonText}
             />
             {!user && (
               <CustomSpiritualButton
                 label="Sign In"
                 onPress={handleSignIn}
                 color={Colors.buttonBackground}
-                textColor={Colors.textDark}
+                textColor={Colors.buttonText}
               />
             )}
             <CustomSpiritualButton
@@ -69,7 +69,7 @@ export const SettingsScreen = ({ navigation }) => {
                 label="Sign Out"
                 onPress={handleSignOut}
                 color={Colors.buttonBackground}
-                textColor={Colors.textDark}
+                textColor={Colors.buttonText}
               />
             )}
             {__DEV__ && (
@@ -77,7 +77,7 @@ export const SettingsScreen = ({ navigation }) => {
                 label="Dev Tools"
                 onPress={() => navigation.navigate("DevOnly")}
                 color={Colors.buttonBackground}
-                textColor={Colors.textDark}
+                textColor={Colors.buttonText}
               />
             )}
           </View>

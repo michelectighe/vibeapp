@@ -35,7 +35,7 @@ export const CardTools = ({ item, onPress, bgColor, textColor, isPlaying = null 
 const styles = StyleSheet.create({
   card: {
     padding: 16,
-    borderRadius: 12,
+    borderRadius: 16,
     marginVertical: 8,
     elevation: 2,
     shadowColor: Colors.black,

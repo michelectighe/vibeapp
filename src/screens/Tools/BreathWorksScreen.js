@@ -16,10 +16,7 @@ export const BreathWorksScreen = () => {
   const [selectedPattern, setSelectedPattern] = useState(breathingPatterns[0]);
 
   return (
-    <GradientBackground
-      colors={[Colors.white, Colors.white, Colors.white]}
-      logo={false}
-    >
+    <GradientBackground>
       <SectionLayout
         topFlex={6}
         middleFlex={3}
@@ -38,7 +35,7 @@ export const BreathWorksScreen = () => {
         }
         bottomContent={
           <View>
-            <Text style={styles.title}>{selectedPattern.name}</Text>
+            <Text style={styles.title}>{selectedPattern.title}</Text>
             {/* <Text style={styles.title}>{selectedPattern.timing}</Text> */}
           </View>
         }

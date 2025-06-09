@@ -14,7 +14,6 @@ const rawStyles = {
   prompt: {
     fontSize: 26,
     textAlign: "center",
-    //  marginTop: 50,
     marginBottom: 0,
     width: "80%",
     fontFamily: Fonts.body,
@@ -25,11 +24,8 @@ const rawStyles = {
     width: "100%",
   },
   textInput: {
-    backgroundColor: Colors.textLight,
     borderRadius: 16,
-    //   padding: 16,
     fontSize: 16,
-    color: Colors.textDark,
     fontFamily: Fonts.journal,
     minHeight: SCREEN_HEIGHT * 0.2,
     maxHeight: SCREEN_HEIGHT * 0.3,

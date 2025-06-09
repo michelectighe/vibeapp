@@ -66,7 +66,6 @@ export const ChakraScreen = () => {
 
   return (
     <GradientBackground colors={["#d2cfff", "#b3bfff", "#6a7cff"]} logo={false}>
-      {/* <GradientBackground colors={["#d2c8ff", "#a2b6ff", "#405480"]} logo={false}> */}
       <CloseX xColor={topChakra.color} onPress={() => navigation.goBack()} />
 
       <SectionLayout
@@ -76,7 +75,7 @@ export const ChakraScreen = () => {
         safe={false}
         topContent={
           <>
-             <ChakraSpineLine /> 
+            <ChakraSpineLine />
             <ScrollView
               style={styles.scrollView}
               contentContainerStyle={styles.scrollContent}

@@ -158,8 +158,8 @@ function HeartRateScreenInner() {
                   <CustomSpiritualButton
                     label="Reveal My Frequency"
                     onPress={goToNextScreen}
-                    color={hexToRgba(Colors.textDark)}
-                    textColor={Colors.textLight}
+                    color={hexToRgba(Colors.buttonBackground)}
+                    textColor={Colors.buttonText}
                   />
                 </View>
               </Animated.View>
@@ -218,7 +218,7 @@ function HeartRateScreenInner() {
                   { flexDirection: "row", gap: 11, height: "13%", marginTop: "-9%" },
                 ]}
               >
-                <Text style={[styles.iconLabel, { marginTop: 1 }]}>📍 Location Vibe</Text>
+                <Text style={[styles.iconLabel, { marginTop: 0, marginBottom: 1 }]}>📍 Location Vibe</Text>
                 <Text style={styles.iconValue} numberOfLines={2}>
                   {""} {spaceLabel}
                 </Text>

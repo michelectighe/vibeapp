@@ -5,7 +5,7 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 
 const rawStyles = {
   cameraContainer: {
-    backgroundColor: Colors.surface,
+    backgroundColor: Colors.cardBackground,
     borderRadius: 16,
     //  marginHorizontal: 20,
     padding: 10,
@@ -30,7 +30,7 @@ const rawStyles = {
     marginTop: 20,
     paddingHorizontal: 20,
     paddingVertical: 16,
-    backgroundColor: Colors.surface,
+    backgroundColor: Colors.cardBackground,
     borderRadius: 16,
     width: SCREEN_WIDTH * 0.9,
     height: SCREEN_HEIGHT * 0.45,
@@ -39,7 +39,7 @@ const rawStyles = {
   labelTitle: {
     fontSize: 18,
     // fontWeight: "600",
-    color: Colors.textDark,
+    color: Colors.cardText,
     marginBottom: 12,
     textAlign: "center",
     FontFamily: Fonts.body,
@@ -56,7 +56,7 @@ const rawStyles = {
   },
   label: {
     fontSize: 14,
-    color: Colors.textDark,
+    color: Colors.cardText,
     FontFamily: Fonts.body,
     width: "100%",
     marginBottom: 9,
@@ -66,7 +66,7 @@ const rawStyles = {
   labelResult: {
     fontSize: 14,
     //  fontWeight: "600",
-    color: Colors.textDark,
+    color: Colors.cardText,
     marginBottom: 16,
     fontFamily: Fonts.body,
   },
@@ -78,11 +78,8 @@ const rawStyles = {
   // New styles to add in HeartRateScreen.styles.js
   sideBySide: {
     flexDirection: "row",
- //   justifyContent: "space-between",
     width: "100%",
     gap: 10,
-
-    //    backgroundColor: "red",
   },
   leftColumn: {
     flex: 1,
@@ -99,7 +96,6 @@ const rawStyles = {
   rightColumn: {
     height: "98%",
     flex: 1,
-//    justifyContent: "space-between",
     gap: 12,
   },
 
@@ -131,29 +127,29 @@ const rawStyles = {
   iconLabel: {
     fontSize: 14,
     fontFamily: Fonts.body,
-    color: Colors.textDark,
+    color: Colors.buttonText,
     marginBottom: 4,
   },
   iconValue: {
     fontSize: 16,
     fontFamily: Fonts.body,
     fontWeight: "600",
-    color: Colors.textDark,
+    color: Colors.buttonText,
   },
   shaky: {
     fontSize: 16,
     fontFamily: Fonts.body,
     fontWeight: "300",
-    color: Colors.textDark,
+    color: Colors.buttonText,
   },
   iconSubValue: {
     fontSize: 13,
     fontFamily: Fonts.body,
-    color: Colors.textDark,
+    color: Colors.buttonText,
     marginTop: 2,
   },
   successCard: {
-    backgroundColor: Colors.surface,
+    backgroundColor: Colors.cardBackground,
     padding: 24,
     borderRadius: 16,
     alignItems: "center",
@@ -173,13 +169,13 @@ const rawStyles = {
   successTitle: {
     fontSize: 20,
     fontWeight: "bold",
-    color: Colors.textDark,
+    color: Colors.cardText,
     marginTop: 10,
     marginBottom: 8,
   },
   successSubtitle: {
     fontSize: 14,
-    color: Colors.textDark,
+    color: Colors.cardText,
     marginBottom: 26,
     textAlign: "center",
   },

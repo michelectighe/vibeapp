@@ -39,7 +39,7 @@ const rawStyles = {
     marginBottom: 20,
     textAlign: "center",
     fontSize: 18,
-    color: Colors.textLight,
+    color: Colors.textDark,
     fontFamily: Fonts.body,
   },
 
@@ -47,7 +47,7 @@ const rawStyles = {
     fontSize: 22,
     color: Colors.textLight,
     fontFamily: Fonts.body,
-    fontWeight: "bold",
+  //  fontWeight: "bold",
     marginTop: 0,
     marginBottom: 8,
   },

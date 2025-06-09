@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useContext, useEffect } from "react";
 import { View, Text, FlatList, TouchableOpacity, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { format } from "date-fns";
@@ -8,29 +8,38 @@ import { styles } from "./VibeHistory.styles";
 import { getVibeHistory, groupScores } from "@/utils";
 import LinearGradient from "react-native-linear-gradient";
 import { EdgeGlow } from "@/components";
-import { SCREEN_WIDTH } from "@/utils";
+import { SCREEN_WIDTH , parseMetric} from "@/utils";
 import { chakraData } from "@/data";
 import { GradientBackground } from "@/components";
 import { Colors } from "@/constants";
 import { CloseX } from "@/components";
+import { MyResultsContext } from "@/context/MyResultsContext";
 
 const ITEM_WIDTH = 60;
 
 export const VibeHistoryScreen = () => {
   const navigation = useNavigation();
+  const { myResults } = useContext(MyResultsContext);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const flatListRef = useRef();
   const [data, setData] = useState(null);
   const BASE_GLOW_CONTAINER_SIZE = SCREEN_WIDTH / 6;
 
   useEffect(() => {
-    const load = async () => {
-      const raw = await getVibeHistory();
-      const grouped = groupScores(raw, "daily"); // or weekly
+ if (!myResults) return;
+     try {
+    const getHistory = async () => {
+      const scores = await getVibeHistory(myResults);
+     console.log('scores back from vibehistoryget:', scores)
+      const grouped = groupScores(scores, "daily"); // or weekly
       setData(grouped);
-    };
-    load();
-  }, []);
+      console.log('grouped scores:', grouped)
+    }
+    getHistory();
+  } catch(error) {
+    console.error('error getting vibe history:', error)
+  }
+  }, [myResults]);
 
   const getLevelInfo = (score) => vibrationLevels.find((level) => score >= level.minScore);
 

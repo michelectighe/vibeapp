@@ -8,6 +8,9 @@ import {
   QuantumJournalScreen,
   JournalListScreen,
   GoalsByDayScreen,
+  VibeHistoryScreen,
+  EnergyResetScreen,
+  MotivationMirrorScreen,
 } from "@screens";
 
 export const ToolsStack = () => {
@@ -81,6 +84,36 @@ export const ToolsStack = () => {
       <Stack.Screen
         name="QuantumJournalScreen"
         component={QuantumJournalScreen}
+        options={{
+          headerShown: false,
+          tabBarVisible: true,
+          tabBarStyle: { display: "flex" },
+          title: "",
+        }}
+      />
+      <Stack.Screen
+        name="VibeHistory"
+        component={VibeHistoryScreen}
+        options={{
+          headerShown: false,
+          tabBarVisible: true,
+          tabBarStyle: { display: "flex" },
+          title: "",
+        }}
+      />
+      <Stack.Screen
+        name="EnergyResetScreen"
+        component={EnergyResetScreen}
+        options={{
+          headerShown: false,
+          tabBarVisible: true,
+          tabBarStyle: { display: "flex" },
+          title: "",
+        }}
+      />
+      <Stack.Screen
+        name="MotivationMirrorScreen"
+        component={MotivationMirrorScreen}
         options={{
           headerShown: false,
           tabBarVisible: true,

@@ -65,7 +65,7 @@ const AppInner = () => {
   useEffect(() => {
     const init = async () => {
       try {
-        Purchases.setDebugLogsEnabled(false);
+     //   Purchases.setDebugLogsEnabled(false);
         await initializeRevenueCat();
       } catch (err) {
         console.error("Failed to init revenueCat:", err);

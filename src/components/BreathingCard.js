@@ -8,7 +8,7 @@ import { SCREEN_HEIGHT } from "@/utils";
 export const BreathingCard = ({ item, onPress , bgColor}) => {
   return (
     <TouchableOpacity style={[styles.card, {backgroundColor: bgColor}]} onPress={() => onPress?.(item)}>
-      <Ionicons name="infinite" size={24} color={Colors.infinityIcon} style={styles.icon} />
+      <Ionicons name="infinite" size={24} color="white" style={styles.icon} />
       <Text style={styles.name}>{item.name}</Text>
       <Text style={styles.timing}>
         {item.inhale}-{item.hold1}-{item.exhale}
@@ -20,7 +20,7 @@ export const BreathingCard = ({ item, onPress , bgColor}) => {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: Colors.white,
+    backgroundColor: Colors.cardBackground,
     padding: 16,
     borderRadius: 12,
     marginVertical: 8,
@@ -35,18 +35,18 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 16,
-    color: Colors.veryDarkGray,
+    color: Colors.cardText,
   },
   name: {
     fontSize: 16,
     fontWeight: "bold",
     textAlign: "center",
-    color: Colors.textDark,
+    color: Colors.cardText,
   },
   timing: {
     fontSize: 14,
     marginLeft: 5,
     marginTop: 2,
-    color: Colors.textDark,
+    color: Colors.cardText,
   },
 });

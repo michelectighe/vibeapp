@@ -12,20 +12,25 @@ export const cardsVibeCheck = [
       name: "VibeCheck", // <- This is the tab name
       params: { screen: "VibeCheckScreen" }, // <- This is the nested screen
     },
-    textColor: Colors.textLight,
+    bgColor: "#a0a0a0",
+    bgColor2: "#e0e0e0",
+    textColor: Colors.buttonText,
     pulse: true,
+    isNews: true,
   },
   {
     id: "recent-results",
-    title: "Most Recent Results",
-    subtitle: "See your most recent results and recommendations",
+    title: "Latest Results",
+    // subtitle: "See your most recent results and recommendations",
+    subtitle: null,
     image: "",
     screen: {
       name: "VibeCheck",
       params: { screen: "Results" },
     },
-    textColor: Colors.textLight,
-    bgColor: Colors.textDark,
+    bgColor: "#e0e0e0",
+    bgColor2: "#a0a0a0",
+    textColor: Colors.buttonText,
     isSquished: true,
   },
 ];

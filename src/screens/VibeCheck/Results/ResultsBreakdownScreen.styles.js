@@ -18,7 +18,7 @@ const rawStyles = {
   scrollContent: {
     paddingTop: 170, // this matches the height of your title/logo area
     paddingHorizontal: 20,
-    paddingBottom: 160,
+    paddingBottom: 10,
   },
   metricBox: {
     marginBottom: 24,

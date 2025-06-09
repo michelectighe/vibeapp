@@ -76,8 +76,8 @@ export const ForgotPasswordScreen = ({ navigation }) => {
                   <CustomSpiritualButton
                     label="Send Reset Email"
                     onPress={handleReset}
-                    color={Colors.surface}
-                    textColor={Colors.textDark}
+                    color={Colors.buttonBackground}
+                    textColor={Colors.buttonText}
                   />
                   <TouchableOpacity style={globalStyles.link} onPress={() => navigation.goBack()}>
                     <Text style={globalStyles.link}>← Back to Sign In</Text>

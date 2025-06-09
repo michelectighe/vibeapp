@@ -24,7 +24,7 @@ const rawStyles = {
     backgroundColor: "transparent",
     // borderRadius: 16,
     width: "100%",
-    height: SCREEN_HEIGHT * 0.75,
+    height: SCREEN_HEIGHT * 0.70,
     backgroundColor: "transparent",
     justifyContent: "center",
   },
@@ -50,7 +50,7 @@ const rawStyles = {
   },
   label: {
     fontSize: 14,
-    color: Colors.textDark,
+    color: Colors.cardText,
     FontFamily: Fonts.body,
     width: "100%",
     marginBottom: 9,
@@ -60,7 +60,7 @@ const rawStyles = {
   labelResult: {
     fontSize: 14,
     //  fontWeight: "600",
-    color: Colors.textDark,
+    color: Colors.meditationText,
     marginBottom: 16,
     fontFamily: Fonts.body,
   },
@@ -125,19 +125,19 @@ const rawStyles = {
   iconLabel: {
     fontSize: 14,
     fontFamily: Fonts.body,
-    color: Colors.textDark,
+    color: Colors.meditationText,
     marginBottom: 4,
   },
   iconValue: {
     fontSize: 16,
     fontFamily: Fonts.body,
     fontWeight: "600",
-    color: Colors.textDark,
+    color: Colors.meditationText,
   },
   iconSubValue: {
     fontSize: 13,
     fontFamily: Fonts.body,
-    color: Colors.textDark,
+    color: Colors.meditationText,
     marginTop: 2,
   },
 };

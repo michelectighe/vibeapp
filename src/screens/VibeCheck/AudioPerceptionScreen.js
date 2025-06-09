@@ -63,7 +63,7 @@ export const AudioPerceptionScreen = () => {
                 label="Replay Sound"
                 onPress={replayCurrentSound}
                 color={Colors.buttonBackground}
-                textColor={Colors.textLight}
+                textColor={Colors.buttonText}
               />
             )}
 
@@ -72,7 +72,7 @@ export const AudioPerceptionScreen = () => {
                 label="Reveal Words"
                 onPress={() => setWordsRevealed(true)}
                 color={Colors.buttonBackground}
-                textColor={Colors.textLight}
+                textColor={Colors.buttonText}
               />
             )}
 
@@ -108,7 +108,7 @@ export const AudioPerceptionScreen = () => {
                 label="Continue"
                 onPress={goToNextScreen}
                 color={Colors.buttonBackground}
-                textColor={Colors.textLight}
+                textColor={Colors.buttonText}
               />
             </View>
           </View>

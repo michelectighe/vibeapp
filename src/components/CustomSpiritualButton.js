@@ -16,8 +16,8 @@ export const CustomSpiritualButton = ({
   isDirty = true,
   label,
   onPress,
-  color = Colors.surface,
-  textColor = Colors.textDark,
+  color = Colors.buttonBackground,
+  textColor = Colors.buttonText,
 }) => {
   const fadeAnim = useRef(new Animated.Value(0)).current;
 
@@ -37,7 +37,7 @@ export const CustomSpiritualButton = ({
         style={[
           styles.button,
           !isDirty && styles.disabled,
-          { backgroundColor: color || Colors.surface },
+          { backgroundColor: color || Colors.buttonBackground },
         ]}
         activeOpacity={0.85}
       >

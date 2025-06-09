@@ -42,6 +42,7 @@ export const SectionWithCards = ({
                   subtitle={card.subtitle}
                   image={card.image}
                   textColor={card.textColor || Colors.white}
+                  bgColor={card.bgColor}
                   onPress={() => {
                     if (card.screen) {
                       navigation.navigate(card.screen.name, card.screen.params);

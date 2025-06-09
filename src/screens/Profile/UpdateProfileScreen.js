@@ -305,13 +305,13 @@ export const UpdateProfileScreen = ({ navigation }) => {
                     label="Update"
                     onPress={handleUpdate}
                     color={Colors.buttonBackground}
-                    textColor={Colors.textDark}
+                    textColor={Colors.buttonText}
                   />
                   <CustomSpiritualButton
                     label="Cancel"
                     onPress={() => navigation.goBack()}
                     color={Colors.buttonBackground}
-                    textColor={Colors.textDark}
+                    textColor={Colors.buttonText}
                   />
 
                 </View>

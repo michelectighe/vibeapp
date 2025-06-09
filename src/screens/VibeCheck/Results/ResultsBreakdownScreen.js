@@ -96,7 +96,7 @@ function formatValue(val) {
       colors={
         overallColor
           ? [overallColor4, overallColor, overallColor2, overallColor3, overallColor4]
-          : [Colors.white, Colors.white, Colors.white]
+          : null
       }
     >
       <CloseX xColor={overallColor4} onPress={() => navigation.goBack()} />

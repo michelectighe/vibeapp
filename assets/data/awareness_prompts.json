@@ -1,0 +1,92 @@
+[
+  {
+    "theme": "Energy Awareness",
+    "prompt": "Did I check in with my own energy before stepping into a conversation?",
+    "reflections": {
+      "yes": "That\u2019s the beginning of conscious interaction \u2014 showing up on purpose.",
+      "maybe": "The pause matters more than the performance. Keep practicing.",
+      "no": "Beautiful. Grounded energy supports you and everyone around you.",
+      "unsure": "Next time, ask yourself: What am I bringing into the room?"
+    }
+  },
+  {
+    "theme": "Energy Awareness",
+    "prompt": "Did I feel like my energy was scattered or grounded today?",
+    "reflections": {
+      "yes": "Grounded energy helps others feel safe too \u2014 you created that today.",
+      "maybe": "Noticing the wobble is how we build stability.",
+      "no": "Beautiful. Grounded energy supports you and everyone around you.",
+      "unsure": "Being unsure is okay. The more you notice, the more grounded you become."
+    }
+  },
+  {
+    "theme": "Reactions & Triggers",
+    "prompt": "Did I pause before reacting today?",
+    "reflections": {
+      "yes": "That moment of pause? That\u2019s you stepping into mastery.",
+      "maybe": "Even a half-second counts. Keep catching those moments.",
+      "no": "It\u2019s a win to stay grounded \u2014 awareness without reactivity is strength.",
+      "unsure": "You\u2019ll start noticing more space between trigger and response. It comes."
+    }
+  },
+  {
+    "theme": "Reactions & Triggers",
+    "prompt": "Did I feel hijacked by a strong emotion today?",
+    "reflections": {
+      "yes": "You survived it. That\u2019s strength. Now ask what it was trying to teach you.",
+      "maybe": "You\u2019re starting to catch it. That\u2019s awareness taking root.",
+      "no": "It\u2019s a win to stay grounded \u2014 awareness without reactivity is strength.",
+      "unsure": "Not sure? Track your body next time \u2014 it always knows before your mind does."
+    }
+  },
+  {
+    "theme": "Interpersonal Impact",
+    "prompt": "Did I interrupt, overtalk, or take over in a conversation today?",
+    "reflections": {
+      "yes": "Owning it is powerful. You can lead without overshadowing.",
+      "maybe": "That flicker of awareness is a win. Keep watching your energy in shared spaces.",
+      "no": "Nice work. Holding space for others is one of the most generous forms of presence.",
+      "unsure": "Start by asking: Did they feel heard \u2014 or did I feel heard? Both matter."
+    }
+  },
+  {
+    "theme": "Interpersonal Impact",
+    "prompt": "Did I ask someone for their perspective today \u2014 before giving mine?",
+    "reflections": {
+      "yes": "That\u2019s leadership. Inviting others in builds trust.",
+      "maybe": "Even the desire to listen is a muscle. You\u2019re flexing it.",
+      "no": "You\u2019re not wrong for having clarity \u2014 but others bring clarity too.",
+      "unsure": "Next time, try: \u2018What do you think?\u2019 It opens the door."
+    }
+  },
+  {
+    "theme": "Boundaries",
+    "prompt": "Did I say yes to something that I didn\u2019t really want to do today?",
+    "reflections": {
+      "yes": "Awareness is the first step. You can choose differently next time.",
+      "maybe": "If it felt off, it probably was. Explore what held you back.",
+      "no": "Beautiful. Every honest no protects your yes.",
+      "unsure": "Ask yourself: Was this aligned with what I needed today?"
+    }
+  },
+  {
+    "theme": "Control",
+    "prompt": "Did I try to control something that wasn\u2019t mine to manage today?",
+    "reflections": {
+      "yes": "It\u2019s okay. Control is a protector. But trust can soften it.",
+      "maybe": "Noticing the grip is the first step to releasing it.",
+      "no": "Letting go is powerful. You created space for what\u2019s true.",
+      "unsure": "What part of you felt unsafe? That\u2019s where the control started."
+    }
+  },
+  {
+    "theme": "Inner Critic",
+    "prompt": "Did I speak to myself with kindness today?",
+    "reflections": {
+      "yes": "That\u2019s powerful. You\u2019re rewiring your internal dialogue.",
+      "maybe": "You\u2019re shifting. The voice is softening.",
+      "no": "The critic is loud, but it\u2019s not the truth. Try again tomorrow.",
+      "unsure": "What did your inner voice sound like today? Start there."
+    }
+  }
+]

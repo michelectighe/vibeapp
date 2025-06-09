@@ -31,7 +31,7 @@ const rawStyles = {
   //   alignItems: "center",
   // },
   buttonContainer: {
-    backgroundColor: Colors.surface,
+    backgroundColor: "transparent",
     padding: 24,
     borderRadius: 16,
     alignItems: "center",

@@ -122,8 +122,8 @@ export const Goals = () => {
                   params: { screen: "GoalsByDayScreen" },
                 })
               }
-              color={Colors.paleYellow}
-              textColor={Colors.textDark}
+              color={Colors.buttonBackground}
+              textColor={Colors.buttonText}
             />
           </View>
         </View>

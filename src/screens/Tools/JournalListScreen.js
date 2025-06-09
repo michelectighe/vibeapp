@@ -145,8 +145,8 @@ export const JournalListScreen = () => {
                 <CustomSpiritualButton
                   label="Create New"
                   onPress={() => handleOpen()}
-                  color={Colors.surface}
-                  textColor={Colors.textDark}
+                  color={Colors.buttonBackground}
+                  textColor={Colors.buttonText}
                 />
               </View>
             </ScrollView>

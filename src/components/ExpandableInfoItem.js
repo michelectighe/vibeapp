@@ -30,7 +30,7 @@ export const ExpandableInfoItem = ({ icon, title, description }) => {
         <Icon name={icon} size={22} style={styles.icon} />
         <Text style={styles.title}>{title}</Text>
         <TouchableOpacity onPress={toggleExpand}>
-          <Icon name="help-circle-outline" size={30} color={Colors.darkGray} />
+          <Icon name="help-circle-outline" size={30} color={Colors.buttonText} />
         </TouchableOpacity>
       </View>
       {expanded && <Text style={styles.description}>{description}</Text>}
@@ -40,11 +40,11 @@ export const ExpandableInfoItem = ({ icon, title, description }) => {
 
 const rawStyles = {
   card: {
-    backgroundColor: Colors.surface,
+    backgroundColor: Colors.cardBackground,
     borderRadius: 12,
     padding: 12,
     marginVertical: 6,
-    shadowColor: Colors.black,
+    shadowColor: Colors.cardText,
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 2,
@@ -56,18 +56,18 @@ const rawStyles = {
   },
   icon: {
     marginRight: 10,
-    color: Colors.veryDarkGray,
+    color: Colors.cardText,
   },
   title: {
     flex: 1,
     fontSize: 16,
     fontWeight: "600",
-    color: Colors.veryDarkGray,
+    color: Colors.cardText,
     fontFamily: Fonts.body,
   },
   description: {
     marginTop: 10,
-    color: Colors.darkGray,
+    color: Colors.cardText,
     fontSize: 14,
     lineHeight: 20,
     fontFamily: Fonts.body,

@@ -44,7 +44,7 @@ export const MeditationSpaceScreen = () => {
     setTimeout(async () => {
       Animated.timing(detailsOpacity, {
         toValue: 1,
-        duration: 5000,
+        duration: 3000,
         useNativeDriver: true,
       }).start();
     }, 1600);

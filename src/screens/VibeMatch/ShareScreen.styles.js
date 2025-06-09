@@ -15,7 +15,7 @@ const rawStyles = {
   title: {
     textAlign: "center",
     fontSize: 28,
-    color: Colors.white,
+    color: Colors.textLight,
     fontFamily: Fonts.body,
   },
 
@@ -43,43 +43,6 @@ const rawStyles = {
   newVibe: {
     marginBottom: 30,
     width: SCREEN_WIDTH * 0.8,
-  },
-  options: {
-    borderRadius: 20,
-    marginTop: 20,
-    //  overflow: "hidden",
-    backgroundColor: Colors.surface,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: SCREEN_WIDTH * 0.9,
-
-    gap: 20,
-  },
-  shareAs: {
-    backgroundColor: "transparent",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    //  height: "100%",
-    gap: 0,
-  },
-  anonymous: {
-    backgroundColor: "transparent",
-    flexDirection: "column",
-    justifyContent: "space-between",
-    ////   height: "100%",
-    gap: 10,
-  },
-  anonymousText: {
-    color: Colors.textLight,
-  },
-  input: {
-    width: SCREEN_WIDTH * 0.6,
-    backgroundColor: "white",
-    padding: 10,
-    borderRadius: 10,
-    marginBottom: 0,
-    marginTop: 5,
-    fontSize: 16,
   },
 
   selectorContainer: {

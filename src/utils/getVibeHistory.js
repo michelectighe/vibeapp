@@ -7,8 +7,7 @@ import { chakraData } from "@/data";
 
 export const groupScores = (scores, range) => {
   const buckets = {};
-return;
-  scores.forEach(( entry ) => {
+  scores.forEach((entry) => {
     let key;
     if (range === "daily") {
       key = format(entry.timestamp, "EEE"); // e.g., "Mon"
@@ -23,7 +22,7 @@ return;
     }
 
     if (!buckets[key]) buckets[key] = [];
-    buckets[key].push( entry );
+    buckets[key].push(entry);
   });
 
   const weekdayOrder = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -55,34 +54,26 @@ return;
   return finalBuckets;
 };
 
-export const getVibeHistory = async () => {
-  return;
-  const auth = getAuth();
-  const user = auth.currentUser;
-  if (!user) {
-    console.warn("User not logged in, cannot fetch results.");
-    return [];
-  }
 
-  const resultsRef = collection(dbFs, "users", user.uid, "results");
-  const querySnapshot = await getDocs(resultsRef);
 
+export const getVibeHistory = async (myResults) => {
   const scores = [];
-  querySnapshot.forEach((doc) => {
-    const data = doc.data();
 
-    if (data.timestamp?.seconds && data.hawkinsScore.score != null) {
-      // Convert chakraScores object into an array
+  myResults.forEach((data) => {
+    const timestamp = new Date(data.timestamp); // ✅ This works for ISO strings
+    const hawkins = JSON.parse(data.hawkinsScore || "{}");
+    const chakraRaw = JSON.parse(data.chakraScores || "{}");
+
+    if (!isNaN(timestamp.getTime()) && hawkins.score != null) {
       const chakraArray = chakraData.map((chakra) => ({
         ...chakra,
-        score: data.chakraScores?.[chakra.id] ?? 0,
+        score: chakraRaw?.[chakra.id] ?? 0,
       }));
-      //console.log("chakraArray:", chakraArray);
+
       scores.push({
-        timestamp: new Date(data.timestamp.seconds * 1000),
-        score: data.hawkinsScore.score,
+        timestamp,
+        score: hawkins.score,
         chakraScores: chakraArray,
-        // include any other fields if needed
       });
     }
   });

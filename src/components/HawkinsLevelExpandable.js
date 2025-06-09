@@ -62,28 +62,28 @@ const rawStyles = {
   levelText: {
     fontSize: 16,
     fontWeight: "600",
-    color: Colors.textDark,
+    color: Colors.cardText,
   },
   stateText: {
     fontSize: 16,
     fontWeight: "500",
-    color: Colors.textMedium,
+    color: Colors.cardText,
   },
   details: {
     marginTop: 8,
   },
   label: {
     fontSize: 14,
-    color: Colors.textDark,
+    color: Colors.cardText,
     marginBottom: 4,
   },
   emotion: {
     fontWeight: "bold",
-    color: Colors.accent,
+    color: Colors.cardText,
   },
   description: {
     fontSize: 14,
-    color: Colors.textDark,
+    color: Colors.cardText,
   },
 };
 

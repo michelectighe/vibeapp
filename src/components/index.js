@@ -17,7 +17,7 @@ export { EdgeGlow } from "./EdgeGlow";
 export { ExpandableInfoItem } from "./ExpandableInfoItem";
 export { ExpandableItem } from "./ExpandableItem";
 export { FloatingFeather } from "./FloatingFeather";
-
+export { SilverText } from "./SilverText";
 export { FuzzyGlow } from "./FuzzyGlow";
 export { FuzzyGlowChakra } from "./FuzzyGlowChakra";
 export { FuzzyRectangleGlow } from "./FuzzyRectangleGlow";
@@ -44,8 +44,16 @@ export { FadeInSlideText } from "./FadeInSlideText";
 export { SmoothLetterFadeInText } from "./SmoothLetterFadeIn";
 export { TypewriterText } from "./TypewriterText";
 
+export { BannerMessage } from "./BannerMessage";
 export { SectionWithCards } from "./SectionWithCards";
 export { HomeHeaderCard } from "./HomeHeaderCard";
+export { HomeFooterCard } from "./HomeFooterCard";
+export { SectionVibeCheck } from "./SectionVibeCheck";
+export { SectionVibeMatch } from "./SectionVibeMatch";
+export { SectionTools } from "./SectionTools";
+export { SectionAwareness } from "./SectionAwareness";
+export { CardMotivationalMirror } from "./CardMotivationalMirror";
+export { CardGradient } from "./CardGradient";
 
 export { TabBarIcon } from "./TabBarIcon";
 
@@ -69,3 +77,7 @@ export { HawkinsLevelExpandable } from "./HawkinsLevelExpandable";
 export { DeepLinkHandler } from "./DeepLinkHandler";
 
 export { EmotionPromptOverlay } from "./EmotionPromptOverlay";
+
+export { InteractiveCard } from "./InteractiveCard";
+
+export { FrequencyPlayer, AffirmationCard, BreathingAnimation } from "./EnergyResetComponents";

@@ -18,13 +18,15 @@ import { ProfileAvatar, TabBarIcon } from "@components";
 import { Colors } from "@constants";
 import { resetStack } from "@/utils";
 import { Goals } from "@/screens";
+import { Badge } from "@/components";
+import { useNotification } from "@/context";
 
 const Tab = createBottomTabNavigator();
 
-export const MyTabs = ({handleHomeReady}) => {
+export const MyTabs = ({ handleHomeReady }) => {
   // const navigationRef = useNavigationContainerRef();
   const scaleAnim = useRef(new Animated.Value(1)).current;
-
+  const { newMatchesCount } = useNotification();
   // useFocusEffect(
   //   useCallback(() => {
   //     const currentRoute = navigationRef.getCurrentRoute();
@@ -91,7 +93,7 @@ export const MyTabs = ({handleHomeReady}) => {
                 style={{
                   alignItems: "center",
                   justifyContent: "center",
-                  marginTop: 20,
+                  marginTop: 10,
                 }}
               >
                 <ProfileAvatar />
@@ -109,6 +111,17 @@ export const MyTabs = ({handleHomeReady}) => {
             iconName = focused ? "scan" : "scan-circle-outline";
           } else if (route.name === "VibeMatch") {
             iconName = focused ? "heart" : "heart-outline";
+
+            return (
+              <View style={{ marginTop: 10, width: 32, height: 32 }}>
+                <TabBarIcon name={iconName} size={size} color={color} focused={focused} />
+                {newMatchesCount > 0 && (
+                  <View style={styles.badgeWrapper}>
+                    <Badge value={newMatchesCount} />
+                  </View>
+                )}
+              </View>
+            );
           } else if (route.name === "tools") {
             iconName = focused ? "footsteps" : "footsteps-outline";
           } else if (route.name === "Goals") {
@@ -190,10 +203,11 @@ export const MyTabs = ({handleHomeReady}) => {
           },
         })}
         options={{
-          tabBarLabel: "Check",
+          tabBarLabel: "Match",
           unmountOnBlur: true,
         }}
       />
+
       <Tab.Screen
         name="Goals"
         component={Goals}
@@ -243,3 +257,11 @@ export const MyTabs = ({handleHomeReady}) => {
     </Tab.Navigator>
   );
 };
+const styles = StyleSheet.create({
+  badgeWrapper: {
+    position: "absolute",
+    top: -6,
+    right: -10,
+    zIndex: 10,
+  },
+});

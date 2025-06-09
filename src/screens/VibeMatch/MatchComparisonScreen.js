@@ -60,6 +60,7 @@ export const MatchComparisonScreen = ({ route }) => {
       updateRead();
     } else if (myResult && senderResult && matchId && senderUserName) {
       setsenderChakrasas(senderResult.chakraScores);
+      console.log('myresultcomparison:', myResult.chakrScores)
       if (myResult.chakraScores) setRecipientChakras(JSON.parse(myResult.chakraScores));
       const saveMatch = async () => {
         const matchData = {
@@ -176,6 +177,8 @@ export const MatchComparisonScreen = ({ route }) => {
             onPress={onSave}
             isDirty={isDirty}
             style={{ marginTop: 24 }}
+            color={Colors.buttonBackground}
+            textColor={Colors.buttonText}
           />
         )}
       </ScrollView>

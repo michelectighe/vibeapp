@@ -33,7 +33,7 @@ export const ComparisonCard = ({
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: Colors.cardBackground,
+    backgroundColor: Colors.buttonBackground,
     borderRadius: 16,
     padding: 16,
     marginBottom: 12,
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   label: {
     fontFamily: Fonts.medium,
     fontSize: 16,
-    color: Colors.textDark,
+    color: Colors.buttonText,
     marginBottom: 8,
   },
   row: {
@@ -61,18 +61,18 @@ const styles = StyleSheet.create({
   sideLabel: {
     fontFamily: Fonts.body,
     fontSize: 14,
-    color: Colors.textDark,
+    color: Colors.buttonText,
     marginBottom: 4,
   },
   value: {
     fontFamily: Fonts.bold,
     fontSize: 15,
-    color: Colors.textDark,
+    color: Colors.buttonText,
   },
   description: {
     fontFamily: Fonts.body,
     fontSize: 14,
-    color: Colors.text,
+    color: Colors.buttonText,
     marginTop: 8,
   },
 });

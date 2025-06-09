@@ -81,3 +81,5 @@ export {
 } from "./analysisContextHelpers";
 
 export { analyzeVoiceEmotion } from "./analyzeVoiceEmotion";
+
+export { getRandomItem } from "./awarenessUtils";

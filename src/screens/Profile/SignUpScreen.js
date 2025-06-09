@@ -164,7 +164,7 @@ export const SignUpScreen = ({ navigation }) => {
                       label="Sign Up"
                       onPress={handleSignUp}
                       color={Colors.buttonBackground}
-                      textColor={Colors.textDark}
+                      textColor={Colors.buttonText}
                     />
                     <Text
                       style={{

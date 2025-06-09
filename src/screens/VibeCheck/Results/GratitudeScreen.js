@@ -11,7 +11,7 @@ import {
 } from "@/components";
 import { Colors } from "@/constants";
 import { globalStyles } from "@/styles";
-import { SCREEN_WIDTH } from "@/utils";
+import { SCREEN_WIDTH, hexToRgba } from "@/utils";
 import { LinedTextInput } from "@/components";
 import {
   saveJournalEntryDb,
@@ -104,7 +104,7 @@ export const GratitudeScreen = () => {
 
   if (!overallColor) {
     return (
-      <GradientBackground colors={[Colors.white, Colors.white]}>
+      <GradientBackground>
         <View style={[globalStyles.centered, { flex: 1 }]}>
           <ActivityIndicator size="large" color={Colors.primary} />
         </View>
@@ -136,9 +136,9 @@ export const GratitudeScreen = () => {
                   setIsDirty(true);
                 }}
                 placeholder="What's one thing you're grateful for today?"
-                placeholderTextColor={Colors.mediumGray}
+                placeholderTextColor={hexToRgba(overallColor3, 0.3)}
                 style={[styles.textInput, { backgroundColor: overallColor4 }]}
-                textInputStyle={{ paddingHorizontal: 12, paddingTop: 12 }}
+                textInputStyle={{ paddingHorizontal: 12, paddingTop: 12, color: overallColor3 }}
                 textAlignVertical="top"
                 textAlign="left"
                 multiline={true}
@@ -152,9 +152,9 @@ export const GratitudeScreen = () => {
                   setIsDirty(true);
                 }}
                 placeholder="What's one way you can help someone today?"
-                placeholderTextColor={Colors.mediumGray}
+                placeholderTextColor={hexToRgba(overallColor3, 0.3)}
                 style={[styles.textInput, { backgroundColor: overallColor4 }]}
-                textInputStyle={{ paddingHorizontal: 12, paddingTop: 12 }}
+                textInputStyle={{ paddingHorizontal: 12, paddingTop: 12, color: overallColor3 }}
                 textAlignVertical="top"
                 textAlign="left"
                 multiline={true}

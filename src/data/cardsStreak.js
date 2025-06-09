@@ -11,7 +11,8 @@ export const cardsStreak = [
       name: "StreakStack", // <- This is the tools stack name
       params: { screen: "VibeHistory" }, // <- This is the nested screen
     },
-    textColor: Colors.textLight,
+    bgColor: Colors.cardBackground,
+    textColor: Colors.cardText,
   },
   {
     id: "notes",
@@ -23,6 +24,7 @@ export const cardsStreak = [
       name: "Streaks", // <- This is the tab name
       params: { screen: "StreakScreen" }, // <- This is the nested screen
     },
-    textColor: Colors.textLight,
+    bgColor: Colors.cardBackground,
+    textColor: Colors.cardText,
   },
 ];

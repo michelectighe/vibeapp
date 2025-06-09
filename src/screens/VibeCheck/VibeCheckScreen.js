@@ -74,14 +74,14 @@ export const VibeCheckScreen = () => {
               <CustomSpiritualButton
                 label="How does this work?"
                 onPress={openInfo}
-                color={hexToRgba(Colors.textDark)}
-                textColor={Colors.textLight}
+                color={hexToRgba(Colors.buttonBackground)}
+                textColor={Colors.buttonText}
               />
               <CustomSpiritualButton
                 label="Let's Begin"
                 onPress={startAnalysis}
-                color={hexToRgba(Colors.textDark)}
-                textColor={Colors.textLight}
+                color={hexToRgba(Colors.buttonBackground)}
+                textColor={Colors.buttonText}
               />
             </Animated.View>
           }

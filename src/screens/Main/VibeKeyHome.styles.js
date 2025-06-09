@@ -13,9 +13,8 @@ const rawStyles = {
     zIndex: 1,
   },
   scrollContent: {
-    paddingTop: 190, // this matches the height of your title/logo area
-    //    paddingHorizontal: 20,
-    paddingBottom: 100,
+    paddingTop: 80, // this matches the height of your title/logo area
+    paddingBottom: 10,
   },
   divider: {
     height: 1,
