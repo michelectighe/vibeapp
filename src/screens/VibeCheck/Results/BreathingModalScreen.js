@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ActivityIndicator, TouchableOpacity } from "react-native";
+import { View, Text, ActivityIndicator } from "react-native";
 import { BreathingCircle, GradientBackground, SectionLayout, CloseX } from "@components";
 import { useAnalysis } from "@context";
 import { Colors } from "@/constants";

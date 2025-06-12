@@ -1,28 +1,37 @@
-// 📌 components/ProgressDots.js
 import React from "react";
-import { View } from "react-native";
+import { View, StyleSheet } from "react-native";
+import { Colors } from "@/constants";
 
 export const ProgressDots = ({ currentIndex, totalScreens }) => {
   return (
-    <View
-      style={{
-        position: "absolute",
-        bottom: 120,
-        left: 0,
-        right: 0,
-        alignItems: "center",
-      }}
-    >
-      <View style={{ flex: "row", justifyContent: "center" }}>
-        {Array.from({ length: totalScreens }).map((_, index) => (
-          <View
-            key={index}
-            className={`h-2 w-2 mx-1 rounded-full ${
-              currentIndex === index ? "bg-blue-500 scale-125" : "bg-gray-400"
-            }`}
-          />
-        ))}
-      </View>
+    <View style={styles.container}>
+      {Array.from({ length: totalScreens }).map((_, index) => (
+        <View
+          key={index}
+          style={[styles.dot, currentIndex === index ? styles.activeDot : styles.inactiveDot]}
+        />
+      ))}
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: "row",
+    justifyContent: "center",
+ //   marginTop: 10,
+  },
+  dot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    marginHorizontal: 4,
+  },
+  activeDot: {
+    backgroundColor: "yellow",
+    transform: [{ scale: 1.2 }],
+  },
+  inactiveDot: {
+    backgroundColor: Colors.lightGray,
+  },
+});

@@ -5,18 +5,15 @@ import {
   View,
   Text,
   TextInput,
-  TouchableOpacity,
   StyleSheet,
   TouchableWithoutFeedback,
-  KeyboardAvoidingView,
   Keyboard,
-  Platform,
 } from "react-native";
-import { SCREEN_WIDTH, Colors, Fonts } from "@constants";
+import {  Colors, Fonts } from "@constants";
 import { ChakraColorPicker, CustomSpiritualButton, KeyboardDone } from "@components";
-import { SCREEN_HEIGHT } from "@/utils";
+import { SCREEN_HEIGHT , SCREEN_WIDTH} from "@/utils";
 
-export const AddNoteModal = ({ visible, onClose, onSave, onEdit, onUpdate, noteToEdit = null }) => {
+export const AddNoteModal = ({ visible, onClose, onSave, onUpdate, noteToEdit = null }) => {
   const [text, setText] = useState("");
   const [stickyColor, setStickyColor] = useState(Colors.paleYellow); // default
   const [stickyTextColor, setStickyTextColor] = useState(Colors.darkText); // Not undefined!
@@ -32,7 +29,7 @@ export const AddNoteModal = ({ visible, onClose, onSave, onEdit, onUpdate, noteT
 
   const handleSave = () => {
     if (!text.trim()) return;
-    console.log('WHAT IS NOTETOEDIT:', noteToEdit)
+    console.log("WHAT IS NOTETOEDIT:", noteToEdit);
     if (noteToEdit) {
           console.log("Saving with color:", stickyColor, "textColor:", stickyTextColor);
       onUpdate(text.trim(), stickyColor, stickyTextColor || Colors.textDark);

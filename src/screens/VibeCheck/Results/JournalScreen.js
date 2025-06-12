@@ -1,17 +1,6 @@
 // screens/QuantumJournalScreen.js
 import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  ScrollView,
-  KeyboardAvoidingView,
-  TouchableWithoutFeedback,
-  Keyboard,
-  Platform,
-  InputAccessoryView,
-  ActivityIndicator,
-} from "react-native";
+import { View, Text, TouchableWithoutFeedback, Keyboard, ActivityIndicator } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { quantumJournalPrompts } from "@data";
 import { styles } from "./JournalScreen.styles";
@@ -29,7 +18,7 @@ import { globalStyles } from "@/styles";
 import { SCREEN_WIDTH } from "@/utils";
 import { LinedTextInput } from "@/components";
 import { saveJournalEntryDb, saveJournalEntryFs, updateJournalResultDb } from "@database";
-import { getJournalEntryByIdDb, getJournalEntryByIdFs } from "@/database";
+import { /*getJournalEntryByIdDb,*/ getJournalEntryByIdFs } from "@/database";
 
 export const JournalScreen = () => {
   useAmbientControlForScreen(true);
@@ -37,7 +26,7 @@ export const JournalScreen = () => {
   const navigation = useNavigation();
   const [prompt, setPrompt] = useState("");
   const [entry, setEntry] = useState("");
-  const [isTyping, setIsTyping] = useState(true);
+
   const [saved, setSaved] = useState(false);
   const [animatedText, setAnimatedText] = useState("");
   const [overallColor, setColor] = useState();
@@ -65,7 +54,6 @@ export const JournalScreen = () => {
           setPromptRequest(false);
           setPrompt(journalEntry.prompt);
           setEntry(journalEntry.entry);
-          setIsTyping(false);
           setIsDirty(false);
         }
       };
@@ -73,7 +61,7 @@ export const JournalScreen = () => {
     } catch (e) {
       console.error("error getting existing journal entry:", e);
     }
-  }, [currentJournalId]);
+  }, [currentJournalId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (vibrationInfo == null) return;
@@ -96,7 +84,6 @@ export const JournalScreen = () => {
       i++;
       if (i === newPrompt.length) {
         clearInterval(interval);
-        setIsTyping(false);
         setSaved(false);
         setPrompt(newPrompt);
         setPromptRequest(false); // 👈 move it here

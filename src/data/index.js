@@ -10,6 +10,8 @@ export { subscriptionFeatures } from "./subscriptionFeatures";
 export { meditationList } from "./meditationList.js";
 export { breathingPatterns } from "./breathingPatterns";
 
+export { reflectionPrompts, affirmations } from "./mirrorContent";
+
 export { chakraData } from "./chakraData";
 export { chakraInsights } from "./chakraInsights";
 

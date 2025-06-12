@@ -1,6 +1,6 @@
-import React, { useState, useCallback, useEffect, useRef } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { Text, View, ActivityIndicator } from "react-native";
-import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { useAnalysis } from "@context";
@@ -12,7 +12,6 @@ import { Colors } from "@/constants";
 import { globalStyles } from "@/styles";
 import { getVibeRecommendations } from "@utils";
 import { playTrack, stopTrack, isPlayingTrack } from "@services";
-import { hexToRgba } from "@/utils";
 
 export const EnergyCleanseScreen = () => {
   const auth = getAuth();
@@ -24,7 +23,6 @@ export const EnergyCleanseScreen = () => {
   const [overallColor3, setColor3] = useState();
   const [overallColor4, setColor4] = useState();
   const [cardColor, setCardColor] = useState();
-  const isPlayingRef = useRef();
   const [playingState, setPlayingState] = useState({
     meditation,
     frequency,
@@ -88,7 +86,7 @@ export const EnergyCleanseScreen = () => {
     if (completed.meditation && completed.frequency && completed.breathing) {
       saveCleanseToFirebase();
     }
-  }, [completed]);
+  }, [completed]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handlePress = async (item, type) => {
     if (playingState[type]) {

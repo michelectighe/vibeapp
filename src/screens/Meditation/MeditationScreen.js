@@ -1,6 +1,6 @@
-import React, { useRef, useEffect, useCallback } from "react";
+import React, { useRef, useEffect } from "react";
 import { ImageBackground, View, TouchableOpacity, Animated } from "react-native";
-import { useNavigation, useFocusEffect, useIsFocused } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { useMeditationNavigation, useAmbientControlForScreen } from "@/hooks";
 import { SectionLayout, CloseX } from "@/components";
 import { Colors } from "@/constants";

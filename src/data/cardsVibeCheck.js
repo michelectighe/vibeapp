@@ -9,8 +9,8 @@ export const cardsVibeCheck = [
     //   icon: "sunny-outline", // Ionicon
     image: require("@assets/images/home/vibe.png"),
     screen: {
-      name: "VibeCheck", // <- This is the tab name
-      params: { screen: "VibeCheckScreen" }, // <- This is the nested screen
+      name: "VibeCheck", 
+      params: { screen: "VibeCheckScreen" }, 
     },
     bgColor: "#a0a0a0",
     bgColor2: "#e0e0e0",
@@ -21,8 +21,7 @@ export const cardsVibeCheck = [
   {
     id: "recent-results",
     title: "Latest Results",
-    // subtitle: "See your most recent results and recommendations",
-    subtitle: null,
+    subtitle: "",
     image: "",
     screen: {
       name: "VibeCheck",

@@ -8,7 +8,7 @@ import { styles } from "./VibeHistory.styles";
 import { getVibeHistory, groupScores } from "@/utils";
 import LinearGradient from "react-native-linear-gradient";
 import { EdgeGlow } from "@/components";
-import { SCREEN_WIDTH , parseMetric} from "@/utils";
+import { SCREEN_WIDTH } from "@/utils";
 import { chakraData } from "@/data";
 import { GradientBackground } from "@/components";
 import { Colors } from "@/constants";
@@ -30,14 +30,14 @@ export const VibeHistoryScreen = () => {
      try {
     const getHistory = async () => {
       const scores = await getVibeHistory(myResults);
-     console.log('scores back from vibehistoryget:', scores)
+      console.log("scores back from vibehistoryget:", scores);
       const grouped = groupScores(scores, "daily"); // or weekly
       setData(grouped);
-      console.log('grouped scores:', grouped)
-    }
+      console.log("grouped scores:", grouped);
+    };
     getHistory();
   } catch(error) {
-    console.error('error getting vibe history:', error)
+    console.error("error getting vibe history:", error);
   }
   }, [myResults]);
 

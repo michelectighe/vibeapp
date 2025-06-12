@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, {  useEffect, useRef } from "react";
 import { TouchableOpacity, View, Text, StyleSheet, Animated as RNAnimated } from "react-native";
 import FastImage from "react-native-fast-image";
 import { Colors, Fonts } from "@constants";
@@ -35,7 +35,7 @@ export const Card = ({
       -1,
       true,
     );
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (pulse || pulseSub) {
@@ -54,17 +54,16 @@ export const Card = ({
         ]),
       ).start();
     }
-  }, [pulse]);
+  }, [pulse]); // eslint-disable-line react-hooks/exhaustive-deps
 
-const swayStyle = useAnimatedStyle(() => {
-  return {
-    transform: [
-      { translateX: sway.value },
-      { scale: 1.05 }, // slightly zoomed in to prevent gaps
-    ],
-  };
-});
-
+  const swayStyle = useAnimatedStyle(() => {
+    return {
+      transform: [
+        { translateX: sway.value },
+        { scale: 1.05 }, // slightly zoomed in to prevent gaps
+      ],
+    };
+  });
 
   return (
     <View>
@@ -134,7 +133,7 @@ const rawStyles = {
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
-    background: "transparent",
+    backgroundColor: "transparent",
     borderWidth: 1,
     borderColor: "white",
   },

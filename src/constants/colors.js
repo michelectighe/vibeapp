@@ -168,10 +168,10 @@ export const Colors = {
   // tabBarGradient1: "#103D28",
   // tabBarGradient2: "#103D28",
 
-  buttonLightBackground: "#EDE5D0",
-  buttonBackground: "#103D28",
-  buttonText: "#2F4F4F",
-  cardBackground: "#EDE5D0",
+  // buttonLightBackground: "#EDE5D0",
+  // buttonBackground: "#103D28",
+  // buttonText: "#2F4F4F",
+  // cardBackground: "#EDE5D0",
 
   // gradient1: "#355C4D", // originally rgba(53, 92, 77, 0.7)
   // gradient2: "#295C50", // rgba(41, 92, 80, 0.7)
@@ -186,19 +186,19 @@ export const Colors = {
   // gradient2: "#FF8C00", // originally 0.46 alpha
   // gradient3: "#FFEA00", // originally 0.94 alpha
 
-  textLight: "#E0D8C8",
-  textDark: "#2F4F4F",
-  mediumText: "#6ABF8E",
-  meditationText: "#4A5D4D",
+  // textLight: "#E0D8C8",
+  // textDark: "#2F4F4F",
+  // mediumText: "#6ABF8E",
+  // meditationText: "#4A5D4D",
 
   // matchSimilarCard: "#B2F2BB",
   // matchDifferentCard: "#F7DC6F",
 
   // stickyNotes: "#E7E43D",
 
-  inhale: "#4FBF9F",
-  exhale: "#2F7967",
-  hold: "#C3F0DD",
+  // inhale: "#4FBF9F",
+  // exhale: "#2F7967",
+  // hold: "#C3F0DD",
 
   // background: "transparent",
 
@@ -257,7 +257,7 @@ export const Colors = {
   coolBlue: "#3F51B5",
 
   backgroundSpirit: "#E0D8C8",
-  buttonBackground: "#E0D8C8",
+
   // // Vibrant Theme (Engaging)
 
   //   // VibrantEngagingColors (More energetic, less pink)

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Animated, View, Text, StyleSheet } from "react-native";
+import { Animated, View, StyleSheet } from "react-native";
 import { Card , CardMotivationalMirror} from "@/components";
 import { Colors } from "@/constants";
 import { useNavigation } from "@react-navigation/native";
-import { SCREEN_WIDTH, parseMetric } from "@/utils";
+import { SCREEN_WIDTH } from "@/utils";
 import { GlowingDivider } from "./GlowingDivider";
 import {
   cardsTools,

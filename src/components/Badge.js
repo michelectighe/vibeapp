@@ -3,21 +3,21 @@ import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 export const Badge = ({ value, showNumber = true }) => {
-const navigation = useNavigation();
-    return (
-      <View style={{ position: "relative", alignSelf: "flex-end" }}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate("VibeMatch", { screen: "MatchNotificationScreen" })}
-        >
-          {value > 0 && (
-            <View style={styles.badge}>
-              {showNumber && <Text style={styles.badgeText}>{value}</Text>}
-            </View>
-          )}
-        </TouchableOpacity>
-      </View>
-    );
-}
+  const navigation = useNavigation();
+  return (
+    <View style={{ position: "relative", alignSelf: "flex-end" }}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("VibeMatch", { screen: "MatchNotificationScreen" })}
+      >
+        {value > 0 && (
+          <View style={styles.badge}>
+            {showNumber && <Text style={styles.badgeText}>{value}</Text>}
+          </View>
+        )}
+      </TouchableOpacity>
+    </View>
+  );
+};
 const styles = StyleSheet.create({
   button: {
     padding: 10,

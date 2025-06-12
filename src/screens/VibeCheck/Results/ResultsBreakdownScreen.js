@@ -1,5 +1,5 @@
 import React , { useState, useEffect } from "react";
-import { View, Text, ScrollView, StyleSheet } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 import { useAnalysis } from "@/context";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 
@@ -8,7 +8,6 @@ import { vibrationMetricsInfo } from "@/data/vibrationMetricsInfo";
 import { CloseX, GradientBackground } from "@/components";
 import { Colors } from "@/constants";
 import { styles } from "./ResultsBreakdownScreen.styles";
-import { globalStyles } from "@/styles";
 import { useNavigation } from "@react-navigation/native";
 import { SCREEN_WIDTH , SCREEN_HEIGHT} from "@/utils";
 
@@ -27,14 +26,13 @@ const navigation = useNavigation();
 
   const {
     voiceFrequencyScore,
-    voiceEmotionScore,
+    // voiceEmotionScore,
     voiceStrengthScore,
     environmentScore,
     motionScore,
     bpmScore,
     hrvScore,
     emotionScore,
-    overallVibrationScore,
     hawkinsScore,
   } = useAnalysis();
 
@@ -63,7 +61,7 @@ const navigation = useNavigation();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getMetricStatus = (value, [min, max]) => {
-    if (value === null || value === undefined || value === 0) {
+    if (value === null || value === undefined || value === "skipped" || value === 0 ) {
       return { icon: "⚠️", label: "Data missing", style: styles.missing };
     }
 
@@ -123,9 +121,9 @@ function formatValue(val) {
               : formatValue(rawScore)?.toString() ?? "N/A";
           const displayLabel = isObject && "label" in value ? value.label : null;
 
-          const isMissing = rawScore === null || rawScore === undefined || rawScore === 0;
-          const [min, max] = info.range;
-          const isInRange = !isMissing && rawScore >= min && rawScore <= max;
+          const isMissing = rawScore === null || rawScore === undefined || rawScore ==="skipped" || rawScore === 0;
+          // const [min, max] = info.range;
+          // const isInRange = !isMissing && rawScore >= min && rawScore <= max;
 
           return (
             <View key={key} style={styles.metricBox}>

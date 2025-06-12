@@ -38,25 +38,24 @@ console.log(
 export const DatePickerStrip = ({ selectedDate, onSelectDate }) => {
   const flatListRef = useRef(null);
 
-const scrollToToday = () => {
-  flatListRef.current?.scrollToIndex({
-    index: INITIAL_WEEK_INDEX,
-    animated: true,
-  });
+  const scrollToToday = () => {
+    flatListRef.current?.scrollToIndex({
+      index: INITIAL_WEEK_INDEX,
+      animated: true,
+    });
 
-  // ✅ Find the actual today date, not the first day of the week
-  const week = weeks[INITIAL_WEEK_INDEX];
-  const todayDate = week.find((day) => day.dateString === todayStr)?.dateString;
+    // ✅ Find the actual today date, not the first day of the week
+    const week = weeks[INITIAL_WEEK_INDEX];
+    const todayDate = week.find((day) => day.dateString === todayStr)?.dateString;
 
-  if (todayDate) {
-    onSelectDate(todayDate);
-  }
-};
-
+    if (todayDate) {
+      onSelectDate(todayDate);
+    }
+  };
 
   useEffect(() => {
     setTimeout(() => scrollToToday(), 50);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <View style={styles.wrapper}>

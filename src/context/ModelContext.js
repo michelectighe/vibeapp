@@ -1,7 +1,6 @@
 // ModelContext.js
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { loadTensorflowModel } from "react-native-fast-tflite";
-import RNFS from "react-native-fs";
 import { loadSoundClassLabels } from "@/utils";
 
 const ModelContext = createContext();

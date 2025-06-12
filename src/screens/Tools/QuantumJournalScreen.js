@@ -3,14 +3,8 @@ import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
-  TextInput,
-  ScrollView,
-  KeyboardAvoidingView,
   TouchableWithoutFeedback,
   Keyboard,
-  Platform,
-  InputAccessoryView,
-  ActivityIndicator,
 } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { quantumJournalPrompts } from "@data";
@@ -24,9 +18,6 @@ import {
   KeyboardDone,
 } from "@/components";
 import { Colors } from "@/constants";
-import { useAnalysis } from "@/context";
-import { globalStyles } from "@/styles";
-import { SCREEN_WIDTH } from "@/utils";
 import { LinedTextInput } from "@/components";
 import { saveJournalEntryDb, saveJournalEntryFs } from "@database";
 
@@ -36,7 +27,6 @@ export const QuantumJournalScreen = () => {
   const navigation = useNavigation();
   const [prompt, setPrompt] = useState("");
   const [entry, setEntry] = useState("");
-  const [isTyping, setIsTyping] = useState(true);
   const [isDirty, setIsDirty] = useState(false);
   const [saved, setSaved] = useState(false);
   const [animatedText, setAnimatedText] = useState("");
@@ -49,7 +39,6 @@ export const QuantumJournalScreen = () => {
       //console.log("currentEntry:", currentEntry);
       setPrompt(currentEntry.prompt);
       setEntry(currentEntry.entry);
-      setIsTyping(false);
       setIsDirty(false);
     }
     return () => {};
@@ -67,7 +56,6 @@ export const QuantumJournalScreen = () => {
         i++;
         if (i === newPrompt.length) {
           clearInterval(interval);
-          setIsTyping(false);
           setSaved(false);
           setPrompt(newPrompt);
           setPromptRequest(false); // 👈 move it here

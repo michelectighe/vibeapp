@@ -11,7 +11,6 @@ import {
   ScrollView,
   Modal,
   Pressable,
-  Button,
 } from "react-native";
 import { useAuth, useUserProfile } from "@context";
 import {

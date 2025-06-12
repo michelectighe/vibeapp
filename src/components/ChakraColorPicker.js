@@ -1,5 +1,5 @@
 import React from "react";
-import { View, ScrollView, TouchableOpacity, StyleSheet } from "react-native";
+import {  ScrollView, TouchableOpacity, StyleSheet } from "react-native";
 import { FuzzyGlow } from "@/components/FuzzyGlow";
 import { Colors } from "@/constants";
 import { hexToRgba } from "@/utils";

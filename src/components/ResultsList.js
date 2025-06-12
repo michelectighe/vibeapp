@@ -1,9 +1,9 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { vibrationLevels } from "@data";
 import { Fonts, Colors } from "@constants";
-import { hexToRgba, scaledStyle } from "@utils";
+import {  scaledStyle } from "@utils";
 export const ResultsList = ({ results, onSelect }) => {
   const formatDate = (timestamp) => {
     if (!timestamp?.toDate) return "";
@@ -25,7 +25,6 @@ export const ResultsList = ({ results, onSelect }) => {
     <View>
       {results.map((item) => {
         const level = getVibrationLevel(item.overallVibrationScore);
-        const levelColor = hexToRgba(level.color3, 0.7);
 
         return (
           <View key={item.id} style={styles.outsideGradient}>

@@ -42,7 +42,7 @@ export const GoodNewsScreen = () => {
     <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}>
       <CloseX xColor={Colors.textDark} onPress={() => navigation.goBack()} />
       <View style={styles.container}>
-        <Text style={styles.header}>Today's Good News</Text>
+        <Text style={styles.header}>Today`&apos`s Good News</Text>
         <View style={styles.newsView}>
           <ScrollView contentContainerStyle={styles.scrollContainer}>
             {story.imageUrl && !imageError && (

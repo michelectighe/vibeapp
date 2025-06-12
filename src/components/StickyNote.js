@@ -1,5 +1,4 @@
-import React, { useImperativeHandle, useRef, forwardRef, useEffect, useState } from "react";
-import * as SQLite from "expo-sqlite";
+import React, { useImperativeHandle, forwardRef, useEffect, useState } from "react";
 import { getDb } from "@/database/dbInit";
 import { updateStickyNotePositionDb } from "@database";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
@@ -9,7 +8,6 @@ import Animated, {
   withSpring,
   withTiming,
   runOnJS,
-  makeMutable,
 } from "react-native-reanimated";
 import FastImage from "react-native-fast-image";
 import { GestureDetector, Gesture } from "react-native-gesture-handler";
@@ -82,7 +80,7 @@ export const StickyNote = forwardRef(
 
       scale.value = withSpring(1, { damping: 6 });
       opacity.value = withTiming(1, { duration: 300 });
-    }, []);
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const savePositionWithDone = async (newDoneValue) => {
       try {

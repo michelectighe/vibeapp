@@ -1,6 +1,6 @@
 // MyTabs.js
-import React, { useRef, useEffect, useCallback } from "react";
-import { View, StyleSheet, Animated } from "react-native";
+import React, {  } from "react";
+import { View, StyleSheet } from "react-native";
 import { BlurView } from "@react-native-community/blur";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { CardStyleInterpolators } from "@react-navigation/stack";
@@ -25,7 +25,6 @@ const Tab = createBottomTabNavigator();
 
 export const MyTabs = ({ handleHomeReady }) => {
   // const navigationRef = useNavigationContainerRef();
-  const scaleAnim = useRef(new Animated.Value(1)).current;
   const { newMatchesCount } = useNotification();
   // useFocusEffect(
   //   useCallback(() => {
@@ -159,8 +158,8 @@ export const MyTabs = ({ handleHomeReady }) => {
           presentation: "modal",
           cardStyleInterpolator: CardStyleInterpolators.forFadeFromCenter,
         }}
-        listeners={({ navigation, route }) => ({
-          tabPress: (e) => {
+        listeners={() => ({
+          tabPress: () => {
             resetStack("Home");
           },
         })}
@@ -171,8 +170,8 @@ export const MyTabs = ({ handleHomeReady }) => {
       <Tab.Screen
         name="VibeCheck"
         component={VibeCheckStack}
-        listeners={({ navigation, route }) => ({
-          tabPress: (e) => {
+        listeners={() => ({
+          tabPress: () => {
             resetStack("VibeCheck");
           },
         })}
@@ -188,8 +187,8 @@ export const MyTabs = ({ handleHomeReady }) => {
       <Tab.Screen
         name="Scan"
         component={MeditationStack}
-        listeners={({ navigation, route }) => ({
-          tabPress: (e) => {
+        listeners={() => ({
+          tabPress: () => {
             resetStack("Scan");
           },
         })}
@@ -197,8 +196,8 @@ export const MyTabs = ({ handleHomeReady }) => {
       <Tab.Screen
         name="VibeMatch"
         component={VibeMatchStack}
-        listeners={({ navigation, route }) => ({
-          tabPress: (e) => {
+        listeners={() => ({
+          tabPress: () => {
             resetStack("ShareScreen");
           },
         })}
@@ -211,8 +210,8 @@ export const MyTabs = ({ handleHomeReady }) => {
       <Tab.Screen
         name="Goals"
         component={Goals}
-        listeners={({ navigation, route }) => ({
-          tabPress: (e) => {
+        listeners={() => ({
+          tabPress: () => {
             resetStack("Goals");
           },
         })}
@@ -221,8 +220,8 @@ export const MyTabs = ({ handleHomeReady }) => {
       <Tab.Screen
         name="Tools"
         component={ToolsStack}
-        listeners={({ navigation, route }) => ({
-          tabPress: (e) => {
+        listeners={() => ({
+          tabPress: () => {
             resetStack("tools");
           },
         })}
@@ -235,8 +234,8 @@ export const MyTabs = ({ handleHomeReady }) => {
         name="Settings"
         component={SettingsStack}
         options={{ tabBarLabel: () => null }}
-        listeners={({ navigation, route }) => ({
-          tabPress: (e) => {
+        listeners={() => ({
+          tabPress: () => {
             resetStack();
           },
         })}
@@ -244,8 +243,8 @@ export const MyTabs = ({ handleHomeReady }) => {
       <Tab.Screen
         name="StreakStack"
         component={StreakStack}
-        listeners={({ navigation, route }) => ({
-          tabPress: (e) => {
+        listeners={() => ({
+          tabPress: () => {
             resetStack();
           },
         })}

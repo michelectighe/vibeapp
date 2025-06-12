@@ -25,7 +25,7 @@ Text.defaultProps.allowFontScaling = false;
 
 export const ResultsScreen = ({ navigation }) => {
   const route = useRoute();
-  const { resultId, returnTo } = route.params || {};
+   const { resultId, returnTo } = route.params || {};
   const { setMyResults } = useContext(MyResultsContext);
   const auth = getAuth();
   const createShare = getCreateShare();
@@ -39,14 +39,11 @@ export const ResultsScreen = ({ navigation }) => {
   const [overallColor3, setColor3] = useState(null);
   const [overallColor4, setColor4] = useState(null);
   const [viewColor, setViewColor] = useState(null);
-  const [saving, setSaving] = useState(false);
   const [dataReady, setDataReady] = useState(false);
-  const [oldResults, setOldResults] = useState(false);
   const [matchLinkActive, setMatchLinkActive] = useState(false);
   const [hawkinsDescription, setHawkinsDescription] = useState(null);
-
   const oldResultsRef = useRef(false);
-  const infoImage = require("@assets/images/info.webp");
+
 
   const {
     voiceFrequencyScore,
@@ -94,7 +91,6 @@ export const ResultsScreen = ({ navigation }) => {
     if (overallVibrationScore === null || chakraScores === null || overallVibrationScore === 0) {
       return;
     }
-    let isMounted = true;
 
     const fetchData = async () => {
       try {
@@ -126,17 +122,14 @@ export const ResultsScreen = ({ navigation }) => {
       }
     };
     fetchData();
-    isMounted = true;
-    return () => {
-      isMounted = false;
-    };
+
+    return () => {};
   }, [overallVibrationScore, vibrationInfo, chakraScores, user, resultId, hawkinsScore]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const saveResultsToDB = async () => {
     console.log("insaveresultstodb");
     console.log("emotion score coming in to results:", emotionScore);
 
-    setSaving(true);
     const newResultId = uuid.v4();
     const newTimeStamp = new Date().toISOString();
 
@@ -188,19 +181,19 @@ export const ResultsScreen = ({ navigation }) => {
         params: { screen: "MatchScreen" },
       });
     }
-    // return;
-    // console.log("returnTo value:", returnTo);
-    // if (returnTo && typeof returnTo === "object") {
-    //   navigation.reset({
-    //     index: 0,
-    //     routes: [returnTo],
-    //   });
-    // } else if (typeof returnTo === "string") {
-    //   //console.log("string return:", returnTo);
-    //   navigation.reset({
-    //     index: 0,
-    //     routes: [{ name: returnTo }],
-    //   });
+    console.log("returnTo value:", returnTo);
+    if (returnTo && typeof returnTo === "object") {
+      navigation.reset({
+        index: 0,
+        routes: [returnTo],
+      });
+    } else if (typeof returnTo === "string") {
+      //console.log("string return:", returnTo);
+      navigation.reset({
+        index: 0,
+        routes: [{ name: returnTo }],
+      });
+    }
     else {
       navigation.reset({
         index: 0,

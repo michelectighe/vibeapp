@@ -1,5 +1,5 @@
-import React, { useRef } from "react";
-import { Animated, View, Text, StyleSheet } from "react-native";
+import React, {  } from "react";
+import { Animated, View, StyleSheet } from "react-native";
 import { Card } from "@/components";
 import { Colors } from "@/constants";
 import { useNavigation } from "@react-navigation/native";
@@ -9,7 +9,6 @@ const CARD_WIDTH = SCREEN_WIDTH * 0.9;
 const SIDE_PADDING = (SCREEN_WIDTH - CARD_WIDTH) / 2;
 
 export const SectionWithCards = ({
-  title,
   cards,
   isCompact = false,
   isScrollable = true,

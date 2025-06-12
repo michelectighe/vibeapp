@@ -1,5 +1,5 @@
 import React from "react";
-import { View, TextInput, StyleSheet, Dimensions } from "react-native";
+import { View, TextInput, StyleSheet } from "react-native";
 import { Fonts } from "@/constants";
 
 const FONT_SIZE = 16;

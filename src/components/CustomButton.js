@@ -38,7 +38,8 @@ export const CustomButton = ({ imgSource = "", onPress }) => {
         }),
       ]),
     ).start();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     textFade.setValue(1); // ⬅️ Set the correct initial value before loop starts
 
@@ -56,7 +57,7 @@ export const CustomButton = ({ imgSource = "", onPress }) => {
         }),
       ]),
     ).start();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handlePress = () => {
     Haptics.selectionAsync(); // light tap feedback

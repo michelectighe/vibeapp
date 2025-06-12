@@ -105,7 +105,7 @@ export const MatchNotificationScreen = () => {
         <View style={styles.matchView}>
           <Text style={styles.title}>Your Match Activity</Text>
 
-          <Text style={styles.sectionTitle}>Matches You've Sent</Text>
+          <Text style={styles.sectionTitle}>Matches You`&apos`ve Sent</Text>
           {sentMatches.length === 0 ? (
             <Text style={styles.emptyText}>No sent matches yet.</Text>
           ) : (
@@ -113,7 +113,7 @@ export const MatchNotificationScreen = () => {
             sentMatches.map((m) => renderMatch(m, "sent"))
           )}
 
-          <Text style={styles.sectionTitle}>Matches You've Received</Text>
+          <Text style={styles.sectionTitle}>Matches You`&apos`ve Received</Text>
           {receivedMatches.length === 0 ? (
             <Text style={styles.emptyText}>No received matches yet.</Text>
           ) : (

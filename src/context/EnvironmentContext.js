@@ -2,10 +2,10 @@ import React, { createContext, useState, useEffect, useCallback, useContext, use
 import { Magnetometer } from "expo-sensors";
 import { useFocusEffect } from "@react-navigation/native";
 import { evaluateEnvironment, analyzePeacefulness } from "@utils";
-import AudioRecord from 'react-native-audio-record';
-import { Buffer } from 'buffer';
-import { useModels } from '@context';
-
+import AudioRecord from "react-native-audio-record";
+import { Buffer } from "buffer";
+import { useModels } from "@context";
+import { initMedia, cleanupMedia } from "@/utils";
 
 const EnvironmentContext = createContext();
 
@@ -28,14 +28,37 @@ export const EnvironmentProvider = ({ children }) => {
   const intervalRef = useRef();
   const recordingRef = useRef();
   const magnetometerInterval = 1000;
-  const soundIntervalDuration = 1000;
   const audioBuffer = React.useRef([]);
   const MAX_VALUES = 100; // max sound and mag values to hold
 
   useFocusEffect(
     useCallback(() => {
       try {
-        startEnvironmentTracking();
+        const setup = async () => {
+          try {
+            await initMedia(
+              {
+                settings: {
+                  sampleRate: 15600,
+                  channels: 1,
+                  bitsPerSample: 16,
+                  audioSource: 6,
+                  wavFile: "realtime.wav",
+                },
+              },
+              "audio",
+            );
+            setTimeout(async () => {
+              startEnvironmentTracking();
+              ////console.log("🎙️ Audio recording started after delay");
+            }, 500);
+
+            ////console.log("recording started");
+          } catch (e) {
+            console.warn("Setup failed in EnvironmnetContext init media:", e);
+          }
+        };
+        setup();
       } catch (error) {
         console.error("Error in StartEnvironmentTracking:", error);
       }
@@ -43,12 +66,23 @@ export const EnvironmentProvider = ({ children }) => {
       // Clean up when the component loses focus.
       return () => {
         try {
+          (async () => {
+            try {
+              await cleanupMedia({
+                useAudio: true,
+                useSoundLevel: false,
+                useCamera: false,
+              });
+            } catch (e) {
+              console.warn("❌ Cleanup failed in EnvironmentContext:", e);
+            }
+          })();
           stopEnvironmentTracking();
         } catch (error) {
           console.error("Error in StopEnvironmentTracking:", error);
         }
       };
-    }, []),
+    }, []), // eslint-disable-line react-hooks/exhaustive-deps
   );
   // Update calm score based on sound & magnetometer data
   useEffect(() => {
@@ -103,15 +137,8 @@ export const EnvironmentProvider = ({ children }) => {
     });
     Magnetometer.setUpdateInterval(magnetometerInterval);
 
-    AudioRecord.init({
-      sampleRate: 15600,
-      channels: 1,
-      bitsPerSample: 16,
-      audioSource: 6,
-      wavFile: 'realtime.wav',
-    });
-    AudioRecord.on('data', (data) => {
-      const chunk = Buffer.from(data, 'base64');
+    AudioRecord.on("data", (data) => {
+      const chunk = Buffer.from(data, "base64");
       for (let i = 0; i < chunk.length; i += 2) {
         const sample = chunk.readInt16LE(i);
         const value = sample / 32768;
@@ -120,9 +147,9 @@ export const EnvironmentProvider = ({ children }) => {
     });
 
     AudioRecord.start();
-    //console.log('audio start')
+    console.log("audio start");
     intervalRef.current = setInterval(async () => {
-      //console.log('audiolength:', audioBuffer.current.length)
+      //  console.log("audiolength:", audioBuffer.current.length);
       if (!soundModel || audioBuffer.current.length < 15600) return;
 
       const slice = audioBuffer.current.slice(-15600);
@@ -130,14 +157,14 @@ export const EnvironmentProvider = ({ children }) => {
       padded.set(slice);
 
       const result = await analyzePeacefulness(padded, soundModel, sounds);
+      //  console.log('result:', result)
       updateValues(result);
-
     }, 1000);
   };
   /************************************************************ */
   const updateValues = (results) => {
     //console.log("results:", results)
-    const { rankedCategories, percentGood, percentBad, decibels , topLabels} = results;
+    const { rankedCategories, percentGood, decibels, topLabels } = results;
 
     setSoundValues((prev) => {
       const updated = [...prev, decibels];
@@ -147,26 +174,21 @@ export const EnvironmentProvider = ({ children }) => {
     });
     setLatestSound(decibels);
     setVibeList(rankedCategories);
-    setSoundLabels(topLabels)
+    setSoundLabels(topLabels);
     setPercentGood(Number(percentGood));
     //setBad(percentBad);
-
   };
 
-
   const updateEnvironmentValues = (evaluation) => {
-    //console.log("env eval:", evaluation)
-    const { sound, magnetometer, overall } = evaluation;
-    //console.log("SETTING ENV VALUES:", overall.value)
+    const { overall } = evaluation;
     setEnvironmentValues((prev) => {
       const updated = [...prev, overall.value];
       return updated.length > MAX_VALUES
         ? updated.slice(-MAX_VALUES) // keep only the most recent ones
         : updated;
     });
-//console.log('ENV VALUES:', overall.value)
+    //console.log('ENV VALUES:', overall.value)
   };
-
 
   const stopEnvironmentTracking = async () => {
     if (environmentSubscriptionRef.current) {

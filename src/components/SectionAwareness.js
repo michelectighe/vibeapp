@@ -61,7 +61,7 @@ export const SectionAwareness = () => {
         </CardGradient>
       )}
 
-      <GlowingDivider />
+      <GlowingDivider height={2} />
     </View>
   );
 };
@@ -144,6 +144,6 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontStyle: "italic",
     fontWeight: "600",
-    color: Colors.cardText,
+    color: Colors.buttonText,
   },
 });

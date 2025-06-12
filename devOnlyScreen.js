@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import { doc, setDoc, getDocs, collection, deleteDoc } from "firebase/firestore";
 import { db } from "@config/firebaseConfig";
-import { uploadDataToFireStore } from "@/utils";
 import { useNavigation } from "@react-navigation/native";
 import { CloseX, CustomSpiritualButton } from "@components";
 import { Colors } from "@constants";

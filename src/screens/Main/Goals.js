@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
-import * as SQLite from "expo-sqlite";
+import React, { useState, useCallback, useRef } from "react";
 import { View, Text } from "react-native";
 import FastImage from "react-native-fast-image";
 import { GradientBackground, AddNoteModal, CustomSpiritualButton } from "@components";
@@ -17,7 +16,7 @@ import {
 import { styles } from "./Goals.styles";
 import { Colors } from "@constants";
 import uuid from "react-native-uuid";
-import { format, subDays } from "date-fns";
+import { format } from "date-fns";
 import { SCREEN_WIDTH } from "@/utils";
 
 export const Goals = () => {

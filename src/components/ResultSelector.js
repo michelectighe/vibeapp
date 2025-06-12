@@ -1,10 +1,9 @@
-import React, {useState} from "react";
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
+import React, {} from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import { vibrationLevels } from "@data";
 import { Fonts, Colors } from "@constants";
-import { hexToRgba, scaledStyle, parseMetric } from "@utils";
-import { GradientBackground } from "./GradientBackground";
+import {  scaledStyle, parseMetric } from "@utils";
 import LinearGradient from "react-native-linear-gradient";
 
 export const ResultSelector = ({ results, onSelect, onShare, onTrash, showIcons = true }) => {

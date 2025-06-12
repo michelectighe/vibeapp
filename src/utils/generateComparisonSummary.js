@@ -54,10 +54,10 @@ export const generateComparisonSummary = (myResult, senderResult) => {
   });
 
   // Optional: assign weights if you want to compute a “closeness score”
-  const weightedScore =
-    countByAlignment.aligned * 3 +
-    countByAlignment.slightlyDifferent * 2 +
-    countByAlignment.moderatelyDifferent * 1;
+  // const weightedScore =
+  //   countByAlignment.aligned * 3 +
+  //   countByAlignment.slightlyDifferent * 2 +
+  //   countByAlignment.moderatelyDifferent * 1;
 
   let overallSummary = "";
 

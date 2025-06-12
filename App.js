@@ -1,6 +1,6 @@
 import "react-native-reanimated";
 import "./src/styles/CustomText"; // must be imported before any screens load
-import React, { useRef, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 //import { setJSExceptionHandler } from "react-native-exception-handler";
 // import crashlytics from "@react-native-firebase/crashlytics";
 import { NavigationContainer, useNavigationContainerRef } from "@react-navigation/native";
@@ -8,14 +8,13 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { linking } from "@/navigation/linkingConfig";
 
-import { LogBox, Text } from "react-native";
+import { LogBox } from "react-native";
 import { enableScreens } from "react-native-screens";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { MyTabs, StreakStack } from "@navigation";
 import {
   UserProfileProvider,
   ModelProvider,
-  EnvironmentProvider,
   AuthProvider,
   AnalysisProvider,
   MyResultsProvider,
@@ -55,11 +54,6 @@ LogBox.ignoreLogs([
 
 const Stack = createNativeStackNavigator();
 const AppInner = () => {
-  const [isReady, setIsReady] = useState(false);
-  const [showSplash, setShowSplash] = useState(true);
-  const [initialLink, setInitialLink] = useState(null);
-  const [checkForLink, setCheckForLink] = useState(false);
-
   const navigationRef = useNavigationContainerRef();
 
   useEffect(() => {

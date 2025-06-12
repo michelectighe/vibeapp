@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { View } from "react-native";
 import { styles } from "./EmotionalTransitionScreen.styles";
 import { GradientBackground, FadeInSlideText, SectionLayout } from "@components";
 

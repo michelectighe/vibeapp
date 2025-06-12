@@ -1,5 +1,5 @@
 import React, { useEffect, useCallback, useMemo, useState, useRef } from "react";
-import { View, Animated, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Camera, useCameraDevice, useFrameProcessor /*face*/ } from "react-native-vision-camera";
 import { initMedia, createRefChecker, cleanupMedia } from "@utils";
 import { useResizePlugin } from "vision-camera-resize-plugin";
@@ -11,17 +11,8 @@ import { useVoiceRecording } from "@features/voiceAnalysis/VoiceRecording";
 import { useFaceDetector } from "react-native-vision-camera-face-detector";
 import { BlurView } from "@react-native-community/blur";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import {
-  FuzzyRectangleGlow,
-  GradientBackground,
-  CustomSpiritualButton,
-  SparkleOverlay,
-} from "@components";
-import { SectionLayout } from "@/components";
-import { Fonts, Colors } from "@constants";
 import { useAmbientControlForScreen, useVibeCheckNavigation } from "@hooks";
 import { styles } from "./EmotionalStateScreen.styles";
-import { hexToRgba } from "@/utils";
 import { EmotionPromptOverlay } from "@/components";
 
 // const phrases = [
@@ -88,7 +79,6 @@ export const EmotionalStateScreen = () => {
   }).current;
 
   const { detectFaces } = useFaceDetector(faceDetectionOptions);
-  const [currentPhrase, setCurrentPhrase] = useState();
   // Initialize camera & Sound
   useFocusEffect(
     useCallback(() => {
@@ -110,8 +100,8 @@ export const EmotionalStateScreen = () => {
             "audio",
           );
           setTimeout(async () => {
-            isRecordingRef.current = true;
-               await startRecording();
+         //   isRecordingRef.current = true;
+         //   await startRecording();
             ////console.log("🎙️ Audio recording started after delay");
           }, 500);
 
@@ -136,7 +126,7 @@ export const EmotionalStateScreen = () => {
     if (device && !cachedDevice) setCachedDevice(device);
     // Same for format
     if (selectedFormat && !cachedFormat) setCachedFormat(selectedFormat);
-  }, [device, selectedFormat]);
+  }, [device, selectedFormat]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useFocusEffect(
     useCallback(() => {
@@ -305,10 +295,10 @@ export const EmotionalStateScreen = () => {
     (frame) => {
       "worklet";
 
-      if (!isRecordingRef.current) {
-        console.log("⛔️ Frame skipped - NOT RECORDING", isRecordingRef.current);
-        return;
-      }
+      // if (!isRecordingRef.current) {
+      //   console.log("⛔️ Frame skipped - NOT RECORDING", isRecordingRef.current);
+      //   return;
+      // }
       if (!isRefActive(frameProcessorEmotionActiveRef.current)) {
         console.log("⛔️ Frame skipped - PROCESSOR REF FALSE");
         return;
@@ -318,7 +308,7 @@ export const EmotionalStateScreen = () => {
         return;
       }
       try {
-     //   console.log("processing the frame");
+        //   console.log("processing the frame");
         let faces;
         try {
           faces = detectFaces(frame);
@@ -405,12 +395,7 @@ export const EmotionalStateScreen = () => {
     },
     [emotionModel],
   );
-  const blankFrameProcessor = useFrameProcessor(() => {
-    "worklet";
-  }, []);
-
-  //console.log("DEVICE", device, "SELECTEDFORMAT", selectedFormat, "isRecording", isRecording);
-
+  
   return (
     <View>
       <EmotionPromptOverlay />

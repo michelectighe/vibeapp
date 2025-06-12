@@ -25,7 +25,6 @@ const rawStyles = {
     // borderRadius: 16,
     width: "100%",
     height: SCREEN_HEIGHT * 0.70,
-    backgroundColor: "transparent",
     justifyContent: "center",
   },
   card: {

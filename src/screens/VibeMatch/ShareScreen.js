@@ -3,9 +3,6 @@ import {
   View,
   ActivityIndicator,
   Share,
-  TextInput,
-  Keyboard,
-  Switch,
   Text,
   ScrollView,
 } from "react-native";
@@ -28,13 +25,12 @@ export const ShareScreen = () => {
   const navigation = useNavigation();
   const { myResults, setMyResults, loading } = useContext(MyResultsContext);
   const { profile } = useUserProfile();
-  const [results, setResults] = useState([]);
   const [noResults, setNoResults] = useState(true);
   const [showSubModal, setShowSubModal] = useState(false);
   const auth = getAuth();
   const { user, authLoading, isPremium } = useAuth(); // 🔑 assuming `isPremium` is part of auth context
-  const [isAnonymous, setIsAnonymous] = useState(false);
-  const [shareName, setShareName] = useState("Someone");
+
+
 
   useEffect(() => {
     if (authLoading) return;
@@ -57,26 +53,19 @@ export const ShareScreen = () => {
       //   setShowSubModal(true);
       //   setLoading(false);
     } else {
-      if (user.displayName) {
-        setShareName(user.displayName);
-      }
+
       if (myResults && !loading && myResults.length > 0) {
-        setResults(myResults);
         setNoResults(false);
       }
     }
   }, [authLoading, loading, user, isPremium, myResults]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const handleTakeTest = () => {
-    setCreateShare();
-    navigation.navigate("VibeCheck", { screen: "VibecheckScreen" });
-  };
   const onShare = async (item) => {
     try {
       //console.log("onshare item:", item);
       clearCreateShare();
       const name = profile.displayName;
-      const link = await createMatchLink(item.resultId, auth.currentUser.uid, name, isAnonymous);
+      const link = await createMatchLink(item.resultId, auth.currentUser.uid, name, false);
       await Share.share({
         message: `Compare your vibe with mine! Tap this link to begin: ${link}`,
       });

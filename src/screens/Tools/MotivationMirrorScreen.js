@@ -1,80 +1,23 @@
 // MotivationalMirrorCard.js
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Dimensions } from "react-native";
+import React, { useLayoutEffect } from "react";
+import { View, Text, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { Camera, useCameraDevice } from "react-native-vision-camera";
 import LinearGradient from "react-native-linear-gradient";
 import { Colors, Fonts } from "@constants";
-import { SCREEN_HEIGHT, SCREEN_WIDTH, hexToRgba } from "@/utils";
-import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
-  withTiming,
-  withRepeat,
-  withSequence,
-  interpolate,
-  Extrapolate,
-} from "react-native-reanimated";
-
-
-const MIRROR_HEIGHT = SCREEN_HEIGHT * .3;
-
-// ...imports remain unchanged
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@/utils";
+import { reflectionPrompts, affirmations } from "@/data";
+import { GradientBackground, MirrorCarousel, GlowingDivider, SectionLayout } from "@/components";
 
 export const MotivationMirrorScreen = () => {
-  const [hasPermission, setHasPermission] = useState(false);
   const device = useCameraDevice("front");
-  const mirrorOpacity = useSharedValue(1);
-  const isMirrored = useSharedValue(false);
-  const rotation = useSharedValue(0); // from 0 to 180
+  const navigation = useNavigation();
 
-  useEffect(() => {
-    (async () => {
-      const status = await Camera.requestCameraPermission();
-      if (status === "granted" || status === "authorized") {
-        setHasPermission(true);
-      }
-    })();
-  }, []);
-
-  // useEffect(() => {
-  //   const loopAnimation = () => {
-  //     mirrorOpacity.value = withRepeat(
-  //       withSequence(
-  //         withTiming(0, { duration: 1000 }),
-  //         withTiming(1, { duration: 1000 }, () => {
-  //           isMirrored.value = !isMirrored.value;
-  //         }),
-  //       ),
-  //       -1,
-  //     );
-  //   };
-
-  //   loopAnimation();
-  // }, []);
-  useEffect(() => {
-    rotation.value = withRepeat(
-      withSequence(withTiming(180, { duration: 2000 }), withTiming(0, { duration: 2000 })),
-      -1,
-      false,
-    );
-  }, []);
-
-  const animatedStyle = useAnimatedStyle(() => {
-    const rotateY = `${rotation.value}deg`;
-
-    const opacity = interpolate(rotation.value, [0, 90, 180], [1, 0, 1], {
-      extrapolateLeft: "clamp",
-      extrapolateRight: "clamp",
-    });
-
-    return {
-      transform: [{ rotateY }],
-      opacity,
-      backfaceVisibility: "visible", // prevents text from showing mirrored unintentionally
-    };
-  });
-
-  if (!device || !hasPermission) {
+  useLayoutEffect(() => {
+    navigation.setOptions({ gestureEnabled: false });
+  }, [navigation]);
+  
+  if (!device) {
     return (
       <View style={styles.placeholder}>
         <Text style={styles.placeholderText}>Loading mirror...</Text>
@@ -83,75 +26,70 @@ export const MotivationMirrorScreen = () => {
   }
 
   return (
-    <View>
-      <View style={styles.cardContainer}>
-        <View style={styles.mirrorTextWrapper}>
-          <Animated.Text style={[styles.animatedMirrorText, animatedStyle]}>Mirror</Animated.Text>
-        </View>
-        <View style={styles.mirrorWrapper}>
-          {/* Glowing lighted border */}
-          <LinearGradient colors={["#ffffff", "#ffd700", "#ffffff"]} style={styles.lightedBorder}>
-            <View style={styles.mirrorContainer}>
-              <Camera
-                style={StyleSheet.absoluteFill}
-                device={device}
-                isActive={true}
-                photo={false}
-              />
+    <GradientBackground>
+      <SectionLayout
+        topFlex={1}
+        middleFlex={1}
+        bottomFlex={0}
+        topContent={
+          <View style={styles.mirrorWrapper}>
+            <View style={styles.lightedBorder}>
               <LinearGradient
-                colors={["rgba(255,255,255,0.05)", "rgba(0,0,0,0.2)"]}
+                colors={["#ffffff", "#ffd700", "#ffffff"]}
                 style={StyleSheet.absoluteFill}
               />
+              <View style={styles.mirrorContainer}>
+                <Camera device={device} isActive={true} photo={false} style={styles.camera} />
+              </View>
             </View>
-          </LinearGradient>
-        </View>
-      </View>
-      <View style={styles.divider} />
-    </View>
+          </View>
+        }
+        middleContent={
+          <>
+            <GlowingDivider width={SCREEN_WIDTH} height={2} />
+            <View style={{ paddingBottom: 10 }}>
+              <MirrorCarousel items={reflectionPrompts} type="prompt" />
+              <MirrorCarousel items={affirmations} type="affirmation" />
+            </View>
+          </>
+        }
+      />
+    </GradientBackground>
   );
 };
 const styles = StyleSheet.create({
-  cardContainer: {
-    width: SCREEN_WIDTH * 0.75,
-    height: SCREEN_HEIGHT * 0.25,
-    alignSelf: "center",
-    backgroundColor: "transparent",
-    marginBottom: 50,
-    borderRadius: 30,
-    padding: 10,
-    justifyContent: "center",
-  },
-  cardGradient: {
-    flex: 1,
-    borderRadius: 30,
-    overflow: "hidden",
-    justifyContent: "center",
-  },
   mirrorWrapper: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  lightedBorder: {
+    width: SCREEN_WIDTH * 0.8,
+    height: SCREEN_WIDTH * 0.8,
+    borderRadius: SCREEN_WIDTH * 0.4,
+    overflow: "hidden",
+    alignItems: "center",
     alignSelf: "center",
     justifyContent: "center",
-    alignItems: "center",
-  },
-  lightedBorder: {
-    width: SCREEN_WIDTH * 0.45,
-    height: SCREEN_WIDTH * 0.45,
-    borderRadius: SCREEN_WIDTH * 0.24,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "transparent",
-    shadowColor: "#ffd700",
-    shadowOpacity: 0.9,
-    shadowRadius: 25,
-    shadowOffset: { width: 0, height: 0 },
-    elevation: 25,
+    position: "relative",
   },
 
   mirrorContainer: {
-    width: SCREEN_WIDTH * 0.42,
-    height: SCREEN_WIDTH * 0.42,
-    borderRadius: SCREEN_WIDTH * 0.21,
+    width: SCREEN_WIDTH * 0.75,
+    height: SCREEN_WIDTH * 0.75,
+    borderRadius: SCREEN_WIDTH * 0.375,
     overflow: "hidden",
     backgroundColor: Colors.cardBackground,
+    alignItems: "center",
+    alignContent: "center",
+    justifyContent: "center",
+    zIndex: 2,
+  },
+
+  camera: {
+    width: "100%",
+    height: "100%",
+    alignSelf: "center",
   },
 
   placeholder: {
@@ -168,28 +106,5 @@ const styles = StyleSheet.create({
     color: Colors.cardText,
     fontFamily: Fonts.body,
     fontSize: 16,
-  },
-  mirrorTextWrapper: {
-    // position: "absolute",
-    // top: 10,
-    // left: 20,
-    // right: 20,
-    alignItems: "center",
-    marginBottom: -20,
-  },
-
-  animatedMirrorText: {
-    fontSize: 28,
-    fontFamily: Fonts.journal,
-    marginBottom: 20,
-    fontWeight: "bold",
-    color: "#d0d0d0", // optional: override if SilverText styles are too complex to animate
-  },
-  divider: {
-    height: 1,
-    backgroundColor: "rgba(255, 255, 255, 0.15)", // soft white line, adjust for dark background
-  //  marginTop: 20,
-    marginHorizontal: 16,
-    borderRadius: 0.5,
   },
 });

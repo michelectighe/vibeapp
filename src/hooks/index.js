@@ -6,5 +6,3 @@ export { useMeditationNavigation } from "./useMeditationNavigation";
 export { useVibeCheckNavigation } from "./useVibeCheckNavigation";
 export { useVibeMatchNavigation } from "./useVibeMatchNavigation";
 export { useYamnetModel } from "./useYamnet";
-
-export { useSimpleNav } from "./useSimpleNav";

@@ -1,7 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, useWindowDimensions } from "react-native";
 import { FuzzyGlow } from "./FuzzyGlow";
-import { EdgeGlow } from "./EdgeGlow";
 import { Colors } from "@/constants";
 
 export const ChakraComparisonCard = ({

@@ -1,4 +1,4 @@
-import { StyleSheet, Platform } from "react-native";
+import { StyleSheet } from "react-native";
 import { Fonts, Colors } from "@constants";
 import { scaledStyle } from "@utils";
 import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
@@ -31,13 +31,10 @@ const rawStyles = {
     alignItems: "center",
     justifyContent: "center",
     width: SCREEN_WIDTH,
-    heigth: SCREEN_HEIGHT *.4,
-    paddingTop: 20,
-    paddingBottom: 50,
-    alignItems: "center",
-    justifyContent: "center",
+    heigth: SCREEN_HEIGHT,
+     paddingTop: 20,
+     paddingBottom: 150,
   },
-
 
   recordButtonContainer: {
     position: "absolute",

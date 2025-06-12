@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, ScrollView } from "react-native";
+import {  Text, ScrollView } from "react-native";
 import { Colors } from "@constants";
 import {
   GradientBackground,
   ChakraComparisonCard,
   ComparisonCard,
-  SectionLayout,
   CustomSpiritualButton,
-  CloseX,
 } from "@components";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./MatchComparisonScreen.styles";
@@ -60,7 +58,7 @@ export const MatchComparisonScreen = ({ route }) => {
       updateRead();
     } else if (myResult && senderResult && matchId && senderUserName) {
       setsenderChakrasas(senderResult.chakraScores);
-      console.log('myresultcomparison:', myResult.chakrScores)
+      console.log("myresultcomparison:", myResult.chakrScores);
       if (myResult.chakraScores) setRecipientChakras(JSON.parse(myResult.chakraScores));
       const saveMatch = async () => {
         const matchData = {
@@ -81,7 +79,7 @@ export const MatchComparisonScreen = ({ route }) => {
       };
       saveMatch();
     }
-  }, [myResult, senderResult, matchId, senderUserName]);
+  }, [myResult, senderResult, matchId, senderUserName]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const groupByCategory = (category) =>
     comparisons.filter((item) => item.alignmentLevel === category);
@@ -125,9 +123,6 @@ export const MatchComparisonScreen = ({ route }) => {
       )}
     </>
   );
-
-  const CHAKRA_NAMES = ["root", "sacral", "solarPlexus", "heart", "throat", "thirdEye", "crown"];
-
   console.log("chakra type:", typeof recipientChakras);
   return (
     <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}>

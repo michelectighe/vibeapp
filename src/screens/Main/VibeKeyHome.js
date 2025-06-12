@@ -1,54 +1,27 @@
-import React, { useRef, useCallback, useEffect, useState, useContext } from "react";
-import * as Animatable from "react-native-animatable";
-import { Animated, View, Text, ScrollView } from "react-native";
-import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import React, { useRef, useCallback, useContext } from "react";
+import { Animated, Text, ScrollView } from "react-native";
+import {  useFocusEffect } from "@react-navigation/native";
 import { MyResultsContext } from "@/context/MyResultsContext";
-import { getAuth } from "firebase/auth";
 import { useUserProfile } from "@context";
 import { Colors } from "@constants";
 import {
   GradientBackground,
   HomeHeaderCard,
-  HomeFooterCard,
-  SectionWithCards,
   SectionVibeCheck,
   SectionVibeMatch,
   SectionTools,
   SectionAwareness,
-  Badge,
-  CardMotivationalMirror,
 } from "@components";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./VibeKeyHome.styles";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
-import { globalStyles } from "@styles";
-import { getTodayGoodNews, parseMetric } from "@/utils";
-import {  BannerMessage } from "@/components";
-
-import { useAnalysis } from "@/context";
 
 export const VibeKeyHome = () => {
-  const { resetAnalysis } = useAnalysis();
-  // Now use this for badges, notifications, etc!
-  const auth = getAuth();
-  const user = auth.currentUser;
   const { myResults } = useContext(MyResultsContext);
   useAmbientControlForScreen(true);
-  // console.log("me:", user.uid);
   const tabBarHeight = useBottomTabBarHeight();
   const positionY = useRef(new Animated.Value(-100)).current;
-  const navigation = useNavigation();
   const { profile, loading } = useUserProfile();
-  const [sections, setSections] = useState([]);
-  const [goodNewsCardData, setGoodNewsCard] = useState(null); // not defaulted to cardsGoodNews[0]
-  const [goodNewsLoaded, setGoodNewsLoaded] = useState(false);
-
-  const [showBanner, setShowBanner] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => setShowBanner(false), 14000);
-    return () => clearTimeout(timer);
-  }, []);
 
   useFocusEffect(
     useCallback(() => {

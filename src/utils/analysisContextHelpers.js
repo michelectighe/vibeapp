@@ -2,14 +2,12 @@
 export const parseMetric = (val) => {
   if (typeof val === "string") {
     try {
-      console.log("ParseReturn:", JSON.parse(val));
       return JSON.parse(val);
     } catch {
       console.log("ParseReturn:", null);
       return null;
     }
   }
-  //       console.log("ParseReturn:", val);
   return val;
 };
 
@@ -53,12 +51,12 @@ export const calculateChakraScores = ({
 export const calculateOverallVibe = (scores) => {
   console.log("scores in calc:", scores);
   const totalWeight = scores.reduce(
-    (sum, { score, weight }) => sum + (score != -1 ? weight : 0),
+    (sum, { score, weight }) => sum + (score != -1 ? weight : weight/2),
     0,
   );
   console.log("totalWeight:", totalWeight);
   const weightedSum = scores.reduce(
-    (sum, { score, weight }) => sum + (score != -1 ? score * weight : 0),
+    (sum, { score, weight }) => sum + (score != -1 ? score * weight : weight/2),
     0,
   );
   console.log("weightedsum", weightedSum);

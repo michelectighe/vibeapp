@@ -21,7 +21,7 @@ export const GlowingDivider = ({
 
   useEffect(() => {
     glowOpacity.value = withRepeat(withTiming(1, { duration: 1500 }), -1, true);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const animatedStyle = useAnimatedStyle(() => ({
     opacity: glowOpacity.value,
@@ -42,9 +42,9 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginVertical: 8,
     alignSelf: "center",
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 1,
-    shadowRadius: 8,
-    elevation: 8,
+    // shadowOffset: { width: 0, height: 0 },
+    // shadowOpacity: 1,
+    // shadowRadius: 8,
+    // elevation: 8,
   },
 });

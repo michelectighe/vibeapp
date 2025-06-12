@@ -16,8 +16,8 @@ import { LinedTextInput } from "@/components";
 import {
   saveJournalEntryDb,
   saveJournalEntryFs,
-  getJournalEntryByIdFs, 
-  getJournalEntryByIdDb,
+  getJournalEntryByIdFs,
+  //getJournalEntryByIdDb,
   updateJournalResultDb,
 } from "@database";
 import { useAnalysis } from "@/context";
@@ -25,7 +25,7 @@ import { styles } from "./GratitudeScreen.styles";
 
 export const GratitudeScreen = () => {
   useAmbientControlForScreen(true);
-  const { vibrationInfo, resultId, journalId, setJournalId } = useAnalysis();
+  const { vibrationInfo, resultId, journalId /*setJournalId*/ } = useAnalysis();
   const navigation = useNavigation();
   const [gratitude, setGratitude] = useState("");
   const [kindness, setKindness] = useState("");
@@ -38,34 +38,39 @@ export const GratitudeScreen = () => {
   const [overallColor2, setColor2] = useState(vibrationInfo?.color2);
   const [overallColor3, setColor3] = useState(vibrationInfo?.color3);
   const [overallColor4, setColor4] = useState(vibrationInfo?.color4);
+  useEffect(() => {
+    if (vibrationInfo == null) return;
+    setColor(vibrationInfo.color);
+    setColor2(vibrationInfo.color2);
+    setColor3(vibrationInfo.color3);
+    setColor4(vibrationInfo.color4);
+    //  setPromptRequest(true);
+  }, [vibrationInfo]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    try {
+      const getExisting = async () => {
+        //console.log("do we have the current journal id?:", currentJournalId);
+        if (!currentJournalId || currentJournalId === 0) {
+          //console.log("go ahead and get a new prompt");
+          return;
+        }
+        const journalEntry = await getJournalEntryByIdFs(journalId);
+        //console.log("GOT CURRENT ENTRY:", journalEntry);
+        setCurrentEntry(journalEntry);
+        if (journalEntry) {
+          setGratitude(journalEntry.gratitude);
+          setKindness(journalEntry.kindness);
+          setIsDirty(false);
+        }
+      };
+      getExisting();
+    } catch (e) {
+      console.error("error getting existing journal entry:", e);
+    }
+  }, [currentJournalId]); // eslint-disable-line react-hooks/exhaustive-deps
 
-   useEffect(() => {
-     try {
-     const getExisting = async () => {
-  //console.log("do we have the current journal id?:", currentJournalId);
-       if (!currentJournalId || currentJournalId === 0) {
-    //console.log("go ahead and get a new prompt");
-         return;
-       }
-       const journalEntry = await getJournalEntryByIdFs(journalId);
-  //console.log("GOT CURRENT ENTRY:", journalEntry);
-       setCurrentEntry(journalEntry);
-       if (journalEntry) {
-         setGratitude(journalEntry.gratitude);
-         setKindness(journalEntry.kindness);
-       //  setIsTyping(false);
-         setIsDirty(false);
-       }
-     };
-     getExisting();
-   } catch(e) {
-     console.error("error getting existing journal entry:", e);
-   }
-   }, [currentJournalId]);
-
-
-    const handleSave = async () => {
+  const handleSave = async () => {
     const createdAt = new Date();
     const id = currentEntry?.id || createdAt.toISOString(); // or use uuid
     const fullEntry = {
@@ -78,29 +83,26 @@ export const GratitudeScreen = () => {
     };
 
     try {
-        await saveJournalEntryDb(
-          fullEntry
-        );
-        await saveJournalEntryFs(
-          fullEntry.id,
-          fullEntry.prompt,
-          fullEntry.entry,
-          fullEntry.gratitude,
-          fullEntry.kindness,
-          fullEntry.createdAt,
-        );
+      await saveJournalEntryDb(fullEntry);
+      await saveJournalEntryFs(
+        fullEntry.id,
+        fullEntry.prompt,
+        fullEntry.entry,
+        fullEntry.gratitude,
+        fullEntry.kindness,
+        fullEntry.createdAt,
+      );
 
-        if (!currentEntry) await updateJournalResultDb({ journalId: fullEntry.id, resultId });
+      if (!currentEntry) await updateJournalResultDb({ journalId: fullEntry.id, resultId });
 
-        setSaved(true);
-        setCurrentEntry(fullEntry);
-        setIsDirty(false);
-   //console.log("✅ Gratitude entry saved.");
+      setSaved(true);
+      setCurrentEntry(fullEntry);
+      setIsDirty(false);
+      //console.log("✅ Gratitude entry saved.");
     } catch (err) {
-    console.error("❌ Error saving gratitude entry:", err.message);
+      console.error("❌ Error saving gratitude entry:", err.message);
     }
-};
-
+  };
 
   if (!overallColor) {
     return (

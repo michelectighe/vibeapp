@@ -1,9 +1,8 @@
-import * as SQLite from "expo-sqlite";
+
 import { getDb } from "./dbInit";
 import { dbFs } from "@/config/firebaseConfig";
 import {
   collection,
-  addDoc,
   getDocs,
   doc,
   getDoc,
@@ -17,12 +16,10 @@ import { getAuth } from "firebase/auth";
 
 export const getJournalEntryByIdDb = async ({ journalId }) => {
   try {
-
     const db = await getDb();
 
-
     const result = await db.getAllAsync(
-      `SELECT * FROM journalEntries WHERE id = ? ORDER BY createdAt DESC;`,
+      "SELECT * FROM journalEntries WHERE id = ? ORDER BY createdAt DESC;",
       [journalId],
     );
     return result?.[0] || null;
@@ -51,8 +48,7 @@ export const getJournalEntriesDb = async () => {
   try {
     const db = await getDb();
 
-
-    const result = await db.getAllAsync(`SELECT * FROM journalEntries ORDER BY createdAt DESC;`);
+    const result = await db.getAllAsync("SELECT * FROM journalEntries ORDER BY createdAt DESC;");
     return result?.[0] || null;
   } catch (error) {
     console.error("❌ Error retrieving journal Entries:", error);
@@ -91,9 +87,6 @@ export const saveJournalEntryDb = async (journal) => {
         journal.createdAt.toISOString(),
       ],
     );
-    const updated = await db.getFirstAsync("SELECT * from journalEntries WHERE id = ?", [
-      journal.id,
-    ]);
     //console.log("🔁 After update:", updated);
   } catch (error) {
     console.error("🔥 SQL Error Saving JournalEntries:", error);

@@ -6,7 +6,6 @@ import { evaluateMotion } from "@utils";
 const MotionContext = createContext();
 
 export const MotionProvider = ({ children }) => {
-  const [latestMotion, setLatestMotion] = useState(0);
   const [isFidgeting, setIsFidgeting] = useState(false);
   const [motionEval, setMotionEval] = useState();
 

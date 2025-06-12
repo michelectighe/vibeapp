@@ -19,7 +19,14 @@ import { GradientBackground, CustomSpiritualButton, SectionLayout } from "@compo
 import { Fonts, Colors } from "@constants";
 import { styles } from "./SignInScreen.style";
 import { globalStyles } from "@styles";
-import { getBiometricOptIn, getSavedCredentials, getFriendlyError, signInWithApple } from "@utils";
+import {
+  getBiometricOptIn,
+  getSavedCredentials,
+  getFriendlyError,
+  signInWithApple,
+  getMatchId,
+  resetToNestedScreen,
+} from "@utils";
 
 // GoogleSignin.configure({
 //   webClientId:
@@ -37,6 +44,7 @@ export const SignInScreen = ({ navigation, route }) => {
   const [password, setPassword] = useState("");
   const [signInError, setError] = useState("");
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const matchId = getMatchId();
 
   useEffect(() => {
     const tryFaceID = async () => {
@@ -92,8 +100,6 @@ export const SignInScreen = ({ navigation, route }) => {
 
     const finalEmail = email;
     const finalPassword = providedPassword ?? password;
-    ////console.log(email)
-    ////console.log(finalPassword)
     if (!finalEmail || !finalPassword) {
       setError("Email and password are required.");
       return;
@@ -102,7 +108,9 @@ export const SignInScreen = ({ navigation, route }) => {
     resetAndLeave();
   };
   const resetAndLeave = () => {
-    console.log('RETURN TO IN SIGN IN:', returnTo)
+    if (matchId) {
+      navigation.navigate("VibeMatch", { screen: "MatchScreen" });
+    }
     if (returnTo && typeof returnTo === "object") {
       navigation.reset({
         index: 0,

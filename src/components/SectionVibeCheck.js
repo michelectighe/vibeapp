@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Animated, View, Text, StyleSheet , TouchableOpacity} from "react-native";
+import {  View, Text, StyleSheet , TouchableOpacity} from "react-native";
 import FastImage from "react-native-fast-image";
 import { Colors, Fonts } from "@/constants";
 import { useNavigation } from "@react-navigation/native";
@@ -107,7 +107,6 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     justifyContent: "center",
     alignItems: "center",
-    overflow: "hidden",
   },
   textCard: {
     flexDirection: "row",
@@ -140,24 +139,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingRight: 10,
     justifyContent: "center",
-  },
-  results: {
-    backgroundColor: "rgba(255,255,255,0.1)",
-    borderWidth: 1,
-    borderColor: "#ffffffcc",
-    width: "90%",
-    alignSelf: "center",
-    borderRadius: 16,
-    marginBottom: 15,
-    paddingVertical: 4,
-    paddingHorizontal: 10,
-
-    // ✨ Glowing effect
-    shadowColor: "#ffffff",
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.7,
-    shadowRadius: 12,
-    elevation: 6, // Android fallback
   },
 
   resultsText: {

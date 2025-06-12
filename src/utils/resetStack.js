@@ -1,10 +1,10 @@
-import { StackActions , CommonActions} from "@react-navigation/native";
+import {  CommonActions} from "@react-navigation/native";
 import { navigationRef } from "@/services";
 
 
 export const resetStack = (screenName, route) => {
-  console.log('screenName', screenName)
-  console.log('route', route)
+  console.log("screenName", screenName);
+  console.log("route", route);
   if ((!screenName || !route)) return;
   const whereFrom = navigationRef.getCurrentRoute();
 

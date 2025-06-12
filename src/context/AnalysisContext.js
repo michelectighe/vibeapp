@@ -47,7 +47,7 @@ export const AnalysisProvider = ({ children }) => {
   });
 
   const emotionScore = useMemo(() => {
-    console.log('change in emotion score')
+    console.log("change in emotion score");
     return emotion != null ? evaluateEmotionalState(emotion) : null;
   }, [emotion]);
 

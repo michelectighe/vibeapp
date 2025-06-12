@@ -1,7 +1,7 @@
 import * as Linking from "expo-linking";
 import { useEffect } from "react";
 import { useNavigation } from "@react-navigation/native";
-import { getMatchId, setMatchId } from "@/utils/matchLinkStore";
+import {  setMatchId } from "@/utils/matchLinkStore";
 import { useAuth } from "@context";
 
 export const DeepLinkHandler = () => {
@@ -19,7 +19,7 @@ export const DeepLinkHandler = () => {
         if (user) {
           navigation.navigate("Tabs", {
             screen: "VibeMatch",
-            params: { screen: "MatchScreen"},
+            params: { screen: "MatchScreen" },
           });
         } else {
           navigation.navigate("Tabs", {
@@ -40,7 +40,7 @@ export const DeepLinkHandler = () => {
 
     const sub = Linking.addEventListener("url", handleDeepLink);
     return () => sub.remove();
-  }, [user]);
+  }, [user]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return null; // it's just a listener
 };

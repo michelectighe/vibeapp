@@ -42,15 +42,6 @@ const rawStyles = {
     marginTop: 6,
     fontWeight: "500",
   },
-  inRange: {
-    color: "green",
-  },
-  outOfRange: {
-    color: "orange",
-  },
-  missing: {
-    color: "gray",
-  },
   metricExplanation: {
     marginTop: 8,
     fontSize: 14,

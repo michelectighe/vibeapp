@@ -32,10 +32,10 @@ export const ChakraCard = ({ chakra, onPress }) => {
         useNativeDriver: true,
       }),
     ]).start();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
-        <Animated.View
+    <Animated.View
       style={{
         opacity: fadeAnim,
         transform: [{ translateY }],
@@ -43,18 +43,19 @@ export const ChakraCard = ({ chakra, onPress }) => {
         alignItems: "center",
       }}
     >
-    <Pressable onPress={onPress}>
-      <View style={[styles.card, { width: SCREEN_WIDTH / 2 }]}>
-        <View style={styles.fuzzyGlowStyle}>
-          <FuzzyGlow glowSize={glowSize * 0.9} glowColor={chakra.color} />
+      <Pressable onPress={onPress}>
+        <View style={[styles.card, { width: SCREEN_WIDTH / 2 }]}>
+          <View style={styles.fuzzyGlowStyle}>
+            <FuzzyGlow glowSize={glowSize * 0.9} glowColor={chakra.color} />
+          </View>
+          <View style={styles.textOverlay}>
+            <Text style={[styles.name, { color: chakra.color }]}>
+              {chakra.name} - {chakra.score}
+            </Text>
+          </View>
+          {/* <Text style={styles.meaning}>{chakra.meaning}</Text> */}
         </View>
-        <View style={styles.textOverlay}>
-          <Text style={[styles.name, { color: chakra.color}]}>{chakra.name} - {chakra.score}</Text>
-
-        </View>
-        {/* <Text style={styles.meaning}>{chakra.meaning}</Text> */}
-      </View>
-    </Pressable>
+      </Pressable>
     </Animated.View>
   );
 };

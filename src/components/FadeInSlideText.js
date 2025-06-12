@@ -1,6 +1,6 @@
 
 import { useRef, useEffect } from "react";
-import { Animated, Text } from "react-native";
+import { Animated } from "react-native";
 
 export const FadeInSlideText = ({ text, duration = 3000, style, position = 200 }) => {
   const opacity = useRef(new Animated.Value(0)).current;
@@ -19,7 +19,7 @@ export const FadeInSlideText = ({ text, duration = 3000, style, position = 200 }
         useNativeDriver: true,
       }),
     ]).start();
-  }, [duration]);
+  }, [duration]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Animated.Text style={[style, { opacity, transform: [{ translateY }] }]}>{text}</Animated.Text>

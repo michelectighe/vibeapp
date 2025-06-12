@@ -1,5 +1,5 @@
 //utils/manageGoodNews.js
-import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { dbFs } from "@/config/firebaseConfig";
 import { goodNewsBackup } from "@/data/goodNewsBackup";
 

@@ -19,6 +19,7 @@ export const ToolsStack = () => {
     <Stack.Navigator
       screenOptions={() => ({
         headerShown: false,
+        gestureEnabled: false,
       })}
     >
       <Stack.Screen
@@ -111,16 +112,21 @@ export const ToolsStack = () => {
           title: "",
         }}
       />
-      <Stack.Screen
-        name="MotivationMirrorScreen"
-        component={MotivationMirrorScreen}
-        options={{
-          headerShown: false,
-          tabBarVisible: true,
-          tabBarStyle: { display: "flex" },
-          title: "",
-        }}
-      />
+      <Stack.Group screenOptions={{ presentation: "modal", gestureEnabled: false }}>
+        <Stack.Screen
+          name="MotivationMirrorScreen"
+          component={MotivationMirrorScreen}
+          options={{
+            headerShown: false,
+            tabBarVisible: true,
+            gestureEnabled: false,
+            presentation: "modal",
+            stackPresentation: "modal",
+            tabBarStyle: { display: "flex" },
+            title: "",
+          }}
+        />
+      </Stack.Group>
     </Stack.Navigator>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Modal, View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { BlurView } from "expo-blur";
+import { BlurView } from "@react-native-community/blur";
 import { Colors, Fonts } from "@constants"; // optional if you're using custom colors/fonts
 import { SCREEN_WIDTH } from "@/utils";
 

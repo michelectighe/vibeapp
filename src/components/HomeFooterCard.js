@@ -1,12 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Fonts, Colors } from "@/constants";
-import { Badge } from "./Badge";
-import { SCREEN_WIDTH , hexToRgba} from "@/utils";
+import { SCREEN_WIDTH } from "@/utils";
 import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { CardGradient } from "./CardGradient";
 
-export const HomeFooterCard = ({ name = "friend" , newMatchesCount = 0}) => {
+export const HomeFooterCard = ({ name = "friend" }) => {
   const tabBarHeight = useBottomTabBarHeight();
 const getGreeting = () => {
   const hour = new Date().getHours();

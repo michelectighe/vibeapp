@@ -1,4 +1,4 @@
-import * as SQLite from "expo-sqlite";
+
 import { getDb } from "./dbInit";
 import { dbFs } from "@/config/firebaseConfig";
 
@@ -10,8 +10,6 @@ import {
   doc,
   getDoc,
   setDoc,
-  deleteDoc,
-  serverTimestamp,
   updateDoc,
   arrayUnion,
 } from "firebase/firestore";
@@ -25,7 +23,7 @@ export const getMatchResultById = async (matchId, senderUserId, resultId) => {
     const db = await getDb();
 
     const result = await db.getAllAsync(
-      `SELECT * FROM matchResultsReceived WHERE matchId = ? AND userId = ?  AND resultId = ? ORDER BY timestamp DESC LIMIT 1;`,
+      "SELECT * FROM matchResultsReceived WHERE matchId = ? AND userId = ?  AND resultId = ? ORDER BY timestamp DESC LIMIT 1;",
       [matchId, senderUserId, resultId],
     );
     return result?.[0] || null;
@@ -116,7 +114,7 @@ export const getLocalMatchMeta = async (matchId) => {
   try {
     console.log("getlocalMatchData:", matchId);
     const match = await db.getAllAsync(
-      `SELECT * FROM matchesReceived WHERE matchId = ? ORDER BY timestamp DESC LIMIT 1;`,
+      "SELECT * FROM matchesReceived WHERE matchId = ? ORDER BY timestamp DESC LIMIT 1;",
       [matchId],
     );
 
@@ -204,8 +202,6 @@ export const getsenderResult = async (userId, matchId) => {
       const senderUserName = matchData.senderUserName;
       return [{ senderResult }, { senderUserName }];
     } else return null;
-
-    console.log("[Firestore Fetch]: Match not found locally, fetched from server");
   } catch (error) {
     console.error("Error loading shared result:", error);
   }

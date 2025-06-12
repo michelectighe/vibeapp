@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 import { Colors, Fonts } from "@/constants";
-import { hexToRgba, SCREEN_WIDTH, SCREEN_HEIGHT } from "@/utils";
+import {  SCREEN_WIDTH, SCREEN_HEIGHT } from "@/utils";
 import { scaledStyle } from "@/utils";
 
 

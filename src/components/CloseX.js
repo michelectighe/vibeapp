@@ -3,7 +3,7 @@ import { TouchableOpacity, StyleSheet, Animated, Easing } from "react-native";
 import { Colors, Fonts } from "@constants";
 import { scaledStyle } from "@/utils";
 
-export const CloseX = React.memo(({ xColor = Colors.textLight, onPress }) => {
+export const CloseX = React.memo(({  onPress }) => {
   const rotate = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -56,6 +56,7 @@ export const CloseX = React.memo(({ xColor = Colors.textLight, onPress }) => {
     </TouchableOpacity>
   );
 });
+CloseX.displayName = "CloseX";
 
 const rawStyles = {
   feather: {

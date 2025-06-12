@@ -83,3 +83,6 @@ export { EmotionPromptOverlay } from "./EmotionPromptOverlay";
 export { InteractiveCard } from "./InteractiveCard";
 
 export { FrequencyPlayer, AffirmationCard, BreathingAnimation } from "./EnergyResetComponents";
+
+
+export { MirrorCarousel } from "./MirrorCarousel";

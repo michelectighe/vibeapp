@@ -16,7 +16,6 @@ import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import {
   getJournalEntriesFs,
   deleteJournalEntryFs,
-  getJournalEntriesDb,
   deleteJournalEntryDb,
 } from "@/database";
 import { styles } from "./JournalListScreen.styles";

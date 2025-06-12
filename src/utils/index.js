@@ -10,7 +10,6 @@ export {
   getSavedCredentials,
   clearSavedCredentials,
 } from "./biometricsUtils";
-export { cleanupMedia } from "./cleanupMedia";
 export { compareResults } from "./compareResults";
 export { debounceLabel } from "./debounceLabel";
 export { SCREEN_WIDTH, SCREEN_HEIGHT } from "./dimensions";
@@ -38,7 +37,7 @@ export {
 } from "./heartRateHelpers";
 export { hexToRgba } from "./colorUtils";
 export { initApp } from "./initApp";
-export { initMedia } from "./initMedia";
+export { initMedia, cleanupMedia } from "./manageMedia";
 export { MusicManager, setShouldPlayAmbient, setUserMusicPref } from "./musicManager";
 export { createRefChecker } from "./runOnJSRefChecker";
 export { setSubscriptionStatus, getSubscriptionStatus } from "./subscriptionUtils";
@@ -83,3 +82,5 @@ export {
 export { analyzeVoiceEmotion } from "./analyzeVoiceEmotion";
 
 export { getRandomItem } from "./awarenessUtils";
+
+export { resetToNestedScreen } from "./resetToNestedScreen";

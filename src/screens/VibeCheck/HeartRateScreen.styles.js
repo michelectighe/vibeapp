@@ -5,7 +5,7 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@utils";
 
 const rawStyles = {
   cameraContainer: {
-    backgroundColor: Colors.cardBackground,
+    //  backgroundColor: Colors.cardBackground,
     borderRadius: 16,
     //  marginHorizontal: 20,
     padding: 10,
@@ -27,55 +27,38 @@ const rawStyles = {
     width: "100%",
   },
   infoContainer: {
-    marginTop: 20,
-    paddingHorizontal: 20,
-    paddingVertical: 16,
-    backgroundColor: Colors.cardBackground,
+    marginTop: 0,
+    paddingHorizontal: 0,
+    paddingVertical: 1,
+    //  backgroundColor: Colors.cardBackground,
     borderRadius: 16,
     width: SCREEN_WIDTH * 0.9,
     height: SCREEN_HEIGHT * 0.45,
     //   backgroundColor: "blue",
   },
+  gradient: {
+    borderWidth: 0.7,
+    borderColor: Colors.white,
+    width: "100%",
+    height: "100%",
+    //   padding: -10,
+  },
+  gradientCamera: {
+    borderWidth: 0.7,
+    borderColor: Colors.white,
+  //  width: "100%",
+   // height: "100%",
+    //   padding: -10,
+  },
   labelTitle: {
     fontSize: 18,
     // fontWeight: "600",
-    color: Colors.cardText,
+    color: Colors.buttonText,
+    marginTop: 10,
     marginBottom: 12,
     textAlign: "center",
     FontFamily: Fonts.body,
   },
-  columns: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    height: "50%",
-    gap: 16,
-  },
-  column: {
-    flex: 1,
-    alignItems: "flex-start",
-  },
-  label: {
-    fontSize: 14,
-    color: Colors.cardText,
-    FontFamily: Fonts.body,
-    width: "100%",
-    marginBottom: 9,
-    borderBottomWidth: 1,
-    borderBottomColor: "grey",
-  },
-  labelResult: {
-    fontSize: 14,
-    //  fontWeight: "600",
-    color: Colors.cardText,
-    marginBottom: 16,
-    fontFamily: Fonts.body,
-  },
-  singleRow: {
-    width: SCREEN_WIDTH * 0.9,
-    marginTop: 8,
-  },
-
-  // New styles to add in HeartRateScreen.styles.js
   sideBySide: {
     flexDirection: "row",
     width: "100%",
@@ -83,7 +66,19 @@ const rawStyles = {
   },
   leftColumn: {
     flex: 1,
-    height: "100%",
+    height: "95%",
+    paddingLeft: 10,
+  },
+  largeCard: {
+    height: "87%", // Taller card for background sound
+    backgroundColor: "rgba(255,255,255,0.8)",
+    padding: 12,
+    borderRadius: 12,
+    shadowColor: Colors.black,
+    shadowOpacity: 0.05,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    elevation: 2,
   },
   divider: {
     height: 1,
@@ -94,26 +89,14 @@ const rawStyles = {
     borderRadius: 0.5,
   },
   rightColumn: {
-    height: "98%",
+    height: "93%",
     flex: 1,
-    gap: 12,
-  },
-
-  largeCard: {
-    height: "86%", // Taller card for background sound
-    backgroundColor: "rgba(255,255,255,0.8)",
-    padding: 12,
-    borderRadius: 12,
-    shadowColor: Colors.black,
-    shadowOpacity: 0.05,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 4,
-    elevation: 2,
+    gap: 10,
+    paddingRight: 10,
   },
 
   iconItem: {
     width: "100%",
- //   height: "34.5%",
     backgroundColor: "rgba(255,255,255,0.8)",
     padding: 12,
     borderRadius: 12,
@@ -149,7 +132,7 @@ const rawStyles = {
     marginTop: 2,
   },
   successCard: {
-    backgroundColor: Colors.cardBackground,
+    //  backgroundColor: Colors.cardBackground,
     padding: 24,
     borderRadius: 16,
     alignItems: "center",
@@ -169,15 +152,62 @@ const rawStyles = {
   successTitle: {
     fontSize: 20,
     fontWeight: "bold",
-    color: Colors.cardText,
+    color: Colors.buttonText,
     marginTop: 10,
     marginBottom: 8,
   },
   successSubtitle: {
     fontSize: 14,
-    color: Colors.cardText,
+    color: Colors.buttonText,
     marginBottom: 26,
     textAlign: "center",
+  },
+  results: {
+    backgroundColor: "rgba(255,255,255,0.1)",
+    borderWidth: 1,
+    borderColor: "#ffffffcc",
+    width: "90%",
+    alignSelf: "center",
+    borderRadius: 16,
+    marginBottom: 15,
+    paddingVertical: 4,
+    paddingHorizontal: 10,
+
+    // ✨ Glowing effect
+    shadowColor: "#ffffff",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.7,
+    shadowRadius: 12,
+    elevation: 6, // Android fallback
+  },
+
+  resultsText: {
+    textAlign: "center",
+    padding: 10,
+    fontSize: 16,
+    color: Colors.buttonText,
+    fontFamily: Fonts.body,
+    marginVertical: 5,
+  },
+  resultsGlowWrapper: {
+    position: "relative",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 15,
+  },
+
+  resultsGlow: {
+    position: "absolute",
+    width: "90%",
+    height: 60,
+    borderRadius: 16,
+    backgroundColor: "rgba(255, 255, 255, 0.35)",
+    shadowColor: "#fff",
+    shadowOffset: { width: 0, height: 0 },
+    shadowOpacity: 0.9,
+    shadowRadius: 18,
+    elevation: 10,
+    zIndex: 0,
   },
 };
 

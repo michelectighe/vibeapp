@@ -14,14 +14,14 @@ export const vibrationMetricsInfo = {
   },
   voiceStrengthScore: {
     label: "Voice Strength",
-    range: [-20, -5],
+    range: [-60, -5],
     explanation:
       "Represents the loudness of your voice, measured in decibels (dB). Higher values indicate a stronger vocal presence. A typical speaking voice ranges from -20 dB to -10 dB, while -5 dB or higher reflects a powerful tone.",
     unit: "dB",
   },
   bpmScore: {
     label: "Heart Rate",
-    range: [60, 100],
+    range: [50, 100],
     explanation:
       "Ideal resting heart rate for adults is 60–100 bpm. Deviations may reflect stress or fatigue.",
     unit: "bpm",

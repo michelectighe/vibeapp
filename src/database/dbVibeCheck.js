@@ -5,7 +5,6 @@ import { getDb } from "./dbInit";
 
 export const saveResults = async (result, userId) => {
   try {
-    const db = await getDb();
     await saveResultDb(result);
     await setDoc(doc(dbFs, "users", userId, "results", result.resultId), result);
     return true;
@@ -69,7 +68,7 @@ export const getResultsForUser = async (userId) => {
   try {
     const db = await getDb();
     const results = await db.getAllAsync(
-      `SELECT * FROM results WHERE userId = ? ORDER BY timestamp DESC;`,
+      "SELECT * FROM results WHERE userId = ? ORDER BY timestamp DESC;",
       [userId],
     );
 
@@ -98,7 +97,7 @@ export const getResultById = async (userId, resultId) => {
     const db = await getDb();
 
     const result = await db.getAllAsync(
-      `SELECT * FROM results WHERE userId = ?  AND resultId = ? ORDER BY timestamp DESC LIMIT 1;`,
+      "SELECT * FROM results WHERE userId = ?  AND resultId = ? ORDER BY timestamp DESC LIMIT 1;",
       [userId, resultId],
     );
     return result?.[0] || null;

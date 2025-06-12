@@ -10,7 +10,7 @@ const PHRASES = [
   "Share a small win from your week.",
 ];
 
-export const  EmotionPromptOverlay = () => {
+export const EmotionPromptOverlay = () => {
   const [phrase, setPhrase] = useState("");
   const [showingPhrase, setShowingPhrase] = useState(false);
 
@@ -81,7 +81,7 @@ export const  EmotionPromptOverlay = () => {
       </Animated.View>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   topOverlay: {

@@ -10,7 +10,6 @@ export function evaluateVoiceFrequency(frequencyHz) {
   };
   let score = 0;
   let label = "";
-  const rounded = Math.round(frequencyHz);
   if (frequencyHz < 70) {
     score = 20;
     label = "very low (flat or depressed)";
@@ -65,11 +64,13 @@ export function evaluatevoiceEmotion(voiceEmotion) {
   };
 }
 
-const normalizeLoudness = (loudnessDb) => {
-  const minDb = -45;
-  const maxDb = -8;
-  const clampedDb = Math.max(minDb, Math.min(loudnessDb, maxDb));
-  return ((clampedDb - minDb) / (maxDb - minDb)) * 100;
+
+// Map -60 dB (silent) to 0, -20 dB (loud) to 100
+const normalizeStrength = (dB) => {
+  // Clamp to expected range
+  const clamped = Math.max(-60, Math.min(-20, dB));
+  // Scale: -60 = 0, -20 = 100
+  return Math.round(((clamped + 60) / 40) * 100);
 };
 
 export function evaluateVoiceStrength(strengthScore) {
@@ -80,15 +81,15 @@ export function evaluateVoiceStrength(strengthScore) {
       label: "skipped",
     };
   }
-  const score = Math.round(normalizeLoudness(strengthScore));
-  const rounded = Math.round(strengthScore);
+  const dB = parseFloat(strengthScore);
+  const score = Math.round(normalizeStrength(dB));
   let label = "";
   if (score < 30) {
     label = "very weak (shaky or strained)";
   } else if (score < 50) {
     label = "soft (hesitant or uncertain)";
   } else if (score < 70) {
-    label = "moderately strong ";
+    label = "moderately strong";
   } else if (score < 90) {
     label = "strong and confident";
   } else {
@@ -100,6 +101,7 @@ export function evaluateVoiceStrength(strengthScore) {
     label,
   };
 }
+
 
 export function evaluateEmotionalState(emotion) {
 //default to
@@ -245,7 +247,7 @@ export const evaluateEnvironmentScore = (environmentScore) => {
     score: environmentScore,
     label,
   };
-}
+};
 
 import { hawkinsLevels } from "@data";
 

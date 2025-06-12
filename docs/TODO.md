@@ -116,14 +116,14 @@
 - [x] Add model to decipher background noise (nature vs city etc.)
 
 ### 12. Must do...
-- [ ] gradient card that 'pops'
-- [ ] get voice and emtion working in analysis
-- [ ] figure out home screen - what goes where
+- [x] gradient card that 'pops'
+- [x] get voice and emtion working in analysis
+- [x] figure out home screen - what goes where
 - [ ] get results history working
 - [ ] get vibe match history working and looking good
 - [ ] firestore sync
 - [ ] subscription - blurring screens
-- [ ] Energy Rest (DBT)
+- [ ] Energy Reset (DBT)
 - [ ] figure out subscription details
 - [ ] look in to ads/store products
 - [ ] Get subscription set up correctly on each screen that needs it

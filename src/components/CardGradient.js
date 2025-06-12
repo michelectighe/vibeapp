@@ -1,6 +1,6 @@
 // components/CardGradient.js
 import React from "react";
-import { View, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 
 export const CardGradient = ({ children, style, colors = ["#e0e0e0", "#a0a0a0"] }) => {
@@ -11,20 +11,19 @@ export const CardGradient = ({ children, style, colors = ["#e0e0e0", "#a0a0a0"] 
       start={{ x: 0, y: 0 }}
       end={{ x: 1, y: 1 }}
     >
-      {children} {/* Let content expand fully */}
+      {children}
     </LinearGradient>
   );
 };
-
-
 const styles = StyleSheet.create({
   cardContainer: {
+ //   backgroundColor: "fff",
     borderRadius: 16,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 18 }, // more vertical drop
-    shadowOpacity: 0.3, // slightly darker
-    shadowRadius: 26, // more blur = softer & higher
-    elevation: 12, // for Android
+    // shadowColor: "#000",
+    // shadowOffset: { width: 0, height: 18 }, // more vertical drop
+    // shadowOpacity: 0.3, // slightly darker
+    // shadowRadius: 26, // more blur = softer & higher
+   // elevation: 12, // for Android
     overflow: "hidden",
   },
   innerContent: {

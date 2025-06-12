@@ -61,7 +61,7 @@ export const MatchListScreen = () => {
           ))}
 
           {matches.length === 0 && (
-            <Text style={styles.emptyText}>You don't have any matches yet.</Text>
+            <Text style={styles.emptyText}>You don`&apos`t have any matches yet.</Text>
           )}
         </ScrollView>
       )}

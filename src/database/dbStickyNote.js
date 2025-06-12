@@ -1,4 +1,4 @@
-import * as SQLite from "expo-sqlite";
+
 import { getDb } from "./dbInit";
 
 

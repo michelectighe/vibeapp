@@ -25,7 +25,7 @@ export const BreathingAnimation = ({ duration = 60000 }) => {
     );
     loop.start();
     return () => loop.stop();
-  }, [duration]);
+  }, [duration]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return <Animated.View style={[styles.circle, { transform: [{ scale }] }]} />;
 };

@@ -1,7 +1,6 @@
 import React from "react";
 import { TouchableOpacity, View, Text, StyleSheet } from "react-native";
 import FastImage from "react-native-fast-image";
-import LinearGradient from "react-native-linear-gradient";
 import { Colors, Fonts } from "@constants";
 import { SCREEN_HEIGHT } from "@/utils";
 import { CardGradient } from "./CardGradient";
@@ -16,7 +15,7 @@ export const CardVibeMatch = ({ title, subtitle, onPress, image, textColor = Col
         </View>
         <View style={styles.textWrapper}>
           <Text style={styles.title}>{title}</Text>
-          {divider && <GlowingDivider />}
+          {divider && <GlowingDivider height={2} />}
           <Text style={[styles.subTitle, { color: textColor }]}>{subtitle}</Text>
         </View>
       </TouchableOpacity>

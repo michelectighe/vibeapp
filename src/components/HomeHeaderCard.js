@@ -1,16 +1,11 @@
 import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Fonts, Colors } from "@/constants";
-import { Badge } from "./Badge";
-import { SCREEN_WIDTH, SCREEN_HEIGHT, hexToRgba } from "@/utils";
-import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
-import { BlurView } from "@react-native-community/blur";
-import { CardGradient } from "./CardGradient";
+import { SCREEN_WIDTH } from "@/utils";
 import { GlowingDivider } from "./GlowingDivider";
 
 
 export const HomeHeaderCard = ({ name = "friend" }) => {
-  const tabBarHeight = useBottomTabBarHeight();
   const getGreeting = () => {
     const hour = new Date().getHours();
 

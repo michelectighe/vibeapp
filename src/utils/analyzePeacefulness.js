@@ -71,6 +71,6 @@ export const analyzePeacefulness = async (floatArray, model, sounds) => {
     };
   } catch (err) {
     console.error("Sound classification failed:", err);
-    return { rankedCategories: [], percentGood: 0.00, percentBad: 0.00, decibels: '-Infinity' };
+    return { rankedCategories: [], percentGood: 0.0, percentBad: 0.0, decibels: "-Infinity" };
   }
 };

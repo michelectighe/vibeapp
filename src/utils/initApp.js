@@ -1,4 +1,4 @@
-import { initializeDatabase, dropTable, truncateResults } from "@database";
+import { initializeDatabase, /*dropTable, truncateResults*/ } from "@database";
 import { auth } from "@config/firebaseConfig";
 import { onAuthStateChanged } from "firebase/auth";
 

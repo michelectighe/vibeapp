@@ -1,7 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { View, Animated, Easing } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { initApp, getMatchId } from "@utils";
+import { initApp, getMatchId, resetToNestedScreen } from "@utils";
 import { useAuth } from "@context";
 import { AnimatedLogo, GradientBackground } from "@components";
 import { Colors } from "@constants";
@@ -29,7 +29,7 @@ export const SplashScreen = () => {
       duration: 800,
       useNativeDriver: true,
     }).start();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     const startApp = async () => {
@@ -45,36 +45,19 @@ export const SplashScreen = () => {
           console.log("✅ Deep link matchId found:", matchId);
           if (user) {
             // Logged in, go straight to match
-            navigation.navigate("Tabs", {
-              screen: "VibeMatch",
-              // params: { screen: "MatchScreen", params: { id: matchId } },
-              params: { screen: "MatchScreen" },
+            resetToNestedScreen(navigation, ["Tabs", "VibeMatch", "MatchScreen"], {
+              MatchScreen: { id: matchId },
             });
           } else {
             // Not logged in, go to sign-in with redirect
-            navigation.navigate("Tabs", {
-              screen: "Settings",
-              params: {
-                screen: "SignInScreen",
-                params: {
-                  returnTo: {
-                    screen: "VibeMatch",
-                    params: { screen: "MatchScreen", params: { id: matchId } },
-                  },
-                },
-              },
-            });
-            // Don't clear yet — MatchScreen will handle it after login
+            resetToNestedScreen(navigation, ["Tabs", "Settings", "SignInScreen"]);
           }
         } else {
           // No matchId — normal flow
           if (user) {
-            navigation.navigate("Tabs", { screen: "Home" });
+            resetToNestedScreen(navigation, ["Tabs", "Home"]);
           } else {
-            navigation.navigate("Tabs", {
-              screen: "Settings",
-              params: { screen: "SignInScreen" },
-            });
+            resetToNestedScreen(navigation, ["Tabs", "Settings", "SignInScreen"]);
           }
         }
       } catch (e) {
@@ -83,7 +66,7 @@ export const SplashScreen = () => {
     };
 
     startApp();
-  }, [authLoading, user]);
+  }, [authLoading, user]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Animated.View style={[styles.animatedView, { opacity: fadeAnim }]}>

@@ -8,8 +8,8 @@ export const cardsVibeMatch = [
     // icon: "leaf-outline",
     image: require("@assets/images/home/match.png"),
     screen: {
-      name: "VibeMatch", // <- This is the tab name
-      params: { screen: "ShareScreen" }, // <- This is the nested screen
+      name: "VibeMatch",
+      params: { screen: "ShareScreen" },
     },
     bgColor: Colors.cardBackground,
     textColor: Colors.cardText,
@@ -23,8 +23,8 @@ export const cardsVibeMatch = [
     //  icon: "cloud-outline",
     image: require("@assets/images/home/matchComp.png"),
     screen: {
-      name: "VibeMatch", // <- This is the tab name
-      params: { screen: "MatchListScreen" }, // <- This is the nested screen
+      name: "VibeMatch",
+      params: { screen: "MatchListScreen" },
     },
     bgColor: Colors.cardBackground,
     textColor: Colors.cardText,

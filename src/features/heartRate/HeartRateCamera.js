@@ -14,12 +14,10 @@ import {
   createRefChecker,
 } from "@utils";
 import { Colors, Fonts } from "@constants";
-import { scaledStyle, SCREEN_HEIGHT, SCREEN_WIDTH } from "@/utils";
-import { CustomSpiritualButton, CircularTimer } from "@/components";
-import { useVibeCheckNavigation } from "@/hooks";
+import { scaledStyle} from "@/utils";
+import {  CircularTimer } from "@/components";
 
 export const HeartRateCamera = ({ onStableReading }) => {
-  const { goToNextScreen } = useVibeCheckNavigation();
 
   const [localHeartRate, setLocalHeartRate] = useState({
     bpm: null,
@@ -354,17 +352,17 @@ const rawStyles = {
     marginTop: 10,
     fontSize: 18,
     fontWeight: "bold",
-    color: Colors.textDark,
+    color: Colors.buttonText,
   },
   vitalsRMSSD: {
     fontSize: 14,
-    color: Colors.textDark,
+    color: Colors.buttonText,
     marginTop: 4,
   },
 
   warningText: {
     fontSize: 15,
-    color: Colors.textDark,
+    color: Colors.buttonText,
     textAlign: "center",
     opacity: 0.85,
     paddingHorizontal: 20,
@@ -376,10 +374,10 @@ const rawStyles = {
     height: 100,
     borderRadius: 60,
     borderWidth: 14,
-    borderColor: Colors.surface, // or use gradient background
+    borderColor: Colors.gradient1, // or use gradient background
     justifyContent: "center",
     alignItems: "center",
-    shadowColor: Colors.textDark,
+    shadowColor: Colors.buttonText,
     shadowOpacity: 0.4,
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 10,

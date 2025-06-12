@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions, ScrollView } from "react-native";
-import AudioRecord from "react-native-audio-record";
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
 import { Colors, Fonts } from "@constants";
 import {
   GradientBackground,
@@ -10,7 +9,6 @@ import {
 } from "@components";
 import { useNavigation } from "@react-navigation/native";
 
-const { width } = Dimensions.get("window");
 
 export const EnergyResetScreen = () => {
   const navigation = useNavigation();

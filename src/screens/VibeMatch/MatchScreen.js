@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { View, Text, ActivityIndicator, ScrollView } from "react-native";
+import { View, Text, ScrollView } from "react-native";
 
 import { getAuth } from "firebase/auth";
 import { useNavigation } from "@react-navigation/native";
@@ -16,7 +16,7 @@ import { getsenderResult } from "@/database";
 import { getMatchId, clearMatchId } from "@/utils";
 
 //setLogLevel("debug");
-export const MatchScreen = ({ route }) => {
+export const MatchScreen = () => {
   const auth = getAuth();
   const { myResults, loading } = useContext(MyResultsContext);
   //console.log("WHAT IS LOADING FROM RESULTSCONTEXT:", loading);
@@ -45,7 +45,7 @@ export const MatchScreen = ({ route }) => {
       // console.log("SHARED DATA BACK:", sharedData);
       if (sharedData) {
         // same user don't save
-        console.log('SENDER:', sharedData)
+        console.log("SENDER:", sharedData);
         if (sharedData[0].senderResult.userId !== user.uid) {
           setsenderUserName(sharedData[1].senderUserName);
           setsenderResult(sharedData[0].senderResult);
@@ -68,11 +68,11 @@ export const MatchScreen = ({ route }) => {
       // setResults(myResults);
       setNoResults(false);
     }
-  }, [myResults]);
+  }, [myResults]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  // console.log("shared:", senderResult);
-  // console.log("loadingShared", loadingShared);
-  // console.log("loading", loading);
+   console.log("loadingShared:", loadingShared);
+ // console.log("user", user);
+  console.log("loading", loading);
   if (loading || loadingShared || !user) {
     return <SplashScreen matchId={matchId} />;
   }

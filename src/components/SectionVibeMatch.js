@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Animated, View, Text, StyleSheet } from "react-native";
+import {  View,  StyleSheet } from "react-native";
 import { CardVibeMatch } from "@/components";
 import { Colors } from "@/constants";
 import { useNavigation } from "@react-navigation/native";
-import { SCREEN_WIDTH, parseMetric } from "@/utils";
+import { SCREEN_WIDTH } from "@/utils";
 import { GlowingDivider } from "./GlowingDivider";
 import { cardsVibeMatch } from "@/data";
 
 const CARD_WIDTH = SCREEN_WIDTH * 0.9;
-const SIDE_PADDING = (SCREEN_WIDTH - CARD_WIDTH) / 2 + 5;
 
 export const SectionVibeMatch = () => {
  const [cards, setCards] = useState(null);

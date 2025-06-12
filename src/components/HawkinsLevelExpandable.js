@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { View, Text, TouchableOpacity, LayoutAnimation, Platform, UIManager } from "react-native";
+import Icon from "react-native-vector-icons/Ionicons";
 import { hawkinsLevels } from "@/data/hawkinsLevels";
 import { Colors } from "@/constants";
-import { scale, scaledStyle } from "@/utils";
+import {  scaledStyle, hexToRgba } from "@/utils";
 
 if (Platform.OS === "android") {
   UIManager.setLayoutAnimationEnabledExperimental?.(true);
@@ -23,7 +24,9 @@ export const HawkinsLevelExpandable = () => {
           <TouchableOpacity onPress={() => toggleExpand(index)} style={styles.header}>
             <Text style={styles.levelText}>Level {item.level}</Text>
             <Text style={styles.stateText}>{item.state}</Text>
+            <Icon name="help-circle-outline" size={30} color={Colors.cardText} />
           </TouchableOpacity>
+
           {expandedIndex === index && (
             <View style={styles.details}>
               <Text style={styles.label}>
@@ -42,10 +45,10 @@ export const HawkinsLevelExpandable = () => {
 
 const rawStyles = {
   container: {
-    padding: 16,
+    padding: 26,
   },
   card: {
-    backgroundColor: Colors.cardBackground,
+    backgroundColor: hexToRgba(Colors.cardBackground),
     marginBottom: 12,
     borderRadius: 12,
     padding: 14,

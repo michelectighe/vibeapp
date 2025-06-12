@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { ScrollView, View, Text } from "react-native";
+import React, { } from "react";
+import { ScrollView} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useAnalysis } from "@context";
 import { CloseX, ChakraCard } from "@components";
@@ -31,20 +31,8 @@ const chakraMeta = [
 
 export const ChakraScreen = () => {
   useAmbientControlForScreen(true);
-  const { chakraScores, vibrationInfo } = useAnalysis();
+  const { chakraScores } = useAnalysis();
   const navigation = useNavigation();
-  const [overallColor, setColor] = useState();
-  const [overallColor2, setColor2] = useState();
-  const [overallColor3, setColor3] = useState();
-  const [overallColor4, setColor4] = useState();
-
-  useEffect(() => {
-    if (vibrationInfo == null) return;
-    setColor(vibrationInfo.color);
-    setColor2(vibrationInfo.color2);
-    setColor3(vibrationInfo.color3);
-    setColor4(vibrationInfo.color4);
-  }, [vibrationInfo]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handlePress = (event, chakra) => {
     const { pageX, pageY } = event.nativeEvent;

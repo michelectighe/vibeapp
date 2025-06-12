@@ -1,6 +1,6 @@
 // components/BannerMessage.js
 import React, { useEffect, useRef } from "react";
-import { Animated, Text, StyleSheet, View } from "react-native";
+import { Animated, Text, StyleSheet } from "react-native";
 import { Colors } from "@/constants";
 import { SCREEN_HEIGHT } from "@/utils";
 
@@ -13,7 +13,7 @@ export const BannerMessage = ({ message, visible }) => {
       duration: 500,
       useNativeDriver: true,
     }).start();
-  }, [visible]);
+  }, [visible]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Animated.View

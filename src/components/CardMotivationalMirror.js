@@ -1,12 +1,10 @@
 // MotivationalMirrorCard.js
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions } from "react-native";
+import React, { useEffect } from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import FastImage from "react-native-fast-image";
-import { Camera, useCameraDevice } from "react-native-vision-camera";
-import LinearGradient from "react-native-linear-gradient";
 import { useNavigation } from "@react-navigation/native";
 import { Colors, Fonts } from "@constants";
-import { SCREEN_HEIGHT, SCREEN_WIDTH, hexToRgba } from "@/utils";
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@/utils";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -15,26 +13,22 @@ import Animated, {
   withSequence,
   interpolate,
 } from "react-native-reanimated";
-import { CardGradient } from "./CardGradient";
 
 
 const CARD_WIDTH = ((SCREEN_WIDTH * 0.9) /2) - 10;
-const SIDE_PADDING = (SCREEN_WIDTH - CARD_WIDTH) / 2 + 5;
 
-
-// ...imports remain unchanged
 
 export const CardMotivationalMirror = () => {
   const navigation = useNavigation();
   const rotation = useSharedValue(0); // from 0 to 180
-const image = require("@assets/images/home/mirror1.png");
+  const image = require("@assets/images/home/mirror1.png");
   useEffect(() => {
     rotation.value = withRepeat(
       withSequence(withTiming(180, { duration: 2000 }), withTiming(0, { duration: 2000 })),
       -1,
       false,
     );
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const animatedStyle = useAnimatedStyle(() => {
     const rotateY = `${rotation.value}deg`;
@@ -50,9 +44,6 @@ const image = require("@assets/images/home/mirror1.png");
       backfaceVisibility: "visible", // prevents text from showing mirrored unintentionally
     };
   });
-
-//transform: [{ rotateY }, { scale: interpolate(rotation.value, [0, 90, 180], [1, 1.05, 1]) }];
-
 
   return (
     <View>
@@ -74,25 +65,12 @@ const image = require("@assets/images/home/mirror1.png");
               resizeMode={FastImage.resizeMode.cover}
             />
           )}
-          {/* <Animated.Text style={[styles.animatedMirrorText, animatedStyle]}>Mirror</Animated.Text> */}
-          {/* <CardGradient style={styles.card}>
-          <Animated.Text style={[styles.animatedMirrorText, animatedStyle]}>Mirror</Animated.Text>
-        </CardGradient> */}
         </View>
       </TouchableOpacity>
       <View style={{ width: CARD_WIDTH, alignItems: "center" }}>
         <Animated.Text style={[styles.animatedMirrorText, animatedStyle]}>Mirror</Animated.Text>
       </View>
     </View>
-
-    // <View style={styles.cardContainer}>
-    //   <Text style={styles.title}>Reflection Time</Text>
-    //   <CardGradient style={styles.cardGradient}>
-    //     <View style={styles.mirrorTextWrapper}>
-    //       <Animated.Text style={[styles.animatedMirrorText, animatedStyle]}>Mirror</Animated.Text>
-    //     </View>
-    //   </CardGradient>
-    // </View>
   );
 };
 const styles = StyleSheet.create({

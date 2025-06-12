@@ -5,7 +5,6 @@ import {
   Text,
   StyleSheet,
   Animated,
-  LayoutAnimation,
   UIManager,
   Platform,
 } from "react-native";
@@ -30,13 +29,13 @@ export const InteractiveCard = ({
   const animatedHeight = useRef(new Animated.Value(SCREEN_HEIGHT * 0.4)).current;
 
   useEffect(() => {
-    console.log('contentHeight', contentHeight)
+    console.log("contentHeight", contentHeight);
     Animated.timing(animatedHeight, {
       toValue: showButtons ? contentHeight : SCREEN_HEIGHT * 0.4,
       duration: 2600,
       useNativeDriver: false,
     }).start();
-  }, [showButtons, contentHeight]);
+  }, [showButtons, contentHeight]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <TouchableOpacity

@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import { Animated, View, StyleSheet } from "react-native";
+import { Animated, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import { Colors } from "@/constants";
 
@@ -13,7 +13,7 @@ export const TabBarIcon = ({ name, size, color, focused }) => {
       duration: 200,
       useNativeDriver: true,
     }).start();
-  }, [focused]);
+  }, [focused]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (focused) {
@@ -34,7 +34,7 @@ export const TabBarIcon = ({ name, size, color, focused }) => {
     } else {
       pulseAnim.setValue(1);
     }
-  }, [focused]);
+  }, [focused]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <Animated.View

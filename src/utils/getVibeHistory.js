@@ -1,7 +1,5 @@
-import { collection, getDocs } from "firebase/firestore";
-import { dbFs } from "@config/firebaseConfig";
+
 import { format, startOfWeek } from "date-fns";
-import { getAuth } from "firebase/auth";
 import { getVibrationInfo } from "@/utils/vibrationInfo";
 import { chakraData } from "@/data";
 
