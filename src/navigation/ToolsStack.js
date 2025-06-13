@@ -112,21 +112,17 @@ export const ToolsStack = () => {
           title: "",
         }}
       />
-      <Stack.Group screenOptions={{ presentation: "modal", gestureEnabled: false }}>
-        <Stack.Screen
-          name="MotivationMirrorScreen"
-          component={MotivationMirrorScreen}
-          options={{
-            headerShown: false,
-            tabBarVisible: true,
-            gestureEnabled: false,
-            presentation: "modal",
-            stackPresentation: "modal",
-            tabBarStyle: { display: "flex" },
-            title: "",
-          }}
-        />
-      </Stack.Group>
+      <Stack.Screen
+        name="MotivationMirrorScreen"
+        component={MotivationMirrorScreen}
+        options={{
+          headerShown: false,
+          tabBarVisible: true,
+          gestureEnabled: false,
+          tabBarStyle: { display: "flex" },
+          title: "",
+        }}
+      />
     </Stack.Navigator>
   );
 };

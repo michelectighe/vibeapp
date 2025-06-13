@@ -114,7 +114,6 @@ export const ResultsScreen = ({ navigation }) => {
         //save to db if the data is new
         if (!oldResultsRef.current && user) {
           await saveResultsToDB();
-          //console.log("try to save because NOT old score?????");
           oldResultsRef.current = true; // set to make sure it doesn't try to save again
         }
       } catch (e) {

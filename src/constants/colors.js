@@ -238,11 +238,11 @@ export const Colors = {
   blockColor4: "#FFB4B4", // rgba(255, 180, 180, 0.95)
 
   // veryLightGray: "#F0F0F0",
-   lightGray: "#CCCCCC",
-   mediumGray: "#AAAAAA",
+  lightGray: "#CCCCCC",
+  mediumGray: "#AAAAAA",
   // veryDarkGray: "#333333",
-   white: "#FFFFFF",
-   black: "#000000",
+  white: "#FFFFFF",
+  black: "#000000",
   // forestGreen: "#3F7E44",
   // red: "#FF6B6B",
   // yellow: "#FFD700",
@@ -317,4 +317,11 @@ export const Colors = {
   inhale: "#3D5AFE", // Brighter blue accent
   exhale: "#5C6BC0", // Deep calming blue
   hold: "#B0BEC5", // Gentle misty gray-blue
+
+  dbtEmotionRegulation: ["#FFA585", "#FF6F61"], // Warm peach → grounded coral
+  dbtDistressTolerance: ["#2C3E50", "#6DD5FA"], // Deep indigo → sky teal
+  dbtMindfulness: ["#B49EFF", "#8DE3FF"], // Lavender → Sky Blue
+
+  dbtInterpersonalEffectiveness: ["#F9AFAF", "#D59DFF"], // Rose → Soft Orchid
+  screenIntroGradient: ["#F5F7FA", "#E8ECEF"], // Soft silver → pearl gray
 };

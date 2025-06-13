@@ -24,3 +24,5 @@ export { cardsGoodNews } from "./cardsGoodNews";
 
 export { metricComparisonDescriptions } from "./metricComparisonDescriptions";
 export { hawkinsLevels } from "./hawkinsLevels";
+
+export { dbtSkills } from "./dbtSkills";

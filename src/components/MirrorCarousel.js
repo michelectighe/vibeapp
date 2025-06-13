@@ -7,15 +7,15 @@ import { ProgressDots } from "./ProgressDots";
 const SCREEN_WIDTH = Dimensions.get("window").width;
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 
-export const MirrorCarousel = ({ items = [], type = "prompt" }) => {
+export const MirrorCarousel = ({ items = [], type = "prompt", gradientColors = [] }) => {
   const scrollRef = useRef();
-      const [currentIndex, setCurrentIndex] = useState(0);
-  
-    const onScrollEnd = (event) => {
-      const x = event.nativeEvent.contentOffset.x;
-      const index = Math.round(x / SCREEN_WIDTH);
-      setCurrentIndex(index % items.length); // optional loop logic
-    };
+  const [currentIndex, setCurrentIndex] = useState(0);
+  console.log("colors:", gradientColors);
+  const onScrollEnd = (event) => {
+    const x = event.nativeEvent.contentOffset.x;
+    const index = Math.round(x / SCREEN_WIDTH);
+    setCurrentIndex(index % items.length); // optional loop logic
+  };
 
   return (
     <>
@@ -31,7 +31,7 @@ export const MirrorCarousel = ({ items = [], type = "prompt" }) => {
       >
         {items.map((item, i) => (
           <View key={i} style={styles.cardWrapper}>
-            <CardGradient style={styles.card}>
+            <CardGradient style={styles.card} colors={gradientColors}>
               <Text style={styles.label}>
                 {type === "prompt" ? "💬 Prompt for Reflection" : "🪞 Affirmation"}
               </Text>
@@ -62,14 +62,15 @@ const styles = StyleSheet.create({
     height: "60%",
     borderRadius: 16,
     overflow: "hidden",
-    alignItems: "center",
-    justifyContent: "center",
+ //   alignItems: "center",
+//    justifyContent: "center",
   },
   label: {
     fontSize: 14,
     color: Colors.buttonText,
-    marginBottom: 8,
-    textAlign: "center",
+    marginBottom: 10,
+    marginLeft: 10,
+    marginTop: 10,
   },
   content: {
     fontSize: 18,

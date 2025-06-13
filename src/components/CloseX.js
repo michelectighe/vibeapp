@@ -3,7 +3,7 @@ import { TouchableOpacity, StyleSheet, Animated, Easing } from "react-native";
 import { Colors, Fonts } from "@constants";
 import { scaledStyle } from "@/utils";
 
-export const CloseX = React.memo(({  onPress }) => {
+export const CloseX = React.memo(({ onPress, style }) => {
   const rotate = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
@@ -33,15 +33,18 @@ export const CloseX = React.memo(({  onPress }) => {
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={{
-        position: "absolute",
-        top: 70,
-        right: 25,
-        zIndex: 100,
-        padding: 0,
-        fontSize: 48,
-        fontFamily: Fonts.bold,
-      }}
+      style={[
+        {
+          position: "absolute",
+          top: 70,
+          right: 25,
+          zIndex: 100,
+          padding: 0,
+          fontSize: 48,
+          fontFamily: Fonts.bold,
+        },
+        style,
+      ]}
     >
       <Animated.Image
         source={require("@assets/images/feather.png")}

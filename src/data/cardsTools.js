@@ -50,21 +50,6 @@ export const cardsTools = [
   //   textColor: Colors.textLight,
   // },
   {
-    id: "breath-work",
-    title: "Breath Work",
-    subtitle: "Breathe into a peaceful state",
-    icon: "cloud-outline",
-    image: require("@assets/images/home/breath.png"),
-    screen: {
-      name: "Tools", // <- This is the tools stack name
-      params: { screen: "BreathWorksScreen" }, // <- This is the nested screen
-    },
-    bgColor: Colors.cardBackground,
-    textColor: Colors.cardText,
-    pulseSub: true,
-  },
-
-  {
     id: "energy-reset",
     title: "Energy Reset",
     subtitle: "Time to reset your nervous system",
@@ -77,6 +62,20 @@ export const cardsTools = [
     bgColor: Colors.cardBackground,
     textColor: Colors.cardText,
     cloudAnim: true,
+  },
+  {
+    id: "breath-work",
+    title: "Breath Work",
+    subtitle: "Breathe into a peaceful state",
+    icon: "cloud-outline",
+    image: require("@assets/images/home/breath.png"),
+    screen: {
+      name: "Tools",
+      params: { screen: "BreathWorksScreen" },
+    },
+    bgColor: Colors.cardBackground,
+    textColor: Colors.cardText,
+    pulseSub: true,
   },
 
   // {

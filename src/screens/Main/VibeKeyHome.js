@@ -40,13 +40,6 @@ export const VibeKeyHome = () => {
         <Text>Loading...</Text>
       ) : (
         <GradientBackground colors={[Colors.gradient1, Colors.gradient2, Colors.gradient3]}>
-          {/* <BannerMessage
-            message="✨ Welcome back! Ready for your next vibe check?"
-            visible={showBanner}
-          /> */}
-          {/* <HomeHeaderCard
-            name={profile?.displayName || "friend"}
-          /> */}
           <ScrollView
             style={[styles.scrollView, { bottom: tabBarHeight + 12 }]}
             contentContainerStyle={[styles.scrollContent]}

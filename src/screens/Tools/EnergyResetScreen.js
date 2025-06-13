@@ -1,118 +1,79 @@
-import React, { useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from "react-native";
-import { Colors, Fonts } from "@constants";
-import {
-  GradientBackground,
-  BreathingAnimation,
-  FrequencyPlayer,
-  AffirmationCard,
-} from "@components";
-import { useNavigation } from "@react-navigation/native";
-
+import React, { useState, useEffect } from "react";
+import { View, Text, ScrollView, Modal, Animated } from "react-native";
+import { GradientBackground } from "@components";
+import { styles } from "./EnergyResetScreen.styles";
+import { dbtSkills } from "@/data/dbtSkills"; // we'll create this
+import { DBTCard } from "@/components/DBTCard";
+import { DBTModalContent, CardGradient, SwipeHintDots } from "@/components";
+import { Colors } from "@/constants";
+import { SCREEN_WIDTH } from "@/utils";
 
 export const EnergyResetScreen = () => {
-  const navigation = useNavigation();
-  const [step, setStep] = useState(0);
+  const [selectedSkill, setSelectedSkill] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedGradient, setColors] = useState();
+ 
 
-  const steps = ["Breath", "Tone", "Affirm", "Complete"];
+  const openModal = (skill, gradients) => {
+    setSelectedSkill(skill);
+    setModalVisible(true);
+    setColors(gradients);
+  };
 
-  const goToNext = () => {
-    if (step < steps.length - 1) {
-      setStep(step + 1);
-    } else {
-      navigation.goBack();
-    }
+  const closeModal = () => {
+    setModalVisible(false);
+    setSelectedSkill(null);
+    setColors(null);
   };
 
   return (
-    <GradientBackground>
-      <ScrollView contentContainerStyle={styles.container}>
-        <Text style={styles.title}>Energy Reset</Text>
-        <Text style={styles.subtitle}>Take a few moments to realign your vibration.</Text>
-
-        {step === 0 && (
-          <View style={styles.stepContainer}>
-            <BreathingAnimation duration={60000} />
-            <Text style={styles.instruction}>Breathe in... hold... and exhale slowly.</Text>
-          </View>
-        )}
-
-        {step === 1 && (
-          <View style={styles.stepContainer}>
-            <FrequencyPlayer frequency={528} label="Playing 528Hz Healing Tone" />
-          </View>
-        )}
-
-        {step === 2 && (
-          <View style={styles.stepContainer}>
-            <AffirmationCard text="I am grounded. I am light." />
-          </View>
-        )}
-
-        {step === 3 && (
-          <View style={styles.stepContainer}>
-            <Text style={styles.completeText}>✅ You’ve reset your energy.</Text>
-            <Text style={styles.instruction}>
-              Feel free to check in again or return to VibeKey.
+    <GradientBackground colors={[Colors.white, Colors.white, Colors.white]}>
+      <View style={styles.container}>
+        <ScrollView
+          style={[styles.scrollView]}
+          contentContainerStyle={[styles.scrollContent]}
+          showsVerticalScrollIndicator={false}
+        >
+          <CardGradient colors={Colors.screenIntroGradient} style={styles.cardGradient}>
+            <Text style={styles.screenTitle}>Energy Reset</Text>
+            <Text style={styles.introText}>
+              These tools are based on Dialectical Behavior Therapy (DBT), designed to help you
+              navigate intense emotions, reset your nervous system, and reconnect with your sense of
+              inner balance. Explore the skills below to regulate, reflect, and reset your energy.
             </Text>
-          </View>
-        )}
+          </CardGradient>
 
-        <TouchableOpacity onPress={goToNext} style={styles.button}>
-          <Text style={styles.buttonText}>{step === steps.length - 1 ? "Done" : "Next"}</Text>
-        </TouchableOpacity>
-      </ScrollView>
+          {dbtSkills.map((section) => (
+            <View key={section.title} style={styles.section}>
+              <Text style={[styles.sectionTitle, { color: section.gradient[0] }]}>
+                {section.title}
+              </Text>
+              <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={styles.cardRow}
+                snapToInterval={SCREEN_WIDTH}
+                decelerationRate="fast"
+                snapToAlignment="start"
+              >
+                {section.cards.map((card) => (
+                  <DBTCard
+                    key={card.id}
+                    skill={card}
+                    onPress={() => openModal(card, section.gradient)}
+                    gradientColors={section.gradient}
+                  />
+                ))}
+              </ScrollView>
+              <SwipeHintDots dotColor={section.gradient[0]} />
+              {/* <SwipeHintArrow color={section.gradient[0]} /> */}
+            </View>
+          ))}
+        </ScrollView>
+        <Modal animationType="slide" visible={modalVisible} onRequestClose={closeModal} transparent>
+          <DBTModalContent skill={selectedSkill} colors={selectedGradient} onClose={closeModal} />
+        </Modal>
+      </View>
     </GradientBackground>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    paddingTop: 60,
-    paddingBottom: 40,
-    paddingHorizontal: 20,
-  },
-  title: {
-    fontSize: 28,
-    fontFamily: Fonts.Bold,
-    color: Colors.textLight,
-    marginBottom: 10,
-  },
-  subtitle: {
-    fontSize: 16,
-    fontFamily: Fonts.body,
-    color: Colors.textLight,
-    marginBottom: 30,
-    textAlign: "center",
-  },
-  stepContainer: {
-    width: "100%",
-    alignItems: "center",
-    marginBottom: 40,
-  },
-  instruction: {
-    fontSize: 16,
-    fontFamily: Fonts.body,
-    color: Colors.textLight,
-    marginTop: 20,
-    textAlign: "center",
-  },
-  completeText: {
-    fontSize: 22,
-    fontFamily: Fonts.Bold,
-    color: Colors.textLight,
-    marginBottom: 20,
-  },
-  button: {
-    backgroundColor: Colors.buttonBg,
-    paddingVertical: 12,
-    paddingHorizontal: 30,
-    borderRadius: 24,
-  },
-  buttonText: {
-    fontSize: 16,
-    fontFamily: Fonts.Bold,
-    color: Colors.buttonText,
-  },
-});

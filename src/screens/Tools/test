@@ -1,0 +1,52 @@
+import React, { useState } from "react";
+import { View, Text, ScrollView, Modal } from "react-native";
+import { GradientBackground } from "@components";
+import { styles } from "./EnergyResetScreen.styles";
+import { dbtSkills } from "@/data/dbtSkills";
+import { DBTCard } from "@/components/DBTCard";
+import { DBTModalContent } from "@/components/DBTModalContent";
+
+export const EnergyResetScreen = () => {
+  const [selectedSkill, setSelectedSkill] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  const openModal = (skill) => {
+    setSelectedSkill(skill);
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+    setSelectedSkill(null);
+  };
+
+  return (
+    <GradientBackground>
+      <View style={styles.container}>
+        {dbtSkills.map((section) => (
+          <View key={section.title} style={styles.section}>
+            <Text style={styles.sectionTitle}>{section.title}</Text>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.cardRow}
+            >
+              {section.cards.map((card) => (
+                <DBTCard key={card.id} skill={card} onPress={() => openModal(card)} />
+              ))}
+            </ScrollView>
+          </View>
+        ))}
+      </View>
+
+      <Modal
+        animationType="slide"
+        visible={modalVisible}
+        onRequestClose={closeModal}
+        transparent
+      >
+        <DBTModalContent skill={selectedSkill} onClose={closeModal} />
+      </Modal>
+    </GradientBackground>
+  );
+};

@@ -119,6 +119,7 @@
 - [x] gradient card that 'pops'
 - [x] get voice and emtion working in analysis
 - [x] figure out home screen - what goes where
+- [x] mirror screen
 - [ ] get results history working
 - [ ] get vibe match history working and looking good
 - [ ] firestore sync
@@ -130,6 +131,7 @@
 - [ ] Offline usage - store userId locally so they can get local results
 - [ ] update firestore when back online
 - [ ] get it working on android
+- [x ] fix breathing screen - to not be modal
 
 ### 13. Optional (if time permits)
 
