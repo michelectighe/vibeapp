@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, ActivityIndicator } from "react-native";
-import { BreathingCircle, GradientBackground, SectionLayout, CloseX } from "@components";
+import { BreathingCircle, ResultsBackground, SectionLayout, CloseX } from "@components";
 import { useAnalysis } from "@context";
 import { Colors } from "@/constants";
 import { useAmbientControlForScreen } from "@hooks";
@@ -33,20 +33,17 @@ export const BreathingModalScreen = () => {
 
   if (!overallColor) {
     return (
-      <GradientBackground colors={[Colors.white, Colors.white, Colors.white]}>
+      <ResultsBackground glowColor={Colors.white}>
         <CloseX xColor={Colors.textDark} onPress={() => navigation.goBack()} />
         <View style={[{ flex: 1 }]}>
           <ActivityIndicator size="large" color={Colors.primary} />
         </View>
-      </GradientBackground>
+      </ResultsBackground>
     );
   }
 
   return (
-    <GradientBackground
-      colors={[overallColor, overallColor2, overallColor4, overallColor3, overallColor3]}
-      modal={true}
-    >
+    <ResultsBackground glowColor={overallColor}>
       <CloseX xColor={overallColor4} onPress={() => navigation.goBack()} />
       <SectionLayout
         topFlex={6}
@@ -65,13 +62,17 @@ export const BreathingModalScreen = () => {
         middleContent={<></>} // no selector
         bottomContent={
           <View style={[styles.bottomText, { alignItems: "center" }]}>
-            <Text style={[styles.title, { color: overallColor2 }]}>{pattern.name}</Text>
-            <Text style={[styles.description, { color: overallColor2 }]}>
+            <Text style={[styles.title, { color: overallColor3 }]}>{pattern.title}</Text>
+            <Text style={[styles.description, { color: overallColor3 }]}>
               {pattern.description}
+            </Text>
+            <Text style={styles.timing}>
+              {pattern.inhale}-{pattern.hold1}-{pattern.exhale}
+              {pattern.hold2 ? `-${pattern.hold2}` : ""}
             </Text>
           </View>
         }
       />
-    </GradientBackground>
+    </ResultsBackground>
   );
 };

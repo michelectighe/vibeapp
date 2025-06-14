@@ -5,7 +5,7 @@ import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 
 import { useAmbientControlForScreen } from "@/hooks";
 import { vibrationMetricsInfo } from "@/data/vibrationMetricsInfo";
-import { CloseX, GradientBackground } from "@/components";
+import { CloseX, ResultsBackground } from "@/components";
 import { Colors } from "@/constants";
 import { styles } from "./ResultsBreakdownScreen.styles";
 import { useNavigation } from "@react-navigation/native";
@@ -90,12 +90,8 @@ function formatValue(val) {
 }
 
   return (
-    <GradientBackground
-      colors={
-        overallColor
-          ? [overallColor4, overallColor, overallColor2, overallColor3, overallColor4]
-          : null
-      }
+    <ResultsBackground
+      glowColor={overallColor}
     >
       <CloseX xColor={overallColor4} onPress={() => navigation.goBack()} />
 
@@ -146,7 +142,7 @@ function formatValue(val) {
           );
         })}
       </ScrollView>
-    </GradientBackground>
+    </ResultsBackground>
   );
 };
 

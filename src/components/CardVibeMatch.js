@@ -5,13 +5,21 @@ import { Colors, Fonts } from "@constants";
 import { SCREEN_HEIGHT } from "@/utils";
 import { CardGradient } from "./CardGradient";
 import { GlowingDivider } from "./GlowingDivider";
+import LottieView from "lottie-react-native";
 
 export const CardVibeMatch = ({ title, subtitle, onPress, image, textColor = Colors.cardText, divider = false }) => {
   return (
     <CardGradient colors={[Colors.gradient1, Colors.gradient2]} style={styles.cardWrapper}>
       <TouchableOpacity onPress={onPress} style={styles.touchable}>
         <View style={styles.imageWrapper}>
-          <FastImage style={styles.image} source={image} resizeMode={FastImage.resizeMode.cover} />
+                <LottieView
+                  source={require("@assets/lottie/puzzle.json")}
+                  autoPlay
+                  loop
+                  resizeMode="repeat"
+                  style={styles.top}
+                />
+          {/* <FastImage style={styles.image} source={image} resizeMode={FastImage.resizeMode.cover} /> */}
         </View>
         <View style={styles.textWrapper}>
           <Text style={styles.title}>{title}</Text>
@@ -33,6 +41,14 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRadius: 16,
     overflow: "hidden",
+  },
+  top: {
+    height: "100%",
+    width: "100%",
+    borderRadius: 50,
+    overflow: "hidden",
+    margin: 10,
+    ...StyleSheet.absoluteFill,
   },
   imageWrapper: {
     height: "55%",
@@ -59,24 +75,6 @@ const styles = StyleSheet.create({
     color: Colors.cardText,
     textAlign: "center",
     marginBottom: 10,
-  },
-  glowDivider: {
-    height: 2,
-    width: 40,
-    alignSelf: "flex-start", // or "center" if you want it centered
-    borderRadius: 2,
-    marginVertical: 8,
-    backgroundColor: "rgba(255, 255, 255, 0.4)",
-    alignItems: "center",
-
-    // optional: shadow for glow
-    shadowColor: "#ffffff",
-    shadowOffset: { width: 0, height: 0 },
-    shadowOpacity: 0.6,
-    shadowRadius: 4,
-
-    // optional: Android elevation
-    elevation: 4,
   },
 
   subTitle: {

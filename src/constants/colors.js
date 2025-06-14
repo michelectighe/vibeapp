@@ -321,7 +321,20 @@ export const Colors = {
   dbtEmotionRegulation: ["#FFA585", "#FF6F61"], // Warm peach → grounded coral
   dbtDistressTolerance: ["#2C3E50", "#6DD5FA"], // Deep indigo → sky teal
   dbtMindfulness: ["#B49EFF", "#8DE3FF"], // Lavender → Sky Blue
-
+  marble: ["#F8F5F2", "#EAE6E1"],
+  marble2: ["#F7F4EF", "#DDD7CE"],
   dbtInterpersonalEffectiveness: ["#F9AFAF", "#D59DFF"], // Rose → Soft Orchid
   screenIntroGradient: ["#F5F7FA", "#E8ECEF"], // Soft silver → pearl gray
+ // breathingGradient: ["#F7F7FB", "#ECECF4"],
+
+  breathingFuzzy: "#e48de9",
+
+  breathingRelaxing: ["#A3C9F1", "#D6F0FF"], // Calm Blue → Light Sky (Relaxing Breath)
+  breathingEnergizing: ["#FF8A5B", "#FFB84C"], // Coral Orange → Soft Gold (Energy Boost)
+  breathingGrounding: ["#6B8E5E", "#B5D8B0"], // Forest Green → Sage Mist (Grounding Breath)
+  breathingBalanced: ["#B38DF6", "#DFCFFF"], // Lavender → Orchid Smoke (Balanced/Ocean Breath)
+  breathingCleansing: ["#5DCBE4", "#C7F5F7"], // Aqua Blue → Icy Mint (Cleansing Breath)
+  breathingDeepCalm: ["#8FBFE0", "#E0F7FA"], // Dusty Blue → Soft Cyan (Deep Calm)
+  breathingBox: ["#B0A7F1", "#D1CFFF"], // Periwinkle → Lavender Mist (Box Breathing)
+  breathingIntroGradient: ["#F5F7FA", "#E8ECEF"], // Soft Silver → Pearl Gray (Default)
 };

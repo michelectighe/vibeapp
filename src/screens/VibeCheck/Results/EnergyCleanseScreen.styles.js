@@ -28,6 +28,9 @@ const rawStyles = {
     fontFamily: Fonts.body,
   },
   middle: {},
+  gratitude: {
+width: SCREEN_WIDTH *.9,
+  },
   sectionTitle: {
     fontSize: 20,
   //  fontWeight: "bold",

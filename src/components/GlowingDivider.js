@@ -42,9 +42,5 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginVertical: 8,
     alignSelf: "center",
-    // shadowOffset: { width: 0, height: 0 },
-    // shadowOpacity: 1,
-    // shadowRadius: 8,
-    // elevation: 8,
   },
 });

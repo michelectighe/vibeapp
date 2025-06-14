@@ -124,14 +124,16 @@
 - [ ] get vibe match history working and looking good
 - [ ] firestore sync
 - [ ] subscription - blurring screens
-- [ ] Energy Reset (DBT)
+- [x] Energy Reset (DBT)
 - [ ] figure out subscription details
 - [ ] look in to ads/store products
 - [ ] Get subscription set up correctly on each screen that needs it
 - [ ] Offline usage - store userId locally so they can get local results
 - [ ] update firestore when back online
 - [ ] get it working on android
-- [x ] fix breathing screen - to not be modal
+- [x] fix breathing screen - to not be modal
+- [ ] make breathing screen look better
+- [ ] remove laurens button and background image (meditation scan)
 
 ### 13. Optional (if time permits)
 

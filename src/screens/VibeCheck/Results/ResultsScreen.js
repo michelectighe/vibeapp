@@ -3,12 +3,14 @@ import { View, TouchableOpacity, Text, ActivityIndicator } from "react-native";
 import uuid from "react-native-uuid";
 import { getAuth } from "firebase/auth";
 import { useAnalysis } from "@context";
+import Ionicons from "react-native-vector-icons/Ionicons";
 import {
-  CustomButton,
+  ResultsTapZone,
   CloseX,
-  GradientBackground,
+  ResultsBackground,
   SectionLayout,
   CustomSpiritualButton,
+  GlowingDivider,
 } from "@components";
 import { Colors } from "@constants";
 import { styles } from "./ResultsScreen.styles";
@@ -19,13 +21,14 @@ import { hexToRgba } from "@/utils";
 import { MyResultsContext } from "@/context/MyResultsContext";
 import { getMatchId, getCreateShare, normalizeMetricForStorage } from "@/utils";
 import { hawkinsLevels } from "@data";
+import { SCREEN_WIDTH } from "@/utils";
 
 Text.defaultProps = Text.defaultProps || {};
 Text.defaultProps.allowFontScaling = false;
 
 export const ResultsScreen = ({ navigation }) => {
   const route = useRoute();
-   const { resultId, returnTo } = route.params || {};
+  const { resultId, returnTo } = route.params || {};
   const { setMyResults } = useContext(MyResultsContext);
   const auth = getAuth();
   const createShare = getCreateShare();
@@ -43,7 +46,6 @@ export const ResultsScreen = ({ navigation }) => {
   const [matchLinkActive, setMatchLinkActive] = useState(false);
   const [hawkinsDescription, setHawkinsDescription] = useState(null);
   const oldResultsRef = useRef(false);
-
 
   const {
     voiceFrequencyScore,
@@ -105,7 +107,7 @@ export const ResultsScreen = ({ navigation }) => {
         setColor2(result.color2);
         setColor3(result.color3);
         setColor4(result.color4);
-        setViewColor(hexToRgba(result.color));
+        setViewColor(hexToRgba(result.color, 0.4));
         setImage(result.image);
         setDataReady(true);
         if (hawkinsScore?.score) {
@@ -192,8 +194,7 @@ export const ResultsScreen = ({ navigation }) => {
         index: 0,
         routes: [{ name: returnTo }],
       });
-    }
-    else {
+    } else {
       navigation.reset({
         index: 0,
         routes: [{ name: "Tabs", screen: "Home" }],
@@ -220,36 +221,37 @@ export const ResultsScreen = ({ navigation }) => {
   // 👇 Prevent UI rendering until all required data is ready
   if (!dataReady || !overallLabel || !overallDescription || !overallImage || !overallColor) {
     return (
-      <GradientBackground>
+      <ResultsBackground>
         <View style={[globalStyles.centered, { flex: 1 }]}>
           <ActivityIndicator size="large" color={Colors.primary} />
         </View>
-      </GradientBackground>
+      </ResultsBackground>
     );
   }
 
   return (
-    <GradientBackground
-      colors={[overallColor4, overallColor, overallColor2, overallColor3, overallColor4]}
+    <ResultsBackground
+      glowColor={overallColor}
     >
       <SectionLayout
-        topFlex={2}
+        topFlex={1}
         middleFlex={5}
-        bottomFlex={1.5}
+        bottomFlex={1}
         safe={false}
         topContent={
           <>
             <CloseX
-              xColor={overallColor4}
+              style={{ top:50 }}
+              xColor={hexToRgba(overallColor3, 0.8)}
               onPress={() => {
                 resetAndLeave();
               }}
             />
             <View style={styles.titleWrapper}>
-              <Text style={[styles.score, { color: overallColor4 }]}>{hawkinsScore.score}</Text>
-              <Text
-                style={[styles.label, { color: overallColor4, textShadowColor: overallColor4 }]}
-              >
+              <Text style={[styles.score, { color: Colors.white, textShadowColor: overallColor4 }]}>
+                {hawkinsScore.score}
+              </Text>
+              <Text style={[styles.label, { color: Colors.white, textShadowColor: overallColor4 }]}>
                 {overallLabel}
               </Text>
             </View>
@@ -257,25 +259,35 @@ export const ResultsScreen = ({ navigation }) => {
         }
         middleContent={
           <View style={styles.innerContent}>
-            <CustomButton
-              imgSource={overallImage}
-              onPress={() => navigation.navigate("ResultDetails")}
-            />
-            <View style={[styles.descriptionBox, { backgroundColor: viewColor }]}>
+            <View style={[styles.descriptionBox, { backgroundColor: hexToRgba(overallColor2) }]}>
               {hawkinsDescription && (
-                <Text style={[styles.descriptionText, { color: overallColor2 }]}>
+                <Text
+                  style={[
+                    styles.descriptionText,
+                    { color: overallColor, fontWeight: "500", marginBottom: 10 },
+                  ]}
+                >
                   {hawkinsDescription}
                 </Text>
               )}
-              <Text style={[styles.descriptionText, { color: overallColor2 }]}>
+
+              <GlowingDivider glowColor={overallColor} width={SCREEN_WIDTH * 0.6} height={3} />
+
+              <Text style={[styles.descriptionText, { color: overallColor }]}>
                 {overallDescription}
               </Text>
-              <TouchableOpacity
-                onPress={() => navigation.navigate("ResultsBreakdown")}
-                style={styles.infoButton}
-              >
-                <Text style={[styles.infoIcon, { color: overallColor2 }]}>ⓘ</Text>
-              </TouchableOpacity>
+              <ResultsTapZone
+                glowColor={overallColor}
+                onPress={() => navigation.navigate("ResultDetails")}
+                label="Tap to view full results"
+              />
+              <Ionicons
+                name="information-circle-outline"
+                size={33}
+                color={overallColor}
+                onPress={() => navigation.navigate("ResultDetails")}
+                style={styles.iconInfo}
+              />
             </View>
           </View>
         }
@@ -303,6 +315,6 @@ export const ResultsScreen = ({ navigation }) => {
           </View>
         }
       />
-    </GradientBackground>
+    </ResultsBackground>
   );
 };

@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { View, Text, Animated, TouchableWithoutFeedback, Dimensions } from "react-native";
 import { useNavigation, useRoute } from "@react-navigation/native";
+import LinearGradient from "react-native-linear-gradient";
 import { Fonts, Colors } from "@constants";
 import { chakraInsights } from "@/data";
 import { useAmbientControlForScreen } from "@hooks";
@@ -77,6 +78,7 @@ export const ChakraDetailModal = () => {
 
   return (
     <TouchableWithoutFeedback onPress={handleClose}>
+      
       <View style={{ position: "absolute", width: "100%", height: "100%" }}>
         <Animated.View
           style={[

@@ -11,17 +11,21 @@ const rawStyles = {
   title: {
     fontSize: 24,
     textAlign: "center",
-    color: Colors.textDark,
     fontFamily: Fonts.body,
   },
   bottomText: {
     position: "absolute",
-    bottom: 100,
+    bottom: 150,
   },
   description: {
-    fontSize: 24,
+    fontSize: 18,
     fontFamily: Fonts.body,
   },
+  timing: {
+    fontSize: 18,
+    fontFamily: Fonts.body,
+    marginTop: 10,
+  }
 };
 
 export const styles = StyleSheet.create(scaledStyle(rawStyles));

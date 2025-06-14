@@ -3,7 +3,7 @@ import { View, Text, Keyboard, TouchableWithoutFeedback, ActivityIndicator } fro
 import { useNavigation } from "@react-navigation/native";
 import { useAmbientControlForScreen } from "@hooks";
 import {
-  GradientBackground,
+  ResultsBackground,
   SectionLayout,
   CustomSpiritualButton,
   CloseX,
@@ -106,18 +106,16 @@ export const GratitudeScreen = () => {
 
   if (!overallColor) {
     return (
-      <GradientBackground>
+      <ResultsBackground glowColor={Colors.white}>
         <View style={[globalStyles.centered, { flex: 1 }]}>
           <ActivityIndicator size="large" color={Colors.primary} />
         </View>
-      </GradientBackground>
+      </ResultsBackground>
     );
   }
 
   return (
-    <GradientBackground
-      colors={[overallColor4, overallColor, overallColor2, overallColor3, overallColor4]}
-    >
+    <ResultsBackground glowColor={overallColor}>
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={true}>
         <SectionLayout
           topFlex={0.5}
@@ -188,6 +186,6 @@ export const GratitudeScreen = () => {
         />
       </TouchableWithoutFeedback>
       <CloseX xColor={overallColor4} onPress={() => navigation.goBack()} />
-    </GradientBackground>
+    </ResultsBackground>
   );
 };

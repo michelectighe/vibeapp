@@ -6,7 +6,7 @@ import LottieView from "lottie-react-native";
 import { SCREEN_HEIGHT, SCREEN_WIDTH, hexToRgba } from "@/utils";
 
 export const GradientBackground = ({ children, colors, modal = false }) => {
-  // console.log('gradientColors:', colors)
+  //console.log("gradientColors:", colors);
   if (!colors) {
     colors = [Colors.gradient1, Colors.gradient2, Colors.gradient3];
   }

@@ -15,6 +15,8 @@ export const styles = scaledStyle(
       alignItems: "center",
       borderRadius: 20,
       padding: 24,
+      borderWidth: 50,
+      borderColor: "transparent"
     },
     title: {
       fontSize: 32,

@@ -3,9 +3,8 @@ import { TouchableOpacity, StyleSheet, Animated, Easing } from "react-native";
 import { Colors, Fonts } from "@constants";
 import { scaledStyle } from "@/utils";
 
-export const CloseX = React.memo(({ onPress, style }) => {
+export const CloseX = React.memo(({ onPress, style, xColor = "transparent" }) => {
   const rotate = useRef(new Animated.Value(0)).current;
-
   useEffect(() => {
     // Only start the animation ONCE when the component mounts
     rotate.setValue(0); // reset only once, if ever needed
@@ -39,9 +38,12 @@ export const CloseX = React.memo(({ onPress, style }) => {
           top: 70,
           right: 25,
           zIndex: 100,
-          padding: 0,
           fontSize: 48,
           fontFamily: Fonts.bold,
+          // backgroundColor: xColor,
+          borderRadius: 25,
+          height: 50,
+          width: 50,
         },
         style,
       ]}
@@ -64,11 +66,13 @@ CloseX.displayName = "CloseX";
 const rawStyles = {
   feather: {
     position: "absolute",
-    right: 1,
-    top: 1,
+    right: 2,
+    top: 5,
     width: 40,
     height: 40,
     opacity: 0.6,
+    paddingRight: 10,
   },
+
 };
 export const styles = StyleSheet.create(scaledStyle(rawStyles));

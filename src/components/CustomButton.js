@@ -91,7 +91,7 @@ export const CustomButton = ({ imgSource = "", onPress }) => {
           ]}
         >
           <ImageBackground source={imgSource} resizeMode="cover" style={styles.imageBackground} />
-          <Animated.Text style={[styles.tapMeText, { opacity: textFade }]}>Tap Me</Animated.Text>
+          {/* <Animated.Text style={[styles.tapMeText, { opacity: textFade }]}>Tap Me</Animated.Text> */}
         </Animated.View>
       </Touchable>
     </View>

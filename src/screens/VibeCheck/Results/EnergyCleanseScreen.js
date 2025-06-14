@@ -4,7 +4,13 @@ import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { useAnalysis } from "@context";
-import { GradientBackground, CardTools, SectionLayout, CloseX } from "@components";
+import {
+  ResultsBackground,
+  CardTools,
+  SectionLayout,
+  CloseX,
+  CustomSpiritualButton,
+} from "@components";
 
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./EnergyCleanseScreen.styles";
@@ -139,22 +145,16 @@ export const EnergyCleanseScreen = () => {
 
   if (!overallColor) {
     return (
-      <GradientBackground>
+      <ResultsBackground glowColor={Colors.white}>
         <View style={[globalStyles.centered, { flex: 1 }]}>
           <ActivityIndicator size="large" color={Colors.primary} />
         </View>
-      </GradientBackground>
+      </ResultsBackground>
     );
   }
 
   return (
-    <GradientBackground
-      colors={
-        overallColor
-          ? [overallColor4, overallColor, overallColor2, overallColor3, overallColor4]
-          : [Colors.white, Colors.white, Colors.white]
-      }
-    >
+    <ResultsBackground glowColor={overallColor}>
       <CloseX xColor={overallColor4} onPress={() => navigation.goBack()} />
       <SectionLayout
         topFlex={1}
@@ -175,14 +175,22 @@ export const EnergyCleanseScreen = () => {
         }
         middleContent={
           <View style={styles.middle}>
-            <Text style={[styles.sectionTitle, { color: overallColor3 }]}>Meditation</Text>
-            <CardTools
+            <Text style={[styles.sectionTitle, { color: overallColor3 }]}>Gratitude</Text>
+            {/* <CardTools
               item={meditation}
               onPress={() => handlePress(meditation, "meditation")}
               bgColor={cardColor}
               textColor={overallColor3}
               isPlaying={playingState.meditation}
-            />
+            /> */}
+            <View style={styles.gratitude}>
+              <CustomSpiritualButton
+                label="Gratitude"
+                onPress={() => navigation.navigate("GratitudeScreen")}
+                color={overallColor2}
+                textColor={overallColor3}
+              />
+            </View>
             <Text style={[styles.sectionTitle, { color: overallColor3 }]}>Frequency</Text>
             <CardTools
               item={frequency}
@@ -210,6 +218,6 @@ export const EnergyCleanseScreen = () => {
           </>
         }
       />
-    </GradientBackground>
+    </ResultsBackground>
   );
 };

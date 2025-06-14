@@ -5,7 +5,7 @@ import { CustomSpiritualButton, CloseX } from "@components";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./ResultDetailsScreen.styles";
 import { globalStyles } from "@styles";
-import { GradientBackground } from "@/components";
+import { ResultsBackground } from "@/components";
 import { Colors } from "@/constants";
 import { hexToRgba } from "@/utils";
 
@@ -53,18 +53,16 @@ export const ResultDetailScreen = ({ navigation }) => {
 
   if (!overallColor) {
     return (
-      <GradientBackground>
+      <ResultsBackground glowColor={Colors.white}>
         <View style={[globalStyles.centered, { flex: 1 }]}>
           <ActivityIndicator size="large" color={Colors.primary} />
         </View>
-      </GradientBackground>
+      </ResultsBackground>
     );
   }
 
   return (
-    <GradientBackground
-      colors={[overallColor4, overallColor, overallColor2, overallColor3, overallColor4]}
-    >
+    <ResultsBackground glowColor={overallColor}>
       <View style={styles.root}>
         <CloseX xColor={overallColor4} onPress={() => navigation.goBack()} />
 
@@ -97,14 +95,14 @@ export const ResultDetailScreen = ({ navigation }) => {
                 textColor={overallColor3}
               />
               <CustomSpiritualButton
-                label="Gratitude"
-                onPress={() => navigation.navigate("GratitudeScreen")}
+                label="Chakra Balance"
+                onPress={() => navigation.navigate("ChakraScreen")}
                 color={overallColor2}
                 textColor={overallColor3}
               />
               <CustomSpiritualButton
-                label="Chakra Balance"
-                onPress={() => navigation.navigate("ChakraScreen")}
+                label="Detailed Results"
+                onPress={() => navigation.navigate("ResultsBreakdown")}
                 color={overallColor2}
                 textColor={overallColor3}
               />
@@ -139,6 +137,6 @@ export const ResultDetailScreen = ({ navigation }) => {
           </View>
         </ScrollView>
       </View>
-    </GradientBackground>
+    </ResultsBackground>
   );
 };

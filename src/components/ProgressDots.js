@@ -2,7 +2,7 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import { Colors } from "@/constants";
 
-export const ProgressDots = ({ currentIndex, totalScreens }) => {
+export const ProgressDots = ({ currentIndex, totalScreens, colors=["gray", "yellow"] }) => {
   return (
     <View style={styles.container}>
       {Array.from({ length: totalScreens }).map((_, index) => (

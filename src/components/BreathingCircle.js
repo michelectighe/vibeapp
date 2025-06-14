@@ -5,35 +5,50 @@ import { FuzzyGlow } from "./FuzzyGlow";
 
 const { width } = Dimensions.get("window");
 
-export const BreathingCircle = ({ pattern, fuzzyColor = "white", textColor = Colors.buttonText }) => {
+export const BreathingCircle = ({
+  pattern,
+  fuzzyColor = "white",
+  textColor = Colors.buttonText,
+}) => {
   const [phase, setPhase] = useState("Inhale");
   const phaseRef = useRef("Inhale");
+  const [counter, setCounter] = useState(pattern.inhale);
+
+  const scaleAnim = useRef(new Animated.Value(1)).current;
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+
   const phaseColors = {
-    Inhale: fuzzyColor, // mint green
-    Exhale: fuzzyColor, // soft pink
-    Hold: fuzzyColor, // warm yellow
-    "Hold After Exhale": fuzzyColor, // use same as Hold, or change
+    Inhale: fuzzyColor,
+    Exhale: fuzzyColor,
+    Hold: fuzzyColor,
+    "Hold After Exhale": fuzzyColor,
   };
 
-  const [counter, setCounter] = useState(pattern.inhale);
-  const scaleAnim = useRef(new Animated.Value(1)).current;
+  const animatePhaseLabel = () => {
+    fadeAnim.setValue(0);
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+  };
 
   const startPhase = (nextPhase, duration, scaleTo) => {
     setPhase(nextPhase);
     phaseRef.current = nextPhase;
+    animatePhaseLabel();
 
     setCounter(1);
+
     if (nextPhase === "Inhale" || nextPhase === "Exhale") {
       Animated.timing(scaleAnim, {
         toValue: scaleTo,
         duration: duration * 1000,
-        delay: 0, // ⏱️ 1 second delay
         useNativeDriver: true,
       }).start();
     }
-    let t = 1;
-    setCounter(t);
 
+    let t = 1;
     const interval = setInterval(() => {
       t++;
       setCounter(t);
@@ -70,27 +85,42 @@ export const BreathingCircle = ({ pattern, fuzzyColor = "white", textColor = Col
   useEffect(() => {
     startPhase("Inhale", pattern.inhale, 2);
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
   const glowColor = phaseColors[phase] || Colors.white;
 
   return (
     <View style={styles.wrapper}>
       <View style={styles.circleWrapper}>
-        {/* <Animated.View style={[styles.fuzzy, { transform: [{ scale: scaleAnim }] }]}> */}
         <FuzzyGlow
           glowColor={glowColor}
           glowSize={width * 0.5}
           pulse={false}
           externalScale={scaleAnim}
         />
-        {/* </Animated.View> */}
         {counter !== 0 && (
-          <Text style={[styles.counterInside, { color: textColor }]}>{counter}</Text>
+          <Text style={[styles.counterInside, { color: Colors.white }]}>{counter}</Text>
         )}
       </View>
 
-      <Text style={[styles.phase, { color: fuzzyColor }]}>
+      <Animated.Text
+        style={[
+          styles.phase,
+          {
+            color: fuzzyColor,
+            opacity: fadeAnim,
+            transform: [
+              {
+                scale: fadeAnim.interpolate({
+                  inputRange: [0, 1],
+                  outputRange: [0.95, 1],
+                }),
+              },
+            ],
+          },
+        ]}
+      >
         {phase.includes("Hold") ? "Hold" : phase}
-      </Text>
+      </Animated.Text>
     </View>
   );
 };
@@ -103,26 +133,18 @@ const styles = StyleSheet.create({
   },
   phase: {
     fontSize: 36,
-    //  fontWeight: "bold",
     marginTop: 50,
     marginBottom: 20,
     fontFamily: Fonts.body,
   },
-  counter: {
-    fontSize: 48,
-    fontWeight: "300",
-  },
   circleWrapper: {
-    position: "relative", // ← ADD THIS LINE
+    position: "relative",
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 40,
     marginTop: 40,
     width: width * 0.5,
     height: width * 0.5,
-  },
-  fuzzy: {
-    alignItems: "center",
   },
   counterInside: {
     position: "absolute",

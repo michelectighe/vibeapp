@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     padding: 20,
-    height: SCREEN_HEIGHT * 0.5,
+    height: SCREEN_HEIGHT * 0.35,
     shadowColor: "#000",
     shadowOpacity: 0.3,
     shadowRadius: 10,
