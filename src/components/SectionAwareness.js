@@ -30,7 +30,7 @@ export const SectionAwareness = () => {
   return (
     <View style={styles.container}>
       {prompt && (
-        <CardGradient style={styles.gradient}>
+        <CardGradient colors={[Colors.gradient2, Colors.gradient4]} style={styles.gradient}>
           <Text style={styles.title}>Daily Awareness Check-In</Text>
           <View style={styles.card}>
             <Text style={styles.promptText}>{prompt.prompt}</Text>
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 18,
     fontWeight: "500",
-    color: Colors.buttonText,
+    color: Colors.cardText,
     marginTop: 12,
     textAlign: "center",
     //  marginBottom: 12,
@@ -96,13 +96,13 @@ const styles = StyleSheet.create({
   promptText: {
     fontSize: 16,
     fontWeight: "600",
-    color: Colors.buttonText,
+    color: Colors.cardText,
     marginBottom: 4,
   },
   subtitleText: {
     fontSize: 13,
     fontWeight: "300",
-    color: Colors.buttonText,
+    color: Colors.cardText,
     marginTop: 13,
     marginBottom: 13,
   },

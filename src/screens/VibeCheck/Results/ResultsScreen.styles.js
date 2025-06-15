@@ -6,17 +6,18 @@ import { Colors } from "@/constants";
 const rawStyles = {
   container: {
     flex: 1,
-    marginTop: 100,
-    backgroundColor: Colors.white,
+    height: SCREEN_HEIGHT,
+    width: SCREEN_WIDTH,
+    marginTop: 120,
+    backgroundColor: "transparent",
   },
-
   titleWrapper: {
     marginTop: "20%",
     width: SCREEN_WIDTH,
     alignItems: "center",
     backgroundColor: "transparent",
+    marginBottom: 20,
   },
-
   score: {
     fontSize: SCREEN_HEIGHT * 0.06,
     fontWeight: "bold",
@@ -26,33 +27,36 @@ const rawStyles = {
   },
   label: {
     fontSize: SCREEN_HEIGHT * 0.05,
-    color: Colors.white,
     textAlign: "center",
     textShadowRadius: 2,
     textShadowOffset: { width: 2, height: 2 },
+    marginBottom: 10,
   },
+  divider: { alignSelf: "center", marginVertical: 16 },
   innerContent: {
+    position: "relative",
     paddingTop: SCREEN_HEIGHT * 0.07,
+    //   height: SCREEN_HEIGHT ,
+    width: SCREEN_WIDTH,
   },
+
   descriptionBox: {
-    marginTop: SCREEN_HEIGHT * 0.02,
-    height: SCREEN_HEIGHT * 0.4,
-    borderRadius: 30,
-    padding: 20,
-    paddingBottom: 10,
-    maxWidth: SCREEN_WIDTH * 0.9,
+    height: SCREEN_HEIGHT * 0.45,
+    borderRadius: 16,
+    justifyContent: "center",
+    flexDirection: "column",
     alignItems: "center",
     alignSelf: "center",
-
-    width: "90%",
+    width: SCREEN_WIDTH * 0.9,
   },
   descriptionText: {
-    color: Colors.textLight,
     fontSize: SCREEN_HEIGHT * 0.022,
     textAlign: "center",
+    padding: 15,
   },
   iconInfo: {
     backgroundColor: "transparent",
+    marginBottom: 10,
   },
   navButtons: {
     marginTop: 50,

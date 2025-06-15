@@ -21,7 +21,7 @@ const CARD_WIDTH = ((SCREEN_WIDTH * 0.9) /2) - 10;
 export const CardMotivationalMirror = () => {
   const navigation = useNavigation();
   const rotation = useSharedValue(0); // from 0 to 180
-  const image = require("@assets/images/home/mirror1.png");
+  const image = require("@assets/images/home/mirror.png");
   useEffect(() => {
     rotation.value = withRepeat(
       withSequence(withTiming(180, { duration: 2000 }), withTiming(0, { duration: 2000 })),

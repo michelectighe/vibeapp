@@ -6,5 +6,8 @@ export const Fonts = {
   italic: "PlayfairDisplay-Italic",
   script: "Great Vibes Regular",
   journal: "Homemade Apple Regular",
+  fancyBold: "Libre Baskerville Bold",
+  fancyRegular: "Libre Baskerville Regular",
+  fancyItalic: "Libre Baskerville Italic",
 };
 

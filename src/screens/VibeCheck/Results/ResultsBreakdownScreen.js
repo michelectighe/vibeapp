@@ -122,7 +122,7 @@ function formatValue(val) {
           // const isInRange = !isMissing && rawScore >= min && rawScore <= max;
 
           return (
-            <View key={key} style={styles.metricBox}>
+            <View key={key} style={[styles.metricBox, {borderColor: overallColor}]}>
               <Text style={styles.metricLabel}>{info.label}</Text>
 
               <Text style={styles.metricValue}>

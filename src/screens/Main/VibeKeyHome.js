@@ -54,10 +54,6 @@ export const VibeKeyHome = () => {
             <SectionAwareness />
           </ScrollView>
 
-          {/* <HomeFooterCard
-            name={profile?.displayName || "friend"}
-            newMatchesCount={newMatchesCount}
-          /> */}
         </GradientBackground>
       )}
     </>

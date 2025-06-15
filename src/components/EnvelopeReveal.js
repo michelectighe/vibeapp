@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, TouchableOpacity, Animated, Easing } from "reac
 import Svg, { Polygon, Rect } from "react-native-svg";
 import * as Haptics from "expo-haptics";
 import { affirmations } from "@/data";
+import { Colors } from "@/constants";
+import { hexToRgba } from "@/utils";
 
 export const EnvelopeReveal = () => {
   const [open, setOpen] = useState(false);
@@ -52,13 +54,16 @@ return (
         {/* Flaps */}
         {!open && (
           <Svg width={200} height={100} style={styles.closedFlap}>
-            <Polygon points="0,1 100,90 200,1" fill="#ccc" />
+            <Polygon points="0,1 100,90 200,1" fill={hexToRgba(Colors.gradient2, 0.2)} />
           </Svg>
         )}
         {!open && (
           <View style={styles.stampWrapper}>
             <View style={styles.stamp}>
               <Text style={styles.stampLetter}>V</Text>
+            </View>
+            <View style={styles.messageWrapper}>
+            <Text style={styles.openMessage}>Open your daily affirmation</Text>
             </View>
           </View>
         )}
@@ -112,6 +117,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-end",
     zIndex: 99,
+    shadowColor: "#000",
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
   },
   closedFlap: {
     position: "absolute",
@@ -146,7 +154,15 @@ const styles = StyleSheet.create({
     left: 0,
     zIndex: 25, // above the paper, below the outer flap
   },
-
+  messageWrapper: {
+    position: "absolute",
+    top: 55, // adjust as needed
+    left: -70, // center of 200 width
+  },
+  openMessage: {
+    width: "100%",
+    textAlign: "center",
+  },
   paperText: {
     fontSize: 16,
     color: "#333",
@@ -163,7 +179,7 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: "#a52a2a", // deep wax red (can try #8B0000 or gold too)
+    backgroundColor: Colors.gradient1, // deep wax red (can try #8B0000 or gold too)
     justifyContent: "center",
     alignItems: "center",
     shadowColor: "#000",

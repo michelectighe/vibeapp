@@ -35,7 +35,6 @@ export const styles = StyleSheet.create({
     fontSize: 26,
     fontFamily: Fonts.bold,
     color: Colors.buttonText,
-    marginBottom: 8,
     marginTop: 12,
     paddingHorizontal: 20,
   },
@@ -48,7 +47,6 @@ export const styles = StyleSheet.create({
     paddingVertical: 10,
     lineHeight: 22,
   },
-
   section: {
     marginBottom: 24,
   },

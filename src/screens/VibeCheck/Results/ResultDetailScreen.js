@@ -5,7 +5,7 @@ import { CustomSpiritualButton, CloseX } from "@components";
 import { useAmbientControlForScreen } from "@hooks";
 import { styles } from "./ResultDetailsScreen.styles";
 import { globalStyles } from "@styles";
-import { ResultsBackground } from "@/components";
+import { ResultsBackground, CardGradient } from "@/components";
 import { Colors } from "@/constants";
 import { hexToRgba } from "@/utils";
 
@@ -64,77 +64,91 @@ export const ResultDetailScreen = ({ navigation }) => {
   return (
     <ResultsBackground glowColor={overallColor}>
       <View style={styles.root}>
-        <CloseX xColor={overallColor4} onPress={() => navigation.goBack()} />
-
-        <View style={styles.headerContainer}>
-          <Text
-            style={[styles.overallLabel, { color: overallColor4, textShadowColor: overallColor3 }]}
-          >
-            {overallLabel}
-          </Text>
-        </View>
+        <CloseX  style={{top: 50}} xColor={overallColor4} onPress={() => navigation.goBack()} />
 
         <ScrollView
           style={styles.scrollView}
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={false}
         >
-          <View style={[styles.textContainer, { backgroundColor: viewColor }]}>
-            <Text style={[styles.overallText, { color: overallColor2 }]}>{overallText1}</Text>
-          </View>
-
-          <View style={[styles.textContainer, { backgroundColor: viewColor }]}>
-            <Text style={[styles.chicletHeader, { color: overallColor2 }]}>
-              Curated Spiritual Collection
+            <Text
+              style={[
+                styles.overallLabel,
+                { color: overallColor, textShadowColor: overallColor4 },
+              ]}
+            >
+              {overallLabel}
             </Text>
-            <View style={styles.chicletWrapper}>
-              <CustomSpiritualButton
-                label="Energy Cleanse"
-                onPress={() => navigation.navigate("EnergyCleanseScreen")}
-                color={overallColor2}
-                textColor={overallColor3}
-              />
-              <CustomSpiritualButton
-                label="Chakra Balance"
-                onPress={() => navigation.navigate("ChakraScreen")}
-                color={overallColor2}
-                textColor={overallColor3}
-              />
-              <CustomSpiritualButton
-                label="Detailed Results"
-                onPress={() => navigation.navigate("ResultsBreakdown")}
-                color={overallColor2}
-                textColor={overallColor3}
-              />
-            </View>
-          </View>
 
-          <View style={[styles.textContainer, { backgroundColor: viewColor }]}>
-            <Text style={[styles.textHeader, { color: overallColor2 }]}>{label2}</Text>
-            <Text style={[styles.overallText, { color: overallColor2 }]}>{overallText2}</Text>
-          </View>
+          {/* <View style={[styles.textContainer, { backgroundColor: viewColor }]}> */}
+          <CardGradient
+            style={[styles.textContainer, { borderColor: overallColor4}]}
+            colors={[overallColor4, overallColor2]}
+          >
+            <Text style={[styles.overallText, { color: overallColor }]}>{overallText1}</Text>
+            {/* </View> */}
+          </CardGradient>
 
-          <View style={[styles.textContainer, { backgroundColor: viewColor }]}>
-            <Text style={[styles.textHeader, { color: overallColor2 }]}>{label3}</Text>
-            <Text style={[styles.overallText, { color: overallColor2 }]}>{overallText3}</Text>
-          </View>
+          {/* <View style={[styles.textContainer, { backgroundColor: viewColor }]}> */}
+          <Text style={[styles.chicletHeader, { color: overallColor }]}>
+            Curated Spiritual Collection
+          </Text>
 
-          <View style={[styles.textContainer, { backgroundColor: viewColor }]}>
-            <Text style={[styles.textHeader, { color: overallColor2 }]}>{label4}</Text>
-            <Text style={[styles.overallText, { color: overallColor2 }]}>{overallText4}</Text>
+          <View style={styles.chicletWrapper}>
+            <CustomSpiritualButton
+              label="Energy Cleanse"
+              onPress={() => navigation.navigate("EnergyCleanseScreen")}
+              color={overallColor4}
+              textColor={overallColor}
+            />
+            <CustomSpiritualButton
+              label="Chakra Balance"
+              onPress={() => navigation.navigate("ChakraScreen")}
+              color={overallColor4}
+              textColor={overallColor}
+            />
+            <CustomSpiritualButton
+              label="Detailed Results"
+              onPress={() => navigation.navigate("ResultsBreakdown")}
+              color={overallColor4}
+              textColor={overallColor}
+            />
           </View>
+          {/* </View> */}
 
-          <View style={[styles.textContainer, { backgroundColor: viewColor }]}>
-            <Text style={[styles.textHeader, { color: overallColor2 }]}>{label5}</Text>
-            <Text style={[styles.overallText, { color: overallColor2 }]}>{overallText5}</Text>
-          </View>
+          <CardGradient
+            style={[styles.textContainer, { borderColor: overallColor4 }]}
+            colors={[overallColor4, overallColor2]}
+          >
+            {/* <View style={[styles.textContainer, { backgroundColor: viewColor }]}> */}
+            <Text style={[styles.textHeader, { color: overallColor }]}>{label2}</Text>
+            <Text style={[styles.overallText, { color: overallColor }]}>{overallText2}</Text>
+            {/* </View> */}
+          </CardGradient>
 
-          <View style={[styles.textContainer, { backgroundColor: viewColor }]}>
-            <Text style={[styles.finalNote, { color: overallColor2 }]}>
-              By recognizing these factors and implementing spiritual practices, you can gradually
-              raise your vibrational frequency and realign with your highest potential.
-            </Text>
-          </View>
+          <CardGradient
+            style={[styles.textContainer, { borderColor: overallColor2 }]}
+            colors={[overallColor4, overallColor2]}
+          >
+            <Text style={[styles.textHeader, { color: overallColor }]}>{label3}</Text>
+            <Text style={[styles.overallText, { color: overallColor }]}>{overallText3}</Text>
+          </CardGradient>
+
+          <CardGradient
+            style={[styles.textContainer, { borderColor: overallColor2 }]}
+            colors={[overallColor4, overallColor2]}
+          >
+            <Text style={[styles.textHeader, { color: overallColor }]}>{label4}</Text>
+            <Text style={[styles.overallText, { color: overallColor }]}>{overallText4}</Text>
+          </CardGradient>
+
+          <CardGradient
+            style={[styles.textContainer, { borderColor: overallColor2}]}
+            colors={[overallColor4, overallColor2]}
+          >
+            <Text style={[styles.textHeader, { color: overallColor }]}>{label5}</Text>
+            <Text style={[styles.overallText, { color: overallColor }]}>{overallText5}</Text>
+          </CardGradient>
         </ScrollView>
       </View>
     </ResultsBackground>

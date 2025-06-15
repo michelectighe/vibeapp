@@ -62,13 +62,13 @@ export const BreathingModalScreen = () => {
         middleContent={<></>} // no selector
         bottomContent={
           <View style={[styles.bottomText, { alignItems: "center" }]}>
-            <Text style={[styles.title, { color: overallColor3 }]}>{pattern.title}</Text>
-            <Text style={[styles.description, { color: overallColor3 }]}>
+            <Text style={[styles.title, { color: overallColor }]}>{pattern.title}</Text>
+            <Text style={[styles.description, { color: overallColor }]}>
               {pattern.description}
             </Text>
-            <Text style={styles.timing}>
-              {pattern.inhale}-{pattern.hold1}-{pattern.exhale}
-              {pattern.hold2 ? `-${pattern.hold2}` : ""}
+            <Text style={[styles.timing,{color: overallColor}] }>
+             ({pattern.inhale}-{pattern.hold1}-{pattern.exhale}
+              {pattern.hold2 ? `-${pattern.hold2}` : ""})
             </Text>
           </View>
         }

@@ -175,7 +175,6 @@ export const EnergyCleanseScreen = () => {
         }
         middleContent={
           <View style={styles.middle}>
-            <Text style={[styles.sectionTitle, { color: overallColor3 }]}>Gratitude</Text>
             {/* <CardTools
               item={meditation}
               onPress={() => handlePress(meditation, "meditation")}
@@ -183,15 +182,8 @@ export const EnergyCleanseScreen = () => {
               textColor={overallColor3}
               isPlaying={playingState.meditation}
             /> */}
-            <View style={styles.gratitude}>
-              <CustomSpiritualButton
-                label="Gratitude"
-                onPress={() => navigation.navigate("GratitudeScreen")}
-                color={overallColor2}
-                textColor={overallColor3}
-              />
-            </View>
-            <Text style={[styles.sectionTitle, { color: overallColor3 }]}>Frequency</Text>
+
+            <Text style={[styles.sectionTitle, { color: overallColor }]}>Frequency</Text>
             <CardTools
               item={frequency}
               onPress={() => handlePress(frequency, "frequency")}
@@ -199,13 +191,21 @@ export const EnergyCleanseScreen = () => {
               textColor={overallColor3}
               isPlaying={playingState.frequency}
             />
-            <Text style={[styles.sectionTitle, { color: overallColor3 }]}>Breathing</Text>
+            <Text style={[styles.sectionTitle, { color: overallColor }]}>Breathing</Text>
             <CardTools
               item={breathing}
               onPress={() => handleBreathingPress(breathing, "breathing")}
               bgColor={cardColor}
               textColor={overallColor3}
             />
+            <View style={styles.gratitude}>
+              <CustomSpiritualButton
+                label="Gratitude Practice"
+                onPress={() => navigation.navigate("GratitudeScreen")}
+                color={overallColor4}
+                textColor={overallColor}
+              />
+            </View>
           </View>
         }
         bottomContent={

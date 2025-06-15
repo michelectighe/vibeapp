@@ -6,7 +6,7 @@ export const cardsVibeMatch = [
     title: "Vibe Match",
     subtitle: "See if you're in sync",
     // icon: "leaf-outline",
-    image: require("@assets/images/home/match.png"),
+    image: require("@assets/images/home/match2.png"),
     screen: {
       name: "VibeMatch",
       params: { screen: "ShareScreen" },

@@ -21,10 +21,12 @@ const rawStyles = {
   },
 
   infoContainer: {
+    position: "absolute",
+    bottom: 0,
     backgroundColor: "transparent",
     // borderRadius: 16,
     width: "100%",
-    height: SCREEN_HEIGHT * 0.70,
+    height: SCREEN_HEIGHT * 0.60,
     justifyContent: "center",
   },
   card: {
@@ -36,7 +38,7 @@ const rawStyles = {
     paddingVertical: 22,
     paddingHorizontal: 20,
     marginBottom: 18,
-    backgroundColor: "rgba(255,255,255,0.50)", // soft semi-transparent if BlurView isn't supported
+    backgroundColor: "rgba(255,255,255,0.20)", // soft semi-transparent if BlurView isn't supported
     shadowColor: "#000",
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 8 },

@@ -99,3 +99,5 @@ export { useCountdownTimer, BreathingTimerModal } from "./BreathingTimer";
 export { ResultsTapZone } from "./ResultsTapZone";
 export { ResultsBackground } from "./ResultsBackground";
 export { FuzzyTop } from "./FuzzyTop";
+
+export { AnimatedDivider } from "./AnimatedDivider";

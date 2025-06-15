@@ -8,9 +8,9 @@ import {
   ResultsTapZone,
   CloseX,
   ResultsBackground,
-  SectionLayout,
   CustomSpiritualButton,
-  GlowingDivider,
+  AnimatedDivider,
+  CardGradient,
 } from "@components";
 import { Colors } from "@constants";
 import { styles } from "./ResultsScreen.styles";
@@ -230,91 +230,93 @@ export const ResultsScreen = ({ navigation }) => {
   }
 
   return (
-    <ResultsBackground
-      glowColor={overallColor}
-    >
-      <SectionLayout
-        topFlex={1}
-        middleFlex={5}
-        bottomFlex={1}
-        safe={false}
-        topContent={
-          <>
-            <CloseX
-              style={{ top:50 }}
-              xColor={hexToRgba(overallColor3, 0.8)}
-              onPress={() => {
-                resetAndLeave();
-              }}
-            />
-            <View style={styles.titleWrapper}>
-              <Text style={[styles.score, { color: Colors.white, textShadowColor: overallColor4 }]}>
-                {hawkinsScore.score}
-              </Text>
-              <Text style={[styles.label, { color: Colors.white, textShadowColor: overallColor4 }]}>
-                {overallLabel}
-              </Text>
-            </View>
-          </>
-        }
-        middleContent={
-          <View style={styles.innerContent}>
-            <View style={[styles.descriptionBox, { backgroundColor: hexToRgba(overallColor2) }]}>
-              {hawkinsDescription && (
-                <Text
-                  style={[
-                    styles.descriptionText,
-                    { color: overallColor, fontWeight: "500", marginBottom: 10 },
-                  ]}
-                >
-                  {hawkinsDescription}
-                </Text>
-              )}
-
-              <GlowingDivider glowColor={overallColor} width={SCREEN_WIDTH * 0.6} height={3} />
-
-              <Text style={[styles.descriptionText, { color: overallColor }]}>
-                {overallDescription}
-              </Text>
-              <ResultsTapZone
-                glowColor={overallColor}
-                onPress={() => navigation.navigate("ResultDetails")}
-                label="Tap to view full results"
-              />
-              <Ionicons
-                name="information-circle-outline"
-                size={33}
-                color={overallColor}
-                onPress={() => navigation.navigate("ResultDetails")}
-                style={styles.iconInfo}
-              />
-            </View>
-          </View>
-        }
-        bottomContent={
-          <View style={styles.navButtons}>
-            {createShare && (
-              <CustomSpiritualButton
-                label="Return to Share Results"
-                onPress={() => navigation.navigate("VibeMatch", { screen: "ShareScreen" })}
-                color={overallColor2}
-                textColor={overallColor3}
-              />
-            )}
-            {matchLinkActive && (
-              <CustomSpiritualButton
-                label="Return to Match Results"
-                onPress={() => navigation.navigate("VibeMatch", { screen: "MatchScreen" })}
-                color={overallColor2}
-                textColor={overallColor3}
-              />
-            )}
-            {/* {saving && (
-              <ActivityIndicator size="large" color={Colors.white} style={styles.loading} />
-            )} */}
-          </View>
-        }
+    <ResultsBackground glowColor={overallColor}>
+      <CloseX
+        style={{ top: 50 }}
+        onPress={() => {
+          resetAndLeave();
+        }}
       />
+      <View style={styles.titleWrapper}>
+        <Text style={[styles.score, { color: Colors.white, textShadowColor: overallColor }]}>
+          {hawkinsScore.score}
+        </Text>
+        <Text style={[styles.label, { color: overallColor, textShadowColor: Colors.white }]}>
+          {overallLabel}
+        </Text>
+      </View>
+
+      <CardGradient
+        style={[styles.descriptionBox, { borderColor: overallColor4 }]}
+        colors={[overallColor4, overallColor2]}
+      >
+        {/* <View style={[styles.descriptionBox, { backgroundColor: hexToRgba(overallColor2) }]}> */}
+        {hawkinsDescription && (
+          <Text
+            style={[
+              styles.descriptionText,
+              {
+                color: overallColor,
+                fontWeight: "500",
+                marginBottom: 10,
+                paddingHorizontal: 10,
+                paddingVertical: 10,
+              },
+            ]}
+          >
+            {hawkinsDescription}
+          </Text>
+        )}
+        <View style={styles.centeredDivider}>
+          <AnimatedDivider
+            style={styles.divider}
+            glowColor={overallColor}
+            width={SCREEN_WIDTH * 0.3}
+            height={1}
+          />
+        </View>
+        <Text style={[styles.descriptionText, { color: overallColor }]}>{overallDescription}</Text>
+        <View style={styles.centeredDivider}>
+          <AnimatedDivider
+            style={{ alignSelf: "center", marginVertical: 16 }}
+            glowColor={overallColor}
+            width={SCREEN_WIDTH * 0.3}
+            height={1}
+          />
+        </View>
+        <ResultsTapZone
+          glowColor={overallColor}
+          onPress={() => navigation.navigate("ResultDetails")}
+          label="Tap to view full results"
+        />
+        <Ionicons
+          name="information-circle-outline"
+          size={33}
+          color={Colors.white}
+          onPress={() => navigation.navigate("ResultDetails")}
+          style={styles.iconInfo}
+        />
+        {/* </View> */}
+      </CardGradient>
+
+      <View style={styles.navButtons}>
+        {createShare && (
+          <CustomSpiritualButton
+            label="Return to Share Results"
+            onPress={() => navigation.navigate("VibeMatch", { screen: "ShareScreen" })}
+            color={overallColor2}
+            textColor={overallColor3}
+          />
+        )}
+        {matchLinkActive && (
+          <CustomSpiritualButton
+            label="Return to Match Results"
+            onPress={() => navigation.navigate("VibeMatch", { screen: "MatchScreen" })}
+            color={overallColor2}
+            textColor={overallColor3}
+          />
+        )}
+      </View>
     </ResultsBackground>
   );
 };

@@ -123,7 +123,7 @@ export const GratitudeScreen = () => {
           bottomFlex={1.2}
           topContent={
             <View style={styles.titleWrapper}>
-              <Text style={[styles.prompt, { color: overallColor4 }]}>Gratitude Practice</Text>
+              <Text style={[styles.prompt, { color: overallColor }]}>Gratitude Practice</Text>
             </View>
           }
           middleContent={
@@ -169,16 +169,16 @@ export const GratitudeScreen = () => {
                   isDirty={isDirty}
                   label="Save Entry"
                   onPress={handleSave}
-                  color={overallColor2}
-                  textColor={overallColor3}
+                  color={overallColor4}
+                  textColor={overallColor}
                 />
                 {saved && !isDirty && (
-                  <Text style={[styles.savedMessage, { color: overallColor4 }]}>
+                  <Text style={[styles.savedMessage, { color: overallColor }]}>
                     Entry Saved 💛
                   </Text>
                 )}
               </View>
-              <Text style={[styles.bottomNote, { color: overallColor4 }]}>
+              <Text style={[styles.bottomNote, { color: overallColor }]}>
                 Raise your frequency with a kind heart
               </Text>
             </>

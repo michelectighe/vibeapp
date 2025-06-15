@@ -20,6 +20,8 @@ const rawStyles = {
   description: {
     fontSize: 18,
     fontFamily: Fonts.body,
+    marginTop: 10,
+  
   },
   timing: {
     fontSize: 18,

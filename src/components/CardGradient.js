@@ -17,16 +17,8 @@ export const CardGradient = ({ children, style, colors = ["#e0e0e0", "#a0a0a0"] 
 };
 const styles = StyleSheet.create({
   cardContainer: {
- //   backgroundColor: "fff",
     borderRadius: 16,
-    // shadowColor: "#000",
-    // shadowOffset: { width: 0, height: 18 }, // more vertical drop
-    // shadowOpacity: 0.3, // slightly darker
-    // shadowRadius: 26, // more blur = softer & higher
-   // elevation: 12, // for Android
-    overflow: "hidden",
+  //  overflow: "hidden",
   },
-  innerContent: {
-    paddingVertical: 10,
-  },
+
 });

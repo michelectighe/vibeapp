@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   bottomLeft: {
     bottom: 100,
     left: 100,
-    zIndex: -1,
+
     transform: [{ rotate: "180deg" }],
   },
 });

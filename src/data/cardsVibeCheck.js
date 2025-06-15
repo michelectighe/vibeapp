@@ -7,7 +7,7 @@ export const cardsVibeCheck = [
     title: "Daily Vibe Check",
     subtitle: "Tap to check your current frequency",
     //   icon: "sunny-outline", // Ionicon
-    image: require("@assets/images/home/vibe.png"),
+    image: require("@assets/images/home/vibeCheck.png"),
     screen: {
       name: "VibeCheck", 
       params: { screen: "VibeCheckScreen" }, 

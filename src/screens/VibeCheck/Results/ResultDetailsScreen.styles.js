@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 import { Colors, Fonts } from "@constants";
 import { scaledStyle } from "@utils";
+import { SCREEN_HEIGHT, SCREEN_WIDTH } from "@/utils";
 
 const rawStyles = {
   root: {
@@ -10,17 +11,15 @@ const rawStyles = {
     alignItems: "center",
     justifyContent: "center",
   },
-  headerContainer: {
-    position: "absolute",
-    top: "10%",
-    marginTop: "10%",
-  },
+
   overallLabel: {
+    paddingVertical: 20,
+    paddingHorizontal: 20,
     textAlign: "center",
     color: Colors.white,
-    textShadowRadius: 1,
-    textShadowOffset: { width: 1, height: 1 },
-    fontSize: 36,
+    textShadowRadius: 2,
+    textShadowOffset: { width: 2, height: 3},
+    fontSize: 42,
   },
   scrollView: {
     position: "absolute",
@@ -31,22 +30,29 @@ const rawStyles = {
     zIndex: 1,
   },
   scrollContent: {
-    paddingTop: 210, // this matches the height of your title/logo area
+    paddingTop: 70, // this matches the height of your title/logo area
     //   paddingHorizontal: 20,
     paddingBottom: 160,
   },
   textContainer: {
+    width: SCREEN_WIDTH * .7,
+    alignSelf: "center",
     margin: 20,
     marginTop: 0,
-    borderRadius: 20,
-    padding: 20,
+    borderRadius: 16,
+    borderWidth: .5,
+    borderColor: Colors.white,
+    //  paddingVertical: 10,
   },
   overallText: {
     textAlign: "center",
     fontSize: 18,
+    paddingVertical: 20,
+    paddingHorizontal: 20,
     color: Colors.textLight,
   },
   textHeader: {
+    marginTop: 15,
     textAlign: "center",
     fontSize: 18,
     fontWeight: "bold",
@@ -54,19 +60,23 @@ const rawStyles = {
   },
   chicletHeader: {
     textAlign: "center",
-    fontSize: 18,
-    color: Colors.textLight,
+    fontWeight: "500",
+    fontSize: 20,
     marginBottom: 10,
   },
   chicletWrapper: {
-    marginTop: 10,
-    marginBottom: 10,
+    width: SCREEN_WIDTH *.6,
+    alignContent: "center",
+    alignSelf: "center",
+    marginBottom: 20,
     gap: 10,
-    alignItems: "center",
+
   },
   finalNote: {
     textAlign: "center",
     fontSize: 18,
+    paddingVertical: 20,
+    paddingHorizontal: 20,
     color: Colors.textLight,
   },
 };

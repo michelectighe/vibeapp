@@ -8,12 +8,11 @@ import { CardGradient } from "./CardGradient";
 import { GlowingDivider } from "./GlowingDivider";
 
 export const SectionVibeCheck = ({ latestResult = null }) => {
-  //  console.log(latestResult)
   const navigation = useNavigation();
   const [imageError, setImageError] = useState(false);
   const [latestResultDsiplay, setLatestResult] = useState(null);
   const [latestResultId, setLatestResultId] = useState(null);
-  const image = require("@assets/images/home/vibe.png");
+  const image = require("@assets/images/home/vibeCheck.png");
 
   useEffect(() => {
     if (latestResult) {
@@ -38,7 +37,7 @@ export const SectionVibeCheck = ({ latestResult = null }) => {
 
   return (
     <View style={styles.sectionContainer}>
-      <CardGradient style={styles.gradient}>
+      <CardGradient colors={[Colors.gradient4, Colors.gradient2,]} style={styles.gradient}>
         <TouchableOpacity onPress={startVibeCheck} style={styles.cardWrapper}>
           <View style={[styles.card]}>
             <View style={[styles.textCard, { backgroundColor: "transparent" }]}>

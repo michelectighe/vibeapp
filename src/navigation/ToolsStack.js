@@ -11,6 +11,7 @@ import {
   VibeHistoryScreen,
   EnergyResetScreen,
   MotivationMirrorScreen,
+  SelfCareScreen,
 } from "@screens";
 
 export const ToolsStack = () => {
@@ -115,6 +116,17 @@ export const ToolsStack = () => {
       <Stack.Screen
         name="MotivationMirrorScreen"
         component={MotivationMirrorScreen}
+        options={{
+          headerShown: false,
+          tabBarVisible: true,
+          gestureEnabled: false,
+          tabBarStyle: { display: "flex" },
+          title: "",
+        }}
+      />
+      <Stack.Screen
+        name="SelfCareScreen"
+        component={SelfCareScreen}
         options={{
           headerShown: false,
           tabBarVisible: true,

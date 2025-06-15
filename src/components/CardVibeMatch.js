@@ -5,21 +5,13 @@ import { Colors, Fonts } from "@constants";
 import { SCREEN_HEIGHT } from "@/utils";
 import { CardGradient } from "./CardGradient";
 import { GlowingDivider } from "./GlowingDivider";
-import LottieView from "lottie-react-native";
 
 export const CardVibeMatch = ({ title, subtitle, onPress, image, textColor = Colors.cardText, divider = false }) => {
   return (
-    <CardGradient colors={[Colors.gradient1, Colors.gradient2]} style={styles.cardWrapper}>
+    <CardGradient colors={[Colors.gradient4, Colors.gradient2]} style={styles.cardWrapper}>
       <TouchableOpacity onPress={onPress} style={styles.touchable}>
         <View style={styles.imageWrapper}>
-                <LottieView
-                  source={require("@assets/lottie/puzzle.json")}
-                  autoPlay
-                  loop
-                  resizeMode="repeat"
-                  style={styles.top}
-                />
-          {/* <FastImage style={styles.image} source={image} resizeMode={FastImage.resizeMode.cover} /> */}
+          <FastImage style={styles.image} source={image} resizeMode={FastImage.resizeMode.cover} />
         </View>
         <View style={styles.textWrapper}>
           <Text style={styles.title}>{title}</Text>

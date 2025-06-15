@@ -3,9 +3,32 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH, scale, scaledStyle } from "@/utils";
 import { Colors, Fonts } from "@/constants";
 
  const rawStyles = {
+   //  mirrorWrapper: {
+   //    alignItems: "center",
+   //    justifyContent: "center",
+   //  },
    mirrorWrapper: {
      alignItems: "center",
      justifyContent: "center",
+     shadowColor: "#666",
+     shadowOffset: { width: 0, height: 10 },
+     shadowOpacity: 0.2,
+     shadowRadius: 30,
+     elevation: 12,
+   },
+   mirrorGlowWrapper: {
+     alignItems: "center",
+     justifyContent: "center",
+     position: "relative",
+   },
+
+   mirrorGlow: {
+     position: "absolute",
+     width: SCREEN_WIDTH * 0.95, // slightly larger than mirror
+     height: SCREEN_WIDTH * 0.95,
+     borderRadius: SCREEN_WIDTH * 0.475,
+     opacity: 0.4,
+     zIndex: 0,
    },
 
    lightedBorder: {
@@ -18,10 +41,15 @@ import { Colors, Fonts } from "@/constants";
      justifyContent: "center",
      position: "relative",
      backgroundColor: "white",
-     shadowColor: "black",
-     shadowOffset: { width: 2, height: 2 },
-     shadowOpacity: 0.8,
-     shadowRadius: 9,
+
+     // 💫 New soft shadow for “floating” effect
+     shadowColor: "#000",
+     shadowOffset: { width: 0, height: 12 },
+     shadowOpacity: 0.15,
+     shadowRadius: 24,
+
+     // 💡 For Android
+     elevation: 10,
    },
 
    mirrorContainer: {

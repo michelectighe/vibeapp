@@ -10,7 +10,6 @@ const rawStyles = {
   scrollView: {
     position: "absolute",
     top: 0,
- //   bottom: 80,
     left: 0,
     right: 0,
     zIndex: 1,
@@ -28,6 +27,7 @@ const rawStyles = {
     shadowColor: "#000",
     shadowOpacity: 0.1,
     shadowRadius: 5,
+    borderWidth: 1,
   },
   metricLabel: {
     fontSize: 18,

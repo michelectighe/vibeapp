@@ -54,7 +54,7 @@ export const cardsTools = [
     title: "Energy Reset",
     subtitle: "Time to reset your nervous system",
     //  icon: "cloud-outline",
-    image: require("@assets/images/home/shadow.png"),
+    image: require("@assets/images/home/energyReset.png"),
     screen: {
       name: "Tools", // <- This is the tab name
       params: { screen: "EnergyResetScreen" }, // <- This is the nested screen
@@ -77,7 +77,20 @@ export const cardsTools = [
     textColor: Colors.cardText,
     pulseSub: true,
   },
-
+  {
+    id: "self-care",
+    title: "Self Care",
+    subtitle: "Take a moment for yourself",
+    icon: "cloud-outline",
+    image: require("@assets/images/home/breath.png"),
+    screen: {
+      name: "Tools",
+      params: { screen: "SelfCareScreen" },
+    },
+    bgColor: Colors.cardBackground,
+    textColor: Colors.cardText,
+    pulseSub: true,
+  },
   // {
   //   id: "vibe-history",
   //   title: "Vibe History",

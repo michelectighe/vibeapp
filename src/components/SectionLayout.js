@@ -19,7 +19,7 @@ export const SectionLayout = ({
 
   const sharedStyle = {
     justifyContent: "center",
-    alignItems: "center",
+//    alignItems: "center",
     width: SCREEN_WIDTH,
   };
 
@@ -51,7 +51,7 @@ export const SectionLayout = ({
             {
               backgroundColor: "transparent",
               flex: equalHeight ? 1 : bottomFlex,
-              justifyContent: "flex-start",
+        //      justifyContent: "flex-start",
             },
             styles.bottomPadding,
           ]}

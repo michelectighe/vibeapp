@@ -82,52 +82,52 @@ export const MeditationSpaceScreen = () => {
       <CloseX xColor={Colors.textDark} onPress={() => navigation.goBack()} />
       <ImageBackground
         style={styles.backgroundImage}
-        source={require("@assets/images/backgroundMeditation.webp")}
+        source={require("@assets/images/meditationBackground.png")}
         resizeMode="cover"
       >
         {vibeListCat && environment && (
           <Animated.View style={[styles.infoContainer, { opacity: detailsOpacity }]}>
-             <View style={styles.card}> 
-            <BlurView blurType="light" blurAmount={1} style={StyleSheet.absoluteFill} />
-            <View style={styles.sideBySide}>
-              <View style={styles.leftColumn}>
-                <View style={styles.largeCard}>
-                  <View style={styles.subLargeCardShort}>
-                    <Text style={styles.iconLabel}>🎧 Background Sound</Text>
-                    <Animated.Text style={[styles.iconValue]}>{soundLabel}</Animated.Text>
-                  </View>
-                  <View style={styles.dividerLeft} />
-                  <View style={styles.subLargeCardTall}>
-                    <Text style={[styles.iconLabel, {}]}>Detected Tones</Text>
-                    {topSoundLabels.map((label, i) => (
-                      <Animated.Text key={i} style={[styles.iconValue]}>
-                        {label}
-                      </Animated.Text>
-                    ))}
+            <View style={styles.card}>
+              <BlurView blurType="light" blurAmount={1} style={StyleSheet.absoluteFill} />
+              <View style={styles.sideBySide}>
+                <View style={styles.leftColumn}>
+                  <View style={styles.largeCard}>
+                    <View style={styles.subLargeCardShort}>
+                      <Text style={styles.iconLabel}>🎧 Background Sound</Text>
+                      <Animated.Text style={[styles.iconValue]}>{soundLabel}</Animated.Text>
+                    </View>
+                    <View style={styles.dividerLeft} />
+                    <View style={styles.subLargeCardTall}>
+                      <Text style={[styles.iconLabel, {}]}>Detected Tones</Text>
+                      {topSoundLabels.map((label, i) => (
+                        <Animated.Text key={i} style={[styles.iconValue]}>
+                          {label}
+                        </Animated.Text>
+                      ))}
+                    </View>
                   </View>
                 </View>
-              </View>
 
-              <View style={styles.rightColumn}>
-                <View style={styles.largeCard}>
-                  <View style={[styles.subLargeCardShort]}>
-                    <Text style={styles.iconLabel}>📡 Magnetic Field</Text>
-                    <Animated.Text style={styles.iconValue}>{magLabel}</Animated.Text>
-                    <Animated.Text style={styles.iconSubValue}>
-                      {magValue.toFixed(1)} µT
-                    </Animated.Text>
-                  </View>
-                  <View style={styles.dividerRight} />
-                  <View style={[styles.subLargeCardTall]}>
-                    <Text style={styles.iconLabel}>Location Vibe</Text>
-                    <Animated.Text style={styles.iconValue} numberOfLines={2}>
-                      {spaceLabel}
-                    </Animated.Text>
+                <View style={styles.rightColumn}>
+                  <View style={styles.largeCard}>
+                    <View style={[styles.subLargeCardShort]}>
+                      <Text style={styles.iconLabel}>📡 Magnetic Field</Text>
+                      <Animated.Text style={styles.iconValue}>{magLabel}</Animated.Text>
+                      <Animated.Text style={styles.iconSubValue}>
+                        {magValue.toFixed(1)} µT
+                      </Animated.Text>
+                    </View>
+                    <View style={styles.dividerRight} />
+                    <View style={[styles.subLargeCardTall]}>
+                      <Text style={styles.iconLabel}>Location Vibe</Text>
+                      <Animated.Text style={styles.iconValue} numberOfLines={2}>
+                        {spaceLabel}
+                      </Animated.Text>
+                    </View>
                   </View>
                 </View>
               </View>
             </View>
-            </View> 
           </Animated.View>
         )}
       </ImageBackground>
