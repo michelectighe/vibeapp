@@ -10,9 +10,9 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		1502D752C069FACACEB205BA /* libPods-VibeKey.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 485C0219DA9F3E1329F12540 /* libPods-VibeKey.a */; };
 		3E461D99554A48A4959DE609 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */; };
 		705D4B0838507C81E457B3B4 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 994A3C0D41DD25D057B1B1B9 /* PrivacyInfo.xcprivacy */; };
+		9753492ADE8E4CBA6DADA144 /* libPods-VibeKey.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F34DFB6FA7C30C7734B8740F /* libPods-VibeKey.a */; };
 		98030434A4A3435CB3DF9725 /* noop-file.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25178ECF0668437AABF53ED3 /* noop-file.swift */; };
 		B18059E884C0ABDD17F3DC3D /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */; };
 		BB2F792D24A3F905000567C9 /* Expo.plist in Resources */ = {isa = PBXBuildFile; fileRef = BB2F792C24A3F905000567C9 /* Expo.plist */; };
@@ -22,7 +22,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		0A8EAC5ECAB32D018CA07ACE /* Pods-VibeKey.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VibeKey.debug.xcconfig"; path = "Target Support Files/Pods-VibeKey/Pods-VibeKey.debug.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* VibeKey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = VibeKey.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = VibeKey/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = VibeKey/AppDelegate.mm; sourceTree = "<group>"; };
@@ -31,15 +30,16 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = VibeKey/main.m; sourceTree = "<group>"; };
 		1B16A76A458C4A0490E50126 /* VibeKey-Bridging-Header.h */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.c.h; name = "VibeKey-Bridging-Header.h"; path = "VibeKey/VibeKey-Bridging-Header.h"; sourceTree = "<group>"; };
 		25178ECF0668437AABF53ED3 /* noop-file.swift */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = sourcecode.swift; name = "noop-file.swift"; path = "VibeKey/noop-file.swift"; sourceTree = "<group>"; };
-		485C0219DA9F3E1329F12540 /* libPods-VibeKey.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VibeKey.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		69F544727D7AEB41B42A7FAB /* Pods-VibeKey.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VibeKey.release.xcconfig"; path = "Target Support Files/Pods-VibeKey/Pods-VibeKey.release.xcconfig"; sourceTree = "<group>"; };
 		994A3C0D41DD25D057B1B1B9 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = VibeKey/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		AA286B85B6C04FC6940260E9 /* SplashScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SplashScreen.storyboard; path = VibeKey/SplashScreen.storyboard; sourceTree = "<group>"; };
+		B7E48FA9D3008BDD40259A56 /* Pods-VibeKey.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VibeKey.debug.xcconfig"; path = "Target Support Files/Pods-VibeKey/Pods-VibeKey.debug.xcconfig"; sourceTree = "<group>"; };
 		BB2F792C24A3F905000567C9 /* Expo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Expo.plist; sourceTree = "<group>"; };
 		CD0B3C6A2DC9A45B005A971B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		CDDBA8E52DEA869100623D38 /* VibeKeyStorekit.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = VibeKeyStorekit.storekit; sourceTree = "<group>"; };
 		CDDBA8E72DEA8CAC00623D38 /* CoreML.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreML.framework; path = System/Library/Frameworks/CoreML.framework; sourceTree = SDKROOT; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		F51A01167B05F20FA81A9683 /* Pods-VibeKey.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VibeKey.release.xcconfig"; path = "Target Support Files/Pods-VibeKey/Pods-VibeKey.release.xcconfig"; sourceTree = "<group>"; };
+		F34DFB6FA7C30C7734B8740F /* libPods-VibeKey.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-VibeKey.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		FAC715A2D49A985799AEE119 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-VibeKey/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -97,7 +97,7 @@
 			files = (
 				CD0B3C6B2DC9A45C005A971B /* StoreKit.framework in Frameworks */,
 				CDDBA8E82DEA8CAC00623D38 /* CoreML.framework in Frameworks */,
-				1502D752C069FACACEB205BA /* libPods-VibeKey.a in Frameworks */,
+				9753492ADE8E4CBA6DADA144 /* libPods-VibeKey.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,7 +127,7 @@
 				CDDBA8E72DEA8CAC00623D38 /* CoreML.framework */,
 				CD0B3C6A2DC9A45B005A971B /* StoreKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				485C0219DA9F3E1329F12540 /* libPods-VibeKey.a */,
+				F34DFB6FA7C30C7734B8740F /* libPods-VibeKey.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -195,8 +195,8 @@
 		D65327D7A22EEC0BE12398D9 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				0A8EAC5ECAB32D018CA07ACE /* Pods-VibeKey.debug.xcconfig */,
-				F51A01167B05F20FA81A9683 /* Pods-VibeKey.release.xcconfig */,
+				B7E48FA9D3008BDD40259A56 /* Pods-VibeKey.debug.xcconfig */,
+				69F544727D7AEB41B42A7FAB /* Pods-VibeKey.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -216,14 +216,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "VibeKey" */;
 			buildPhases = (
-				BF1FDEEA3F130CC367B123F3 /* [CP] Check Pods Manifest.lock */,
+				1815850B9B44FAE2231F0A3A /* [CP] Check Pods Manifest.lock */,
 				7D7EB229B369D8DB9CF39A6E /* [Expo] Configure project */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				CF40AA1ACC061030820574D2 /* [CP] Embed Pods Frameworks */,
-				54958BF088E4BD6E948931F4 /* [CP] Copy Pods Resources */,
+				FA8F68ADB640C54010F63177 /* [CP] Embed Pods Frameworks */,
+				643C817D9A8C2ECD333B95A6 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -302,7 +302,29 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=/opt/homebrew/bin/node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		54958BF088E4BD6E948931F4 /* [CP] Copy Pods Resources */ = {
+		1815850B9B44FAE2231F0A3A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-VibeKey-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		643C817D9A8C2ECD333B95A6 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -431,29 +453,7 @@
 			shellPath = /bin/sh;
 			shellScript = "# This script configures Expo modules and generates the modules provider file.\nbash -l -c \"./Pods/Target\\ Support\\ Files/Pods-VibeKey/expo-configure-project.sh\"\n";
 		};
-		BF1FDEEA3F130CC367B123F3 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-VibeKey-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CF40AA1ACC061030820574D2 /* [CP] Embed Pods Frameworks */ = {
+		FA8F68ADB640C54010F63177 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -490,7 +490,7 @@
 /* Begin XCBuildConfiguration section */
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0A8EAC5ECAB32D018CA07ACE /* Pods-VibeKey.debug.xcconfig */;
+			baseConfigurationReference = B7E48FA9D3008BDD40259A56 /* Pods-VibeKey.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -528,7 +528,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F51A01167B05F20FA81A9683 /* Pods-VibeKey.release.xcconfig */;
+			baseConfigurationReference = 69F544727D7AEB41B42A7FAB /* Pods-VibeKey.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;

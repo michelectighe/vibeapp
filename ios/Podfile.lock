@@ -2416,16 +2416,16 @@ PODS:
     - ReactCommon/turbomodule/core
     - VisionCamera
     - Yoga
-  - VisionCamera (4.6.4):
-    - VisionCamera/Core (= 4.6.4)
-    - VisionCamera/FrameProcessors (= 4.6.4)
-    - VisionCamera/React (= 4.6.4)
-  - VisionCamera/Core (4.6.4)
-  - VisionCamera/FrameProcessors (4.6.4):
+  - VisionCamera (4.7.0):
+    - VisionCamera/Core (= 4.7.0)
+    - VisionCamera/FrameProcessors (= 4.7.0)
+    - VisionCamera/React (= 4.7.0)
+  - VisionCamera/Core (4.7.0)
+  - VisionCamera/FrameProcessors (4.7.0):
     - React
     - React-callinvoker
     - react-native-worklets-core
-  - VisionCamera/React (4.6.4):
+  - VisionCamera/React (4.7.0):
     - React-Core
     - VisionCamera/FrameProcessors
   - VisionCameraFaceDetector (1.8.5):
@@ -2936,7 +2936,7 @@ SPEC CHECKSUMS:
   TensorFlowLiteSelectTfOps: e991d57ef32c40330a0bfcedd7955e6a5cab2efe
   TensorFlowLiteSwift: 723fe42222815e72490c79feeff05305530de393
   vision-camera-resize-plugin: 7c1f6eaaee0e61b2ad3f97b0e23b91307ec70926
-  VisionCamera: 52b101a7fa0a70ff455163c5a121d8dfe9871ab7
+  VisionCamera: 1470a7fa013e22de7481640a4d9c597ad6f13919
   VisionCameraFaceDetector: d881d02af695e7c7b1705deb1c6fa3cca8585a02
   Yoga: feb4910aba9742cfedc059e2b2902e22ffe9954a
 
