@@ -96,7 +96,7 @@ export const ResultsTapZone = ({
 
   return (
     <Pressable style={styles.container} onPress={onPress}>
-      <View style={{ flexDirection: "row", marginTop: 8 }}>
+      <View style={{ flexDirection: "row", marginTop: 0 }}>
         {revealText.split("").map((char, i) => (
           <Animated.Text
             key={i}
@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: "center",
     justifyContent: "center",
-    marginVertical: 24,
+    marginVertical: 14,
   },
   baseCircle: {
     position: "absolute",

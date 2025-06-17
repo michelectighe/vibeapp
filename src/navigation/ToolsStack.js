@@ -20,7 +20,7 @@ export const ToolsStack = () => {
     <Stack.Navigator
       screenOptions={() => ({
         headerShown: false,
-        gestureEnabled: false,
+ //       gestureEnabled: false,
       })}
     >
       <Stack.Screen
@@ -119,7 +119,7 @@ export const ToolsStack = () => {
         options={{
           headerShown: false,
           tabBarVisible: true,
-          gestureEnabled: false,
+    //      gestureEnabled: false,
           tabBarStyle: { display: "flex" },
           title: "",
         }}
@@ -130,7 +130,7 @@ export const ToolsStack = () => {
         options={{
           headerShown: false,
           tabBarVisible: true,
-          gestureEnabled: false,
+     //     gestureEnabled: false,
           tabBarStyle: { display: "flex" },
           title: "",
         }}

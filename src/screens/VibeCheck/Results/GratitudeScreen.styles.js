@@ -37,8 +37,8 @@ const rawStyles = {
   },
 
   bottomText: {
-    marginTop: 10,
-    justifyContent: "center",
+    marginTop: 0,
+ //   justifyContent: "center",
     width: SCREEN_WIDTH * 0.9,
   },
   savedMessage: {
@@ -49,7 +49,7 @@ const rawStyles = {
   },
   bottomNote: {
     position: "absolute",
-    bottom: "30%",
+    bottom: "34%",
     fontFamily: Fonts.body,
     fontSize: 16,
     textAlign: "center",

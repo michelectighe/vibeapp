@@ -50,11 +50,12 @@ export const GratitudeScreen = () => {
   useEffect(() => {
     try {
       const getExisting = async () => {
-        //console.log("do we have the current journal id?:", currentJournalId);
+        console.log("do we have the current journal id?:", currentJournalId);
         if (!currentJournalId || currentJournalId === 0) {
           //console.log("go ahead and get a new prompt");
           return;
         }
+      
         const journalEntry = await getJournalEntryByIdFs(journalId);
         //console.log("GOT CURRENT ENTRY:", journalEntry);
         setCurrentEntry(journalEntry);
@@ -119,7 +120,7 @@ export const GratitudeScreen = () => {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={true}>
         <SectionLayout
           topFlex={0.5}
-          middleFlex={3}
+          middleFlex={4}
           bottomFlex={1.2}
           topContent={
             <View style={styles.titleWrapper}>
@@ -160,6 +161,9 @@ export const GratitudeScreen = () => {
                 multiline={true}
                 inputAccessoryViewID={"serviceInput"}
               />
+              {saved && !isDirty && (
+                <Text style={[styles.savedMessage, { color: overallColor }]}>Entry Saved 💛</Text>
+              )}
             </View>
           }
           bottomContent={
@@ -172,11 +176,6 @@ export const GratitudeScreen = () => {
                   color={overallColor4}
                   textColor={overallColor}
                 />
-                {saved && !isDirty && (
-                  <Text style={[styles.savedMessage, { color: overallColor }]}>
-                    Entry Saved 💛
-                  </Text>
-                )}
               </View>
               <Text style={[styles.bottomNote, { color: overallColor }]}>
                 Raise your frequency with a kind heart

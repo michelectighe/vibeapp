@@ -19,7 +19,7 @@ export const SectionLayout = ({
 
   const sharedStyle = {
     justifyContent: "center",
-//    alignItems: "center",
+   alignItems: "center",
     width: SCREEN_WIDTH,
   };
 

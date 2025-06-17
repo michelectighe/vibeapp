@@ -17,6 +17,7 @@ const rawStyles = {
     alignItems: "center",
     backgroundColor: "transparent",
     marginBottom: 20,
+    paddingHorizontal: 20,
   },
   score: {
     fontSize: SCREEN_HEIGHT * 0.06,
@@ -36,7 +37,6 @@ const rawStyles = {
   innerContent: {
     position: "relative",
     paddingTop: SCREEN_HEIGHT * 0.07,
-    //   height: SCREEN_HEIGHT ,
     width: SCREEN_WIDTH,
   },
 
@@ -48,6 +48,7 @@ const rawStyles = {
     alignItems: "center",
     alignSelf: "center",
     width: SCREEN_WIDTH * 0.9,
+    borderWidth: 1,
   },
   descriptionText: {
     fontSize: SCREEN_HEIGHT * 0.022,
@@ -56,7 +57,8 @@ const rawStyles = {
   },
   iconInfo: {
     backgroundColor: "transparent",
-    marginBottom: 10,
+    marginBottom: 0,
+    paddingBottom: 10,
   },
   navButtons: {
     marginTop: 50,

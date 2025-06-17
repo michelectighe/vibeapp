@@ -219,6 +219,8 @@ PODS:
     - Yoga
   - ExpoAsset (11.0.5):
     - ExpoModulesCore
+  - ExpoBlur (14.1.5):
+    - ExpoModulesCore
   - ExpoFileSystem (18.0.12):
     - ExpoModulesCore
   - ExpoFont (13.3.1):
@@ -350,8 +352,8 @@ PODS:
   - nanopb/decode (3.30910.0)
   - nanopb/encode (3.30910.0)
   - PromisesObjC (2.4.0)
-  - PurchasesHybridCommon (13.35.0):
-    - RevenueCat (= 5.27.1)
+  - PurchasesHybridCommon (13.36.0):
+    - RevenueCat (= 5.28.1)
   - RCT-Folly (2024.10.14.00):
     - boost
     - DoubleConversion
@@ -2040,7 +2042,7 @@ PODS:
     - React-logger
     - React-perflogger
     - React-utils (= 0.76.9)
-  - RevenueCat (5.27.1)
+  - RevenueCat (5.28.1)
   - RNAppleAuthentication (2.4.1):
     - React-Core
   - RNAudio (4.3.0):
@@ -2095,7 +2097,7 @@ PODS:
     - SDWebImageWebPCoder (~> 0.8.4)
   - RNFS (2.20.0):
     - React-Core
-  - RNGestureHandler (2.25.0):
+  - RNGestureHandler (2.26.0):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -2137,8 +2139,8 @@ PODS:
     - ReactCommon/turbomodule/bridging
     - ReactCommon/turbomodule/core
     - Yoga
-  - RNPurchases (8.11.3):
-    - PurchasesHybridCommon (= 13.35.0)
+  - RNPurchases (8.11.4):
+    - PurchasesHybridCommon (= 13.36.0)
     - React-Core
   - RNReanimated (3.18.0):
     - DoubleConversion
@@ -2426,7 +2428,7 @@ PODS:
   - VisionCamera/React (4.6.4):
     - React-Core
     - VisionCamera/FrameProcessors
-  - VisionCameraFaceDetector (1.8.4):
+  - VisionCameraFaceDetector (1.8.5):
     - GoogleMLKit/FaceDetection (= 7.0.0)
     - React-Core
     - VisionCamera
@@ -2445,6 +2447,7 @@ DEPENDENCIES:
   - expo-dev-menu (from `../node_modules/expo-dev-menu`)
   - expo-dev-menu-interface (from `../node_modules/expo-dev-menu-interface/ios`)
   - ExpoAsset (from `../node_modules/expo-asset/ios`)
+  - ExpoBlur (from `../node_modules/expo-blur/ios`)
   - ExpoFileSystem (from `../node_modules/expo-file-system/ios`)
   - ExpoFont (from `../node_modules/expo-font/ios`)
   - ExpoHaptics (from `../node_modules/expo-haptics/ios`)
@@ -2599,6 +2602,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/expo-dev-menu-interface/ios"
   ExpoAsset:
     :path: "../node_modules/expo-asset/ios"
+  ExpoBlur:
+    :path: "../node_modules/expo-blur/ios"
   ExpoFileSystem:
     :path: "../node_modules/expo-file-system/ios"
   ExpoFont:
@@ -2812,6 +2817,7 @@ SPEC CHECKSUMS:
   expo-dev-menu: dd3197d2b0107ee036ffd85f95e75a950ab52ada
   expo-dev-menu-interface: 00dc42302a72722fdecec3fa048de84a9133bcc4
   ExpoAsset: 48386d40d53a8c1738929b3ed509bcad595b5516
+  ExpoBlur: 3c8885b9bf9eef4309041ec87adec48b5f1986a9
   ExpoFileSystem: 42d363d3b96f9afab980dcef60d5657a4443c655
   ExpoFont: abbb91a911eb961652c2b0a22eef801860425ed6
   ExpoHaptics: 8d199b2f33245ea85289ff6c954c7ee7c00a5b5d
@@ -2842,7 +2848,7 @@ SPEC CHECKSUMS:
   MLKitVision: 45e79d68845a2de77e2dd4d7f07947f0ed157b0e
   nanopb: fad817b59e0457d11a5dfbde799381cd727c1275
   PromisesObjC: f5707f49cb48b9636751c5b2e7d227e43fba9f47
-  PurchasesHybridCommon: 18288b8ad932cfeb5f142f592d5c65e626a35770
+  PurchasesHybridCommon: 27d71a65d486bbfd6822a58c9802f7191e438c05
   RCT-Folly: ea9d9256ba7f9322ef911169a9f696e5857b9e17
   RCTDeprecation: ebe712bb05077934b16c6bf25228bdec34b64f83
   RCTRequired: ca91e5dd26b64f577b528044c962baf171c6b716
@@ -2906,7 +2912,7 @@ SPEC CHECKSUMS:
   React-utils: ed818f19ab445000d6b5c4efa9d462449326cc9f
   ReactCodegen: f853a20cc9125c5521c8766b4b49375fec20648b
   ReactCommon: 300d8d9c5cb1a6cd79a67cf5d8f91e4d477195f9
-  RevenueCat: 87171c9f2412778354c8523f5625d1fece2560a5
+  RevenueCat: 3fafcf295834118ed6e6ec9388a20a4c9092b1e6
   RNAppleAuthentication: c3dddf5918126c9aae85dc2e2ce9fb87835e9e04
   RNAudio: 01b34b0f029b6a1279f975e15dbc1f11fc42b258
   RNAudioRecord: b253d15d8141c5ef6bc614fc9d9f06577870bfc3
@@ -2914,9 +2920,9 @@ SPEC CHECKSUMS:
   RNCMaskedView: b3aee2f4fa81807ec035be51c057aa2eed166173
   RNFastImage: 462a183c4b0b6b26fdfd639e1ed6ba37536c3b87
   RNFS: 89de7d7f4c0f6bafa05343c578f61118c8282ed8
-  RNGestureHandler: 9c8bf98209e658e1ceb13026f176e4ede1f24491
+  RNGestureHandler: 262397ce56c7f34c72e2363681ca285a1de3e3e8
   RNKeychain: 850638785745df5f70c37251130617a66ec82102
-  RNPurchases: 614ae87f4071d2be2fbfcb9e7fe6064080cc676f
+  RNPurchases: 3ff3901439eb08eaa433a5743c1f2a5bef0317f8
   RNReanimated: 6b9d5b5919acb1900ce0d36ef95906026c517674
   RNScreens: da08089f1b06c3e0a459545ee2e0eb94ea18a80b
   RNSoundLevel: a48da8668fbde4f792c0bea948e27ab793bee7e1
@@ -2931,9 +2937,9 @@ SPEC CHECKSUMS:
   TensorFlowLiteSwift: 723fe42222815e72490c79feeff05305530de393
   vision-camera-resize-plugin: 7c1f6eaaee0e61b2ad3f97b0e23b91307ec70926
   VisionCamera: 52b101a7fa0a70ff455163c5a121d8dfe9871ab7
-  VisionCameraFaceDetector: 470293c491813ca92d456933973fb758802ffdf5
+  VisionCameraFaceDetector: d881d02af695e7c7b1705deb1c6fa3cca8585a02
   Yoga: feb4910aba9742cfedc059e2b2902e22ffe9954a
 
-PODFILE CHECKSUM: 1c4236774db83a650a460e195b636de59e5482b1
+PODFILE CHECKSUM: 543a3a3d98edf65ef962afc29b3cd5fbc6f4c56b
 
 COCOAPODS: 1.16.2

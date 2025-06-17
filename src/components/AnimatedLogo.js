@@ -25,15 +25,6 @@ export const AnimatedLogo = () => {
 
   return (
     <View style={styles.logoContainer}>
-      <Animated.Image
-        source={require("@assets/images/dots.webp")}
-        style={[
-          styles.dots,
-          {
-            transform: [{ rotate: rotateInterpolate }],
-          },
-        ]}
-      />
       <FastImage
         source={require("@assets/images/VLogo.png")}
         style={styles.logo}

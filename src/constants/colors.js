@@ -1,38 +1,74 @@
 export const Colors = {
-  divineColor1: "#5A35CD", // rgba(90, 53, 205, 0.7)
-  divineColor2: "#C8BFFF", // rgba(200, 191, 255, 0.7)
-  divineColor3: "#3B238A", // rgba(59, 35, 138, 0.7)
-  divineColor4: "#B496FF", // rgba(180, 150, 255, 0.95)
+  // divineColor1: "#5A35CD", // rgba(90, 53, 205, 0.7)
+  // divineColor2: "#C8BFFF", // rgba(200, 191, 255, 0.7)
+  // divineColor3: "#3B238A", // rgba(59, 35, 138, 0.7)
+  // divineColor4: "#B496FF", // rgba(180, 150, 255, 0.95)
 
-  transcendentColor1: "#004AAD", // deep blue
-  transcendentColor2: "#A3C6FF", // soft light blue
-  transcendentColor3: "#002B6B", // navy
-  transcendentColor4: "#E6F0FF", // ✅ new lighter tone (pastel sky blue)
+  // transcendentColor1: "#004AAD", // deep blue
+  // transcendentColor2: "#A3C6FF", // soft light blue
+  // transcendentColor3: "#002B6B", // navy
+  // transcendentColor4: "#E6F0FF", // ✅ new lighter tone (pastel sky blue)
 
-  elevatedColor1: "#46C9FE", // bright aqua
-  elevatedColor2: "#D6F4FF", // very light cyan
-  elevatedColor3: "#2C8FB3", // deep teal-blue
-  elevatedColor4: "#E3F6FF", // ✅ new lighter tone (icey, luminous)
+  // elevatedColor1: "#FFB74D", // radiant golden orange
+  // elevatedColor2: "#FFEFD5", // pale peach (like warm sunlight)
+  // elevatedColor3: "#FF8A65", // soft coral orange
+  // elevatedColor4: "#FFF8E1", // light golden cream (subtle energy)
 
-  balancedColor1: "#29B554", // vibrant green
-  balancedColor2: "#C1F0D0", // light mint
-  balancedColor3: "#1E6E3A", // forest green
-  balancedColor4: "#DFF7E7", // ✅ soft leafy glow (lightest green pastel)
+  // balancedColor1: "#29B554", // vibrant green
+  // balancedColor2: "#C1F0D0", // light mint
+  // balancedColor3: "#1E6E3A", // forest green
+  // balancedColor4: "#DFF7E7", // ✅ soft leafy glow (lightest green pastel)
 
-  neutralColor1: "#FFC107", // bright amber
-  neutralColor2: "#FFEBAA", // warm pastel yellow
-  neutralColor3: "#996600", // deep golden brown
-  neutralColor4: "#FFF2CC", // ✅ new soft cream-gold
+  // neutralColor1: "#FFC107", // bright amber
+  // neutralColor2: "#FFEBAA", // warm pastel yellow
+  // neutralColor3: "#996600", // deep golden brown
+  // neutralColor4: "#FFF2CC", // ✅ new soft cream-gold
 
-  lowColor1: "#FF7A00", // rgba(255, 122, 0, 0.7)
-  lowColor2: "#FFD2A6", // rgba(255, 210, 166, 0.7)
-  lowColor3: "#CC5D00", // rgba(204, 93, 0, 0.7)
-  lowColor4: "#FFCAA0", // rgba(255, 205, 160, 0.95)
+  // lowColor1: "#FF7A00", // rgba(255, 122, 0, 0.7)
+  // lowColor2: "#FFD2A6", // rgba(255, 210, 166, 0.7)
+  // lowColor3: "#CC5D00", // rgba(204, 93, 0, 0.7)
+  // lowColor4: "#FFCAA0", // rgba(255, 205, 160, 0.95)
 
-  blockColor1: "#DB0808", // rgba(219, 8, 8, 0.7)
-  blockColor2: "#FFB3B3", // rgba(255, 179, 179, 0.7)
-  blockColor3: "#910606", // rgba(145, 6, 6, 0.7)
-  blockColor4: "#FFB4B4", // rgba(255, 180, 180, 0.95)
+  // blockColor1: "#DB0808", // rgba(219, 8, 8, 0.7)
+  // blockColor2: "#FFB3B3", // rgba(255, 179, 179, 0.7)
+  // blockColor3: "#910606", // rgba(145, 6, 6, 0.7)
+  // blockColor4: "#FFB4B4", // rgba(255, 180, 180, 0.95)
+
+  divineColor1: "#472E9E", // royal violet
+  divineColor2: "#D9CCFF", // lavender mist
+  divineColor3: "#2E1A6D", // deep indigo
+  divineColor4: "#E8DCFF", // pale amethyst
+
+  transcendentColor1: "#003A8C", // deep ocean blue
+  transcendentColor2: "#BCD9FF", // airy ice blue
+  transcendentColor3: "#002659", // inky midnight blue
+  transcendentColor4: "#E5F1FF", // cloudlike sky glow
+
+  elevatedColor1: "#7A1E00", // deep ember red-orange
+  elevatedColor2: "#FFD6C2", // peach glow
+  elevatedColor3: "#5C1400", // earthy cinnamon red
+  elevatedColor4: "#FFECE0", // glowing pastel coral
+
+  balancedColor1: "#236C3A", // forest green
+  balancedColor2: "#C7F6DC", // soft mint dew
+  balancedColor3: "#144527", // deep pine
+  balancedColor4: "#E5FBED", // fresh light spring green
+
+  neutralColor1: "#A67600", // rich ochre
+  neutralColor2: "#FFF1CC", // creamy golden
+  neutralColor3: "#664400", // dark amber brown
+  neutralColor4: "#FFFAE6", // light pastel gold
+
+  lowColor1: "#B35800", // burnt orange
+  lowColor2: "#FFE0C7", // dusty peach
+  lowColor3: "#7A3500", // dark rust
+  lowColor4: "#FFF0E2", // pale clay
+
+  blockColor1: "#9E1B1B", // deep blood red
+  blockColor2: "#FFCCCC", // rose quartz tint
+  blockColor3: "#6C0F0F", // dark maroon
+  blockColor4: "#FFE5E5", // soft blush veil
+
 
   // veryLightGray: "#F0F0F0",
   lightGray: "#CCCCCC",
@@ -84,24 +120,24 @@ export const Colors = {
   surface: "#141A2E", // Rich twilight navy
   overlay: "rgba(255, 255, 255, 0.04)",
 
-  gradient1: "#1F2B50", // Deep slate blue
-  gradient2: "#253C78", // Indigo-toned navy
-  gradient3: "#0E162C", // Midnight blue
+  // gradient1: "#1F2B50", // Deep slate blue
+  // gradient2: "#253C78", // Indigo-toned navy
+  // gradient3: "#0E162C", // Midnight blue
 
-  buttonText: "#2A3B7A", // Deeper, slightly muted blue (was #304FFE)
-  buttonBackground: "#E0E7FF",
+  // buttonText: "#2A3B7A", // Deeper, slightly muted blue (was #304FFE)
+  // buttonBackground: "#E0E7FF",
 
-  cardBackground: "#1C223A", // Muted cosmic slate
-  cardText: "#DCE3F0", // Soft frost for great readability
+  // cardBackground: "#1C223A", // Muted cosmic slate
+  // cardText: "#DCE3F0", // Soft frost for great readability
 
-  textLight: "#D1D9FF", // Misty blue-lavender
-  textDark: "#AAB4D6", // Muted soft indigo-gray
+  // textLight: "#D1D9FF", // Misty blue-lavender
+  // textDark: "#AAB4D6", // Muted soft indigo-gray
 
-  activeTab: "#2B3B6C", // Shadowy indigo-blue
-  inactiveTab: "#192136", // Almost-black navy
+  // activeTab: "#2B3B6C", // Shadowy indigo-blue
+  // inactiveTab: "#192136", // Almost-black navy
 
-  tabBarGradient1: "#1A2A4F", // Slightly violet deep navy
-  tabBarGradient2: "#121B33", // Cooler tone, good contrast
+  // tabBarGradient1: "#1A2A4F", // Slightly violet deep navy
+  // tabBarGradient2: "#121B33", // Cooler tone, good contrast
 
   stickyNotes: "#4A6BAE", // Desaturated periwinkle blue
 
@@ -149,6 +185,13 @@ export const Colors = {
 
   tabBarGradient1: "#20372F", // Deep jungle green
   tabBarGradient2: "#12201B", // Forest at dusk
+
+  marbleBeige: "#F5F2ED",
+
+  selfCareTitle: "#EAD8B4",
+  selfCare: "#F4E8CC",
+  selfCareButton: "#5E4027",
+  selfCareText: "#2E1B0E",
 };
 
 

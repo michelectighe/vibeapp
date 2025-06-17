@@ -33,7 +33,6 @@ setCards(cardsTools);
           //   onScroll={/* scrollX tracking if needed */}
           scrollEventThrottle={16}
         >
-          <CardMotivationalMirror />
           {cards.map((card, index) => {
             return (
               <View
@@ -64,10 +63,11 @@ setCards(cardsTools);
               </View>
             );
           })}
+          <CardMotivationalMirror />
         </Animated.ScrollView>
       )}
       {/* Divider always shown */}
-      <GlowingDivider width= {SCREEN_WIDTH} height= {1}/>
+      <GlowingDivider width={SCREEN_WIDTH} height={1} />
     </View>
   );
 };

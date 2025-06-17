@@ -64,9 +64,8 @@ export const VibeCheckScreen = () => {
             style={styles.descriptionText}
             position={-300}
             text="
-            Unlock your vibrational frequency by tuning into the harmony of your voice, movement,
-            heart rhythm, surroundings and emotions. This sacred insight guides you toward deeper
-            alignment, balance, and energetic elevation."
+            Your body and energy field are always speaking — through your voice, heartbeat, movement, surroundings, and emotions.
+This check-in listens quietly, helping you become aware of your current vibration so you can realign, release, and return to yourself."
           />
         }
         bottomContent={

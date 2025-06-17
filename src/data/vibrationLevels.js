@@ -10,7 +10,7 @@ export const vibrationLevels = [
     color: Colors.divineColor1,
     description:
       "A state of profound spiritual connection and harmony with the universe. Intuition is fully awakened, bringing peace, clarity, and the ability to manifest effortlessly",
-    image: require("@assets/images/buttonDivine.webp"),
+    image: "",
     text1:
       "You are in complete harmony with the universe, radiating love, joy, and peace. Manifestation comes effortlessly, and you attract abundance with ease.",
     label2: "How to Maintain & Elevate:",
@@ -42,7 +42,7 @@ export const vibrationLevels = [
     color: Colors.transcendentColor1,
     description:
       "Elevated energy, profound clarity, and an expanded sense of self. Intuition and manifestation are strong, with a deep sense of peace and purpose",
-    image: require("@assets/images/buttonTranscendent.webp"),
+    image: "",
 
     text1:
       "You have strong intuition and emotional resilience. Life flows smoothly, though occasional doubts or distractions may arise.",
@@ -74,7 +74,7 @@ export const vibrationLevels = [
     color: Colors.elevatedColor1,
     description:
       "Consistent positivity and emotional balance. Personal energy remains strong, and challenges are managed with resilience, though occasional dips occur.",
-    image: require("@assets/images/buttonElevated.webp"),
+    image: "",
     text1:
       "You maintain a mostly positive outlook, but external stressors or occasional self-doubt affect your energy.",
     label2: "How to Increase your Vibrational Frequency:",
@@ -106,7 +106,7 @@ export const vibrationLevels = [
     color: Colors.balancedColor1,
     description:
       "Steady energy with manageable fluctuations. Emotional and mental states can shift, but there is a consistent effort toward growth and maintaining stability",
-    image: require("@assets/images/buttonBalanced.webp"),
+    image: "",
     text1:
       "Your energy fluctuates, and while you experience moments of clarity, you often feel drained or distracted.",
     label2: "Factors Negatively Impacting Your Score:",
@@ -137,7 +137,7 @@ export const vibrationLevels = [
     color: Colors.neutralColor1,
     description:
       "Moderate energy levels with fluctuations in mood, focus, and motivation. Some resistance or stress may lower vibration, requiring conscious effort to maintain balance",
-    image: require("@assets/images/buttonNeutral.webp"),
+    image:"",
     text1: "You feel mentally or emotionally drained, lacking direction or inspiration.",
     label2: "Factors Negatively Impacting Your Score:",
     text2:
@@ -168,7 +168,7 @@ export const vibrationLevels = [
     color: Colors.lowColor1,
     description:
       "Persistent feelings of fatigue, negativity, or disconnection. External stressors and unresolved issues are present, requiring deep work for realignment",
-    image: require("@assets/images/buttonLow.webp"),
+    image: "",
     text1:
       "Stress, fatigue, and negativity dominate your energy. You may feel disconnected from your purpose.",
     label2: "Factors Negatively Impacting Your Vibrational Frequency:",
@@ -199,7 +199,7 @@ export const vibrationLevels = [
     color: Colors.blockColor1,
     description:
       "A low state where physical, emotional, or mental barriers prevent growth. Feelings of being stuck or overwhelmed, requiring focused effort and healing practices to elevate vibration",
-    image: require("@assets/images/buttonBlocked.webp"),
+    image: "",
     text1: "You feel disconnected, overwhelmed, and stuck in negative cycles.",
     label2: "Factors Negatively Impacting Your Score:",
     text2:

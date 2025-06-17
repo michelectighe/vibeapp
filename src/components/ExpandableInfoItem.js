@@ -32,7 +32,11 @@ export const ExpandableInfoItem = ({ icon, title, description }) => {
           <Icon name={icon} size={22} style={styles.icon} />
           <Text style={styles.title}>{title}</Text>
           <TouchableOpacity onPress={toggleExpand}>
-            <Icon name="help-circle-outline" size={30} color={Colors.buttonText} />
+            <Icon
+              name={expanded ? "chevron-up-outline" : "chevron-down-outline"}
+              size={30}
+              color={Colors.buttonText}
+            />
           </TouchableOpacity>
         </View>
         {expanded && <Text style={styles.description}>{description}</Text>}

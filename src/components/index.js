@@ -22,7 +22,6 @@ export { FuzzyGlow } from "./FuzzyGlow";
 export { FuzzyGlowChakra } from "./FuzzyGlowChakra";
 export { FuzzyRectangleGlow } from "./FuzzyRectangleGlow";
 export { GradientBackground } from "./GradientBackground";
-export { HomeButton } from "./HomeButton";
 export { Card } from "./Card";
 export { JournalPromptCard } from "./JournalPromptCard";
 export { Badge } from "./Badge";
@@ -84,7 +83,6 @@ export { InteractiveCard } from "./InteractiveCard";
 
 export { FrequencyPlayer, AffirmationCard, BreathingAnimation } from "./EnergyResetComponents";
 
-
 export { MirrorCarousel } from "./MirrorCarousel";
 
 export { DBTCard } from "./DBTCard";
@@ -101,3 +99,4 @@ export { ResultsBackground } from "./ResultsBackground";
 export { FuzzyTop } from "./FuzzyTop";
 
 export { AnimatedDivider } from "./AnimatedDivider";
+export { PulsingGlow } from "./PulsingGlow";

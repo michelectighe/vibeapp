@@ -32,7 +32,7 @@ export const MotivationMirrorScreen = () => {
       resizeMode="stretch"
     >
       <SectionLayout
-        topFlex={2}
+        topFlex={3}
         middleFlex={1}
         bottomFlex={0}
         safe={false}

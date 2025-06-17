@@ -1,6 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
-  VibeMatchScreen,
   ShareScreen,
   MatchScreen,
   MatchComparisonScreen,

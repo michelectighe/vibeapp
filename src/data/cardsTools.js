@@ -50,6 +50,20 @@ export const cardsTools = [
   //   textColor: Colors.textLight,
   // },
   {
+    id: "self-care",
+    title: "Energy Hygiene",
+    subtitle: "Take a moment for yourself",
+    icon: "cloud-outline",
+    image: require("@assets/images/home/selfCareCard.png"),
+    screen: {
+      name: "Tools",
+      params: { screen: "SelfCareScreen" },
+    },
+    bgColor: Colors.cardBackground,
+    textColor: Colors.cardText,
+    pulseSub: true,
+  },
+  {
     id: "energy-reset",
     title: "Energy Reset",
     subtitle: "Time to reset your nervous system",
@@ -77,20 +91,7 @@ export const cardsTools = [
     textColor: Colors.cardText,
     pulseSub: true,
   },
-  {
-    id: "self-care",
-    title: "Self Care",
-    subtitle: "Take a moment for yourself",
-    icon: "cloud-outline",
-    image: require("@assets/images/home/breath.png"),
-    screen: {
-      name: "Tools",
-      params: { screen: "SelfCareScreen" },
-    },
-    bgColor: Colors.cardBackground,
-    textColor: Colors.cardText,
-    pulseSub: true,
-  },
+
   // {
   //   id: "vibe-history",
   //   title: "Vibe History",

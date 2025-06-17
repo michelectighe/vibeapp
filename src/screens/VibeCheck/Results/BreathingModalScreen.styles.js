@@ -21,13 +21,23 @@ const rawStyles = {
     fontSize: 18,
     fontFamily: Fonts.body,
     marginTop: 10,
-  
   },
   timing: {
     fontSize: 18,
     fontFamily: Fonts.body,
     marginTop: 10,
-  }
+  },
+  timer: {
+    fontSize: 48,
+    fontWeight: "300",
+    color: Colors.white,
+    textAlign: "center",
+    marginTop: 8,
+  },
+  timerLabel: {
+    marginBottom: 20,
+    textAlign: "center",
+  },
 };
 
 export const styles = StyleSheet.create(scaledStyle(rawStyles));

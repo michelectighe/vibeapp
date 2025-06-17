@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { View, Text, ActivityIndicator } from "react-native";
+import { View, Text, ActivityIndicator , TouchableOpacity} from "react-native";
 import { BreathingCircle, ResultsBackground, SectionLayout, CloseX } from "@components";
 import { useAnalysis } from "@context";
 import { Colors } from "@/constants";
 import { useAmbientControlForScreen } from "@hooks";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import { styles } from "./BreathingModalScreen.styles";
+import { useCountdownTimer, BreathingTimerModal } from "@/components";
 
 export const BreathingModalScreen = () => {
   useAmbientControlForScreen(true);
@@ -18,6 +19,11 @@ export const BreathingModalScreen = () => {
   const [overallColor2, setColor2] = useState();
   const [overallColor3, setColor3] = useState();
   const [overallColor4, setColor4] = useState();
+    const [duration, setDuration] = useState(180);
+    const [showModal, setShowModal] = useState(false);
+    const { minutes, seconds } = useCountdownTimer(duration, () => {
+      // Optional: show session complete
+    });
 
   useEffect(() => {
     const result = vibrationInfo;
@@ -51,6 +57,11 @@ export const BreathingModalScreen = () => {
         bottomFlex={1}
         topContent={
           <View style={styles.middle}>
+                    <TouchableOpacity onPress={() => setShowModal(true)}>
+                      <Text style={styles.timerLabel}>
+                        ⏱ {minutes}:{seconds < 10 ? `0${seconds}` : seconds}
+                      </Text>
+                    </TouchableOpacity>
             <BreathingCircle
               pattern={pattern}
               //    key={pattern.id}
@@ -73,6 +84,11 @@ export const BreathingModalScreen = () => {
           </View>
         }
       />
+            <BreathingTimerModal
+              visible={showModal}
+              onClose={() => setShowModal(false)}
+              onSelect={(sec) => setDuration(sec)}
+            />
     </ResultsBackground>
   );
 };

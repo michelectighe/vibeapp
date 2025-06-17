@@ -219,7 +219,7 @@ export const ResultsScreen = ({ navigation }) => {
   };
 
   // 👇 Prevent UI rendering until all required data is ready
-  if (!dataReady || !overallLabel || !overallDescription || !overallImage || !overallColor) {
+  if (!dataReady || !overallLabel || !overallDescription  || !overallColor) {
     return (
       <ResultsBackground>
         <View style={[globalStyles.centered, { flex: 1 }]}>
@@ -247,7 +247,7 @@ export const ResultsScreen = ({ navigation }) => {
       </View>
 
       <CardGradient
-        style={[styles.descriptionBox, { borderColor: overallColor4 }]}
+        style={[styles.descriptionBox, { borderColor: overallColor2 }]}
         colors={[overallColor4, overallColor2]}
       >
         {/* <View style={[styles.descriptionBox, { backgroundColor: hexToRgba(overallColor2) }]}> */}
@@ -258,9 +258,9 @@ export const ResultsScreen = ({ navigation }) => {
               {
                 color: overallColor,
                 fontWeight: "500",
-                marginBottom: 10,
+                marginBottom: 0,
                 paddingHorizontal: 10,
-                paddingVertical: 10,
+                paddingTop: 20,
               },
             ]}
           >
@@ -270,7 +270,7 @@ export const ResultsScreen = ({ navigation }) => {
         <View style={styles.centeredDivider}>
           <AnimatedDivider
             style={styles.divider}
-            glowColor={overallColor}
+            color={overallColor}
             width={SCREEN_WIDTH * 0.3}
             height={1}
           />
@@ -279,7 +279,7 @@ export const ResultsScreen = ({ navigation }) => {
         <View style={styles.centeredDivider}>
           <AnimatedDivider
             style={{ alignSelf: "center", marginVertical: 16 }}
-            glowColor={overallColor}
+            color={overallColor}
             width={SCREEN_WIDTH * 0.3}
             height={1}
           />
@@ -292,7 +292,7 @@ export const ResultsScreen = ({ navigation }) => {
         <Ionicons
           name="information-circle-outline"
           size={33}
-          color={Colors.white}
+          color={overallColor}
           onPress={() => navigation.navigate("ResultDetails")}
           style={styles.iconInfo}
         />
