@@ -30,8 +30,8 @@ VibeKey is a React Native app that helps users assess and raise their vibrationa
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/your-username/vibekey.git
-cd vibekey
+git clone https://github.com/michelectighe/vibeapp.git
+cd vibeapp
 ```
 
 ### 2. Install dependencies
